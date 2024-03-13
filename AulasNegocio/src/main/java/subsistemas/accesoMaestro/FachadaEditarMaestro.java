@@ -8,13 +8,13 @@ import excepciones.PersistenciaException;
  *
  * @author t1pas
  */
-public class FachadaEditarMaestro implements IAccesoMaestro{
+public class FachadaEditarMaestro implements IAccesoMaestro {
 
     @Override
     public MaestroEditableDTO editarMaestro(MaestroEditableDTO maestro) throws PersistenciaException {
         //TODO
         //Solo soy una fachada
-     return maestro;  
+        return maestro;
     }
-    
+
 }

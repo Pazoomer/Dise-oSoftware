@@ -20,7 +20,14 @@ import subsistemas.accesoMaestro.FachadaEditarMaestro;
  */
 public class PrincipalMaestro extends javax.swing.JFrame {
 
+    /**
+     * Es el maestro con el que iniciaste sesion
+     */
     private MaestroEditableDTO maestro;
+    
+    /**
+     * Permite el acceso a editar la informacion del maestro
+     */
     private IAccesoMaestro accesoM;
     /**
      * Creates new form PrincipalMaestro
@@ -46,17 +53,16 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         cargarMaestro();
     }
 
-    public void cargarMaestro() {
+    private void cargarMaestro() {
         this.txtCubiculo.setText(maestro.getCubiculo());
         this.txaDescripcion.setText(maestro.getDescripcion());
-        this.lblNombreMaestro.setText(maestro.getNombre());
-        //TODO        
-        //this.lblFotoMaestro.setIcon(maestro.getFoto());
+        this.lblNombreMaestro.setText(maestro.getNombre());     
+        this.lblFotoMaestro.setIcon(maestro.getFoto());
     }
     
-    public void editarInformacion(){
+    private void editarInformacion(){
         //TODO
-        //mostrar un cuadro de dialogo donde se le pregunte confirmacion para editar su información
+        //Mostrar un cuadro de dialogo donde se le pregunte confirmacion para editar su información
         String descripcion=this.txaDescripcion.getText();
         String cubiculo=this.txtCubiculo.getText();
         Icon foto=this.lblFotoMaestro.getIcon();
@@ -69,18 +75,25 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         } catch (PersistenciaException ex) {
             Logger.getLogger(PrincipalMaestro.class.getName()).log(Level.SEVERE, "No se pudo actualizar la informacion en la base de datos", ex);
         }
-        cargarMaestro();
+        //TODO
+        //Mostrar un mensaje diciendo que la actualizacion fue exitosa
     }
     
     //TODO
     //Al dar clic a la foto del perfil deberia darte de opcion de subir cualquier foto que quieras de la carpeta de archivos
-    public void añadirImagen(){
+    private void añadirImagen(){
         
     }
     
     //TODO
     //Al dar clic en el boton de calendario deberia desplegarse el frame PrincipalCalendario y ocultarse este frame
-    public void abrirCalendario(){
+    private void abrirCalendario(){
+        
+    }
+    
+    //TODO
+    //Cierra este frame, cortas las conexiones con sistemas externos y acaba el programa
+    private void cerrar(){
         
     }
 
@@ -124,6 +137,11 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         lblCalendario.setText("Calendario");
 
         btnAtras.setText("Imagen de volver");
+        btnAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtrasActionPerformed(evt);
+            }
+        });
 
         btnActualizar.setText("Imagen de guardar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -234,6 +252,10 @@ public class PrincipalMaestro extends javax.swing.JFrame {
     private void btnCalendarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalendarioActionPerformed
         abrirCalendario();
     }//GEN-LAST:event_btnCalendarioActionPerformed
+
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
+       cerrar();
+    }//GEN-LAST:event_btnAtrasActionPerformed
 
     /**
      * @param args the command line arguments
