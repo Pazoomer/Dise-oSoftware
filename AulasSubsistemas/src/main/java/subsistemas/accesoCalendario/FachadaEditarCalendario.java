@@ -11,11 +11,17 @@ import java.util.List;
  */
 public class FachadaEditarCalendario implements IAccesoCalendario{
 
+    private final Calendarios calendarios;
+
+    public FachadaEditarCalendario() {
+        this.calendarios = new Calendarios();
+    }
+    
     @Override
     public List<EventoConsultableDTO> editarMaestro(List<EventoConsultableDTO> calendario) throws PersistenciaException {
         //TODO
         //Solo soy una fachada
-        return calendario;
+        return calendarios.editarMaestro(calendario);
     }
     
 }

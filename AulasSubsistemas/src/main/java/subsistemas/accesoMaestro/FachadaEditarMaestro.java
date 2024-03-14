@@ -10,11 +10,17 @@ import excepciones.PersistenciaException;
  */
 public class FachadaEditarMaestro implements IAccesoMaestro {
 
+    private final Maestros maestros;
+
+    public FachadaEditarMaestro() {
+        this.maestros = new Maestros();
+    }
+   
     @Override
     public MaestroEditableDTO editarMaestro(MaestroEditableDTO maestro) throws PersistenciaException {
         //TODO
         //Solo soy una fachada
-        return maestro;
+        return maestros.editarMaestro(maestro);
     }
 
 }

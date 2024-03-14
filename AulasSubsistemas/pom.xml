@@ -2,30 +2,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.myCompany</groupId>
-    <artifactId>Aulas</artifactId>
+    <artifactId>AulasSubsistemas</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>AulasSubsistemas</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.myCompany</groupId>
             <artifactId>AulasNegocio</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.myCompany</groupId>
-            <artifactId>AulasDatos</artifactId>
-            <version>1.0</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <exec.mainClass>com.mycompany.aulas.Aulas</exec.mainClass>
+        <exec.mainClass>com.mycompany.aulassubsistemas.AulasSubsistemas</exec.mainClass>
     </properties>
 </project>

@@ -1,7 +1,12 @@
 
-package interfazUsuario;
+package presentacion;
 
+import DTOS.evento.EventoConsultableDTO;
 import DTOS.maestro.MaestroEditableDTO;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  *
@@ -16,9 +21,11 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     
     /**
      * Creates new form PrincipalCalendario
+     * @param maestro
      */
-    public PrincipalCalendario() {
+    public PrincipalCalendario(MaestroEditableDTO maestro) {
         initComponents();
+        this.maestro=maestro;
         cargarCalendario();
     }
     
@@ -325,7 +332,22 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PrincipalCalendario().setVisible(true);
+                //TODO
+                //Este maestro es solo una fachada
+                List<EventoConsultableDTO> calendario = new ArrayList<>();
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.HOUR_OF_DAY, 10);
+                calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+
+                EventoConsultableDTO evento = new EventoConsultableDTO("semanal", "Bases de datos", "...", Color.BLUE, null, calendar);
+
+                calendario.add(evento);
+
+                MaestroEditableDTO maestro = new MaestroEditableDTO(1L, "Gibran Duran", "AV0900", "Doy asesorias de 9 a 11 de bases de datos los sabados y domingos", null, calendario);
+
+                new PrincipalCalendario(maestro).setVisible(true);
             }
         });
     }
