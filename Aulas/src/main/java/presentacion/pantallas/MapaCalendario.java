@@ -2,6 +2,8 @@
 package presentacion.pantallas;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 /**
  *
@@ -22,12 +24,12 @@ public class MapaCalendario extends javax.swing.JFrame {
 
     //TODO
     //Guarda la ubicacion seleccionada
-    private void guardar(){
+    private void guardar(){  
+        ubicacion=this.txtUbicacionDinamica.getText();
+        frame.guardarUbicacion(ubicacion);
         cerrar();
     }
     
-    //TODO 
-    //Cierra este frame y descubre el Frame PrincipalCalendario
     private void cerrar(){
         this.dispose();
         principal.setVisible(true);
@@ -45,8 +47,15 @@ public class MapaCalendario extends javax.swing.JFrame {
         btnAtras = new javax.swing.JButton();
         lblCampusEstatico = new javax.swing.JLabel();
         lblUbicacionEstatico = new javax.swing.JLabel();
+        txtUbicacionDinamica = new javax.swing.JTextField();
+        lblUbicacionEstatica = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         cmbCampus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Obregon Nainari", "Obregon Centro" }));
         cmbCampus.addItemListener(new java.awt.event.ItemListener() {
@@ -93,7 +102,9 @@ public class MapaCalendario extends javax.swing.JFrame {
 
         lblCampusEstatico.setText("Campus");
 
-        lblUbicacionEstatico.setText("Ubicacion");
+        lblUbicacionEstatico.setText("Buscar ubicacion en mapa");
+
+        lblUbicacionEstatica.setText("Ubicacion");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,18 +113,19 @@ public class MapaCalendario extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cmbCampus, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(lblGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnGuardar)
-                            .addComponent(lblCampusEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(86, 86, 86)
+                            .addComponent(lblCampusEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(lblGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnGuardar))
+                            .addComponent(txtUbicacionDinamica, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblUbicacionEstatica, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cmbMapa, 0, 334, Short.MAX_VALUE)
                     .addComponent(pnlMapa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -139,10 +151,15 @@ public class MapaCalendario extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(lblUbicacionEstatica)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtUbicacionDinamica, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46)
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblGuardar)
-                        .addGap(225, 225, 225)
+                        .addGap(104, 104, 104)
                         .addComponent(btnAtras, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
@@ -152,6 +169,7 @@ public class MapaCalendario extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbCampusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCampusActionPerformed
@@ -163,7 +181,7 @@ public class MapaCalendario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        cerrar();
+       dispose();
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void cmbCampusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCampusItemStateChanged
@@ -180,6 +198,48 @@ public class MapaCalendario extends javax.swing.JFrame {
             icon=new ImageIcon("campus-centro.jpg");
         }
        imgPanel.setIcon(icon);
+    }
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        cerrar();
+    }//GEN-LAST:event_formWindowClosed
+
+    private void cmbMapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMapaActionPerformed
+        this.txtUbicacionDinamica.setText((String) this.cmbMapa.getSelectedItem());
+    }//GEN-LAST:event_cmbMapaActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MapaCalendario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MapaCalendario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MapaCalendario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MapaCalendario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MapaCalendario(null).setVisible(true);
+            }
+        });
     }
     
 //    /**
@@ -225,7 +285,9 @@ public class MapaCalendario extends javax.swing.JFrame {
     private javax.swing.JLabel imgPanel;
     private javax.swing.JLabel lblCampusEstatico;
     private javax.swing.JLabel lblGuardar;
+    private javax.swing.JLabel lblUbicacionEstatica;
     private javax.swing.JLabel lblUbicacionEstatico;
     private javax.swing.JPanel pnlMapa;
+    private javax.swing.JTextField txtUbicacionDinamica;
     // End of variables declaration//GEN-END:variables
 }
