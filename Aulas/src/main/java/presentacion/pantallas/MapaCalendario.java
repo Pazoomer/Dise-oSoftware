@@ -1,31 +1,40 @@
 
 package presentacion.pantallas;
 
+import javax.swing.JFrame;
+import javax.swing.JTextField;
+
 /**
  *
  * @author t1pas
  */
 public class MapaCalendario extends javax.swing.JFrame {
 
+    private final PrincipalCalendario frame;
+    private String ubicacion;
     /**
      * Creates new form MapaCalendario
+     * @param frame
      */
-    public MapaCalendario() {
+    public MapaCalendario(PrincipalCalendario frame) {
         initComponents();
+        this.frame=frame;
     }
 
     //TODO
     //Guarda la ubicacion seleccionada
-    private void guardar(){
-        
-        
+    private void guardar(){  
+        ubicacion=this.txtUbicacionDinamica.getText();
+        frame.guardarUbicacion(ubicacion);
         cerrar();
     }
     
-    //TODO 
-    //Cierra este frame y descubre el Frame PrincipalCalendario
     private void cerrar(){
-        
+        frame.setVisible(true);
+    }
+    
+    public String getUbicacion(){
+        return ubicacion;
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -39,8 +48,15 @@ public class MapaCalendario extends javax.swing.JFrame {
         btnAtras = new javax.swing.JButton();
         lblCampusEstatico = new javax.swing.JLabel();
         lblUbicacionEstatico = new javax.swing.JLabel();
+        txtUbicacionDinamica = new javax.swing.JTextField();
+        lblUbicacionEstatica = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         cmbCampus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Obregon Nainari", "Obregon Centro" }));
         cmbCampus.addActionListener(new java.awt.event.ActionListener() {
@@ -59,6 +75,11 @@ public class MapaCalendario extends javax.swing.JFrame {
         lblGuardar.setText("Guardar");
 
         cmbMapa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AV0900 Aula Audiovisual" }));
+        cmbMapa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbMapaActionPerformed(evt);
+            }
+        });
 
         pnlMapa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -82,7 +103,9 @@ public class MapaCalendario extends javax.swing.JFrame {
 
         lblCampusEstatico.setText("Campus");
 
-        lblUbicacionEstatico.setText("Ubicacion");
+        lblUbicacionEstatico.setText("Buscar ubicacion en mapa");
+
+        lblUbicacionEstatica.setText("Ubicacion");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,18 +114,19 @@ public class MapaCalendario extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cmbCampus, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(lblGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnGuardar)
-                            .addComponent(lblCampusEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(86, 86, 86)
+                            .addComponent(lblCampusEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(lblGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnGuardar))
+                            .addComponent(txtUbicacionDinamica, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblUbicacionEstatica, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cmbMapa, 0, 334, Short.MAX_VALUE)
                     .addComponent(pnlMapa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -128,10 +152,15 @@ public class MapaCalendario extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(lblUbicacionEstatica)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtUbicacionDinamica, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46)
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblGuardar)
-                        .addGap(225, 225, 225)
+                        .addGap(104, 104, 104)
                         .addComponent(btnAtras, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
@@ -141,6 +170,7 @@ public class MapaCalendario extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmbCampusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCampusActionPerformed
@@ -152,8 +182,16 @@ public class MapaCalendario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        cerrar();
+       dispose();
     }//GEN-LAST:event_btnAtrasActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        cerrar();
+    }//GEN-LAST:event_formWindowClosed
+
+    private void cmbMapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMapaActionPerformed
+        this.txtUbicacionDinamica.setText((String) this.cmbMapa.getSelectedItem());
+    }//GEN-LAST:event_cmbMapaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -185,7 +223,7 @@ public class MapaCalendario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MapaCalendario().setVisible(true);
+                new MapaCalendario(null).setVisible(true);
             }
         });
     }
@@ -197,7 +235,9 @@ public class MapaCalendario extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbMapa;
     private javax.swing.JLabel lblCampusEstatico;
     private javax.swing.JLabel lblGuardar;
+    private javax.swing.JLabel lblUbicacionEstatica;
     private javax.swing.JLabel lblUbicacionEstatico;
     private javax.swing.JPanel pnlMapa;
+    private javax.swing.JTextField txtUbicacionDinamica;
     // End of variables declaration//GEN-END:variables
 }

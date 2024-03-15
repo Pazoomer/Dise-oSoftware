@@ -97,7 +97,9 @@ public class PrincipalMaestro extends javax.swing.JFrame {
     //TODO
     //Al dar clic en el boton de calendario deberia desplegarse el frame PrincipalCalendario y ocultarse este frame
     private void abrirCalendario() {
-
+        PrincipalCalendario calendario=new PrincipalCalendario(maestro,this);
+        this.setVisible(false);
+        calendario.setVisible(true);
     }
 
 
@@ -257,6 +259,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
