@@ -2,7 +2,6 @@
 package presentacion.pantallas;
 
 import DTOS.evento.EventoConsultableDTO;
-import DTOS.evento.EventoNuevoDTO;
 import DTOS.maestro.MaestroEditableDTO;
 import java.awt.Color;
 import java.awt.Image;
@@ -46,7 +45,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     //Al hacer clic sobre el boton deberia intentar añadir el evento al calendario.
     //primero se asegura que no haya eventos a la misma hora
     private void añadirEvento(){
-       String tipo=(String) this.cmbTipo.getSelectedItem();
+        String tipo=(String) this.cmbTipo.getSelectedItem();
         String descripcion = this.txtDescripcion.getText();
         String nombre = this.txtNombre.getText();
         String ubicacion = this.txtUbicacion.getText();
@@ -65,14 +64,44 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             //Mostrar mensaje de que la fecha no es valida
         }
  
-        EventoNuevoDTO evento = new EventoNuevoDTO(tipo, nombre, descripcion, color, ubicacion, calendar);
+        EventoConsultableDTO evento = new EventoConsultableDTO(tipo, nombre, descripcion, color, ubicacion, calendar);
         System.out.println(evento);
+        
+        maestro.getCalendario().add(evento);
+        
+        actualizarCalendario();
+    }
+
+    //TODO
+    //Toma el calendario de eventos del maestro y los acomoda en el calendario
+    private void actualizarCalendario(){
+        int mes=this.mchMes.getMonth();
+        System.out.println(mes);
+        List<EventoConsultableDTO> calendarioMes=new ArrayList<>();
+        
+        for (EventoConsultableDTO evento : maestro.getCalendario()) {
+
+            if (evento.getTipo().equalsIgnoreCase("semanal")) {
+                if (evento.getFechaSemanal().get(Calendar.MONTH) == mes) {
+                    calendarioMes.add(evento);
+                }
+
+            } else if (evento.getTipo().equalsIgnoreCase("unico")) {
+                if (evento.getFechaUnica().get(Calendar.MONTH) == mes) {
+                    calendarioMes.add(evento);
+                }
+            }
+
+        }
+        //TODO
+        //Actualizar la vista del calendario
+        
     }
 
     //TODO
     //Al hacer clic en guardar calendario debe actualizar el calendario del maestro y guardar al maestro en la base de datos
     private void guardarCalendario() {
-
+        
     }
     
     //TODO
@@ -106,7 +135,10 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     private void abrirSeleccionFecha(){
         CuadroDialogoCalendario calendario = new CuadroDialogoCalendario(this);
         calendario.setVisible(true);
-        this.spdFecha.setDate(calendario.getDate());  
+        if (calendario.getDate()!=null) {
+            this.spdFecha.setDate(calendario.getDate());  
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -219,14 +251,10 @@ public class PrincipalCalendario extends javax.swing.JFrame {
                 .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlEventoLayout.createSequentialGroup()
                         .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(pnlEventoLayout.createSequentialGroup()
-                                    .addComponent(lblDescripcionEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(23, 23, 23))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlEventoLayout.createSequentialGroup()
-                                    .addComponent(txtUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btnMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(pnlEventoLayout.createSequentialGroup()
+                                .addComponent(txtUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlEventoLayout.createSequentialGroup()
                                 .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnCalendario)
@@ -248,7 +276,9 @@ public class PrincipalCalendario extends javax.swing.JFrame {
                                 .addGap(6, 6, 6)
                                 .addComponent(lblEjemploEstatico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
-                        .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDescripcionEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(19, 19, 19))
             .addGroup(pnlEventoLayout.createSequentialGroup()
                 .addGap(77, 77, 77)

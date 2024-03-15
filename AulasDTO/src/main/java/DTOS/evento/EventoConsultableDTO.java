@@ -2,7 +2,6 @@
 package DTOS.evento;
 
 import java.awt.Color;
-import java.awt.Point;
 import java.util.Calendar;
 
 /**
@@ -14,11 +13,11 @@ public class EventoConsultableDTO {
     private final String nombre;
     private final String descripcion;
     private final Color color;
-    private final Point ubicacion;
+    private final String ubicacion;
     private Calendar fechaUnica;
     private Calendar fechaSemanal;
 
-    public EventoConsultableDTO(String tipo, String nombre, String descripcion, Color color, Point ubicacion, Calendar fecha) {
+    public EventoConsultableDTO(String tipo, String nombre, String descripcion, Color color, String ubicacion, Calendar fecha) {
         if (tipo.equalsIgnoreCase("semanal")) {
             this.fechaSemanal=fecha;
         }else if (tipo.equalsIgnoreCase("unico")) {
@@ -43,7 +42,7 @@ public class EventoConsultableDTO {
         return color;
     }
 
-    public Point getUbicacion() {
+    public String getUbicacion() {
         return ubicacion;
     }
 
