@@ -1,5 +1,5 @@
 
-package presentacion;
+package presentacion.pantallas;
 
 /**
  *
@@ -23,7 +23,7 @@ public class MapaCalendario extends javax.swing.JFrame {
     }
     
     //TODO 
-    //Cierra este frame y abre el Frame PrincipalCalendario
+    //Cierra este frame y descubre el Frame PrincipalCalendario
     private void cerrar(){
         
     }

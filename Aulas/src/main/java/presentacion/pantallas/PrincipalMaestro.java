@@ -1,16 +1,20 @@
 
-package presentacion;
+package presentacion.pantallas;
 
 import DTOS.evento.EventoConsultableDTO;
 import DTOS.maestro.MaestroEditableDTO;
 import excepciones.PersistenciaException;
 import java.awt.Color;
+import java.awt.Image;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import subsistemas.accesoMaestro.IAccesoMaestro;
 import subsistemas.accesoMaestro.FachadaEditarMaestro;
 
@@ -34,10 +38,15 @@ public class PrincipalMaestro extends javax.swing.JFrame {
      * @param maestro
      */
     public PrincipalMaestro(MaestroEditableDTO maestro) {
+        
         initComponents();
+        this.maestro=maestro;
         cargarMaestro();
     }
 
+    /**
+     * Coloca los valores del maestro en los campos de texto y foto de perfil
+     */
     private void cargarMaestro() {
         this.txtCubiculo.setText(maestro.getCubiculo());
         this.txaDescripcion.setText(maestro.getDescripcion());
@@ -45,6 +54,9 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         this.lblFotoMaestro.setIcon(maestro.getFoto());
     }
     
+    /**
+     * Toma los campos de texto y foto de perfil y la guarda en la base de datos actualizando el perfil de maestro
+     */
     private void editarInformacion(){
         //TODO
         //Mostrar un cuadro de dialogo donde se le pregunte confirmacion para editar su información
@@ -63,23 +75,37 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         //TODO
         //Mostrar un mensaje diciendo que la actualizacion fue exitosa
     }
-    
-    //TODO
-    //Al dar clic a la foto del perfil deberia darte de opcion de subir cualquier foto que quieras de la carpeta de archivos
-    private void añadirImagen(){
-        
+
+    /**
+     * Permite cambiar la foto de perfil al darle clic por una en la carpeta de
+     * archivos
+     */
+    private void añadirImagen() {
+        JFileChooser fileChooser = new JFileChooser();
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            ImageIcon icon = new ImageIcon(selectedFile.getAbsolutePath());
+
+            ImageIcon scaledIcon = new ImageIcon(icon.getImage().getScaledInstance(124, 102, Image.SCALE_SMOOTH));
+            this.lblFotoMaestro.setIcon(scaledIcon);
+            this.lblFotoMaestro.setText(""); // Clear text
+        }
+
     }
-    
+
     //TODO
     //Al dar clic en el boton de calendario deberia desplegarse el frame PrincipalCalendario y ocultarse este frame
-    private void abrirCalendario(){
-        
+    private void abrirCalendario() {
+
     }
-    
-    //TODO
-    //Cierra este frame, cortas las conexiones con sistemas externos y acaba el programa
-    private void cerrar(){
-        
+
+
+    /**
+     * Cierra este frame y por consecuencia se acaba la ejecucion del programa
+     */
+    private void cerrar() {
+        this.dispose();
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -98,8 +124,9 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         txtCubiculo = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txaDescripcion = new javax.swing.JTextArea();
+        lblInfoFotoEstatico = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnCalendario.setText("Imagen de calendario");
         btnCalendario.addActionListener(new java.awt.event.ActionListener() {
@@ -108,7 +135,6 @@ public class PrincipalMaestro extends javax.swing.JFrame {
             }
         });
 
-        lblFotoMaestro.setText("Foto Maestro");
         lblFotoMaestro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         lblFotoMaestro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -147,6 +173,8 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         txaDescripcion.setRows(5);
         jScrollPane1.setViewportView(txaDescripcion);
 
+        lblInfoFotoEstatico.setText("Clic en la foto para cambiarla");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -162,8 +190,9 @@ public class PrincipalMaestro extends javax.swing.JFrame {
                             .addComponent(lblBienvenido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCubiculoEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCubiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtCubiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCubiculoEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -180,35 +209,39 @@ public class PrincipalMaestro extends javax.swing.JFrame {
                             .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(26, 26, 26))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblInfoFotoEstatico)
+                .addGap(524, 524, 524))
             .addGroup(layout.createSequentialGroup()
-                .addGap(71, 71, 71)
+                .addGap(94, 94, 94)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDescripcionEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblDescripcionEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblFotoMaestro, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblNombreMaestro))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblCubiculoEstatico)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblBienvenido))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addComponent(txtCubiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblCubiculoEstatico)
+                            .addComponent(lblBienvenido))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtCubiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNombreMaestro))
+                        .addGap(32, 32, 32))
+                    .addComponent(lblFotoMaestro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addComponent(lblInfoFotoEstatico)
+                .addGap(15, 15, 15)
                 .addComponent(lblDescripcionEstatico)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblCalendario, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblActualizar))
@@ -280,12 +313,18 @@ public class PrincipalMaestro extends javax.swing.JFrame {
                 calendar.set(Calendar.HOUR_OF_DAY, 10);
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
                 calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+                
+                String rutaRealtiva = "fotoMaestro.png";
+
+                ImageIcon icon = new ImageIcon(rutaRealtiva);
+                
+                ImageIcon scaledIcon = new ImageIcon(icon.getImage().getScaledInstance(120, 100, Image.SCALE_SMOOTH));
 
                 EventoConsultableDTO evento = new EventoConsultableDTO("semanal", "Bases de datos", "...", Color.BLUE, null, calendar);
 
                 calendario.add(evento);
 
-                MaestroEditableDTO maestro = new MaestroEditableDTO(1L, "Gibran Duran", "AV0900", "Doy asesorias de 9 a 11 de bases de datos los sabados y domingos", null, calendario);
+                MaestroEditableDTO maestro = new MaestroEditableDTO(1L, "Gibran Duran", "AV0900", "Doy asesorias de 9 a 11 de bases de datos los sabados y domingos", scaledIcon, calendario);
 
                 new PrincipalMaestro(maestro).setVisible(true);
             }
@@ -303,6 +342,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
     private javax.swing.JLabel lblCubiculoEstatico;
     private javax.swing.JLabel lblDescripcionEstatico;
     private javax.swing.JLabel lblFotoMaestro;
+    private javax.swing.JLabel lblInfoFotoEstatico;
     private javax.swing.JLabel lblNombreMaestro;
     private javax.swing.JTextArea txaDescripcion;
     private javax.swing.JTextField txtCubiculo;
