@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package presentacion;
 
 import java.awt.BorderLayout;
@@ -23,6 +20,7 @@ public class CuadroDialogoColor extends JDialog {
     private JColorChooser colorChooser;
     private JButton okButton;
     private JButton cancelButton;
+    private Color color;
 
     public CuadroDialogoColor(Frame parent) {
         super(parent, "Color de evento", true);
@@ -32,7 +30,7 @@ public class CuadroDialogoColor extends JDialog {
 
         okButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Color chosenColor = colorChooser.getColor();
+                color = colorChooser.getColor();
                 // Aquí puedes hacer algo con el color elegido
                 dispose(); // Cierra el diálogo después de que se selecciona el color
             }
@@ -55,5 +53,9 @@ public class CuadroDialogoColor extends JDialog {
         pack();
         setLocationRelativeTo(parent);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
+    
+    public Color getColor(){
+        return color;
     }
 }

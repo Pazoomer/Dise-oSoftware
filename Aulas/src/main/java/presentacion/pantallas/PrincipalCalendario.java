@@ -2,15 +2,16 @@
 package presentacion.pantallas;
 
 import DTOS.evento.EventoConsultableDTO;
+import DTOS.evento.EventoNuevoDTO;
 import DTOS.maestro.MaestroEditableDTO;
-import com.toedter.calendar.JCalendar;
 import java.awt.Color;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
-import javax.swing.JColorChooser;
+import presentacion.CuadroDialogoCalendario;
 import presentacion.CuadroDialogoColor;
 
 /**
@@ -45,7 +46,27 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     //Al hacer clic sobre el boton deberia intentar añadir el evento al calendario.
     //primero se asegura que no haya eventos a la misma hora
     private void añadirEvento(){
-       
+       String tipo=(String) this.cmbTipo.getSelectedItem();
+        String descripcion = this.txtDescripcion.getText();
+        String nombre = this.txtNombre.getText();
+        String ubicacion = this.txtUbicacion.getText();
+        Date fecha = this.spdFecha.getDate();
+        Color color = this.lblEjemploEstatico.getForeground();
+        Calendar calendar=null;
+        try {
+            calendar = Calendar.getInstance();
+            calendar.setTime(fecha);
+        } catch (Exception e) {
+            //TODO
+            //Mostrar mensaje de que la fecha no es valida
+        }
+        if (calendar==null) {
+            //TODO
+            //Mostrar mensaje de que la fecha no es valida
+        }
+ 
+        EventoNuevoDTO evento = new EventoNuevoDTO(tipo, nombre, descripcion, color, ubicacion, calendar);
+        System.out.println(evento);
     }
 
     //TODO
@@ -77,13 +98,15 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     private void abrirSeleccionColor() {
         CuadroDialogoColor color = new CuadroDialogoColor(this);
         color.setVisible(true);
+        this.lblEjemploEstatico.setForeground(color.getColor());
     }
 
     //TODO
     //Abre un seleccionador de fecha y se le asigna al evento
     private void abrirSeleccionFecha(){
-        JCalendar calendar=new JCalendar();
-        calendar.setVisible(true);
+        CuadroDialogoCalendario calendario = new CuadroDialogoCalendario(this);
+        calendario.setVisible(true);
+        this.spdFecha.setDate(calendario.getDate());  
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -99,8 +122,6 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         lblUbicacionEstatico = new javax.swing.JLabel();
         txtUbicacion = new javax.swing.JTextField();
         btnMapa = new javax.swing.JButton();
-        lblHoraEstatico = new javax.swing.JLabel();
-        cmbHora = new javax.swing.JComboBox<>();
         lblNombreEstatico = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         lblDescripcionEstatico = new javax.swing.JLabel();
@@ -111,6 +132,8 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         cmbTipo = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         btnColor = new javax.swing.JButton();
+        spdFecha = new com.toedter.calendar.JSpinnerDateEditor();
+        lblEjemploEstatico = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -154,10 +177,6 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             }
         });
 
-        lblHoraEstatico.setText("Hora");
-
-        cmbHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "12:00 AM", "1:00 AM", "2:00 AM", "3:00 AM", "4:00 AM", "5:00 AM", "6:00 AM", "7:00 AM", "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM", "9:00 PM", "10:00 PM", "11:00 PM" }));
-
         lblNombreEstatico.setText("Nombre");
 
         lblDescripcionEstatico.setText("Descripcion del evento");
@@ -171,7 +190,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
 
         lblAñadir.setText("Añadir evento");
 
-        btnCalendario.setText("Fecha");
+        btnCalendario.setText("Asignar Fecha");
         btnCalendario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCalendarioActionPerformed(evt);
@@ -182,12 +201,14 @@ public class PrincipalCalendario extends javax.swing.JFrame {
 
         jLabel1.setText("Tipo de evento");
 
-        btnColor.setText("Color");
+        btnColor.setText("Asignar color");
         btnColor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnColorActionPerformed(evt);
             }
         });
+
+        lblEjemploEstatico.setText("EJEMPLO COLOR");
 
         javax.swing.GroupLayout pnlEventoLayout = new javax.swing.GroupLayout(pnlEvento);
         pnlEvento.setLayout(pnlEventoLayout);
@@ -196,32 +217,37 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             .addGroup(pnlEventoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlEventoLayout.createSequentialGroup()
+                        .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(pnlEventoLayout.createSequentialGroup()
+                                    .addComponent(lblDescripcionEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(23, 23, 23))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlEventoLayout.createSequentialGroup()
+                                    .addComponent(txtUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(btnMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(pnlEventoLayout.createSequentialGroup()
+                                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnCalendario)
+                                    .addComponent(spdFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblNombreEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(pnlEventoLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(lblInfoEventoEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlEventoLayout.createSequentialGroup()
-                        .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(pnlEventoLayout.createSequentialGroup()
-                                .addComponent(lblHoraEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblDescripcionEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(23, 23, 23))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlEventoLayout.createSequentialGroup()
-                                .addComponent(btnCalendario)
-                                .addGap(37, 37, 37)
-                                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lblNombreEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlEventoLayout.createSequentialGroup()
-                                .addComponent(txtUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlEventoLayout.createSequentialGroup()
+                    .addGroup(pnlEventoLayout.createSequentialGroup()
                         .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cmbHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnColor))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(pnlEventoLayout.createSequentialGroup()
+                                .addComponent(btnColor)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(pnlEventoLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(lblEjemploEstatico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
                         .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(19, 19, 19))
             .addGroup(pnlEventoLayout.createSequentialGroup()
@@ -261,31 +287,26 @@ public class PrincipalCalendario extends javax.swing.JFrame {
                 .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnMapa, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblNombreEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCalendario))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spdFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblDescripcionEstatico)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlEventoLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(lblNombreEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEventoLayout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(btnCalendario)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblDescripcionEstatico)
-                    .addComponent(lblHoraEstatico))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnlEventoLayout.createSequentialGroup()
-                        .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
-                        .addComponent(lblAñadir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(pnlEventoLayout.createSequentialGroup()
-                        .addComponent(cmbHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addComponent(btnColor)
-                        .addGap(32, 32, 32)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblEjemploEstatico)))
+                .addGap(13, 13, 13)
+                .addComponent(lblAñadir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
@@ -298,11 +319,6 @@ public class PrincipalCalendario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAtras)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGuardar)
-                        .addGap(170, 170, 170))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(pnlEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -312,11 +328,17 @@ public class PrincipalCalendario extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(43, 43, 43)
                                 .addComponent(pnlCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(53, Short.MAX_VALUE))))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(198, 198, 198))
+                                .addContainerGap(42, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAtras)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnGuardar)
+                                .addGap(170, 170, 170))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lblGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(198, 198, 198))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -427,19 +449,19 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     private javax.swing.JButton btnColor;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnMapa;
-    private javax.swing.JComboBox<String> cmbHora;
     private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblAñadir;
     private javax.swing.JLabel lblDescripcionEstatico;
+    private javax.swing.JLabel lblEjemploEstatico;
     private javax.swing.JLabel lblGuardar;
-    private javax.swing.JLabel lblHoraEstatico;
     private javax.swing.JLabel lblInfoEventoEstatico;
     private javax.swing.JLabel lblNombreEstatico;
     private javax.swing.JLabel lblUbicacionEstatico;
     private com.toedter.calendar.JMonthChooser mchMes;
     private javax.swing.JPanel pnlCalendario;
     private javax.swing.JPanel pnlEvento;
+    private com.toedter.calendar.JSpinnerDateEditor spdFecha;
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtUbicacion;
