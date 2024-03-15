@@ -12,7 +12,7 @@ import java.util.List;
 class Calendarios {
         //TODO
         //Solo soy una fachada
-    public List<EventoConsultableDTO> editarMaestro(List<EventoConsultableDTO> calendario) throws PersistenciaException {
+    public List<EventoConsultableDTO> editarCalendario(List<EventoConsultableDTO> calendario) throws PersistenciaException {
         return calendario;
     }
 }

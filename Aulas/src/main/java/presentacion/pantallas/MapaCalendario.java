@@ -1,31 +1,36 @@
 
 package presentacion.pantallas;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author t1pas
  */
 public class MapaCalendario extends javax.swing.JFrame {
 
+    PrincipalCalendario principal;
     /**
      * Creates new form MapaCalendario
+     * @param principal
      */
-    public MapaCalendario() {
+    public MapaCalendario(PrincipalCalendario principal) {
         initComponents();
+        this.principal=principal;
+        setMapa("Obregon Nainari");
     }
 
     //TODO
     //Guarda la ubicacion seleccionada
     private void guardar(){
-        
-        
         cerrar();
     }
     
     //TODO 
     //Cierra este frame y descubre el Frame PrincipalCalendario
     private void cerrar(){
-        
+        this.dispose();
+        principal.setVisible(true);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -36,6 +41,7 @@ public class MapaCalendario extends javax.swing.JFrame {
         lblGuardar = new javax.swing.JLabel();
         cmbMapa = new javax.swing.JComboBox<>();
         pnlMapa = new javax.swing.JPanel();
+        imgPanel = new javax.swing.JLabel();
         btnAtras = new javax.swing.JButton();
         lblCampusEstatico = new javax.swing.JLabel();
         lblUbicacionEstatico = new javax.swing.JLabel();
@@ -43,6 +49,11 @@ public class MapaCalendario extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         cmbCampus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Obregon Nainari", "Obregon Centro" }));
+        cmbCampus.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbCampusItemStateChanged(evt);
+            }
+        });
         cmbCampus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbCampusActionPerformed(evt);
@@ -58,7 +69,7 @@ public class MapaCalendario extends javax.swing.JFrame {
 
         lblGuardar.setText("Guardar");
 
-        cmbMapa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AV0900 Aula Audiovisual" }));
+        cmbMapa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AV0900 Aula Audiovisual", "AV1000 CISCO", "AV1100", "AV1200", "AV1300", "AV1400", "AV1500", "AV1600", "AV1700", "AV1800" }));
 
         pnlMapa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -66,11 +77,11 @@ public class MapaCalendario extends javax.swing.JFrame {
         pnlMapa.setLayout(pnlMapaLayout);
         pnlMapaLayout.setHorizontalGroup(
             pnlMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(imgPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlMapaLayout.setVerticalGroup(
             pnlMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 315, Short.MAX_VALUE)
+            .addComponent(imgPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
         );
 
         btnAtras.setText("Imagen de volver");
@@ -155,46 +166,63 @@ public class MapaCalendario extends javax.swing.JFrame {
         cerrar();
     }//GEN-LAST:event_btnAtrasActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MapaCalendario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MapaCalendario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MapaCalendario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MapaCalendario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void cmbCampusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCampusItemStateChanged
+        // TODO add your handling code here:
+        String campus=cmbCampus.getSelectedItem().toString();
+        setMapa(campus);
+    }//GEN-LAST:event_cmbCampusItemStateChanged
+    
+    private void setMapa(String campus){
+        ImageIcon icon=null;
+        if(campus.equals("Obregon Nainari")){
+            icon=new ImageIcon("campus-nainari.jpg");
+        }else if(campus.equals("Obregon Centro")){
+            icon=new ImageIcon("campus-centro.jpg");
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MapaCalendario().setVisible(true);
-            }
-        });
+       imgPanel.setIcon(icon);
     }
+    
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(MapaCalendario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(MapaCalendario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(MapaCalendario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(MapaCalendario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new MapaCalendario().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> cmbCampus;
     private javax.swing.JComboBox<String> cmbMapa;
+    private javax.swing.JLabel imgPanel;
     private javax.swing.JLabel lblCampusEstatico;
     private javax.swing.JLabel lblGuardar;
     private javax.swing.JLabel lblUbicacionEstatico;

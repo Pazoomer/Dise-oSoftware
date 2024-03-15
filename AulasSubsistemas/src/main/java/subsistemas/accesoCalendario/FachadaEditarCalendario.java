@@ -18,10 +18,10 @@ public class FachadaEditarCalendario implements IAccesoCalendario{
     }
     
     @Override
-    public List<EventoConsultableDTO> editarMaestro(List<EventoConsultableDTO> calendario) throws PersistenciaException {
+    public List<EventoConsultableDTO> editarCalendario(List<EventoConsultableDTO> calendario) throws PersistenciaException {
         //TODO
         //Solo soy una fachada
-        return calendarios.editarMaestro(calendario);
+        return calendarios.editarCalendario(calendario);
     }
     
 }

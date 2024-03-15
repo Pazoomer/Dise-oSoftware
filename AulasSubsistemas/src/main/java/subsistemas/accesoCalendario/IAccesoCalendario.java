@@ -10,5 +10,5 @@ import java.util.List;
  * @author t1pas
  */
 public interface IAccesoCalendario {
-    List<EventoConsultableDTO> editarMaestro(List<EventoConsultableDTO> calendario) throws PersistenciaException;
+    List<EventoConsultableDTO> editarCalendario(List<EventoConsultableDTO> calendario) throws PersistenciaException;
 }
