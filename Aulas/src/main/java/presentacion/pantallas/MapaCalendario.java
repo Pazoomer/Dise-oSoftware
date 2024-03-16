@@ -2,8 +2,7 @@
 package presentacion.pantallas;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
+import presentacion.CDEvento;
 
 /**
  *
@@ -11,15 +10,15 @@ import javax.swing.JTextField;
  */
 public class MapaCalendario extends javax.swing.JFrame {
 
-    PrincipalCalendario principal;
+    CDEvento cdEvento;
     private String ubicacion;
     /**
      * Creates new form MapaCalendario
-     * @param principal
+     * @param cdEvento
      */
-    public MapaCalendario(PrincipalCalendario principal) {
+    public MapaCalendario(CDEvento cdEvento) {
         initComponents();
-        this.principal=principal;
+        this.cdEvento=cdEvento;
         setMapa("Obregon Nainari");
     }
 
@@ -27,12 +26,13 @@ public class MapaCalendario extends javax.swing.JFrame {
     //Guarda la ubicacion seleccionada
     private void guardar(){  
         ubicacion=this.txtUbicacionDinamica.getText();
-        principal.guardarUbicacion(ubicacion);
+        cdEvento.guardarUbicacion(ubicacion);
         cerrar();
     }
     
     private void cerrar(){
-        principal.setVisible(true);
+        cdEvento.calendario.setVisible(true);
+        cdEvento.setVisible(true);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
