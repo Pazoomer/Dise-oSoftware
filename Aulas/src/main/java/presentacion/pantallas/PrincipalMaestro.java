@@ -1,15 +1,10 @@
 
 package presentacion.pantallas;
 
-import DTOS.evento.EventoConsultableDTO;
 import DTOS.maestro.MaestroEditableDTO;
 import excepciones.PersistenciaException;
-import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -40,7 +35,6 @@ public class PrincipalMaestro extends javax.swing.JFrame {
      * @param maestro
      */
     public PrincipalMaestro(MaestroEditableDTO maestro) {
-        
         initComponents();
         this.maestro=maestro;
         cargarMaestro();
