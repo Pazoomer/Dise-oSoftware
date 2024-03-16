@@ -158,6 +158,10 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         this.dispose();
     }
     
+    public void guardarUbicacion(String ubicacion){
+        this.txtUbicacion.setText(ubicacion);
+    }
+    
     /**
      * Cierra este frame y abre el frame PrincipalMaestro
      */
@@ -556,13 +560,15 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     }//GEN-LAST:event_listaEventosValueChanged
 
     private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
-        // TODO add your handling code here:
-        txtDescripcion.setText("");
-        txtNombre.setText("");
-        txtUbicacion.setText("");
-        spdFecha.setDate(Calendar.getInstance().getTime());
+        limpiar();  
     }//GEN-LAST:event_limpiarActionPerformed
 
+    private void limpiar(){
+       txtDescripcion.setText("");
+        txtNombre.setText("");
+        txtUbicacion.setText("");
+        spdFecha.setDate(Calendar.getInstance().getTime()); 
+    }
     /**
      * @param args the command line arguments
      */

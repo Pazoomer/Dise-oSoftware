@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 public class MapaCalendario extends javax.swing.JFrame {
 
     PrincipalCalendario principal;
+    private String ubicacion;
     /**
      * Creates new form MapaCalendario
      * @param principal
@@ -26,12 +27,11 @@ public class MapaCalendario extends javax.swing.JFrame {
     //Guarda la ubicacion seleccionada
     private void guardar(){  
         ubicacion=this.txtUbicacionDinamica.getText();
-        frame.guardarUbicacion(ubicacion);
+        principal.guardarUbicacion(ubicacion);
         cerrar();
     }
     
     private void cerrar(){
-        this.dispose();
         principal.setVisible(true);
     }
 

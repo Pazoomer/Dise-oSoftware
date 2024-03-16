@@ -17,6 +17,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import subsistemas.accesoMaestro.IAccesoMaestro;
 import subsistemas.accesoMaestro.FachadaEditarMaestro;
+import subsistemas.recuperarMaestro.IRecuperarMaestro;
+import subsistemas.recuperarMaestro.RecuperarMaestro;
 
 /**
  *
@@ -309,27 +311,15 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 //TODO
-                //Este maestro es solo una fachada
-                List<EventoConsultableDTO> calendario = new ArrayList<>();
-
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.HOUR_OF_DAY, 10);
-                calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-                calendar.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
-                
-                String rutaRealtiva = "fotoMaestro.png";
-
-                ImageIcon icon = new ImageIcon(rutaRealtiva);
-                
-                ImageIcon scaledIcon = new ImageIcon(icon.getImage().getScaledInstance(120, 100, Image.SCALE_SMOOTH));
-
-                EventoConsultableDTO evento = new EventoConsultableDTO("semanal", "Bases de datos", "...", Color.BLUE, null, calendar);
-
-                calendario.add(evento);
-
-                MaestroEditableDTO maestro = new MaestroEditableDTO(1L, "Gibran Duran", "AV0900", "Doy asesorias de 9 a 11 de bases de datos los sabados y domingos", scaledIcon, calendario);
-
-                new PrincipalMaestro(maestro).setVisible(true);
+                //Soy una fachada
+                IRecuperarMaestro rMaestro=new RecuperarMaestro();
+                MaestroEditableDTO maestroE=null;
+                try{
+                    maestroE=rMaestro.recuperarMaestro();
+                }catch(PersistenciaException e){
+                    
+                }
+                new PrincipalMaestro(maestroE).setVisible(true);
             }
         });
     }
