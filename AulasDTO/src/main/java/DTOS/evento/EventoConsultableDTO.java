@@ -14,21 +14,29 @@ public class EventoConsultableDTO {
     private final String descripcion;
     private final Color color;
     private final String ubicacion;
-    private Calendar fechaUnica;
-    private Calendar fechaSemanal;
+    private Calendar fechaInicio;
+    private Calendar fechaFin;
 
-    public EventoConsultableDTO(String tipo, String nombre, String descripcion, Color color, String ubicacion, Calendar fecha) {
-        if (tipo.equalsIgnoreCase("semanal")) {
-            this.fechaSemanal=fecha;
-        }else if (tipo.equalsIgnoreCase("unico")) {
-            this.fechaUnica = fecha;
-        }
+    public EventoConsultableDTO(String tipo, String nombre, String descripcion, Color color, 
+            String ubicacion, Calendar fechaInicio, Calendar fechaFin) {
+        this.fechaFin=fechaFin;
+        this.fechaInicio=fechaInicio;
         this.tipo = tipo;
         this.descripcion = descripcion;
         this.color = color;
         this.ubicacion = ubicacion; 
         this.nombre=nombre;
     }
+
+    public EventoConsultableDTO(String tipo, String nombre, String descripcion, Color color, String ubicacion, Calendar fechaInicio) {
+        this.tipo = tipo;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.color = color;
+        this.ubicacion = ubicacion;
+        this.fechaInicio = fechaInicio;
+    }
+    
 
     public String getTipo() {
         return tipo;
@@ -46,12 +54,12 @@ public class EventoConsultableDTO {
         return ubicacion;
     }
 
-    public Calendar getFechaUnica() {
-        return fechaUnica;
+    public Calendar getFechaInicio() {
+        return fechaInicio;
     }
 
-    public Calendar getFechaSemanal() {
-        return fechaSemanal;
+    public Calendar getFechaFin() {
+        return fechaFin;
     }
 
     public String getNombre() {
@@ -67,8 +75,8 @@ public class EventoConsultableDTO {
         sb.append(", descripcion=").append(descripcion);
         sb.append(", color=").append(color);
         sb.append(", ubicacion=").append(ubicacion);
-        sb.append(", fechaUnica=").append(fechaUnica);
-        sb.append(", fechaSemanal=").append(fechaSemanal);
+        sb.append(", fechaInicio=").append(fechaInicio);
+        sb.append(", fechaFin=").append(fechaFin);
         sb.append('}');
         return sb.toString();
     }
