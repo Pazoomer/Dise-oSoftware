@@ -40,6 +40,8 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         this.maestro=maestro;
         cargarMaestro();
         this.setVisible(true);
+        this.setSize(800, 600);
+        
     }
 
     /**
@@ -132,8 +134,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(null);
 
-        btnAtras.setBackground(new java.awt.Color(255, 255, 255));
-        btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-return-50.png"))); // NOI18N
+        btnAtras.setIcon(new javax.swing.ImageIcon("C:\\GitHub\\Disenio de software\\Dise-oSoftware\\Aulas\\icons8-return-50.png")); // NOI18N
         btnAtras.setBorder(null);
         btnAtras.setPreferredSize(new java.awt.Dimension(83, 59));
         btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -149,8 +150,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         jPanel2.add(btnAtras);
         btnAtras.setBounds(20, 370, 70, 50);
 
-        btnCalendario.setBackground(new java.awt.Color(255, 255, 255));
-        btnCalendario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-calendar-50.png"))); // NOI18N
+        btnCalendario.setIcon(new javax.swing.ImageIcon("C:\\GitHub\\Disenio de software\\Dise-oSoftware\\Aulas\\icons8-calendar-50.png")); // NOI18N
         btnCalendario.setBorder(null);
         btnCalendario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -165,8 +165,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         jPanel2.add(btnCalendario);
         btnCalendario.setBounds(363, 348, 80, 70);
 
-        btnActualizar.setBackground(new java.awt.Color(255, 255, 255));
-        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-save-50.png"))); // NOI18N
+        btnActualizar.setIcon(new javax.swing.ImageIcon("C:\\GitHub\\Disenio de software\\Dise-oSoftware\\Aulas\\icons8-save-50.png")); // NOI18N
         btnActualizar.setBorder(null);
         btnActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -179,7 +178,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
             }
         });
         jPanel2.add(btnActualizar);
-        btnActualizar.setBounds(700, 360, 80, 51);
+        btnActualizar.setBounds(700, 360, 80, 50);
 
         txaDescripcion.setColumns(20);
         txaDescripcion.setRows(5);
@@ -210,7 +209,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         lblBienvenido.setForeground(new java.awt.Color(255, 255, 255));
         lblBienvenido.setText("Bienvenido");
 
-        lblFotoMaestro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-user-100.png"))); // NOI18N
+        lblFotoMaestro.setIcon(new javax.swing.ImageIcon("C:\\GitHub\\Disenio de software\\Dise-oSoftware\\Aulas\\icons8-user-100.png")); // NOI18N
         lblFotoMaestro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         lblFotoMaestro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -250,9 +249,9 @@ public class PrincipalMaestro extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblCubiculoEstatico)
-                            .addComponent(lblBienvenido))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblBienvenido, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblCubiculoEstatico))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtCubiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -270,7 +269,6 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         jPanel1.setBounds(0, 0, 800, 160);
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
