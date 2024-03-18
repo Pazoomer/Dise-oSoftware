@@ -201,6 +201,12 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         cdEvento = new CDEvento(this,this, true);
         cdEvento.setVisible(true);
     }
+    /*TODO
+    Cambia la informacion de un evento
+    private void editarEvento(){
+        cdEvento = new CDEvento(this,this, evento,true);
+        cdEvento.setVisible(true);
+    }*/
 
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -260,7 +266,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             pnlCalendarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlCalendarioLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(scpCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(scpCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pnlCalendarioLayout.setVerticalGroup(
             pnlCalendarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,6 +281,11 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         });
 
         btnEditarEvento.setText("Editar Evento");
+        btnEditarEvento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarEventoActionPerformed(evt);
+            }
+        });
 
         calEsquinaSuperior.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
@@ -303,7 +314,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnAtras)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(pnlCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
         );
@@ -325,7 +336,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 18, Short.MAX_VALUE))
+                .addGap(0, 51, Short.MAX_VALUE))
         );
 
         pack();
@@ -349,11 +360,16 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void calEsquinaSuperiorPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_calEsquinaSuperiorPropertyChange
-        // TODO add your handling code here:
-        if(calendarioMes!=null)
+
+        if (calendarioMes != null) {
             cargarTablaEventos();
-       
+        }
+
     }//GEN-LAST:event_calEsquinaSuperiorPropertyChange
+
+    private void btnEditarEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarEventoActionPerformed
+        //editarEvento();
+    }//GEN-LAST:event_btnEditarEventoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

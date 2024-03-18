@@ -79,6 +79,19 @@ public class MapaCalendario extends javax.swing.JFrame {
         lblGuardar.setText("Guardar");
 
         cmbMapa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AV0900 Aula Audiovisual", "AV1000 CISCO", "AV1100", "AV1200", "AV1300", "AV1400", "AV1500", "AV1600", "AV1700", "AV1800" }));
+        cmbMapa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cmbMapaMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                cmbMapaMouseReleased(evt);
+            }
+        });
+        cmbMapa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbMapaActionPerformed(evt);
+            }
+        });
 
         pnlMapa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -147,8 +160,7 @@ public class MapaCalendario extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblUbicacionEstatico)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(cmbMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(9, 9, 9)
@@ -185,7 +197,6 @@ public class MapaCalendario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void cmbCampusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCampusItemStateChanged
-        // TODO add your handling code here:
         String campus=cmbCampus.getSelectedItem().toString();
         setMapa(campus);
     }//GEN-LAST:event_cmbCampusItemStateChanged
@@ -204,8 +215,16 @@ public class MapaCalendario extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void cmbMapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMapaActionPerformed
-        this.txtUbicacionDinamica.setText((String) this.cmbMapa.getSelectedItem());
+       this.txtUbicacionDinamica.setText((String) this.cmbMapa.getSelectedItem()); 
     }//GEN-LAST:event_cmbMapaActionPerformed
+
+    private void cmbMapaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbMapaMouseReleased
+        
+    }//GEN-LAST:event_cmbMapaMouseReleased
+
+    private void cmbMapaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbMapaMouseExited
+        
+    }//GEN-LAST:event_cmbMapaMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
