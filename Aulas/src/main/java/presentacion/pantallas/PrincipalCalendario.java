@@ -5,7 +5,6 @@ import DTOS.evento.EventoConsultableDTO;
 import DTOS.maestro.MaestroEditableDTO;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import presentacion.CDEvento;
@@ -53,6 +52,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         //carga la tabla de eventos del dia actual
         cargarTablaEventos();
     }
+    
     //carga la tabla de eventos de cada dia
     private void cargarTablaEventos() {
         model = new DefaultTableModel();
@@ -105,6 +105,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             agregarColumnasTabla(model, fecha, arrayOperaciones[i], arrayCantidadDias[i], diasSemana[i]);
         }
     }
+    
     /**
      * Carga una columna de la tabla semanal.
      * Este metodo agrega la columna del dia de la semana especificado por el parametro 'nombreColumna',
@@ -139,6 +140,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         Object[] eventos=cargarEventosDelDia(diaDelAnio);
         model.addColumn(nombreColumna, eventos);
     }
+    
     /**
      * Obtiene los eventos del dia especificado en el parametro
      * @param dia Dia del cual se quieren obtener los eventos
@@ -162,18 +164,10 @@ public class PrincipalCalendario extends javax.swing.JFrame {
        calendarioMes=new ArrayList<>();
         
         for (EventoConsultableDTO evento : maestro.getCalendario()) {
-            if (evento.getFechaInicio().get(Calendar.MONTH) == mes) {
+            if (evento.getFechaInicio().get(Calendar.MONTH) == mes || evento.getTipo().equalsIgnoreCase("semanal")) {
                 calendarioMes.add(evento);
             }
         }
-    }
-    
-        //TODO
-    //Toma el calendario de eventos del maestro y los acomoda en el calendario
-    private void actualizarCalendario() {
-
-        //TODO
-        //Actualizar la vista del calendario
     }
 
     //TODO
@@ -193,7 +187,6 @@ public class PrincipalCalendario extends javax.swing.JFrame {
 
     public void añadirEvento(EventoConsultableDTO evento) {
         maestro.getCalendario().add(evento);
-
         cargarCalendario();
     }
 
