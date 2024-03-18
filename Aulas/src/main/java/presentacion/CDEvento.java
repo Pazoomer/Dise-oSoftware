@@ -70,15 +70,18 @@ public class CDEvento extends javax.swing.JDialog {
         }
         int[] horaNumerica = convertirHora(hora);
 
-        int dias=0;
-        for (int i = 0; i < 7; i++) {
-            if (diasSemana[i]==true) {
-                dias++;
+        if (tipo.equalsIgnoreCase("semanal")) {
+
+            int dias = 0;
+            for (int i = 0; i < 7; i++) {
+                if (diasSemana[i] == true) {
+                    dias++;
+                }
             }
-        }
-        if (dias==0) {
-           JOptionPane.showMessageDialog(null, "Debes seleccionar al menos un dia de la semana para los eventos semanales", "Mensaje de error", JOptionPane.INFORMATION_MESSAGE);
-            return; 
+            if (dias == 0) {
+                JOptionPane.showMessageDialog(null, "Debes seleccionar al menos un dia de la semana para los eventos semanales", "Mensaje de error", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
         }
         if (fecha == null && tipo.equalsIgnoreCase("unico")) {
             JOptionPane.showMessageDialog(null, "Debes colocar una fecha para los eventos unicos", "Mensaje de error", JOptionPane.INFORMATION_MESSAGE);
