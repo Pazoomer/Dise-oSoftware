@@ -49,6 +49,14 @@ public class CDEvento extends javax.swing.JDialog {
         Date fecha = this.spdFecha.getDate();
         Color color = this.lblEjemploEstatico.getForeground();
         Calendar calendar=null;
+        boolean[] diasSemana=new boolean[7];
+        diasSemana[0]=this.chbLunes.isSelected();
+        diasSemana[1]=this.chbMartes.isSelected();
+        diasSemana[2]=this.chbMiercoles.isSelected();
+        diasSemana[3]=this.chbJueves.isSelected();
+        diasSemana[4]=this.chbViernes.isSelected();
+        diasSemana[5]=this.chbSabado.isSelected();
+        diasSemana[6]=this.chbDomingo.isSelected();
         try {
             calendar = Calendar.getInstance();
             calendar.setTime(fecha);
@@ -61,7 +69,7 @@ public class CDEvento extends javax.swing.JDialog {
             //Mostrar mensaje de que la fecha no es valida
         }
  
-        EventoConsultableDTO evento = new EventoConsultableDTO(tipo, nombre, descripcion, color, ubicacion, calendar);
+        EventoConsultableDTO evento = new EventoConsultableDTO(tipo, nombre, descripcion, color,diasSemana, ubicacion, calendar);
         System.out.println(evento);
         calendario.añadirEvento(evento);
         
@@ -129,6 +137,13 @@ public class CDEvento extends javax.swing.JDialog {
         lblEjemploEstatico = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         limpiar = new javax.swing.JButton();
+        chbLunes = new javax.swing.JCheckBox();
+        chbMartes = new javax.swing.JCheckBox();
+        chbMiercoles = new javax.swing.JCheckBox();
+        chbJueves = new javax.swing.JCheckBox();
+        chbViernes = new javax.swing.JCheckBox();
+        chbSabado = new javax.swing.JCheckBox();
+        chbDomingo = new javax.swing.JCheckBox();
         btnAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -164,7 +179,12 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
 
-        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Unico", "Semanal" }));
+        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semanal", "Unico" }));
+        cmbTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTipoActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Tipo de evento");
 
@@ -185,6 +205,20 @@ public class CDEvento extends javax.swing.JDialog {
                 limpiarActionPerformed(evt);
             }
         });
+
+        chbLunes.setText("Lunes");
+
+        chbMartes.setText("Martes");
+
+        chbMiercoles.setText("Miercoles");
+
+        chbJueves.setText("Jueves");
+
+        chbViernes.setText("Viernes");
+
+        chbSabado.setText("Sabado");
+
+        chbDomingo.setText("Domingo");
 
         javax.swing.GroupLayout pnlEventoLayout = new javax.swing.GroupLayout(pnlEvento);
         pnlEvento.setLayout(pnlEventoLayout);
@@ -214,21 +248,12 @@ public class CDEvento extends javax.swing.JDialog {
                                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(68, 68, 68))))
                     .addGroup(pnlEventoLayout.createSequentialGroup()
-                        .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblUbicacionEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlEventoLayout.createSequentialGroup()
-                                .addComponent(txtUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnCalendario))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(pnlEventoLayout.createSequentialGroup()
-                        .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlEventoLayout.createSequentialGroup()
+                        .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlEventoLayout.createSequentialGroup()
                                 .addComponent(btnAñadir)
                                 .addGap(78, 78, 78)
                                 .addComponent(limpiar))
-                            .addGroup(pnlEventoLayout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlEventoLayout.createSequentialGroup()
                                 .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -237,7 +262,33 @@ public class CDEvento extends javax.swing.JDialog {
                                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblNombreEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblInfoEventoEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlEventoLayout.createSequentialGroup()
+                        .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlEventoLayout.createSequentialGroup()
+                                .addComponent(btnCalendario)
+                                .addGap(28, 28, 28)
+                                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlEventoLayout.createSequentialGroup()
+                                        .addComponent(txtUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblUbicacionEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(pnlEventoLayout.createSequentialGroup()
+                                .addComponent(chbLunes, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(chbJueves, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(chbDomingo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlEventoLayout.createSequentialGroup()
+                                .addComponent(chbMartes, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(chbViernes, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlEventoLayout.createSequentialGroup()
+                                .addComponent(chbMiercoles, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(chbSabado, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         pnlEventoLayout.setVerticalGroup(
             pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,25 +304,40 @@ public class CDEvento extends javax.swing.JDialog {
                     .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblUbicacionEstatico)
+                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chbLunes)
+                    .addComponent(chbJueves)
+                    .addComponent(chbDomingo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chbMartes)
+                    .addComponent(chbViernes))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMapa, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(chbMiercoles)
+                    .addComponent(chbSabado))
+                .addGap(12, 12, 12)
                 .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCalendario)
-                    .addComponent(lblDescripcionEstatico))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(lblUbicacionEstatico))
+                .addGap(2, 2, 2)
+                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spdFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlEventoLayout.createSequentialGroup()
-                        .addComponent(spdFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEventoLayout.createSequentialGroup()
                         .addComponent(btnColor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblEjemploEstatico))
-                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                        .addComponent(lblEjemploEstatico)
+                        .addGap(43, 43, 43))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEventoLayout.createSequentialGroup()
+                        .addComponent(lblDescripcionEstatico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAñadir)
                     .addComponent(jLabel2))
@@ -300,8 +366,7 @@ public class CDEvento extends javax.swing.JDialog {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(pnlEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(pnlEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 362, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,7 +378,7 @@ public class CDEvento extends javax.swing.JDialog {
                 .addGroup(layout.createSequentialGroup()
                     .addGap(10, 10, 10)
                     .addComponent(pnlEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(53, Short.MAX_VALUE)))
+                    .addContainerGap(26, Short.MAX_VALUE)))
         );
 
         pack();
@@ -343,6 +408,34 @@ public class CDEvento extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnAtrasActionPerformed
 
+    private void cmbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoActionPerformed
+        if (this.cmbTipo.getSelectedItem().equals("Unico")) {
+            this.chbLunes.setSelected(false);
+            this.chbMartes.setSelected(false);
+            this.chbMiercoles.setSelected(false);
+            this.chbJueves.setSelected(false);
+            this.chbViernes.setSelected(false);
+            this.chbSabado.setSelected(false);
+            this.chbDomingo.setSelected(false);
+            
+            this.chbLunes.setEnabled(false);
+            this.chbMartes.setEnabled(false);
+            this.chbMiercoles.setEnabled(false);
+            this.chbJueves.setEnabled(false);
+            this.chbViernes.setEnabled(false);
+            this.chbSabado.setEnabled(false);
+            this.chbDomingo.setEnabled(false);
+        }else if (this.cmbTipo.getSelectedItem().equals("Semanal")) {
+            this.chbLunes.setEnabled(true);
+            this.chbMartes.setEnabled(true);
+            this.chbMiercoles.setEnabled(true);
+            this.chbJueves.setEnabled(true);
+            this.chbViernes.setEnabled(true);
+            this.chbSabado.setEnabled(true);
+            this.chbDomingo.setEnabled(true);
+        }
+    }//GEN-LAST:event_cmbTipoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
@@ -350,6 +443,13 @@ public class CDEvento extends javax.swing.JDialog {
     private javax.swing.JButton btnCalendario;
     private javax.swing.JButton btnColor;
     private javax.swing.JButton btnMapa;
+    private javax.swing.JCheckBox chbDomingo;
+    private javax.swing.JCheckBox chbJueves;
+    private javax.swing.JCheckBox chbLunes;
+    private javax.swing.JCheckBox chbMartes;
+    private javax.swing.JCheckBox chbMiercoles;
+    private javax.swing.JCheckBox chbSabado;
+    private javax.swing.JCheckBox chbViernes;
     private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

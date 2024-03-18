@@ -13,30 +13,32 @@ public class EventoConsultableDTO {
     private final String nombre;
     private final String descripcion;
     private final Color color;
+    private final boolean[] diasSemana;
     private final String ubicacion;
-    private Calendar fechaInicio;
-    private Calendar fechaFin;
+    private final Calendar fechaInicio;
+    private final Calendar fechaFin;
+    
+    public EventoConsultableDTO(String tipo, String nombre, String descripcion, Color color, boolean[] diasSemana, String ubicacion, Calendar fechaInicio) {
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaInicio;
+        if (tipo.equalsIgnoreCase("unico")) {
 
-    public EventoConsultableDTO(String tipo, String nombre, String descripcion, Color color, 
-            String ubicacion, Calendar fechaInicio, Calendar fechaFin) {
-        this.fechaFin=fechaFin;
-        this.fechaInicio=fechaInicio;
-        this.tipo = tipo;
-        this.descripcion = descripcion;
-        this.color = color;
-        this.ubicacion = ubicacion; 
-        this.nombre=nombre;
-    }
+            this.fechaFin.add(Calendar.HOUR, 1);
+        } else if (tipo.equalsIgnoreCase("semanal")) {
 
-    public EventoConsultableDTO(String tipo, String nombre, String descripcion, Color color, String ubicacion, Calendar fechaInicio) {
+            this.fechaFin.add(Calendar.MONTH, 6);
+        }
         this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.color = color;
         this.ubicacion = ubicacion;
-        this.fechaInicio = fechaInicio;
+        this.diasSemana = diasSemana;
     }
-    
+
+    public boolean[] getDiasSemana() {
+        return diasSemana;
+    }
 
     public String getTipo() {
         return tipo;

@@ -36,17 +36,17 @@ public class Prueba {
 //        EventoConsultableDTO ev3=new EventoConsultableDTO("semanal", "evento 3", "blacasc bla", Color.green, "milo", Calendar.getInstance());
 //        EventoConsultableDTO ev4=new EventoConsultableDTO("semanal", "evento 4", "blafwg bla", Color.pink, "milo", Calendar.getInstance());
 //        EventoConsultableDTO ev5=new EventoConsultableDTO("semanal", "evento 5", "blaaaabla", Color.blue, "milo", fecha);
-        EventoConsultableDTO ev6=new EventoConsultableDTO("unico", "evento 6", "fuaaa", Color.gray, "1826", fecha);
-        EventoConsultableDTO ev7=new EventoConsultableDTO("unico", "evento 7", "que sueño", Color.ORANGE, "1828", fecha2);
-        EventoConsultableDTO ev8=new EventoConsultableDTO("unico", "evento 8", "zzzz", Color.CYAN, "1829", fecha2);
+        //EventoConsultableDTO ev6=new EventoConsultableDTO("unico", "evento 6", "fuaaa", Color.gray, "1826", fecha);
+       // EventoConsultableDTO ev7=new EventoConsultableDTO("unico", "evento 7", "que sueño", Color.ORANGE, "1828", fecha2);
+        //EventoConsultableDTO ev8=new EventoConsultableDTO("unico", "evento 8", "zzzz", Color.CYAN, "1829", fecha2);
 //        eventos.add(ev1);
 //        eventos.add(ev2);
 //        eventos.add(ev3);
 //        eventos.add(ev4);
 //        eventos.add(ev5);
-        eventos.add(ev6);
-        eventos.add(ev7);
-        eventos.add(ev8);
+        //eventos.add(ev6);
+       // eventos.add(ev7);
+        //eventos.add(ev8);
         
         Icon imagen=new ImageIcon("C:/Users/luiis/Dropbox/PC/Documents/GitHub/Dise-oSoftware/Aulas/fotoMaestro.png");
         MaestroEditableDTO maestro=new MaestroEditableDTO(1L, "Gibran", "123", 
