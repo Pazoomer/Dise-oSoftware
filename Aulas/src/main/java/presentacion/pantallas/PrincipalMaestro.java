@@ -3,6 +3,7 @@ package presentacion.pantallas;
 
 import DTOS.maestro.MaestroEditableDTO;
 import excepciones.PersistenciaException;
+import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import java.util.logging.Level;
@@ -109,150 +110,164 @@ public class PrincipalMaestro extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnCalendario = new javax.swing.JButton();
-        lblFotoMaestro = new javax.swing.JLabel();
-        lblNombreMaestro = new javax.swing.JLabel();
-        lblCalendario = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         btnAtras = new javax.swing.JButton();
+        btnCalendario = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
-        lblActualizar = new javax.swing.JLabel();
-        lblBienvenido = new javax.swing.JLabel();
-        lblCubiculoEstatico = new javax.swing.JLabel();
-        lblDescripcionEstatico = new javax.swing.JLabel();
-        txtCubiculo = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txaDescripcion = new javax.swing.JTextArea();
+        lblDescripcionEstatico = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        txtCubiculo = new javax.swing.JTextField();
+        lblCubiculoEstatico = new javax.swing.JLabel();
+        lblNombreMaestro = new javax.swing.JLabel();
+        lblBienvenido = new javax.swing.JLabel();
+        lblFotoMaestro = new javax.swing.JLabel();
         lblInfoFotoEstatico = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
+        getContentPane().setLayout(null);
 
-        btnCalendario.setText("Imagen de calendario");
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(null);
+
+        btnAtras.setBackground(new java.awt.Color(255, 255, 255));
+        btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-return-50.png"))); // NOI18N
+        btnAtras.setBorder(null);
+        btnAtras.setPreferredSize(new java.awt.Dimension(83, 59));
+        btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAtrasMouseEntered(evt);
+            }
+        });
+        btnAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtrasActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnAtras);
+        btnAtras.setBounds(20, 370, 70, 50);
+
+        btnCalendario.setBackground(new java.awt.Color(255, 255, 255));
+        btnCalendario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-calendar-50.png"))); // NOI18N
+        btnCalendario.setBorder(null);
+        btnCalendario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCalendarioMouseEntered(evt);
+            }
+        });
         btnCalendario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCalendarioActionPerformed(evt);
             }
         });
+        jPanel2.add(btnCalendario);
+        btnCalendario.setBounds(363, 348, 80, 70);
 
-        lblFotoMaestro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnActualizar.setBackground(new java.awt.Color(255, 255, 255));
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-save-50.png"))); // NOI18N
+        btnActualizar.setBorder(null);
+        btnActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnActualizarMouseEntered(evt);
+            }
+        });
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnActualizar);
+        btnActualizar.setBounds(700, 360, 80, 51);
+
+        txaDescripcion.setColumns(20);
+        txaDescripcion.setRows(5);
+        jScrollPane1.setViewportView(txaDescripcion);
+
+        jPanel2.add(jScrollPane1);
+        jScrollPane1.setBounds(100, 70, 570, 260);
+
+        lblDescripcionEstatico.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        lblDescripcionEstatico.setText("Informacion del maestro");
+        jPanel2.add(lblDescripcionEstatico);
+        lblDescripcionEstatico.setBounds(100, 50, 296, 14);
+
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(0, 160, 800, 440);
+
+        jPanel1.setBackground(new java.awt.Color(22, 81, 198));
+
+        lblCubiculoEstatico.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        lblCubiculoEstatico.setForeground(new java.awt.Color(255, 255, 255));
+        lblCubiculoEstatico.setText("Cubículo");
+
+        lblNombreMaestro.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        lblNombreMaestro.setForeground(new java.awt.Color(255, 255, 255));
+        lblNombreMaestro.setText("Nombre completo del maestro");
+
+        lblBienvenido.setFont(new java.awt.Font("SansSerif", 0, 24)); // NOI18N
+        lblBienvenido.setForeground(new java.awt.Color(255, 255, 255));
+        lblBienvenido.setText("Bienvenido");
+
+        lblFotoMaestro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-user-100.png"))); // NOI18N
+        lblFotoMaestro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         lblFotoMaestro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblFotoMaestroMouseClicked(evt);
             }
         });
 
-        lblNombreMaestro.setText("Nombre completo del maestro");
-        lblNombreMaestro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        lblCalendario.setText("Calendario");
-
-        btnAtras.setText("Imagen de volver");
-        btnAtras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAtrasActionPerformed(evt);
-            }
-        });
-
-        btnActualizar.setText("Imagen de guardar");
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
-            }
-        });
-
-        lblActualizar.setText("Actualizar informacion");
-
-        lblBienvenido.setText("Bienvenido");
-
-        lblCubiculoEstatico.setText("Cubiculo");
-
-        lblDescripcionEstatico.setText("Informacion del maestro");
-
-        txaDescripcion.setColumns(20);
-        txaDescripcion.setRows(5);
-        jScrollPane1.setViewportView(txaDescripcion);
-
+        lblInfoFotoEstatico.setFont(new java.awt.Font("SansSerif", 0, 10)); // NOI18N
+        lblInfoFotoEstatico.setForeground(new java.awt.Color(204, 204, 204));
         lblInfoFotoEstatico.setText("Clic en la foto para cambiarla");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(lblFotoMaestro, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblNombreMaestro, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
-                            .addComponent(lblBienvenido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCubiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCubiculoEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnAtras)
-                                .addGap(171, 171, 171)
-                                .addComponent(btnCalendario)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(136, 136, 136)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(26, 26, 26))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblInfoFotoEstatico)
-                .addGap(524, 524, 524))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblDescripcionEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(lblInfoFotoEstatico))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(lblFotoMaestro, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblBienvenido, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNombreMaestro, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtCubiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCubiculoEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblCubiculoEstatico)
                             .addComponent(lblBienvenido))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCubiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtCubiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblNombreMaestro))
-                        .addGap(32, 32, 32))
-                    .addComponent(lblFotoMaestro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
+                        .addGap(26, 26, 26))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblFotoMaestro, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(lblInfoFotoEstatico)
-                .addGap(15, 15, 15)
-                .addComponent(lblDescripcionEstatico)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblCalendario, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblActualizar))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 800, 160);
 
         pack();
         setLocationRelativeTo(null);
@@ -273,6 +288,21 @@ public class PrincipalMaestro extends javax.swing.JFrame {
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
        cerrar();
     }//GEN-LAST:event_btnAtrasActionPerformed
+
+    private void btnAtrasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseEntered
+        // TODO add your handling code here:
+        btnAtras.setBackground(Color.lightGray);
+    }//GEN-LAST:event_btnAtrasMouseEntered
+
+    private void btnCalendarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalendarioMouseEntered
+        // TODO add your handling code here:
+        btnCalendario.setBackground(Color.lightGray);
+    }//GEN-LAST:event_btnCalendarioMouseEntered
+
+    private void btnActualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMouseEntered
+        // TODO add your handling code here:
+        btnActualizar.setBackground(Color.lightGray);
+    }//GEN-LAST:event_btnActualizarMouseEntered
 
     /**
      * @param args the command line arguments
@@ -322,10 +352,10 @@ public class PrincipalMaestro extends javax.swing.JFrame {
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnCalendario;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblActualizar;
     private javax.swing.JLabel lblBienvenido;
-    private javax.swing.JLabel lblCalendario;
     private javax.swing.JLabel lblCubiculoEstatico;
     private javax.swing.JLabel lblDescripcionEstatico;
     private javax.swing.JLabel lblFotoMaestro;
