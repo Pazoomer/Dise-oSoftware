@@ -169,21 +169,16 @@ public class CDEvento extends javax.swing.JDialog {
     private void initComponents() {
 
         pnlEvento = new javax.swing.JPanel();
-        lblInfoEventoEstatico = new javax.swing.JLabel();
         lblUbicacionEstatico = new javax.swing.JLabel();
         txtUbicacion = new javax.swing.JTextField();
         btnMapa = new javax.swing.JButton();
-        lblNombreEstatico = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
         lblDescripcionEstatico = new javax.swing.JLabel();
         txtDescripcion = new javax.swing.JTextField();
         btnAñadir = new javax.swing.JButton();
-        lblAñadir = new javax.swing.JLabel();
         cmbTipo = new javax.swing.JComboBox<>();
         lblTipoEstatico = new javax.swing.JLabel();
         btnColor = new javax.swing.JButton();
         lblEjemploEstatico = new javax.swing.JLabel();
-        lblLimpiarEstatico = new javax.swing.JLabel();
         limpiar = new javax.swing.JButton();
         chbLunes = new javax.swing.JCheckBox();
         chbMartes = new javax.swing.JCheckBox();
@@ -197,268 +192,242 @@ public class CDEvento extends javax.swing.JDialog {
         lblHora = new javax.swing.JLabel();
         cmbHora = new javax.swing.JComboBox<>();
         cmbAMPM = new javax.swing.JComboBox<>();
+        lblNombreEstatico = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
         btnAtras = new javax.swing.JButton();
+        lblInfoEventoEstatico = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(null);
 
-        lblInfoEventoEstatico.setText("Datos del evento");
+        pnlEvento.setBackground(new java.awt.Color(255, 255, 255));
+        pnlEvento.setLayout(null);
 
-        lblUbicacionEstatico.setText("Ubicacion");
+        lblUbicacionEstatico.setBackground(new java.awt.Color(255, 255, 255));
+        lblUbicacionEstatico.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        lblUbicacionEstatico.setForeground(new java.awt.Color(22, 81, 198));
+        lblUbicacionEstatico.setText(" Ubicación:");
+        lblUbicacionEstatico.setOpaque(true);
+        pnlEvento.add(lblUbicacionEstatico);
+        lblUbicacionEstatico.setBounds(220, 90, 200, 20);
+        pnlEvento.add(txtUbicacion);
+        txtUbicacion.setBounds(220, 110, 200, 30);
 
-        btnMapa.setText("Imagen de mapa");
+        btnMapa.setBackground(new java.awt.Color(255, 255, 255));
+        btnMapa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-map-30 blue.png"))); // NOI18N
+        btnMapa.setBorder(null);
+        btnMapa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnMapaMouseEntered(evt);
+            }
+        });
         btnMapa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMapaActionPerformed(evt);
             }
         });
+        pnlEvento.add(btnMapa);
+        btnMapa.setBounds(420, 110, 50, 30);
 
-        lblNombreEstatico.setText("Nombre del evento");
+        lblDescripcionEstatico.setBackground(new java.awt.Color(255, 255, 255));
+        lblDescripcionEstatico.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        lblDescripcionEstatico.setForeground(new java.awt.Color(22, 81, 198));
+        lblDescripcionEstatico.setText(" Descripcion del evento:");
+        lblDescripcionEstatico.setOpaque(true);
+        pnlEvento.add(lblDescripcionEstatico);
+        lblDescripcionEstatico.setBounds(220, 180, 138, 14);
+        pnlEvento.add(txtDescripcion);
+        txtDescripcion.setBounds(220, 200, 250, 100);
 
-        lblDescripcionEstatico.setText("Descripcion del evento");
-
-        btnAñadir.setText("Imagen de añadir");
+        btnAñadir.setBackground(new java.awt.Color(255, 255, 255));
+        btnAñadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-save-50.png"))); // NOI18N
+        btnAñadir.setBorder(null);
+        btnAñadir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAñadirMouseEntered(evt);
+            }
+        });
         btnAñadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAñadirActionPerformed(evt);
             }
         });
+        pnlEvento.add(btnAñadir);
+        btnAñadir.setBounds(110, 410, 70, 50);
 
-        lblAñadir.setText("Añadir evento");
-
+        cmbTipo.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semanal", "Unico" }));
         cmbTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbTipoActionPerformed(evt);
             }
         });
+        pnlEvento.add(cmbTipo);
+        cmbTipo.setBounds(30, 50, 160, 21);
 
-        lblTipoEstatico.setText("Tipo de evento");
+        lblTipoEstatico.setBackground(new java.awt.Color(255, 255, 255));
+        lblTipoEstatico.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        lblTipoEstatico.setForeground(new java.awt.Color(22, 81, 198));
+        lblTipoEstatico.setText(" Tipo de evento:");
+        lblTipoEstatico.setOpaque(true);
+        pnlEvento.add(lblTipoEstatico);
+        lblTipoEstatico.setBounds(30, 30, 160, 20);
 
+        btnColor.setBackground(new java.awt.Color(22, 81, 198));
+        btnColor.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        btnColor.setForeground(new java.awt.Color(255, 255, 255));
         btnColor.setText("Asignar color");
+        btnColor.setBorder(null);
         btnColor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnColorActionPerformed(evt);
             }
         });
+        pnlEvento.add(btnColor);
+        btnColor.setBounds(30, 310, 65, 15);
 
         lblEjemploEstatico.setText("EJEMPLO COLOR");
+        pnlEvento.add(lblEjemploEstatico);
+        lblEjemploEstatico.setBounds(40, 340, 82, 14);
 
-        lblLimpiarEstatico.setText("Limpiar");
-
-        limpiar.setText("imagen de limpiar");
+        limpiar.setBackground(new java.awt.Color(255, 255, 255));
+        limpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-remove-48.png"))); // NOI18N
+        limpiar.setBorder(null);
+        limpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                limpiarMouseEntered(evt);
+            }
+        });
         limpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 limpiarActionPerformed(evt);
             }
         });
+        pnlEvento.add(limpiar);
+        limpiar.setBounds(310, 410, 60, 50);
 
+        chbLunes.setBackground(new java.awt.Color(255, 255, 255));
+        chbLunes.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbLunes.setText("Lunes");
+        chbLunes.setBorder(null);
+        pnlEvento.add(chbLunes);
+        chbLunes.setBounds(30, 80, 85, 15);
 
+        chbMartes.setBackground(new java.awt.Color(255, 255, 255));
+        chbMartes.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbMartes.setText("Martes");
+        chbMartes.setBorder(null);
+        pnlEvento.add(chbMartes);
+        chbMartes.setBounds(30, 100, 85, 15);
 
+        chbMiercoles.setBackground(new java.awt.Color(255, 255, 255));
+        chbMiercoles.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbMiercoles.setText("Miercoles");
+        chbMiercoles.setBorder(null);
+        chbMiercoles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbMiercolesActionPerformed(evt);
+            }
+        });
+        pnlEvento.add(chbMiercoles);
+        chbMiercoles.setBounds(30, 120, 85, 15);
 
+        chbJueves.setBackground(new java.awt.Color(255, 255, 255));
+        chbJueves.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbJueves.setText("Jueves");
+        chbJueves.setBorder(null);
+        chbJueves.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbJuevesActionPerformed(evt);
+            }
+        });
+        pnlEvento.add(chbJueves);
+        chbJueves.setBounds(30, 140, 85, 15);
 
+        chbViernes.setBackground(new java.awt.Color(255, 255, 255));
+        chbViernes.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbViernes.setText("Viernes");
+        chbViernes.setBorder(null);
+        pnlEvento.add(chbViernes);
+        chbViernes.setBounds(120, 80, 85, 15);
 
+        chbSabado.setBackground(new java.awt.Color(255, 255, 255));
+        chbSabado.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbSabado.setText("Sabado");
+        chbSabado.setBorder(null);
+        pnlEvento.add(chbSabado);
+        chbSabado.setBounds(120, 100, 85, 15);
 
+        chbDomingo.setBackground(new java.awt.Color(255, 255, 255));
+        chbDomingo.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbDomingo.setText("Domingo");
+        chbDomingo.setBorder(null);
+        pnlEvento.add(chbDomingo);
+        chbDomingo.setBounds(120, 120, 85, 15);
+        pnlEvento.add(dtcFecha);
+        dtcFecha.setBounds(30, 200, 160, 20);
 
-        lblFecha.setText("Fecha");
+        lblFecha.setBackground(new java.awt.Color(255, 255, 255));
+        lblFecha.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        lblFecha.setForeground(new java.awt.Color(22, 81, 198));
+        lblFecha.setText(" Fecha:");
+        lblFecha.setOpaque(true);
+        pnlEvento.add(lblFecha);
+        lblFecha.setBounds(30, 176, 160, 20);
 
-        lblHora.setText("Hora");
+        lblHora.setBackground(new java.awt.Color(255, 255, 255));
+        lblHora.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        lblHora.setForeground(new java.awt.Color(22, 81, 198));
+        lblHora.setText(" Hora:");
+        lblHora.setOpaque(true);
+        pnlEvento.add(lblHora);
+        lblHora.setBounds(30, 240, 160, 20);
 
         cmbHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00", "7:30", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30" }));
+        pnlEvento.add(cmbHora);
+        cmbHora.setBounds(30, 260, 68, 20);
 
         cmbAMPM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AM", "PM" }));
+        pnlEvento.add(cmbAMPM);
+        cmbAMPM.setBounds(100, 260, 59, 20);
 
-        javax.swing.GroupLayout pnlEventoLayout = new javax.swing.GroupLayout(pnlEvento);
-        pnlEvento.setLayout(pnlEventoLayout);
-        pnlEventoLayout.setHorizontalGroup(
-            pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlEventoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlEventoLayout.createSequentialGroup()
-                        .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlEventoLayout.createSequentialGroup()
-                                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEventoLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblAñadir)
-                                        .addGap(5, 5, 5))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEventoLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(lblEjemploEstatico)))
-                                .addGap(32, 32, 32))
-                            .addGroup(pnlEventoLayout.createSequentialGroup()
-                                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnColor)
-                                    .addGroup(pnlEventoLayout.createSequentialGroup()
-                                        .addComponent(cmbHora, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cmbAMPM, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEventoLayout.createSequentialGroup()
-                                .addComponent(lblLimpiarEstatico)
-                                .addGap(110, 110, 110))
-                            .addGroup(pnlEventoLayout.createSequentialGroup()
-                                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblDescripcionEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(68, 68, 68))))
-                    .addGroup(pnlEventoLayout.createSequentialGroup()
-                        .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlEventoLayout.createSequentialGroup()
-                                .addComponent(btnAñadir)
-                                .addGap(78, 78, 78)
-                                .addComponent(limpiar))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlEventoLayout.createSequentialGroup()
-                                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblTipoEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblNombreEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblInfoEventoEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(pnlEventoLayout.createSequentialGroup()
-                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlEventoLayout.createSequentialGroup()
-                        .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dtcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlEventoLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblHora, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(31, 31, 31)
-                        .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlEventoLayout.createSequentialGroup()
-                                .addComponent(txtUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblUbicacionEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(pnlEventoLayout.createSequentialGroup()
-                        .addComponent(chbLunes, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(chbJueves, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(chbDomingo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlEventoLayout.createSequentialGroup()
-                        .addComponent(chbMartes, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(chbViernes, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlEventoLayout.createSequentialGroup()
-                        .addComponent(chbMiercoles, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(chbSabado, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        pnlEventoLayout.setVerticalGroup(
-            pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlEventoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblInfoEventoEstatico)
-                .addGap(18, 18, 18)
-                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlEventoLayout.createSequentialGroup()
-                        .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblTipoEstatico)
-                            .addComponent(lblNombreEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(chbLunes)
-                            .addComponent(chbJueves)
-                            .addComponent(chbDomingo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(chbMartes)
-                            .addComponent(chbViernes))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(chbMiercoles)
-                            .addComponent(chbSabado))
-                        .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlEventoLayout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addComponent(lblUbicacionEstatico)
-                                .addGap(6, 6, 6)
-                                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(pnlEventoLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblFecha)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dtcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblHora)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblDescripcionEstatico))
-                    .addGroup(pnlEventoLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmbHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbAMPM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(pnlEventoLayout.createSequentialGroup()
-                        .addComponent(btnColor)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblEjemploEstatico))
-                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblAñadir)
-                    .addComponent(lblLimpiarEstatico))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlEventoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAñadir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13))
-        );
+        lblNombreEstatico.setBackground(new java.awt.Color(255, 255, 255));
+        lblNombreEstatico.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        lblNombreEstatico.setForeground(new java.awt.Color(22, 81, 198));
+        lblNombreEstatico.setText(" Nombre del evento:");
+        lblNombreEstatico.setOpaque(true);
+        pnlEvento.add(lblNombreEstatico);
+        lblNombreEstatico.setBounds(220, 30, 250, 20);
+        pnlEvento.add(txtNombre);
+        txtNombre.setBounds(220, 50, 250, 28);
 
-        btnAtras.setText("Imagen de volver");
+        btnAtras.setBackground(new java.awt.Color(255, 255, 255));
+        btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-return-50.png"))); // NOI18N
+        btnAtras.setBorder(null);
+        btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAtrasMouseEntered(evt);
+            }
+        });
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAtrasActionPerformed(evt);
             }
         });
+        pnlEvento.add(btnAtras);
+        btnAtras.setBounds(10, 470, 50, 40);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnAtras)
-                .addContainerGap(240, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(pnlEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 362, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(477, Short.MAX_VALUE)
-                .addComponent(btnAtras)
-                .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(10, 10, 10)
-                    .addComponent(pnlEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(70, Short.MAX_VALUE)))
-        );
+        getContentPane().add(pnlEvento);
+        pnlEvento.setBounds(0, 60, 500, 520);
+
+        lblInfoEventoEstatico.setBackground(new java.awt.Color(22, 81, 198));
+        lblInfoEventoEstatico.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        lblInfoEventoEstatico.setForeground(new java.awt.Color(255, 255, 255));
+        lblInfoEventoEstatico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-note-50.png"))); // NOI18N
+        lblInfoEventoEstatico.setText("Datos del evento");
+        lblInfoEventoEstatico.setOpaque(true);
+        getContentPane().add(lblInfoEventoEstatico);
+        lblInfoEventoEstatico.setBounds(0, 0, 500, 60);
 
         pack();
         setLocationRelativeTo(null);
@@ -487,6 +456,34 @@ public class CDEvento extends javax.swing.JDialog {
     private void cmbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoActionPerformed
         actualizarPermisos();
     }//GEN-LAST:event_cmbTipoActionPerformed
+
+    private void btnAtrasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseEntered
+        // TODO add your handling code here:
+        btnAtras.setBackground(Color.lightGray);
+    }//GEN-LAST:event_btnAtrasMouseEntered
+
+    private void limpiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limpiarMouseEntered
+        // TODO add your handling code here:
+        limpiar.setBackground(Color.lightGray);
+    }//GEN-LAST:event_limpiarMouseEntered
+
+    private void btnAñadirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAñadirMouseEntered
+        // TODO add your handling code here:
+        btnAñadir.setBackground(Color.lightGray);
+    }//GEN-LAST:event_btnAñadirMouseEntered
+
+    private void btnMapaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMapaMouseEntered
+        // TODO add your handling code here:
+        btnMapa.setBackground(Color.lightGray);
+    }//GEN-LAST:event_btnMapaMouseEntered
+
+    private void chbJuevesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbJuevesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chbJuevesActionPerformed
+
+    private void chbMiercolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbMiercolesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chbMiercolesActionPerformed
 
     private void actualizarPermisos(){
       if (this.cmbTipo.getSelectedItem().equals("Unico")) {
@@ -535,13 +532,11 @@ public class CDEvento extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cmbHora;
     private javax.swing.JComboBox<String> cmbTipo;
     private com.toedter.calendar.JDateChooser dtcFecha;
-    private javax.swing.JLabel lblAñadir;
     private javax.swing.JLabel lblDescripcionEstatico;
     private javax.swing.JLabel lblEjemploEstatico;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblHora;
     private javax.swing.JLabel lblInfoEventoEstatico;
-    private javax.swing.JLabel lblLimpiarEstatico;
     private javax.swing.JLabel lblNombreEstatico;
     private javax.swing.JLabel lblTipoEstatico;
     private javax.swing.JLabel lblUbicacionEstatico;
