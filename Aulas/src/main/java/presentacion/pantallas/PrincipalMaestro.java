@@ -1,16 +1,19 @@
 
 package presentacion.pantallas;
 
+import DTOS.evento.EventoConsultableDTO;
 import DTOS.maestro.MaestroEditableDTO;
 import excepciones.PersistenciaException;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import subsistemas.accesoMaestro.IAccesoMaestro;
 import subsistemas.accesoMaestro.FachadaEditarMaestro;
 import subsistemas.recuperarMaestro.IRecuperarMaestro;
@@ -58,22 +61,21 @@ public class PrincipalMaestro extends javax.swing.JFrame {
      * Toma los campos de texto y foto de perfil y la guarda en la base de datos actualizando el perfil de maestro
      */
     private void editarInformacion(){
-        //TODO
-        //Mostrar un cuadro de dialogo donde se le pregunte confirmacion para editar su información
         String descripcion=this.txaDescripcion.getText();
         String cubiculo=this.txtCubiculo.getText();
         Icon foto=this.lblFotoMaestro.getIcon();
         
         accesoM=new FachadaEditarMaestro();
+        List<EventoConsultableDTO> calendarioAuxiliar=maestro.getCalendario();
     
         MaestroEditableDTO maestroAuxiliar=new MaestroEditableDTO(maestro.getId(),maestro.getNombre(),cubiculo,descripcion,foto);
         try {
             maestro=accesoM.editarMaestro(maestroAuxiliar);
+            maestro.setCalendario(calendarioAuxiliar);
         } catch (PersistenciaException ex) {
             Logger.getLogger(PrincipalMaestro.class.getName()).log(Level.SEVERE, "No se pudo actualizar la informacion en la base de datos", ex);
         }
-        //TODO
-        //Mostrar un mensaje diciendo que la actualizacion fue exitosa
+        JOptionPane.showMessageDialog(null, "Se actualizo su informacion", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);   
     }
 
     /**
@@ -94,8 +96,9 @@ public class PrincipalMaestro extends javax.swing.JFrame {
 
     }
 
-    //TODO
-    //Al dar clic en el boton de calendario deberia desplegarse el frame PrincipalCalendario y ocultarse este frame
+    /**
+     * Al dar clic en el boton de calendario deberia desplegarse el frame PrincipalCalendario y ocultarse este frame
+     */
     private void abrirCalendario() {
         new PrincipalCalendario(this, maestro).setVisible(true);
         this.setVisible(false);
@@ -293,12 +296,12 @@ public class PrincipalMaestro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtrasMouseEntered
 
     private void btnCalendarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalendarioMouseEntered
-        // TODO add your handling code here:
+
         btnCalendario.setBackground(Color.lightGray);
     }//GEN-LAST:event_btnCalendarioMouseEntered
 
     private void btnActualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMouseEntered
-        // TODO add your handling code here:
+
         btnActualizar.setBackground(Color.lightGray);
     }//GEN-LAST:event_btnActualizarMouseEntered
 

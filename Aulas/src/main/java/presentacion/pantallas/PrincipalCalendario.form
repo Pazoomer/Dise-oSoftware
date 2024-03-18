@@ -6,7 +6,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <Events>
     <EventHandler event="windowClosed" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosed"/>
@@ -49,10 +49,6 @@
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                          <Component id="btnAtras" min="-2" pref="59" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                           <Component id="btnAñadirEvento" min="-2" pref="84" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
@@ -66,6 +62,10 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="calEsquinaSuperior" min="-2" pref="261" max="-2" attributes="0"/>
                       </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="btnAtras" min="-2" pref="59" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace pref="27" max="32767" attributes="0"/>
                   <Component id="pnlCalendario" min="-2" max="-2" attributes="0"/>
@@ -77,7 +77,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="calEsquinaSuperior" min="-2" pref="204" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
@@ -85,14 +85,20 @@
                               <Component id="btnEditarEvento" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                               <Component id="btnAñadirEvento" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                          <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
-                          <Component id="btnAtras" min="-2" pref="47" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                                  <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="btnAtras" min="-2" pref="47" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                       <Component id="pnlCalendario" min="-2" pref="473" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="87" max="32767" attributes="0"/>
+                  <EmptySpace pref="104" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -148,7 +154,7 @@
         <Component class="javax.swing.JButton" name="btnGuardar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/icons8-save-50.png"/>
+              <Image iconType="2" name="C:\GitHub\Disenio de software\Dise-oSoftware\Aulas\icons8-save-50.png"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
@@ -162,7 +168,7 @@
         <Component class="javax.swing.JButton" name="btnAtras">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/icons8-return-50.png"/>
+              <Image iconType="2" name="C:\GitHub\Disenio de software\Dise-oSoftware\Aulas\icons8-return-50.png"/>
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
@@ -267,7 +273,7 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagenes/icons8-calendar-50white.png"/>
+              <Image iconType="2" name="C:\GitHub\Disenio de software\Dise-oSoftware\Aulas\icons8-calendar-50white.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Calendario"/>
           </Properties>

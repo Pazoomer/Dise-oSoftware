@@ -15,7 +15,7 @@ public class MaestroEditableDTO {
     private final String cubiculo;
     private final String descripcion;
     private final Icon foto;
-    private final List<EventoConsultableDTO> calendario;   
+    private List<EventoConsultableDTO> calendario;   
 
     /**
      * Constructor con todos los atributos
@@ -93,6 +93,9 @@ public class MaestroEditableDTO {
     public List<EventoConsultableDTO> getCalendario() {
         return calendario;
     }
-    
-    
+
+    public void setCalendario(List<EventoConsultableDTO> calendario) {
+        this.calendario = calendario;
+    }
+
 }

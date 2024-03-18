@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import presentacion.pantallas.MapaCalendario;
 import presentacion.pantallas.PrincipalCalendario;
 
@@ -31,6 +32,7 @@ public class CDEvento extends javax.swing.JDialog {
         initComponents();
         this.calendario=calendario;
         this.parent=parent;
+        this.setSize(500, 620);
         actualizarPermisos();
     }
     
@@ -66,27 +68,33 @@ public class CDEvento extends javax.swing.JDialog {
         if (hora==null) {
             hora="7:00";
         }
-        int[] horaNumerica=convertirHora(hora);
-        
-        if (fecha==null && tipo.equalsIgnoreCase("unico")) {
-            //TODO
-            //MOSTRAR MENSAJE DE ERROR DE QUE NO HAY FECHA PARA EL EVENTO        
-            return;
-        }else if (fecha==null && tipo.equalsIgnoreCase("semanal")) {
-            fecha=new Date();
-        }
-        
+        int[] horaNumerica = convertirHora(hora);
 
-        
+        int dias=0;
+        for (int i = 0; i < 7; i++) {
+            if (diasSemana[i]==true) {
+                dias++;
+            }
+        }
+        if (dias==0) {
+           JOptionPane.showMessageDialog(null, "Debes seleccionar al menos un dia de la semana para los eventos semanales", "Mensaje de error", JOptionPane.INFORMATION_MESSAGE);
+            return; 
+        }
+        if (fecha == null && tipo.equalsIgnoreCase("unico")) {
+            JOptionPane.showMessageDialog(null, "Debes colocar una fecha para los eventos unicos", "Mensaje de error", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        } else if (fecha == null && tipo.equalsIgnoreCase("semanal")) {
+            fecha = new Date();
+        }
+
         if (AMPM.equalsIgnoreCase("PM")) {
-            horaNumerica[0]=horaNumerica[0]+12;
+            horaNumerica[0] = horaNumerica[0] + 12;
         }
 
         if (horaNumerica[0] == 12) {
             horaNumerica[0] = 0;
         } else if (horaNumerica[0] < 7 || horaNumerica[0] > 19) {
-            //TODO
-            //MOSTRAR MENSAJE DE QUE NO SE PUEDEN HACER EVENTOS FUERA DE HORARIO ESCOLAR
+            JOptionPane.showMessageDialog(null, "No se pueden jacer eventos fuera del horario escolar (7:00 AM - 7:30 PM)", "Mensaje de error", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         
@@ -96,17 +104,15 @@ public class CDEvento extends javax.swing.JDialog {
             calendar.set(Calendar.HOUR_OF_DAY,horaNumerica[0] );
             calendar.set(Calendar.MINUTE,horaNumerica[1] );
         } catch (Exception e) {
-            e.printStackTrace();
-            //TODO
-            //Mostrar mensaje de que la fecha no es valida
+            JOptionPane.showMessageDialog(null, "La fecha no es valida", "Mensaje de error", JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
         if (calendar==null) {
-            System.out.println("calendario null");
-            //TODO
-            //Mostrar mensaje de que la fecha no es valida
+            JOptionPane.showMessageDialog(null, "La fecha no es valida", "Mensaje de error", JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
- 
         EventoConsultableDTO evento = new EventoConsultableDTO(tipo, nombre, descripcion, color, diasSemana, ubicacion, calendar);
+        JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
         System.out.println(evento);
         calendario.añadirEvento(evento);
 
@@ -161,7 +167,15 @@ public class CDEvento extends javax.swing.JDialog {
        txtDescripcion.setText("");
         txtNombre.setText("");
         txtUbicacion.setText("");
-        this.dtcFecha.setDate(Calendar.getInstance().getTime()); 
+        this.dtcFecha.setDate(null);
+        this.chbLunes.setSelected(false);
+        this.chbMartes.setSelected(false);
+        this.chbMiercoles.setSelected(false);
+        this.chbJueves.setSelected(false);
+        this.chbViernes.setSelected(false);
+        this.chbSabado.setSelected(false);
+        this.chbDomingo.setSelected(false);
+        actualizarPermisos();
     }
     
     @SuppressWarnings("unchecked")
@@ -213,8 +227,7 @@ public class CDEvento extends javax.swing.JDialog {
         pnlEvento.add(txtUbicacion);
         txtUbicacion.setBounds(220, 110, 200, 30);
 
-        btnMapa.setBackground(new java.awt.Color(255, 255, 255));
-        btnMapa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-map-30 blue.png"))); // NOI18N
+        btnMapa.setIcon(new javax.swing.ImageIcon("C:\\GitHub\\Disenio de software\\Dise-oSoftware\\Aulas\\icons8-map-30 blue.png")); // NOI18N
         btnMapa.setBorder(null);
         btnMapa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -239,8 +252,7 @@ public class CDEvento extends javax.swing.JDialog {
         pnlEvento.add(txtDescripcion);
         txtDescripcion.setBounds(220, 200, 250, 100);
 
-        btnAñadir.setBackground(new java.awt.Color(255, 255, 255));
-        btnAñadir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-save-50.png"))); // NOI18N
+        btnAñadir.setIcon(new javax.swing.ImageIcon("C:\\GitHub\\Disenio de software\\Dise-oSoftware\\Aulas\\icons8-save-50.png")); // NOI18N
         btnAñadir.setBorder(null);
         btnAñadir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -253,7 +265,7 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(btnAñadir);
-        btnAñadir.setBounds(110, 410, 70, 50);
+        btnAñadir.setBounds(300, 400, 70, 50);
 
         cmbTipo.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semanal", "Unico" }));
@@ -284,14 +296,13 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(btnColor);
-        btnColor.setBounds(30, 310, 65, 15);
+        btnColor.setBounds(30, 305, 140, 20);
 
         lblEjemploEstatico.setText("EJEMPLO COLOR");
         pnlEvento.add(lblEjemploEstatico);
-        lblEjemploEstatico.setBounds(40, 340, 82, 14);
+        lblEjemploEstatico.setBounds(30, 340, 140, 16);
 
-        limpiar.setBackground(new java.awt.Color(255, 255, 255));
-        limpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-remove-48.png"))); // NOI18N
+        limpiar.setIcon(new javax.swing.ImageIcon("C:\\GitHub\\Disenio de software\\Dise-oSoftware\\Aulas\\icons8-remove-48.png")); // NOI18N
         limpiar.setBorder(null);
         limpiar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -304,21 +315,21 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(limpiar);
-        limpiar.setBounds(310, 410, 60, 50);
+        limpiar.setBounds(110, 400, 60, 50);
 
         chbLunes.setBackground(new java.awt.Color(255, 255, 255));
         chbLunes.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbLunes.setText("Lunes");
         chbLunes.setBorder(null);
         pnlEvento.add(chbLunes);
-        chbLunes.setBounds(30, 80, 85, 15);
+        chbLunes.setBounds(30, 80, 85, 17);
 
         chbMartes.setBackground(new java.awt.Color(255, 255, 255));
         chbMartes.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbMartes.setText("Martes");
         chbMartes.setBorder(null);
         pnlEvento.add(chbMartes);
-        chbMartes.setBounds(30, 100, 85, 15);
+        chbMartes.setBounds(30, 100, 85, 17);
 
         chbMiercoles.setBackground(new java.awt.Color(255, 255, 255));
         chbMiercoles.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
@@ -330,7 +341,7 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(chbMiercoles);
-        chbMiercoles.setBounds(30, 120, 85, 15);
+        chbMiercoles.setBounds(30, 120, 85, 17);
 
         chbJueves.setBackground(new java.awt.Color(255, 255, 255));
         chbJueves.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
@@ -342,30 +353,30 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(chbJueves);
-        chbJueves.setBounds(30, 140, 85, 15);
+        chbJueves.setBounds(30, 140, 85, 17);
 
         chbViernes.setBackground(new java.awt.Color(255, 255, 255));
         chbViernes.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbViernes.setText("Viernes");
         chbViernes.setBorder(null);
         pnlEvento.add(chbViernes);
-        chbViernes.setBounds(120, 80, 85, 15);
+        chbViernes.setBounds(120, 80, 85, 17);
 
         chbSabado.setBackground(new java.awt.Color(255, 255, 255));
         chbSabado.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbSabado.setText("Sabado");
         chbSabado.setBorder(null);
         pnlEvento.add(chbSabado);
-        chbSabado.setBounds(120, 100, 85, 15);
+        chbSabado.setBounds(120, 100, 85, 17);
 
         chbDomingo.setBackground(new java.awt.Color(255, 255, 255));
         chbDomingo.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbDomingo.setText("Domingo");
         chbDomingo.setBorder(null);
         pnlEvento.add(chbDomingo);
-        chbDomingo.setBounds(120, 120, 85, 15);
+        chbDomingo.setBounds(120, 120, 85, 17);
         pnlEvento.add(dtcFecha);
-        dtcFecha.setBounds(30, 200, 160, 20);
+        dtcFecha.setBounds(30, 200, 160, 30);
 
         lblFecha.setBackground(new java.awt.Color(255, 255, 255));
         lblFecha.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -385,11 +396,11 @@ public class CDEvento extends javax.swing.JDialog {
 
         cmbHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00", "7:30", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30" }));
         pnlEvento.add(cmbHora);
-        cmbHora.setBounds(30, 260, 68, 20);
+        cmbHora.setBounds(30, 260, 68, 22);
 
         cmbAMPM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AM", "PM" }));
         pnlEvento.add(cmbAMPM);
-        cmbAMPM.setBounds(100, 260, 59, 20);
+        cmbAMPM.setBounds(100, 260, 59, 22);
 
         lblNombreEstatico.setBackground(new java.awt.Color(255, 255, 255));
         lblNombreEstatico.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -401,8 +412,7 @@ public class CDEvento extends javax.swing.JDialog {
         pnlEvento.add(txtNombre);
         txtNombre.setBounds(220, 50, 250, 28);
 
-        btnAtras.setBackground(new java.awt.Color(255, 255, 255));
-        btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-return-50.png"))); // NOI18N
+        btnAtras.setIcon(new javax.swing.ImageIcon("C:\\GitHub\\Disenio de software\\Dise-oSoftware\\Aulas\\icons8-return-50.png")); // NOI18N
         btnAtras.setBorder(null);
         btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -423,14 +433,13 @@ public class CDEvento extends javax.swing.JDialog {
         lblInfoEventoEstatico.setBackground(new java.awt.Color(22, 81, 198));
         lblInfoEventoEstatico.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         lblInfoEventoEstatico.setForeground(new java.awt.Color(255, 255, 255));
-        lblInfoEventoEstatico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-note-50.png"))); // NOI18N
+        lblInfoEventoEstatico.setIcon(new javax.swing.ImageIcon("C:\\GitHub\\Disenio de software\\Dise-oSoftware\\Aulas\\icons8-note-50.png")); // NOI18N
         lblInfoEventoEstatico.setText("Datos del evento");
         lblInfoEventoEstatico.setOpaque(true);
         getContentPane().add(lblInfoEventoEstatico);
         lblInfoEventoEstatico.setBounds(0, 0, 500, 60);
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMapaActionPerformed
@@ -502,6 +511,8 @@ public class CDEvento extends javax.swing.JDialog {
             this.chbViernes.setEnabled(false);
             this.chbSabado.setEnabled(false);
             this.chbDomingo.setEnabled(false);
+            
+            this.dtcFecha.setEnabled(true);
         }else if (this.cmbTipo.getSelectedItem().equals("Semanal")) {
             this.chbLunes.setEnabled(true);
             this.chbMartes.setEnabled(true);

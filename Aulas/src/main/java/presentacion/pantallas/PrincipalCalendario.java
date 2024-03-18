@@ -43,6 +43,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         tablaEventos.setModel(model2);
         //cargarTablaEventos();
         this.setVisible(true);
+        this.setSize(800, 630);
     }
     
     //establece la fecha del dateChooser a la fecha actual
@@ -264,7 +265,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             }
         });
 
-        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-save-50.png"))); // NOI18N
+        btnGuardar.setIcon(new javax.swing.ImageIcon("C:\\GitHub\\Disenio de software\\Dise-oSoftware\\Aulas\\icons8-save-50.png")); // NOI18N
         btnGuardar.setBorder(null);
         btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -277,7 +278,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             }
         });
 
-        btnAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-return-50.png"))); // NOI18N
+        btnAtras.setIcon(new javax.swing.ImageIcon("C:\\GitHub\\Disenio de software\\Dise-oSoftware\\Aulas\\icons8-return-50.png")); // NOI18N
         btnAtras.setBorder(null);
         btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -328,9 +329,6 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addComponent(btnAñadirEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
@@ -340,7 +338,10 @@ public class PrincipalCalendario extends javax.swing.JFrame {
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(calEsquinaSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(calEsquinaSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(pnlCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42))
@@ -349,19 +350,22 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(calEsquinaSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnEditarEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAñadirEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(39, 39, 39)
-                        .addComponent(btnGuardar)
-                        .addGap(82, 82, 82)
-                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addComponent(btnGuardar))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(pnlCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1);
@@ -371,7 +375,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/icons8-calendar-50white.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\GitHub\\Disenio de software\\Dise-oSoftware\\Aulas\\icons8-calendar-50white.png")); // NOI18N
         jLabel1.setText("Calendario");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -394,7 +398,6 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         jPanel2.setBounds(0, 0, 800, 80);
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
