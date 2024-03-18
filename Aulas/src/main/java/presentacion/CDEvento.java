@@ -31,6 +31,7 @@ public class CDEvento extends javax.swing.JDialog {
         initComponents();
         this.calendario=calendario;
         this.parent=parent;
+        actualizarPermisos();
     }
     
     public CDEvento(java.awt.Frame parent,PrincipalCalendario calendario,EventoConsultableDTO eventoEditable , boolean modal) {
@@ -60,12 +61,35 @@ public class CDEvento extends javax.swing.JDialog {
         diasSemana[4]=this.chbViernes.isSelected();
         diasSemana[5]=this.chbSabado.isSelected();
         diasSemana[6]=this.chbDomingo.isSelected();
+        String AMPM=(String)this.cmbAMPM.getSelectedItem();
         String hora=(String)this.cmbHora.getSelectedItem();
-        int[] horaNumerica=convertirHora(hora);
-        if (horaNumerica[0]==12) {
-            horaNumerica[0]=0;
+        if (hora==null) {
+            hora="7:00";
         }
-        System.out.println(Arrays.toString(horaNumerica));
+        int[] horaNumerica=convertirHora(hora);
+        
+        if (fecha==null && tipo.equalsIgnoreCase("unico")) {
+            //TODO
+            //MOSTRAR MENSAJE DE ERROR DE QUE NO HAY FECHA PARA EL EVENTO        
+            return;
+        }else if (fecha==null && tipo.equalsIgnoreCase("semanal")) {
+            fecha=new Date();
+        }
+        
+
+        
+        if (AMPM.equalsIgnoreCase("PM")) {
+            horaNumerica[0]=horaNumerica[0]+12;
+        }
+
+        if (horaNumerica[0] == 12) {
+            horaNumerica[0] = 0;
+        } else if (horaNumerica[0] < 7 || horaNumerica[0] > 19) {
+            //TODO
+            //MOSTRAR MENSAJE DE QUE NO SE PUEDEN HACER EVENTOS FUERA DE HORARIO ESCOLAR
+            return;
+        }
+        
         try {
             calendar = Calendar.getInstance();
             calendar.setTime(fecha);
@@ -246,7 +270,7 @@ public class CDEvento extends javax.swing.JDialog {
 
         lblHora.setText("Hora");
 
-        cmbHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "7:00 ", "7:30", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00", "7:30" }));
+        cmbHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1:00", "1:30", "2:00", "2:30", "3:00", "3:30", "4:00", "4:30", "5:00", "5:30", "6:00", "6:30", "7:00", "7:30", "8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30" }));
 
         cmbAMPM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AM", "PM" }));
 
@@ -461,7 +485,11 @@ public class CDEvento extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void cmbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoActionPerformed
-        if (this.cmbTipo.getSelectedItem().equals("Unico")) {
+        actualizarPermisos();
+    }//GEN-LAST:event_cmbTipoActionPerformed
+
+    private void actualizarPermisos(){
+      if (this.cmbTipo.getSelectedItem().equals("Unico")) {
             this.chbLunes.setSelected(false);
             this.chbMartes.setSelected(false);
             this.chbMiercoles.setSelected(false);
@@ -485,9 +513,11 @@ public class CDEvento extends javax.swing.JDialog {
             this.chbViernes.setEnabled(true);
             this.chbSabado.setEnabled(true);
             this.chbDomingo.setEnabled(true);
-        }
-    }//GEN-LAST:event_cmbTipoActionPerformed
-
+            
+            this.dtcFecha.setEnabled(false);
+            this.dtcFecha.setDate(null);
+        }  
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
