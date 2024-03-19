@@ -80,7 +80,7 @@ public class CDEvento extends javax.swing.JDialog {
         String nombre = this.txtNombre.getText();
         String ubicacion = this.txtUbicacion.getText();
         Calendar fecha=Calendar.getInstance();
-        if(tipo.equals("Unico"))
+        if(tipo.equalsIgnoreCase("Unico"))
             fecha = this.dtcFecha.getCalendar();
         Color color = this.lblEjemploEstatico.getForeground();
         float horasDuracion=Float.parseFloat((String)cmbDuracionEvento.getSelectedItem());
@@ -93,7 +93,6 @@ public class CDEvento extends javax.swing.JDialog {
             } 
         }
         
-        Calendar fechaN=Calendar.getInstance();
         String horaSeleccionada=(String)cmbHora.getSelectedItem();
         int hora=Integer.parseInt(horaSeleccionada.substring(0, 2));
         int minutos=Integer.parseInt(horaSeleccionada.substring(3));
@@ -102,13 +101,13 @@ public class CDEvento extends javax.swing.JDialog {
         
         EventoConsultableDTO eventoN;
         
-        if(tipo.equalsIgnoreCase("unico")){
+//        if(tipo.equalsIgnoreCase("unico")){
             eventoN=new EventoConsultableDTO(tipo, nombre, descripcion, color, 
                 diasSemana, ubicacion, fecha, horaInicio, horasDuracion);
-        }else{
-            eventoN=new EventoConsultableDTO(tipo, nombre, descripcion, color, 
-                diasSemana, ubicacion, fechaN, horaInicio, horasDuracion);
-        }
+//        }else{
+//            eventoN=new EventoConsultableDTO(tipo, nombre, descripcion, color, 
+//                diasSemana, ubicacion, fecha, horaInicio, horasDuracion);
+//        }
         
         JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
         calendario.añadirEvento(eventoN);

@@ -146,7 +146,8 @@ public class PrincipalCalendario extends javax.swing.JFrame {
                if (minutoEvento > 0) {
                    System.out.println("hora evento: " + horaEvento + ":" + minutoEvento);
                    System.out.println("columna dia evento: " + diaEvento);
-                   if (horaCelda.equals(horaEvento + ":" + minutoEvento)) {
+                   if (horaCelda.equals(horaEvento + ":" + minutoEvento) ||
+                           horaCelda.equals("0"+horaEvento + ":" + minutoEvento)) {
                        System.out.println("se encontro la celda: " + horaCelda);
                        modelo.setValueAt(evento.getNombre(), i, diaEvento);
                        agregarEventoASemana(evento, semana);
