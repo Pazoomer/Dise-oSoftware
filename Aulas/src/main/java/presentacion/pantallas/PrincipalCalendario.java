@@ -63,7 +63,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     }
 
     private List<EventoConsultableDTO> cargarEventosDelDia(int dia){
-       List<String> eventosDelDia=new ArrayList<>();
+       List<EventoConsultableDTO> eventosDelDia=new ArrayList<>();
         for(EventoConsultableDTO evento:calendarioMes){
             if (evento.getFechaInicio().get(Calendar.DAY_OF_MONTH) == dia) {
                 eventosDelDia.add(evento);
@@ -448,9 +448,6 @@ public class PrincipalCalendario extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(22, 81, 198));
 
-        jLabel1.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Calendario");
         lblTituloCalendario.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         lblTituloCalendario.setForeground(new java.awt.Color(255, 255, 255));
         lblTituloCalendario.setText("Calendario");
