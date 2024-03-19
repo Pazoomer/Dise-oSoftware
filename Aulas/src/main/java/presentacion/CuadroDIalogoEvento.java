@@ -7,6 +7,6 @@ import javax.swing.JDialog;
  *
  * @author t1pas
  */
-public class CuadroDialogoEvento extends JDialog {
+public class CuadroDialogoEvento extends JDialog{
     
 }

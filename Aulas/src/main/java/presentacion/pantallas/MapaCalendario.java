@@ -1,7 +1,10 @@
-
 package presentacion.pantallas;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import presentacion.CDEvento;
 
@@ -12,27 +15,68 @@ import presentacion.CDEvento;
 public class MapaCalendario extends javax.swing.JFrame {
 
     CDEvento cdEvento;
+    private int w = 0;
+    private int h = 0;
+    private Image img = null;
     private String ubicacion;
+
     /**
      * Creates new form MapaCalendario
+     *
      * @param cdEvento
      */
     public MapaCalendario(CDEvento cdEvento) {
         initComponents();
-        this.cdEvento=cdEvento;
+        this.cdEvento = cdEvento;
         setMapa("Obregon Nainari");
         this.setSize(800, 600);
+        cargarIconos();
+        actualizarImagenMapa();
+
+    }
+
+    /**
+     * Carga los iconos en los botones de la interfaz.
+     */
+    private void cargarIconos() {
+        // Carga el icono de retorno en el botón btnAtras
+        ImageIcon iconoReturn = new ImageIcon(getClass().getResource("/imagenes/icons8-return-50.png"));
+        btnAtras.setIcon(iconoReturn);
+        // Carga el icono de guardar en el botón btnGuardar
+        ImageIcon iconoGuardar = new ImageIcon(getClass().getResource("/imagenes/icons8-save-50.png"));
+        btnGuardar.setIcon(iconoGuardar);
+    }
+
+    /**
+     * Actualiza la imagen en el JLabel lblImageMap con una imagen de un campus
+     * y establece iconos en los botones btnZoomIn y btnZoomOut.
+     */
+    private void actualizarImagenMapa() {
+        // Obtiene el alto y ancho del JScrollPane jScrollPane1
+        w = jScrollPane1.getHeight();
+        h = jScrollPane1.getWidth();
+        // Carga la imagen del campus desde el recurso
+        img = new ImageIcon(getClass().getResource("/imagenes/campus-nainari.jpg")).getImage();
+        // Escala la imagen al tamaño del JScrollPane
+        ImageIcon icon = new ImageIcon(zoom(h, w, img));
+        // Establece la imagen en el JLabel lblImageMap
+        lblImageMap.setIcon(icon);
+        // Carga los iconos de zoom en los botones btnZoomIn y btnZoomOut
+        ImageIcon iconoZoomIn = new ImageIcon(getClass().getResource("/imagenes/icons8-zoom-in-50.png"));
+        btnZoomIn.setIcon(iconoZoomIn);
+        ImageIcon iconoZoomOut = new ImageIcon(getClass().getResource("/imagenes/icons8-zoom-out-50.png"));
+        btnZoomOut.setIcon(iconoZoomOut);
     }
 
     //TODO
     //Guarda la ubicacion seleccionada
-    private void guardar(){  
-        ubicacion=this.txtUbicacionDinamica.getText();
+    private void guardar() {
+        ubicacion = this.txtUbicacionDinamica.getText();
         cdEvento.guardarUbicacion(ubicacion);
         cerrar();
     }
-    
-    private void cerrar(){
+
+    private void cerrar() {
         cdEvento.calendario.setVisible(true);
         cdEvento.setVisible(true);
     }
@@ -47,12 +91,15 @@ public class MapaCalendario extends javax.swing.JFrame {
         cmbMapa = new javax.swing.JComboBox<>();
         lblUbicacionEstatico = new javax.swing.JLabel();
         cmbCampus = new javax.swing.JComboBox<>();
-        pnlMapa = new javax.swing.JPanel();
         txtUbicacionDinamica = new javax.swing.JTextField();
         lblUbicacionEstatica = new javax.swing.JLabel();
         lblCampusEstatico = new javax.swing.JLabel();
+        btnZoomIn = new javax.swing.JButton();
+        btnZoomOut = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lblImageMap = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblTituloUbicacion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
@@ -67,11 +114,14 @@ public class MapaCalendario extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnAtras.setIcon(new javax.swing.ImageIcon("C:\\GitHub\\Disenio de software\\Dise-oSoftware\\Aulas\\icons8-return-50.png")); // NOI18N
+        btnAtras.setBackground(new java.awt.Color(255, 255, 255));
         btnAtras.setBorder(null);
         btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnAtrasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAtrasMouseExited(evt);
             }
         });
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -80,11 +130,14 @@ public class MapaCalendario extends javax.swing.JFrame {
             }
         });
 
-        btnGuardar.setIcon(new javax.swing.ImageIcon("C:\\GitHub\\Disenio de software\\Dise-oSoftware\\Aulas\\icons8-save-50.png")); // NOI18N
+        btnGuardar.setBackground(new java.awt.Color(255, 255, 255));
         btnGuardar.setBorder(null);
         btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnGuardarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnGuardarMouseExited(evt);
             }
         });
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -111,7 +164,6 @@ public class MapaCalendario extends javax.swing.JFrame {
         lblUbicacionEstatico.setBackground(new java.awt.Color(22, 81, 198));
         lblUbicacionEstatico.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         lblUbicacionEstatico.setForeground(new java.awt.Color(255, 255, 255));
-        lblUbicacionEstatico.setIcon(new javax.swing.ImageIcon("C:\\GitHub\\Disenio de software\\Dise-oSoftware\\Aulas\\icons8-search-50white.png")); // NOI18N
         lblUbicacionEstatico.setText("Buscar ubicacion en mapa");
         lblUbicacionEstatico.setOpaque(true);
 
@@ -127,19 +179,6 @@ public class MapaCalendario extends javax.swing.JFrame {
             }
         });
 
-        pnlMapa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout pnlMapaLayout = new javax.swing.GroupLayout(pnlMapa);
-        pnlMapa.setLayout(pnlMapaLayout);
-        pnlMapaLayout.setHorizontalGroup(
-            pnlMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 332, Short.MAX_VALUE)
-        );
-        pnlMapaLayout.setVerticalGroup(
-            pnlMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 315, Short.MAX_VALUE)
-        );
-
         lblUbicacionEstatica.setBackground(new java.awt.Color(22, 81, 198));
         lblUbicacionEstatica.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         lblUbicacionEstatica.setForeground(new java.awt.Color(255, 255, 255));
@@ -152,16 +191,45 @@ public class MapaCalendario extends javax.swing.JFrame {
         lblCampusEstatico.setText("                    Campus");
         lblCampusEstatico.setOpaque(true);
 
+        btnZoomIn.setBackground(new java.awt.Color(255, 255, 255));
+        btnZoomIn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnZoomInMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnZoomInMouseExited(evt);
+            }
+        });
+        btnZoomIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnZoomInActionPerformed(evt);
+            }
+        });
+
+        btnZoomOut.setBackground(new java.awt.Color(255, 255, 255));
+        btnZoomOut.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnZoomOutMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnZoomOutMouseExited(evt);
+            }
+        });
+        btnZoomOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnZoomOutActionPerformed(evt);
+            }
+        });
+
+        jScrollPane1.setViewportView(lblImageMap);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtUbicacionDinamica)
@@ -169,19 +237,26 @@ public class MapaCalendario extends javax.swing.JFrame {
                             .addComponent(lblCampusEstatico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cmbCampus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
+                        .addGap(24, 24, 24)
+                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnZoomOut, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                            .addComponent(btnZoomIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(lblUbicacionEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlMapa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(136, Short.MAX_VALUE))
+                    .addComponent(cmbMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCampusEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblUbicacionEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -189,20 +264,26 @@ public class MapaCalendario extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cmbCampus, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(lblUbicacionEstatica, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtUbicacionDinamica, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(63, 63, 63)
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27))
+                        .addGap(78, 78, 78)
+                        .addComponent(btnZoomIn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnZoomOut, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(pnlMapa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 66, Short.MAX_VALUE))))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(lblUbicacionEstatica, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtUbicacionDinamica, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnGuardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnAtras, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 42, Short.MAX_VALUE))))
         );
 
         getContentPane().add(jPanel3);
@@ -211,10 +292,11 @@ public class MapaCalendario extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(22, 81, 198));
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 60));
 
-        jLabel1.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\GitHub\\Disenio de software\\Dise-oSoftware\\Aulas\\icons8-map-marker-50.png")); // NOI18N
-        jLabel1.setText("Ubicación");
+        lblTituloUbicacion.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        lblTituloUbicacion.setForeground(new java.awt.Color(255, 255, 255));
+        lblTituloUbicacion.setText("Ubicación");
+        ImageIcon iconoUbicacion = new ImageIcon(getClass().getResource("/imagenes/icons8-map-marker-50.png"));
+        lblTituloUbicacion.setIcon(iconoUbicacion);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -222,12 +304,12 @@ public class MapaCalendario extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addComponent(jLabel1)
+                .addComponent(lblTituloUbicacion)
                 .addContainerGap(621, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+            .addComponent(lblTituloUbicacion, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel1);
@@ -245,37 +327,43 @@ public class MapaCalendario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-       dispose();
+        dispose();
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void cmbCampusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCampusItemStateChanged
-        String campus=cmbCampus.getSelectedItem().toString();
+        String campus = cmbCampus.getSelectedItem().toString();
         setMapa(campus);
     }//GEN-LAST:event_cmbCampusItemStateChanged
-    
-    private void setMapa(String campus){
-        ImageIcon icon=null;
-        if(campus.equals("Obregon Nainari")){
-            icon=new ImageIcon("campus-nainari.jpg");
-        }else if(campus.equals("Obregon Centro")){
-            icon=new ImageIcon("campus-centro.jpg");
+
+    private void setMapa(String campus) {
+
+        ImageIcon icon = null;
+        w = jScrollPane1.getHeight();
+        h = jScrollPane1.getWidth();
+        if (campus.equals("Obregon Nainari")) {
+            img = new ImageIcon(getClass().getResource("/imagenes/campus-nainari.jpg")).getImage();
+            icon = new ImageIcon(zoom(h, w, img));
+        } else if (campus.equals("Obregon Centro")) {
+            img = new ImageIcon(getClass().getResource("/imagenes/campus-centro.jpg")).getImage();
+            icon = new ImageIcon(zoom(h, w, img));
         }
-       imgPanel.setIcon(icon);
+        lblImageMap.setIcon(icon);
+
     }
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         cerrar();
     }//GEN-LAST:event_formWindowClosed
 
     private void cmbMapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMapaActionPerformed
-       this.txtUbicacionDinamica.setText((String) this.cmbMapa.getSelectedItem()); 
+        this.txtUbicacionDinamica.setText((String) this.cmbMapa.getSelectedItem());
     }//GEN-LAST:event_cmbMapaActionPerformed
 
     private void cmbMapaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbMapaMouseReleased
-        
+
     }//GEN-LAST:event_cmbMapaMouseReleased
 
     private void cmbMapaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbMapaMouseExited
-        
+
     }//GEN-LAST:event_cmbMapaMouseExited
 
     private void btnGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseEntered
@@ -288,20 +376,76 @@ public class MapaCalendario extends javax.swing.JFrame {
         btnAtras.setBackground(Color.lightGray);
     }//GEN-LAST:event_btnAtrasMouseEntered
 
+    private void btnGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarMouseExited
+        // TODO add your handling code here:
+        btnGuardar.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnGuardarMouseExited
+
+    private void btnAtrasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseExited
+        // TODO add your handling code here:
+        btnAtras.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnAtrasMouseExited
+
+    private void btnZoomInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnZoomInActionPerformed
+        // TODO add your handling code here:
+        h = h + 20;
+        w = w + 20;
+        ImageIcon icon = new ImageIcon(zoom(h, w, img));
+        lblImageMap.setIcon(icon);
+    }//GEN-LAST:event_btnZoomInActionPerformed
+
+    private void btnZoomOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnZoomOutActionPerformed
+        // TODO add your handling code here:
+        h = h - 20;
+        w = w - 20;
+        ImageIcon icon = new ImageIcon(zoom(h, w, img));
+        lblImageMap.setIcon(icon);
+    }//GEN-LAST:event_btnZoomOutActionPerformed
+
+    private void btnZoomInMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnZoomInMouseEntered
+        // TODO add your handling code here:
+        btnZoomIn.setBackground(Color.lightGray);
+    }//GEN-LAST:event_btnZoomInMouseEntered
+
+    private void btnZoomInMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnZoomInMouseExited
+        // TODO add your handling code here:
+        btnZoomIn.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnZoomInMouseExited
+
+    private void btnZoomOutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnZoomOutMouseEntered
+        // TODO add your handling code here:
+        btnZoomOut.setBackground(Color.lightGray);
+    }//GEN-LAST:event_btnZoomOutMouseEntered
+
+    private void btnZoomOutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnZoomOutMouseExited
+        // TODO add your handling code here:
+        btnZoomOut.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnZoomOutMouseExited
+    private Image zoom(int H, int W, Image img) {
+        BufferedImage buf = new BufferedImage(H, W, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = buf.createGraphics();
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2d.drawImage(img, 0, 0, W, H, null);
+        g2d.dispose();
+        return buf;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnZoomIn;
+    private javax.swing.JButton btnZoomOut;
     private javax.swing.JComboBox<String> cmbCampus;
     private javax.swing.JComboBox<String> cmbMapa;
     private javax.swing.JLabel imgPanel;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCampusEstatico;
+    private javax.swing.JLabel lblImageMap;
+    private javax.swing.JLabel lblTituloUbicacion;
     private javax.swing.JLabel lblUbicacionEstatica;
     private javax.swing.JLabel lblUbicacionEstatico;
-    private javax.swing.JPanel pnlMapa;
     private javax.swing.JTextField txtUbicacionDinamica;
     // End of variables declaration//GEN-END:variables
 }

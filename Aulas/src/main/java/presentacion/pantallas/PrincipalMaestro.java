@@ -1,4 +1,3 @@
-
 package presentacion.pantallas;
 
 import DTOS.evento.EventoConsultableDTO;
@@ -10,6 +9,7 @@ import java.io.File;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -18,6 +18,7 @@ import subsistemas.accesoMaestro.IAccesoMaestro;
 import subsistemas.accesoMaestro.FachadaEditarMaestro;
 import subsistemas.recuperarMaestro.IRecuperarMaestro;
 import subsistemas.recuperarMaestro.RecuperarMaestro;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -29,22 +30,40 @@ public class PrincipalMaestro extends javax.swing.JFrame {
      * Es el maestro con el que iniciaste sesion
      */
     private MaestroEditableDTO maestro;
-    
+
     /**
      * Permite el acceso a editar la informacion del maestro
      */
     private IAccesoMaestro accesoM;
+
     /**
      * Creates new form PrincipalMaestro
+     *
      * @param maestro
      */
     public PrincipalMaestro(MaestroEditableDTO maestro) {
         initComponents();
-        this.maestro=maestro;
+        this.maestro = maestro;
         cargarMaestro();
         this.setVisible(true);
         this.setSize(800, 600);
-        
+        cargarIconos();
+
+    }
+
+    /**
+     * Carga los iconos en los botones de la interfaz.
+     */
+    private void cargarIconos() {
+        // Carga el icono de retorno en el botón btnAtras
+        ImageIcon iconoReturn = new ImageIcon(getClass().getResource("/imagenes/icons8-return-50.png"));
+        btnAtras.setIcon(iconoReturn);
+        // Carga el icono de calendario en el botón btnCalendario
+        ImageIcon iconoCalendario = new ImageIcon(getClass().getResource("/imagenes/icons8-calendar-50.png"));
+        btnCalendario.setIcon(iconoCalendario);
+        // Carga el icono de guardar en el botón btnActualizar
+        ImageIcon iconoGuardar = new ImageIcon(getClass().getResource("/imagenes/icons8-save-50.png"));
+        btnActualizar.setIcon(iconoGuardar);
     }
 
     /**
@@ -53,29 +72,31 @@ public class PrincipalMaestro extends javax.swing.JFrame {
     private void cargarMaestro() {
         this.txtCubiculo.setText(maestro.getCubiculo());
         this.txaDescripcion.setText(maestro.getDescripcion());
-        this.lblNombreMaestro.setText(maestro.getNombre());     
+        this.lblNombreMaestro.setText(maestro.getNombre());
         this.lblFotoMaestro.setIcon(maestro.getFoto());
     }
-    
+
     /**
-     * Toma los campos de texto y foto de perfil y la guarda en la base de datos actualizando el perfil de maestro
+     * Toma los campos de texto y foto de perfil y la guarda en la base de datos
+     * actualizando el perfil de maestro
      */
-    private void editarInformacion(){
-        String descripcion=this.txaDescripcion.getText();
-        String cubiculo=this.txtCubiculo.getText();
-        Icon foto=this.lblFotoMaestro.getIcon();
-        
-        accesoM=new FachadaEditarMaestro();
-        List<EventoConsultableDTO> calendarioAuxiliar=maestro.getCalendario();
-    
-        MaestroEditableDTO maestroAuxiliar=new MaestroEditableDTO(maestro.getId(),maestro.getNombre(),cubiculo,descripcion,foto);
+    private void editarInformacion() {
+        String descripcion = this.txaDescripcion.getText();
+        String cubiculo = this.txtCubiculo.getText();
+        Icon foto = this.lblFotoMaestro.getIcon();
+
+        accesoM = new FachadaEditarMaestro();
+        List<EventoConsultableDTO> calendarioAuxiliar = maestro.getCalendario();
+
+        MaestroEditableDTO maestroAuxiliar = new MaestroEditableDTO(maestro.getId(), maestro.getNombre(), cubiculo, descripcion, foto);
         try {
-            maestro=accesoM.editarMaestro(maestroAuxiliar);
+            maestro = accesoM.editarMaestro(maestroAuxiliar);
             maestro.setCalendario(calendarioAuxiliar);
         } catch (PersistenciaException ex) {
             Logger.getLogger(PrincipalMaestro.class.getName()).log(Level.SEVERE, "No se pudo actualizar la informacion en la base de datos", ex);
         }
-        JOptionPane.showMessageDialog(null, "Se actualizo su informacion", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);   
+        JOptionPane.showMessageDialog(null, "Se actualizo su informacion", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
+
     }
 
     /**
@@ -97,13 +118,13 @@ public class PrincipalMaestro extends javax.swing.JFrame {
     }
 
     /**
-     * Al dar clic en el boton de calendario deberia desplegarse el frame PrincipalCalendario y ocultarse este frame
+     * Al dar clic en el boton de calendario deberia desplegarse el frame
+     * PrincipalCalendario y ocultarse este frame
      */
     private void abrirCalendario() {
         new PrincipalCalendario(this, maestro).setVisible(true);
         this.setVisible(false);
     }
-
 
     /**
      * Cierra este frame y por consecuencia se acaba la ejecucion del programa
@@ -137,12 +158,21 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(null);
 
-        btnAtras.setIcon(new javax.swing.ImageIcon("C:\\GitHub\\Disenio de software\\Dise-oSoftware\\Aulas\\icons8-return-50.png")); // NOI18N
-        btnAtras.setBorder(null);
+        btnAtras.setBackground(new java.awt.Color(255, 255, 255));
+        btnAtras.setForeground(new java.awt.Color(255, 255, 255));
+        btnAtras.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 0));
+        btnAtras.setBorderPainted(false);
+        btnAtras.setFocusPainted(false);
         btnAtras.setPreferredSize(new java.awt.Dimension(83, 59));
         btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnAtrasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAtrasMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                btnAtrasMouseReleased(evt);
             }
         });
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -151,13 +181,17 @@ public class PrincipalMaestro extends javax.swing.JFrame {
             }
         });
         jPanel2.add(btnAtras);
-        btnAtras.setBounds(20, 370, 70, 50);
+        btnAtras.setBounds(70, 370, 70, 50);
 
-        btnCalendario.setIcon(new javax.swing.ImageIcon("C:\\GitHub\\Disenio de software\\Dise-oSoftware\\Aulas\\icons8-calendar-50.png")); // NOI18N
+        btnCalendario.setBackground(new java.awt.Color(255, 255, 255));
         btnCalendario.setBorder(null);
+        btnCalendario.setBorderPainted(false);
         btnCalendario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnCalendarioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCalendarioMouseExited(evt);
             }
         });
         btnCalendario.addActionListener(new java.awt.event.ActionListener() {
@@ -168,11 +202,15 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         jPanel2.add(btnCalendario);
         btnCalendario.setBounds(363, 348, 80, 70);
 
-        btnActualizar.setIcon(new javax.swing.ImageIcon("C:\\GitHub\\Disenio de software\\Dise-oSoftware\\Aulas\\icons8-save-50.png")); // NOI18N
+        btnActualizar.setBackground(new java.awt.Color(255, 255, 255));
         btnActualizar.setBorder(null);
+        btnActualizar.setBorderPainted(false);
         btnActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnActualizarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnActualizarMouseExited(evt);
             }
         });
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -181,7 +219,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
             }
         });
         jPanel2.add(btnActualizar);
-        btnActualizar.setBounds(700, 360, 80, 50);
+        btnActualizar.setBounds(650, 370, 80, 50);
 
         txaDescripcion.setColumns(20);
         txaDescripcion.setRows(5);
@@ -212,7 +250,6 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         lblBienvenido.setForeground(new java.awt.Color(255, 255, 255));
         lblBienvenido.setText("Bienvenido");
 
-        lblFotoMaestro.setIcon(new javax.swing.ImageIcon("C:\\GitHub\\Disenio de software\\Dise-oSoftware\\Aulas\\icons8-user-100.png")); // NOI18N
         lblFotoMaestro.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         lblFotoMaestro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -287,7 +324,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCalendarioActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-       cerrar();
+        cerrar();
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void btnAtrasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseEntered
@@ -304,6 +341,25 @@ public class PrincipalMaestro extends javax.swing.JFrame {
 
         btnActualizar.setBackground(Color.lightGray);
     }//GEN-LAST:event_btnActualizarMouseEntered
+
+    private void btnAtrasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseExited
+        // TODO add your handling code here:
+        btnAtras.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnAtrasMouseExited
+
+    private void btnAtrasMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAtrasMouseReleased
+
+    private void btnCalendarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalendarioMouseExited
+        // TODO add your handling code here:
+        btnCalendario.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnCalendarioMouseExited
+
+    private void btnActualizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMouseExited
+        // TODO add your handling code here:
+        btnActualizar.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnActualizarMouseExited
 
     /**
      * @param args the command line arguments
@@ -337,12 +393,12 @@ public class PrincipalMaestro extends javax.swing.JFrame {
             public void run() {
                 //TODO
                 //Soy una fachada
-                IRecuperarMaestro rMaestro=new RecuperarMaestro();
-                MaestroEditableDTO maestroE=null;
-                try{
-                    maestroE=rMaestro.recuperarMaestro();
-                }catch(PersistenciaException e){
-                    
+                IRecuperarMaestro rMaestro = new RecuperarMaestro();
+                MaestroEditableDTO maestroE = null;
+                try {
+                    maestroE = rMaestro.recuperarMaestro();
+                } catch (PersistenciaException e) {
+
                 }
                 new PrincipalMaestro(maestroE).setVisible(true);
             }

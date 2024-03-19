@@ -12,6 +12,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JCheckBox;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import presentacion.pantallas.MapaCalendario;
 import presentacion.pantallas.PrincipalCalendario;
@@ -38,6 +39,30 @@ public class CDEvento extends javax.swing.JDialog {
         this.parent=parent;
         this.setSize(500, 620);
         actualizarPermisos();
+        cargarIconos();
+        
+        
+    }
+    
+    /**
+     * Carga los iconos en los botones de la interfaz.
+     */
+    private void cargarIconos() {
+        // Carga el icono de retorno en el botón btnAtras
+        ImageIcon iconoReturn = new ImageIcon(getClass().getResource("/imagenes/icons8-return-50.png"));
+        btnAtras.setIcon(iconoReturn);
+        // Carga el icono de mapa en el botón btnMapa
+        ImageIcon iconoMapa = new ImageIcon(getClass().getResource("/imagenes/icons8-map-30 blue.png"));
+        btnMapa.setIcon(iconoMapa);
+        // Carga el icono de guardar en el botón btnGuardar
+        ImageIcon iconoGuardar = new ImageIcon(getClass().getResource("/imagenes/icons8-save-50.png"));
+        btnAñadir.setIcon(iconoGuardar);
+        // Carga el icono de limpiar en el botón btnLimpiar
+        ImageIcon iconoLimpiar = new ImageIcon(getClass().getResource("/imagenes/icons8-remove-48.png"));
+        btnLimpiar.setIcon(iconoLimpiar);
+        // Carga el icono de datos en el label lblInfoEventoEstatico
+        ImageIcon iconoDatos = new ImageIcon(getClass().getResource("/imagenes/icons8-note-50.png"));
+        lblInfoEventoEstatico.setIcon(iconoDatos);
     }
     
     public CDEvento(java.awt.Frame parent,PrincipalCalendario calendario,EventoConsultableDTO eventoEditable , boolean modal) {
@@ -295,7 +320,7 @@ public class CDEvento extends javax.swing.JDialog {
         lblTipoEstatico = new javax.swing.JLabel();
         btnColor = new javax.swing.JButton();
         lblEjemploEstatico = new javax.swing.JLabel();
-        limpiar = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
         chbLunes = new javax.swing.JCheckBox();
         chbMartes = new javax.swing.JCheckBox();
         chbMiercoles = new javax.swing.JCheckBox();
@@ -332,10 +357,14 @@ public class CDEvento extends javax.swing.JDialog {
         pnlEvento.add(txtUbicacion);
         txtUbicacion.setBounds(220, 110, 200, 30);
 
+        btnMapa.setBackground(new java.awt.Color(255, 255, 255));
         btnMapa.setBorder(null);
         btnMapa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnMapaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnMapaMouseExited(evt);
             }
         });
         btnMapa.addActionListener(new java.awt.event.ActionListener() {
@@ -344,7 +373,7 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(btnMapa);
-        btnMapa.setBounds(420, 110, 50, 30);
+        btnMapa.setBounds(420, 100, 50, 50);
 
         lblDescripcionEstatico.setBackground(new java.awt.Color(255, 255, 255));
         lblDescripcionEstatico.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -356,10 +385,14 @@ public class CDEvento extends javax.swing.JDialog {
         pnlEvento.add(txtDescripcion);
         txtDescripcion.setBounds(220, 170, 250, 100);
 
+        btnAñadir.setBackground(new java.awt.Color(255, 255, 255));
         btnAñadir.setBorder(null);
         btnAñadir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnAñadirMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAñadirMouseExited(evt);
             }
         });
         btnAñadir.addActionListener(new java.awt.event.ActionListener() {
@@ -368,7 +401,7 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(btnAñadir);
-        btnAñadir.setBounds(300, 400, 70, 50);
+        btnAñadir.setBounds(100, 400, 70, 50);
 
         cmbTipo.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semanal", "Unico" }));
@@ -403,35 +436,39 @@ public class CDEvento extends javax.swing.JDialog {
 
         lblEjemploEstatico.setText("EJEMPLO COLOR");
         pnlEvento.add(lblEjemploEstatico);
-        lblEjemploEstatico.setBounds(30, 340, 140, 16);
+        lblEjemploEstatico.setBounds(30, 340, 140, 14);
 
-        limpiar.setBorder(null);
-        limpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnLimpiar.setBackground(new java.awt.Color(255, 255, 255));
+        btnLimpiar.setBorder(null);
+        btnLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                limpiarMouseEntered(evt);
+                btnLimpiarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLimpiarMouseExited(evt);
             }
         });
-        limpiar.addActionListener(new java.awt.event.ActionListener() {
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                limpiarActionPerformed(evt);
+                btnLimpiarActionPerformed(evt);
             }
         });
-        pnlEvento.add(limpiar);
-        limpiar.setBounds(110, 400, 60, 50);
+        pnlEvento.add(btnLimpiar);
+        btnLimpiar.setBounds(310, 400, 60, 50);
 
         chbLunes.setBackground(new java.awt.Color(255, 255, 255));
         chbLunes.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbLunes.setText("Lunes");
         chbLunes.setBorder(null);
         pnlEvento.add(chbLunes);
-        chbLunes.setBounds(30, 80, 85, 17);
+        chbLunes.setBounds(30, 80, 85, 15);
 
         chbMartes.setBackground(new java.awt.Color(255, 255, 255));
         chbMartes.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbMartes.setText("Martes");
         chbMartes.setBorder(null);
         pnlEvento.add(chbMartes);
-        chbMartes.setBounds(30, 100, 85, 17);
+        chbMartes.setBounds(30, 100, 85, 15);
 
         chbMiercoles.setBackground(new java.awt.Color(255, 255, 255));
         chbMiercoles.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
@@ -443,7 +480,7 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(chbMiercoles);
-        chbMiercoles.setBounds(30, 120, 85, 17);
+        chbMiercoles.setBounds(30, 120, 85, 15);
 
         chbJueves.setBackground(new java.awt.Color(255, 255, 255));
         chbJueves.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
@@ -455,28 +492,28 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(chbJueves);
-        chbJueves.setBounds(30, 140, 85, 17);
+        chbJueves.setBounds(30, 140, 85, 15);
 
         chbViernes.setBackground(new java.awt.Color(255, 255, 255));
         chbViernes.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbViernes.setText("Viernes");
         chbViernes.setBorder(null);
         pnlEvento.add(chbViernes);
-        chbViernes.setBounds(120, 80, 85, 17);
+        chbViernes.setBounds(120, 80, 85, 15);
 
         chbSabado.setBackground(new java.awt.Color(255, 255, 255));
         chbSabado.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbSabado.setText("Sabado");
         chbSabado.setBorder(null);
         pnlEvento.add(chbSabado);
-        chbSabado.setBounds(120, 100, 85, 17);
+        chbSabado.setBounds(120, 100, 85, 15);
 
         chbDomingo.setBackground(new java.awt.Color(255, 255, 255));
         chbDomingo.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbDomingo.setText("Domingo");
         chbDomingo.setBorder(null);
         pnlEvento.add(chbDomingo);
-        chbDomingo.setBounds(120, 120, 85, 17);
+        chbDomingo.setBounds(120, 120, 85, 15);
         pnlEvento.add(dtcFecha);
         dtcFecha.setBounds(30, 200, 160, 30);
 
@@ -498,11 +535,11 @@ public class CDEvento extends javax.swing.JDialog {
 
         cmbHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01:00", "01:30", "02:00", "02:30", "03:00", "03:30", "04:00", "04:30", "05:00", "05:30", "06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30" }));
         pnlEvento.add(cmbHora);
-        cmbHora.setBounds(30, 260, 68, 22);
+        cmbHora.setBounds(30, 260, 68, 20);
 
         cmbAMPM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AM", "PM" }));
         pnlEvento.add(cmbAMPM);
-        cmbAMPM.setBounds(100, 260, 59, 22);
+        cmbAMPM.setBounds(100, 260, 59, 20);
 
         lblNombreEstatico.setBackground(new java.awt.Color(255, 255, 255));
         lblNombreEstatico.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -514,10 +551,14 @@ public class CDEvento extends javax.swing.JDialog {
         pnlEvento.add(txtNombre);
         txtNombre.setBounds(220, 50, 250, 28);
 
+        btnAtras.setBackground(new java.awt.Color(255, 255, 255));
         btnAtras.setBorder(null);
         btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnAtrasMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAtrasMouseExited(evt);
             }
         });
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -571,9 +612,9 @@ public class CDEvento extends javax.swing.JDialog {
         abrirSeleccionColor();
     }//GEN-LAST:event_btnColorActionPerformed
 
-    private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         limpiar();
-    }//GEN-LAST:event_limpiarActionPerformed
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         this.dispose();
@@ -588,10 +629,10 @@ public class CDEvento extends javax.swing.JDialog {
         btnAtras.setBackground(Color.lightGray);
     }//GEN-LAST:event_btnAtrasMouseEntered
 
-    private void limpiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_limpiarMouseEntered
+    private void btnLimpiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseEntered
         // TODO add your handling code here:
-        limpiar.setBackground(Color.lightGray);
-    }//GEN-LAST:event_limpiarMouseEntered
+        btnLimpiar.setBackground(Color.lightGray);
+    }//GEN-LAST:event_btnLimpiarMouseEntered
 
     private void btnAñadirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAñadirMouseEntered
         // TODO add your handling code here:
@@ -610,6 +651,26 @@ public class CDEvento extends javax.swing.JDialog {
     private void chbMiercolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbMiercolesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_chbMiercolesActionPerformed
+
+    private void btnAtrasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtrasMouseExited
+        // TODO add your handling code here:
+        btnAtras.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnAtrasMouseExited
+
+    private void btnLimpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseExited
+        // TODO add your handling code here:
+        btnLimpiar.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnLimpiarMouseExited
+
+    private void btnAñadirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAñadirMouseExited
+        // TODO add your handling code here:
+        btnAñadir.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnAñadirMouseExited
+
+    private void btnMapaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMapaMouseExited
+        // TODO add your handling code here:
+        btnMapa.setBackground(Color.WHITE);
+    }//GEN-LAST:event_btnMapaMouseExited
 
     private void actualizarPermisos(){
       if (this.cmbTipo.getSelectedItem().equals("Unico")) {
@@ -648,6 +709,7 @@ public class CDEvento extends javax.swing.JDialog {
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnAñadir;
     private javax.swing.JButton btnColor;
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnMapa;
     private javax.swing.JCheckBox chbDomingo;
     private javax.swing.JCheckBox chbJueves;
@@ -671,7 +733,6 @@ public class CDEvento extends javax.swing.JDialog {
     private javax.swing.JLabel lblNombreEstatico;
     private javax.swing.JLabel lblTipoEstatico;
     private javax.swing.JLabel lblUbicacionEstatico;
-    private javax.swing.JButton limpiar;
     private javax.swing.JPanel pnlEvento;
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtNombre;
