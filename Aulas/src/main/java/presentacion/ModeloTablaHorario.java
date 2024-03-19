@@ -13,9 +13,9 @@ import javax.swing.table.AbstractTableModel;
 public class ModeloTablaHorario extends AbstractTableModel {
     // Definir los días de la semana y las horas del día
     private String[] diasSemanales = {"Horas","Domingo", "Lunes", "Martes", "Miercoles", "Jueves","Viernes","Sabado"};
-    private String[] horas = {"7:00 AM", "7:30 AM","8:00 AM","8:30 AM","9:00 AM","9:30 AM","10:00 AM","10:30 AM",
-                "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM", "3:00 PM","3:30 PM",
-                "4:00 PM", "4:30 PM","5:00 PM","5:30 PM","6:00 PM","6:30 PM","7:00 PM","7:30 PM"};
+    private String[] horas = {"07:00 AM", "07:30 AM","08:00 AM","08:30 AM","09:00 AM","09:30 AM","10:00 AM","10:30 AM",
+                "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "01:00 PM", "01:30 PM", "02:00 PM", "02:30 PM", "03:00 PM","03:30 PM",
+                "04:00 PM", "04:30 PM","05:00 PM","05:30 PM","06:00 PM","06:30 PM","07:00 PM","07:30 PM","08:00 PM"};
 
     private String[][] horario = new String[horas.length][diasSemanales.length];
 
@@ -30,10 +30,10 @@ public class ModeloTablaHorario extends AbstractTableModel {
             }
         }
 
-        //prueba
-        horario[0][1] = "Ingles";
-        horario[1][2] = "diseño";
-        horario[2][3] = "bda";
+//        //prueba
+//        horario[0][1] = "Ingles";
+//        horario[1][2] = "diseño";
+//        horario[2][3] = "bda";
     }
 
     @Override

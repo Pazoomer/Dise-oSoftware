@@ -4,9 +4,13 @@ package presentacion.pantallas;
 import DTOS.evento.EventoConsultableDTO;
 import DTOS.maestro.MaestroEditableDTO;
 import java.awt.Color;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import presentacion.CDEvento;
 import presentacion.ModeloTablaHorario;
@@ -24,8 +28,11 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     private MaestroEditableDTO maestro;
     PrincipalMaestro prinMaestro;
     List<EventoConsultableDTO> calendarioMes;
-    static DefaultTableModel model;
+    List<EventoConsultableDTO> eventosSemana;
+    static ModeloTablaHorario modelo;
     private CDEvento cdEvento;
+    private PrincipalCalendario prinCalendario;
+    
     
     /**
      * Creates new form PrincipalCalendario
@@ -36,129 +43,168 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         initComponents();
         this.maestro=maestro;
         this.prinMaestro=prinMaestro;
-        model=new DefaultTableModel();
+        modelo=new ModeloTablaHorario();
+        prinCalendario=this;
+        eventosSemana=new ArrayList<>();
         cargarCalendario();
-        //cargarEventoInicio();
-        ModeloTablaHorario model2=new ModeloTablaHorario();
-        tablaEventos.setModel(model2);
-        //cargarTablaEventos();
+        cargarEventos();
         this.setVisible(true);
         this.setSize(800, 630);
     }
     
-    //establece la fecha del dateChooser a la fecha actual
-    private void cargarEventoInicio(){
-        Calendar cal=Calendar.getInstance();
-        //Date date=cal.getTime();
-        calEsquinaSuperior.setCalendar(cal);
-        //carga la tabla de eventos del dia actual
-        cargarTablaEventos();
-    }
-    
-    //carga la tabla de eventos de cada dia
-    private void cargarTablaEventos() {
-        model = new DefaultTableModel();
-        
-        Calendar fecha = calEsquinaSuperior.getCalendar();
-        
-        int diaDeLaSemana=fecha.get(Calendar.DAY_OF_WEEK);
-        String[] diasSemana={"Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"};
-        switch(diaDeLaSemana){
-            case 1 -> setSemana(new String[]{"sumar","sumar","sumar","sumar","sumar","sumar","sumar",},
-                        new int[]{0,1,2,3,4,5,6}, model, fecha, diasSemana);
-            case 2 -> setSemana(new String[]{"restar","sumar","sumar","sumar","sumar","sumar","sumar",}, 
-                        new int[]{1,0,1,2,3,4,5}, model, fecha, diasSemana);
-            case 3 -> setSemana(new String[]{"restar","restar","sumar","sumar","sumar","sumar","sumar",}, 
-                        new int[]{2,1,0,1,2,3,4}, model, fecha, diasSemana);
-            case 4 -> setSemana(new String[]{"restar","restar","restar","sumar","sumar","sumar","sumar",}, 
-                        new int[]{3,1,1,0,1,2,3}, model, fecha, diasSemana);
-            case 5 -> setSemana(new String[]{"restar","restar","restar","restar","sumar","sumar","sumar",}, 
-                        new int[]{4,3,2,1,0,1,2}, model, fecha, diasSemana);
-            case 6 -> setSemana(new String[]{"restar","restar","restar","restar","restar","sumar","sumar",}, 
-                        new int[]{5,4,3,2,1,0,1}, model, fecha, diasSemana);
-            case 7 -> setSemana(new String[]{"restar","restar","restar","restar","restar","restar","restar",}, 
-                        new int[]{6,5,4,3,2,1,0}, model, fecha, diasSemana);
-        }
-        
-        tablaEventos.setModel(model);
-    }
-    /**
-     * Carga todas las columnas de la tabla semanal. 
-     * Este metodo usa el ciclo for con una cantidad maxima de 7 iteraciones, 
-     * equivalente a la cantidad de columnas de la tabla (1 columna por cada dia de la semana). 
-     * En cada iteracion se agrega una columna nueva iniciando desde la columna 1 donde se 
-     * guardan los eventos del dia Domingo, la columna 2 guarda los eventos del dia Lunes, 
-     * la columna 3 los del dia Martes y asi sucesivamente hasta llegar al sabado.
-     * 
-     * @param arrayOperaciones Arreglo con la secuencia de operaciones (suma o resta) 
-     * que se van a hacer dentro del metodo agregarColumnasTabla. 
-     * La explicacion de la necesidad de la especificacion del tipo de operacion
-     * se encuentra en la documentacion del metodo agregarColumnasTabla
-     * @param arrayCantidadDias Arreglo con la cantidad de dias que se van a sumar o restar
-     * a la fecha determinada por el parametro 'fecha'.
-     * @param model Modelo de la tabla a la que se le iran agregando las columnas. Posteriormente, 
-     * este modelo se le asignara a la tabla semanal
-     * @param fecha Fecha base a la cual se le van a agregar o quitar dias
-     * @param diasSemana Arreglo que contiene los dias de la semana, siendo este: lunes, martes, miercoles, etc.
-     */
-    private void setSemana(String[] arrayOperaciones, int[] arrayCantidadDias, 
-            DefaultTableModel model, Calendar fecha, String[] diasSemana){
-        for (int i = 0; i < 7; i++) {
-            agregarColumnasTabla(model, fecha, arrayOperaciones[i], arrayCantidadDias[i], diasSemana[i]);
-        }
-    }
-    
-    /**
-     * Carga una columna de la tabla semanal.
-     * Este metodo agrega la columna del dia de la semana especificado por el parametro 'nombreColumna',
-     * 
-     * Para obtener los eventos de cada dia de la semana seleccionada en el JCalendar 
-     * se necesita el dia que se selecciono especificamente, para tomarlo como fecha base y luego
-     * se le iran sumando o restando dias dependiendo que dia de la semana sea (entre domingo y sabado).
-     * Por ejemplo: si la fecha seleccionada en el JCalendar es 15/03/2024 el dia de la semana es viernes,
-     * por lo tanto si quiero obtener los eventos que hay en el dia martes 12/03/2024 debo restarle 3 dias
-     * a la fecha base; si quiero obtener los eventos que hay en el dia sabado 16/03/2024 debo sumarle un dia
-     * a la fecha base.
-     * 
-     * Los eventos se obtienen del metodo cargarEventosDelDia que recibe como parametro el dia del año. Los eventos
-     * se guardan en un arreglo tipo Object para poder pasarlos como argumento al metodo addColumn, el cual
-     * agrega una columna con un nombre especifico y unos valores especificos al modelo de la tabla. 
-     * 
-     * @param model Modelo de la tabla al cual se le agregara la columna
-     * @param fecha Fecha base a la cual se le agregaran o quitaran dias
-     * @param tipoOperacion Especificacion del tipo de operacion (suma o resta) que se le hara a la fecha base
-     * @param cantidadDias Cantidad de dias que se le van a agrear o quitar a la fecha base
-     * @param nombreColumna Nombre que se le asignara a la columna. El nombre de cada columna sera cada dia de la semana
-     */
-    private void agregarColumnasTabla(DefaultTableModel model, Calendar fecha, String tipoOperacion, 
-            int cantidadDias,String nombreColumna){
-        Calendar fechaCopia=fecha;
-        if(tipoOperacion.equals("sumar"))
-            fechaCopia.add(Calendar.DAY_OF_MONTH, cantidadDias);
-        else if(tipoOperacion.equals("restar"))
-            fechaCopia.add(Calendar.DAY_OF_MONTH, -cantidadDias);
-        
-        int diaDelAnio=fecha.get(Calendar.DAY_OF_YEAR);
-        Object[] eventos=cargarEventosDelDia(diaDelAnio);
-        model.addColumn(nombreColumna, eventos);
-    }
-    
-    /**
-     * Obtiene los eventos del dia especificado en el parametro
-     * @param dia Dia del cual se quieren obtener los eventos
-     * @return Un arreglo con los eventos obtenidos
-     */
-    private Object[] cargarEventosDelDia(int dia){
-        ArrayList<String> eventosDelDia=new ArrayList<>();
+    private List<EventoConsultableDTO> cargarEventosDelDia(int dia){
+        List<EventoConsultableDTO> eventosDelDia=new ArrayList<>();
         for(EventoConsultableDTO evento:calendarioMes){
-            if (evento.getFechaInicio().get(Calendar.DAY_OF_YEAR) == dia) {
-                eventosDelDia.add(evento.getNombre());
-            }
+            if (evento.getFechaInicio().get(Calendar.DAY_OF_MONTH) == dia) {
+                eventosDelDia.add(evento);
+                System.out.println("metodo eventos del dia: "+evento.getNombre());
+            }else
+                System.out.println("no hay");
         }
         
-        return eventosDelDia.toArray();
+        return eventosDelDia;
     }
     
+    private List<EventoConsultableDTO> cargarEventosSemana(int semana){
+        List<EventoConsultableDTO> eventosDeSemana=new ArrayList<>();
+        for(EventoConsultableDTO evento:calendarioMes){
+             if (evento.getFechaInicio().get(Calendar.WEEK_OF_MONTH) == semana
+                     || evento.getTipo().equalsIgnoreCase("semanal")) {
+                eventosDeSemana.add(evento);
+                System.out.println("metodo eventos de la semana: "+evento.getNombre());
+            }else
+                System.out.println("no hay");
+        }
+        return eventosDeSemana;
+    }
+    
+    private void agregarEventoASemana(EventoConsultableDTO evento, int semana){
+        List<EventoConsultableDTO> eventos=cargarEventosSemana(semana);
+        eventos.add(evento);
+    }
+    
+    private void cargarEventos(){
+        System.out.println("inicio el cargar eventos");
+        modelo=new ModeloTablaHorario();
+        Calendar fecha=calEsquinaSuperior.getCalendar();
+        int dia=fecha.get(Calendar.DAY_OF_MONTH);
+        int semana=fecha.get(Calendar.WEEK_OF_MONTH);
+        List<EventoConsultableDTO> eventos=cargarEventosSemana(semana);
+        if(eventos.isEmpty()){
+            System.out.println("no hay eventos de la semana");
+        }
+        eventos.forEach(e->{
+            List<Integer> diasEvento=e.getDiasSemana2();
+            System.out.println("evento de la semana dentro de foreach: "+e);
+            LocalTime horaInicio=e.getHoraInicio();
+            int hora=horaInicio.getHour();
+            int minutos=horaInicio.getMinute();
+            float duracion=e.getHorasDuracionEvento();
+            System.out.println("duracion evento:"+duracion);
+            if(e.getTipo().equalsIgnoreCase("semanal")){
+                for (int i : diasEvento) {
+                    System.out.println("dia: " + i);
+                    setEvento(hora, minutos, duracion, i, e);
+                } 
+            }else{
+                int diaEv=e.getFechaInicio().get(Calendar.DAY_OF_WEEK);
+                System.out.println("dia ev dentro d foreachh:"+diaEv);
+                setEvento(hora, minutos, duracion,
+                         diaEv, e);
+            }
+        });
+        tablaEventos.setModel(modelo);
+        desplegarInfoEvento();
+    }
+    
+    
+    private void setEvento(int horaEvento,int minutoEvento, 
+            float duracionEvento,int diaEvento,EventoConsultableDTO evento){
+        int rows=modelo.getRowCount();
+        System.out.println("rows: "+rows);
+        
+        int index=0;
+        boolean encontrada=false;
+        
+        for (int i = 0; i < rows; i++) {
+           String horaCelda=(String)modelo.getValueAt(i, 0);
+           horaCelda=horaCelda.substring(0, 5);
+           System.out.println("hora celda: "+horaCelda);
+           System.out.println("hora evento: "+horaEvento);
+           int semana=calEsquinaSuperior.getCalendar().get(Calendar.WEEK_OF_MONTH);
+           if(!encontrada){
+               if (minutoEvento > 0) {
+                   System.out.println("hora evento: " + horaEvento + ":" + minutoEvento);
+                   System.out.println("columna dia evento: " + diaEvento);
+                   if (horaCelda.equals(horaEvento + ":" + minutoEvento)) {
+                       System.out.println("se encontro la celda: " + horaCelda);
+                       modelo.setValueAt(evento.getNombre(), i, diaEvento);
+                       agregarEventoASemana(evento, semana);
+                       encontrada = true;
+                       index=i;
+                       break;
+                   }
+               } else if (horaCelda.equals(horaEvento + ":" + "00") || 
+                       horaCelda.equals("0"+horaEvento+":"+"00")) {
+                   System.out.println("se encontro la celda: " + horaCelda);
+                   modelo.setValueAt(evento.getNombre(), i, diaEvento);
+                   agregarEventoASemana(evento, semana);
+                   encontrada = true;
+                   index=i;
+                   break;
+               }
+           } 
+        }
+        if(encontrada){
+            llenarRestoCeldasEvento( index, diaEvento, duracionEvento, evento);
+    }
+    }
+    
+    private void llenarRestoCeldasEvento(int index,int columnIndex,
+            float duracionEvento, EventoConsultableDTO evento){
+        int horas=(int)duracionEvento;
+        double copiaHoras=duracionEvento;
+        double decimal=copiaHoras-horas;
+        int minutos=(int)(decimal*100);
+        int totalCeldasEvento=(horas*2)-1;
+        if(minutos>0)
+            totalCeldasEvento=totalCeldasEvento+1;
+        
+        for (int i = 1; i <=totalCeldasEvento; i++) {
+            modelo.setValueAt(evento.getNombre(), index+i, columnIndex);
+        }
+    }
+    
+    private void desplegarInfoEvento(){
+        tablaEventos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent event) {
+                // Verificar si la selección está cambiando
+                if (!event.getValueIsAdjusting()) {
+                    // Obtener la fila y columna seleccionadas
+                    int selectedRow = tablaEventos.getSelectedRow();
+                    int selectedColumn = tablaEventos.getSelectedColumn();
+                    if(selectedRow>0 && selectedColumn>0){
+                        System.out.println("celda seelccionada: "+selectedRow+", "+selectedColumn);
+                        String nombreEvento = (String) modelo.getValueAt(selectedRow, selectedColumn);
+                        if (nombreEvento != null) {
+                            System.out.println("??" + nombreEvento);
+                            List<EventoConsultableDTO> evSem = cargarEventosSemana(
+                                    calEsquinaSuperior.getCalendar().get(Calendar.WEEK_OF_MONTH));
+                            for (EventoConsultableDTO e : evSem) {
+                                if (e.getNombre().equals(nombreEvento)) {
+                                    cdEvento = new CDEvento(prinCalendario, prinCalendario, e, true);
+                                    cdEvento.desplegarEvento();
+                                    cdEvento.setVisible(true);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
     //inicializa el calendario con los eventos del mes seleccionado
     private void cargarCalendario(){
        Calendar fecha=calEsquinaSuperior.getCalendar();
@@ -166,8 +212,10 @@ public class PrincipalCalendario extends javax.swing.JFrame {
        calendarioMes=new ArrayList<>();
         
         for (EventoConsultableDTO evento : maestro.getCalendario()) {
+            System.out.println("evento desde metodo cargar Calendario: "+ evento);
             if (evento.getFechaInicio().get(Calendar.MONTH) == mes || evento.getTipo().equalsIgnoreCase("semanal")) {
                 calendarioMes.add(evento);
+                System.out.println("evento del maestro: "+evento.getNombre());
             }
         }
     }
@@ -190,6 +238,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     public void añadirEvento(EventoConsultableDTO evento) {
         maestro.getCalendario().add(evento);
         cargarCalendario();
+        cargarEventos();
     }
 
     private void añadirEvento() {
@@ -265,7 +314,6 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             }
         });
 
-        btnGuardar.setIcon(new javax.swing.ImageIcon("C:\\GitHub\\Disenio de software\\Dise-oSoftware\\Aulas\\icons8-save-50.png")); // NOI18N
         btnGuardar.setBorder(null);
         btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -278,7 +326,6 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             }
         });
 
-        btnAtras.setIcon(new javax.swing.ImageIcon("C:\\GitHub\\Disenio de software\\Dise-oSoftware\\Aulas\\icons8-return-50.png")); // NOI18N
         btnAtras.setBorder(null);
         btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -321,6 +368,12 @@ public class PrincipalCalendario extends javax.swing.JFrame {
                 .addComponent(scpCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
         );
+
+        calEsquinaSuperior.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                calEsquinaSuperiorPropertyChange(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -375,7 +428,6 @@ public class PrincipalCalendario extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\GitHub\\Disenio de software\\Dise-oSoftware\\Aulas\\icons8-calendar-50white.png")); // NOI18N
         jLabel1.setText("Calendario");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -395,7 +447,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 0, 800, 80);
+        jPanel2.setBounds(0, 0, 746, 80);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -417,9 +469,9 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void calEsquinaSuperiorPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_calEsquinaSuperiorPropertyChange
-
         if (calendarioMes != null) {
-            cargarTablaEventos();
+            System.out.println("se activo el property change");
+            cargarEventos();
         }
 
     }//GEN-LAST:event_calEsquinaSuperiorPropertyChange

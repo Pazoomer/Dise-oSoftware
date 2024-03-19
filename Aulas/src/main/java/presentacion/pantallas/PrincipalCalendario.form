@@ -153,9 +153,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnGuardar">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\GitHub\Disenio de software\Dise-oSoftware\Aulas\icons8-save-50.png"/>
-            </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
@@ -167,9 +164,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnAtras">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\GitHub\Disenio de software\Dise-oSoftware\Aulas\icons8-return-50.png"/>
-            </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
@@ -229,6 +223,9 @@
           </SubComponents>
         </Container>
         <Component class="com.toedter.calendar.JCalendar" name="calEsquinaSuperior">
+          <Events>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="calEsquinaSuperiorPropertyChange"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -271,9 +268,6 @@
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\GitHub\Disenio de software\Dise-oSoftware\Aulas\icons8-calendar-50white.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Calendario"/>
           </Properties>

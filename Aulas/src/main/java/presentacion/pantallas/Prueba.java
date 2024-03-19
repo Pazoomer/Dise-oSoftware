@@ -7,6 +7,7 @@ package presentacion.pantallas;
 import DTOS.evento.EventoConsultableDTO;
 import DTOS.maestro.MaestroEditableDTO;
 import java.awt.Color;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -47,7 +48,14 @@ public class Prueba {
         //eventos.add(ev6);
        // eventos.add(ev7);
         //eventos.add(ev8);
-        
+        List<Integer> diasSemana=new ArrayList<>();
+        diasSemana.add(2);
+        diasSemana.add(4);
+        diasSemana.add(6);
+        LocalTime horaInicio=LocalTime.of(10, 0);
+        EventoConsultableDTO ev1=new EventoConsultableDTO("semanal", "diseño de software", "clase de diseño", Color.yellow,
+                diasSemana, "1826", fecha2, horaInicio, 2.30f);
+        eventos.add(ev1);
         Icon imagen=new ImageIcon("C:/Users/luiis/Dropbox/PC/Documents/GitHub/Dise-oSoftware/Aulas/fotoMaestro.png");
         MaestroEditableDTO maestro=new MaestroEditableDTO(1L, "Gibran", "123", 
                 "no se", imagen,eventos);
