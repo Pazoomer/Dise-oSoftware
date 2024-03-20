@@ -102,8 +102,7 @@ public class CDEvento extends javax.swing.JDialog {
         EventoConsultableDTO eventoN;
         
 //        if(tipo.equalsIgnoreCase("unico")){
-            eventoN=new EventoConsultableDTO(tipo, nombre, descripcion, color, 
-                diasSemana, ubicacion, fecha, horaInicio, horasDuracion);
+            eventoN=new EventoConsultableDTO(tipo, nombre, descripcion, color, diasSemana, ubicacion, fecha, horaInicio, horasDuracion);
 //        }else{
 //            eventoN=new EventoConsultableDTO(tipo, nombre, descripcion, color, 
 //                diasSemana, ubicacion, fecha, horaInicio, horasDuracion);
