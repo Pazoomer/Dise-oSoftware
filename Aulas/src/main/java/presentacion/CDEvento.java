@@ -26,17 +26,19 @@ public class CDEvento extends javax.swing.JDialog {
     public final PrincipalCalendario calendario;
     private final java.awt.Frame parent;
     private EventoConsultableDTO eventoEditable;
+    private String tipoOperacion;
     /**
      * Creates new form CDEvento
      * @param parent
      * @param calendario
      * @param modal
      */
-    public CDEvento(java.awt.Frame parent,PrincipalCalendario calendario, boolean modal) {
+    public CDEvento(java.awt.Frame parent,PrincipalCalendario calendario, boolean modal,String tipoOperacion) {
         super(parent, modal);
         initComponents();
         this.calendario=calendario;
         this.parent=parent;
+        this.tipoOperacion=tipoOperacion;
         this.setSize(500, 620);
         actualizarPermisos();
         cargarIconos();
@@ -65,16 +67,25 @@ public class CDEvento extends javax.swing.JDialog {
         lblInfoEventoEstatico.setIcon(iconoDatos);
     }
     
-    public CDEvento(java.awt.Frame parent,PrincipalCalendario calendario,EventoConsultableDTO eventoEditable , boolean modal) {
+    public CDEvento(java.awt.Frame parent,PrincipalCalendario calendario,EventoConsultableDTO eventoEditable , boolean modal,String tipoOperacion) {
         super(parent, modal);
         initComponents();
         this.calendario=calendario;
         this.parent=parent;
         this.eventoEditable=eventoEditable;
+        this.tipoOperacion=tipoOperacion;
+        cargarIconos();
         this.setSize(500, 620);
     }
     
     private void añadirEvento2(){
+        EventoConsultableDTO eventoN=crearEvento();
+        
+        JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
+        calendario.añadirEvento(eventoN);
+    }
+    
+    private EventoConsultableDTO crearEvento(){
         String tipo=(String) this.cmbTipo.getSelectedItem();
         String descripcion = this.txtDescripcion.getText();
         String nombre = this.txtNombre.getText();
@@ -83,7 +94,11 @@ public class CDEvento extends javax.swing.JDialog {
         if(tipo.equalsIgnoreCase("Unico"))
             fecha = this.dtcFecha.getCalendar();
         Color color = this.lblEjemploEstatico.getForeground();
-        float horasDuracion=Float.parseFloat((String)cmbDuracionEvento.getSelectedItem());
+        String duracionStr=(String)cmbDuracionEvento.getSelectedItem();
+        float horasDuracion=Float.parseFloat(String.valueOf(duracionStr.charAt(0)));
+        if(duracionStr.length()>1)
+            horasDuracion=horasDuracion+0.5f;
+        
         List<Integer> diasSemana=new ArrayList<>();
         JCheckBox[] arrChkBx={chbDomingo,chbLunes,chbMartes,chbMiercoles,chbJueves,chbViernes,chbSabado};
         for (int i = 0; i < 7; i++) {
@@ -110,6 +125,7 @@ public class CDEvento extends javax.swing.JDialog {
         
         JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
         calendario.añadirEvento(eventoN);
+        return eventoN;
     }
     
     //TODO
@@ -231,13 +247,23 @@ public class CDEvento extends javax.swing.JDialog {
         
     }
     
-    public void desplegarEvento(){
+    public EventoConsultableDTO editarEvento(){
+        EventoConsultableDTO eventoEditado=crearEvento();
+        return eventoEditado;
+    }
+    
+    public void desplegarEventoEditable(){
+        desplegarInfo();
+        actualizarPermisos();
+    }
+    
+    private void desplegarInfo(){
         txtNombre.setText(this.eventoEditable.getNombre());
         txtDescripcion.setText(this.eventoEditable.getDescripcion());
         txtUbicacion.setText(this.eventoEditable.getUbicacion());
-        int horasDuracion=(int)eventoEditable.getHorasDuracionEvento();
+        int horasDuracion = (int) eventoEditable.getHorasDuracionEvento();
         cmbDuracionEvento.setSelectedItem(String.valueOf(horasDuracion));
-        String horaInicio=eventoEditable.getHoraInicio().toString();
+        String horaInicio = eventoEditable.getHoraInicio().toString();
         System.out.println(horaInicio);
         for (int i = 0; i < cmbHora.getModel().getSize(); i++) {
             if(horaInicio.equals(cmbHora.getModel().getElementAt(i))){
@@ -268,6 +294,10 @@ public class CDEvento extends javax.swing.JDialog {
                 }
             }
         }
+    }
+    
+    public void desplegarEvento(){
+        desplegarInfo();
         txtNombre.setEditable(false);
         txtDescripcion.setEditable(false);
         txtUbicacion.setEditable(false);
@@ -340,6 +370,11 @@ public class CDEvento extends javax.swing.JDialog {
         lblInfoEventoEstatico = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         pnlEvento.setBackground(new java.awt.Color(255, 255, 255));
@@ -434,7 +469,7 @@ public class CDEvento extends javax.swing.JDialog {
 
         lblEjemploEstatico.setText("EJEMPLO COLOR");
         pnlEvento.add(lblEjemploEstatico);
-        lblEjemploEstatico.setBounds(30, 340, 140, 14);
+        lblEjemploEstatico.setBounds(30, 340, 140, 16);
 
         btnLimpiar.setBackground(new java.awt.Color(255, 255, 255));
         btnLimpiar.setBorder(null);
@@ -459,14 +494,14 @@ public class CDEvento extends javax.swing.JDialog {
         chbLunes.setText("Lunes");
         chbLunes.setBorder(null);
         pnlEvento.add(chbLunes);
-        chbLunes.setBounds(30, 80, 85, 15);
+        chbLunes.setBounds(30, 80, 85, 17);
 
         chbMartes.setBackground(new java.awt.Color(255, 255, 255));
         chbMartes.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbMartes.setText("Martes");
         chbMartes.setBorder(null);
         pnlEvento.add(chbMartes);
-        chbMartes.setBounds(30, 100, 85, 15);
+        chbMartes.setBounds(30, 100, 85, 17);
 
         chbMiercoles.setBackground(new java.awt.Color(255, 255, 255));
         chbMiercoles.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
@@ -478,7 +513,7 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(chbMiercoles);
-        chbMiercoles.setBounds(30, 120, 85, 15);
+        chbMiercoles.setBounds(30, 120, 85, 17);
 
         chbJueves.setBackground(new java.awt.Color(255, 255, 255));
         chbJueves.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
@@ -490,28 +525,28 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(chbJueves);
-        chbJueves.setBounds(30, 140, 85, 15);
+        chbJueves.setBounds(30, 140, 85, 17);
 
         chbViernes.setBackground(new java.awt.Color(255, 255, 255));
         chbViernes.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbViernes.setText("Viernes");
         chbViernes.setBorder(null);
         pnlEvento.add(chbViernes);
-        chbViernes.setBounds(120, 80, 85, 15);
+        chbViernes.setBounds(120, 80, 85, 17);
 
         chbSabado.setBackground(new java.awt.Color(255, 255, 255));
         chbSabado.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbSabado.setText("Sabado");
         chbSabado.setBorder(null);
         pnlEvento.add(chbSabado);
-        chbSabado.setBounds(120, 100, 85, 15);
+        chbSabado.setBounds(120, 100, 85, 17);
 
         chbDomingo.setBackground(new java.awt.Color(255, 255, 255));
         chbDomingo.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbDomingo.setText("Domingo");
         chbDomingo.setBorder(null);
         pnlEvento.add(chbDomingo);
-        chbDomingo.setBounds(120, 120, 85, 15);
+        chbDomingo.setBounds(120, 120, 85, 17);
         pnlEvento.add(dtcFecha);
         dtcFecha.setBounds(30, 200, 160, 30);
 
@@ -533,11 +568,11 @@ public class CDEvento extends javax.swing.JDialog {
 
         cmbHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01:00", "01:30", "02:00", "02:30", "03:00", "03:30", "04:00", "04:30", "05:00", "05:30", "06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30" }));
         pnlEvento.add(cmbHora);
-        cmbHora.setBounds(30, 260, 68, 20);
+        cmbHora.setBounds(30, 260, 68, 22);
 
         cmbAMPM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AM", "PM" }));
         pnlEvento.add(cmbAMPM);
-        cmbAMPM.setBounds(100, 260, 59, 20);
+        cmbAMPM.setBounds(100, 260, 59, 22);
 
         lblNombreEstatico.setBackground(new java.awt.Color(255, 255, 255));
         lblNombreEstatico.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -602,7 +637,11 @@ public class CDEvento extends javax.swing.JDialog {
     }//GEN-LAST:event_btnMapaActionPerformed
 
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
-        añadirEvento2();
+        if(tipoOperacion.equals("agregar"))
+            añadirEvento2();
+        else if(tipoOperacion.equals("editar")){
+            PrincipalCalendario.eventoSeleccionado=editarEvento();
+        }
         this.dispose();
     }//GEN-LAST:event_btnAñadirActionPerformed
 
@@ -669,6 +708,11 @@ public class CDEvento extends javax.swing.JDialog {
         // TODO add your handling code here:
         btnMapa.setBackground(Color.WHITE);
     }//GEN-LAST:event_btnMapaMouseExited
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        PrincipalCalendario.isDisplayed=false;
+    }//GEN-LAST:event_formWindowClosing
 
     private void actualizarPermisos(){
       if (this.cmbTipo.getSelectedItem().equals("Unico")) {

@@ -33,6 +33,8 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     static ModeloTablaHorario modelo;
     private CDEvento cdEvento;
     private PrincipalCalendario prinCalendario;
+    public static boolean isDisplayed=false;
+    public static EventoConsultableDTO eventoSeleccionado;
     
     
     /**
@@ -61,22 +63,10 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         ImageIcon iconoGuardar = new ImageIcon(getClass().getResource("/imagenes/icons8-save-50.png"));
         btnGuardar.setIcon(iconoGuardar);
     }
-
-    private List<EventoConsultableDTO> cargarEventosDelDia(int dia){
-       List<EventoConsultableDTO> eventosDelDia=new ArrayList<>();
-        for(EventoConsultableDTO evento:calendarioMes){
-            if (evento.getFechaInicio().get(Calendar.DAY_OF_MONTH) == dia) {
-                eventosDelDia.add(evento);
-                System.out.println("metodo eventos del dia: "+evento.getNombre());
-            }else
-                System.out.println("no hay");
-        }
-        
-        return eventosDelDia;
-    }
     
     private List<EventoConsultableDTO> cargarEventosSemana(int semana){
         List<EventoConsultableDTO> eventosDeSemana=new ArrayList<>();
+        cargarCalendario();
         for(EventoConsultableDTO evento:calendarioMes){
              if (evento.getFechaInicio().get(Calendar.WEEK_OF_MONTH) == semana
                      || evento.getTipo().equalsIgnoreCase("semanal")) {
@@ -97,7 +87,6 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         System.out.println("inicio el cargar eventos");
         modelo=new ModeloTablaHorario();
         Calendar fecha=calEsquinaSuperior.getCalendar();
-        int dia=fecha.get(Calendar.DAY_OF_MONTH);
         int semana=fecha.get(Calendar.WEEK_OF_MONTH);
         List<EventoConsultableDTO> eventos=cargarEventosSemana(semana);
         if(eventos.isEmpty()){
@@ -124,7 +113,8 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             }
         });
         tablaEventos.setModel(modelo);
-        desplegarInfoEvento();
+        getEventoSeleccionado();
+        System.out.println("evento seleccionado actual: "+eventoSeleccionado);
     }
     
     
@@ -187,9 +177,18 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     }
     
     private void desplegarInfoEvento(){
+        if(eventoSeleccionado!=null){
+            CDEvento cdEv = new CDEvento(this, this, eventoSeleccionado, true,"desplegar");
+            cdEv.desplegarEvento();
+            cdEv.setVisible(true);
+        }else System.out.println("el evento es null");
+    }
+    
+    private void getEventoSeleccionado(){
         tablaEventos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent event) {
+                System.out.println("cambio el valor: "+event.toString());
                 // Verificar si la selección está cambiando
                 if (!event.getValueIsAdjusting()) {
                     // Obtener la fila y columna seleccionadas
@@ -199,15 +198,16 @@ public class PrincipalCalendario extends javax.swing.JFrame {
                         System.out.println("celda seelccionada: "+selectedRow+", "+selectedColumn);
                         String nombreEvento = (String) modelo.getValueAt(selectedRow, selectedColumn);
                         if (nombreEvento != null) {
-                            System.out.println("??" + nombreEvento);
-                            List<EventoConsultableDTO> evSem = cargarEventosSemana(
-                                    calEsquinaSuperior.getCalendar().get(Calendar.WEEK_OF_MONTH));
-                            for (EventoConsultableDTO e : evSem) {
-                                if (e.getNombre().equals(nombreEvento)) {
-                                    cdEvento = new CDEvento(prinCalendario, prinCalendario, e, true);
-                                    cdEvento.desplegarEvento();
-                                    cdEvento.setVisible(true);
-                                    break;
+                            if(!isDisplayed){
+                                isDisplayed=true;
+                                System.out.println("??" + nombreEvento);
+                                List<EventoConsultableDTO> evSem = cargarEventosSemana(
+                                        calEsquinaSuperior.getCalendar().get(Calendar.WEEK_OF_MONTH));
+                                for (EventoConsultableDTO e : evSem) {
+                                    if (e.getNombre().equals(nombreEvento)) {
+                                        eventoSeleccionado=e;
+                                        break;
+                                    }
                                 }
                             }
                         }
@@ -216,6 +216,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             }
         });
     }
+    
     //inicializa el calendario con los eventos del mes seleccionado
     private void cargarCalendario(){
        Calendar fecha=calEsquinaSuperior.getCalendar();
@@ -253,9 +254,19 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     }
 
     private void añadirEvento() {
-        cdEvento = new CDEvento(this,this, true);
+        cdEvento = new CDEvento(this,this, true,"agregar");
         cdEvento.setVisible(true);
     }
+    
+    private void editarEvento(){
+        if(eventoSeleccionado!=null){
+            cdEvento = new CDEvento(this, this, eventoSeleccionado, true,"editar");
+            cdEvento.desplegarEventoEditable();
+            cdEvento.setVisible(true);
+            //eventoSeleccionado=cdEvento.editarEvento();
+        }
+    }
+    
     /*TODO
     Cambia la informacion de un evento
     private void editarEvento(){
@@ -276,6 +287,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         javax.swing.JScrollPane scpCalendario = new javax.swing.JScrollPane();
         tablaEventos = new javax.swing.JTable();
         calEsquinaSuperior = new com.toedter.calendar.JCalendar();
+        btnDetalleEvento = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         javax.swing.JLabel lblTituloCalendario = new javax.swing.JLabel();
 
@@ -400,6 +412,16 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             }
         });
 
+        btnDetalleEvento.setBackground(new java.awt.Color(22, 81, 198));
+        btnDetalleEvento.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        btnDetalleEvento.setForeground(new java.awt.Color(255, 255, 255));
+        btnDetalleEvento.setText("Ver detalle Evento");
+        btnDetalleEvento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDetalleEventoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -407,21 +429,27 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(calEsquinaSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(51, 51, 51)
-                                .addComponent(btnAñadirEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap()
+                                .addComponent(calEsquinaSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(38, 38, 38)
-                                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(34, 34, 34)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnEditarEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(51, 51, 51)
+                                        .addComponent(btnAñadirEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(38, 38, 38)
+                                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(34, 34, 34)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnEditarEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnDetalleEvento)
+                        .addGap(82, 82, 82)))
                 .addComponent(pnlCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(42, 42, 42))
         );
@@ -437,7 +465,9 @@ public class PrincipalCalendario extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnEditarEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAñadirEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(82, 82, 82)
+                        .addGap(28, 28, 28)
+                        .addComponent(btnDetalleEvento)
+                        .addGap(31, 31, 31)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
                             .addComponent(btnAtras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -502,7 +532,19 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     }//GEN-LAST:event_calEsquinaSuperiorPropertyChange
 
     private void btnEditarEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarEventoActionPerformed
-        //editarEvento();
+        EventoConsultableDTO ev=eventoSeleccionado;
+        System.out.println("evento antes de editar: "+ev);
+        editarEvento();
+        int index=0;
+        for (EventoConsultableDTO e : maestro.getCalendario()) {
+            if (e.getNombre().equals(ev.getNombre())) {
+                index=maestro.getCalendario().indexOf(e);
+                break;
+            }
+        }
+        maestro.getCalendario().set(index, eventoSeleccionado);
+        System.out.println("evento editado: "+eventoSeleccionado);
+        cargarEventos();
     }//GEN-LAST:event_btnEditarEventoActionPerformed
 
     private void btnAñadirEventoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAñadirEventoMouseEntered
@@ -549,10 +591,16 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         btnGuardar.setBackground(Color.WHITE);
     }//GEN-LAST:event_btnGuardarMouseExited
 
+    private void btnDetalleEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetalleEventoActionPerformed
+        // TODO add your handling code here:
+        desplegarInfoEvento();
+    }//GEN-LAST:event_btnDetalleEventoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnAñadirEvento;
+    private javax.swing.JButton btnDetalleEvento;
     private javax.swing.JButton btnEditarEvento;
     private javax.swing.JButton btnGuardar;
     private com.toedter.calendar.JCalendar calEsquinaSuperior;

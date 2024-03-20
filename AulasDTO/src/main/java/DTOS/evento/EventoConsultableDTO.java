@@ -35,8 +35,8 @@ public class EventoConsultableDTO {
         this.horasDuracionEvento=horasDuracionEvento;
         //esto separa la parte entera y la decimal del float, almacenandolas
         //en variables representando las horas y minutos. 
-        //Por ejemplo si horasDuracionEvento guarda 2.30 (2 horas y media),
-        //horas guarda el 2 y minutos el 30, para agregarlos por separado a la fecha
+        //Por ejemplo si horasDuracionEvento guarda 2.5 (2 horas y media),
+        //horas guarda el 2 y minutos guarda 30, para agregarlos por separado a la fecha
         int horas=(int)horasDuracionEvento;
         double copiaHoras=horasDuracionEvento;
         double decimal=copiaHoras-horas;
