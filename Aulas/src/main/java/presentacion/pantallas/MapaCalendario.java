@@ -26,6 +26,8 @@ public class MapaCalendario extends javax.swing.JFrame {
      * @param cdEvento
      */
     public MapaCalendario(CDEvento cdEvento) {
+        setUndecorated(true);
+        this.setResizable(false);
         initComponents();
         this.cdEvento = cdEvento;
         setMapa("Obregon Nainari");

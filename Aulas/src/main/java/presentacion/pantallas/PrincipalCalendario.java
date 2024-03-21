@@ -42,6 +42,8 @@ public class PrincipalCalendario extends javax.swing.JFrame {
      * @param maestro
      */
     public PrincipalCalendario(PrincipalMaestro prinMaestro, MaestroEditableDTO maestro) {
+        setUndecorated(true);
+        this.setResizable(false);
         initComponents();
         this.maestro=maestro;
         this.prinMaestro=prinMaestro;
@@ -51,6 +53,8 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         cargarEventos();
         this.setVisible(true);
         this.setSize(800, 630);
+        
+        
         cargarIconos();
     }
     private void cargarIconos() {

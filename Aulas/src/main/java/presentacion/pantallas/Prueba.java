@@ -16,7 +16,7 @@ import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import subsistemas.recuperarMaestro.IRecuperarMaestro;
-import subsistemas.recuperarMaestro.RecuperarMaestro;
+import subsistemas.recuperarMaestro.FachadaRecuperarMaestro;
 
 
 
@@ -31,12 +31,12 @@ public class Prueba {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        IRecuperarMaestro rMaestro = new RecuperarMaestro();
+        IRecuperarMaestro rMaestro = new FachadaRecuperarMaestro();
         MaestroEditableDTO maestroE = null;
         try {
             maestroE = rMaestro.recuperarMaestro();
         } catch (PersistenciaException e) {
-            System.out.println("error");
+            System.out.println("error al cargar el maestro");
         }
         if(maestroE!=null)
             new PrincipalMaestro(maestroE).setVisible(true);

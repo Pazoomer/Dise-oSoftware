@@ -16,12 +16,10 @@ import javax.swing.ImageIcon;
  *
  * @author t1pas
  */
-public class RecuperarMaestro implements IRecuperarMaestro {
-
+public class Maestros {
     //TODO
     //Solo soy una fachada
-    @Override
-    public MaestroEditableDTO recuperarMaestro() throws PersistenciaException {
+    protected MaestroEditableDTO recuperarMaestro() throws PersistenciaException{
         List<EventoConsultableDTO> calendario = new ArrayList<>();
 //
 //        Calendar calendar = Calendar.getInstance();
@@ -53,5 +51,4 @@ public class RecuperarMaestro implements IRecuperarMaestro {
 
         return maestro;
     }
-
 }
