@@ -114,8 +114,17 @@ public class CDEvento extends javax.swing.JDialog {
         LocalTime horaInicio=LocalTime.of(hora, minutos);
         System.out.println("hora inicio evento desde cdEvento: "+hora+":"+minutos);
         
-        EventoConsultableDTO eventoN=new EventoConsultableDTO(tipo, nombre, descripcion, color, 
-                diasSemana, ubicacion, fecha, horaInicio, horasDuracion);
+        EventoConsultableDTO eventoN;
+        
+//        if(tipo.equalsIgnoreCase("unico")){
+            eventoN=new EventoConsultableDTO(tipo, nombre, descripcion, color, diasSemana, ubicacion, fecha, horaInicio, horasDuracion);
+//        }else{
+//            eventoN=new EventoConsultableDTO(tipo, nombre, descripcion, color, 
+//                diasSemana, ubicacion, fecha, horaInicio, horasDuracion);
+//        }
+        
+        JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
+        calendario.añadirEvento(eventoN);
         return eventoN;
     }
     
