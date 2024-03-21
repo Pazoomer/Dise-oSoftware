@@ -12,10 +12,9 @@ public class FachadaRecuperarMaestro implements IRecuperarMaestro {
 
     private final Maestros maestros;
 
-    public FachadaRecuperarMaestro(Maestros maestros) {
-        this.maestros = maestros;
+    public FachadaRecuperarMaestro() {
+        this.maestros = new Maestros();
     }
-    
     
     //TODO
     //Solo soy una fachada

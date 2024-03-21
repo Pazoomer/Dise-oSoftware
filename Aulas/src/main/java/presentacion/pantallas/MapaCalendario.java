@@ -1,12 +1,17 @@
 package presentacion.pantallas;
 
+import DTOS.campus.CampusConsultableDTO;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import presentacion.CDEvento;
+import subsistemas.recuperarUbicaciones.FachadaRecuperarUbicaciones;
+import subsistemas.recuperarUbicaciones.IRecuperarUbicaciones;
 
 /**
  *
@@ -34,7 +39,7 @@ public class MapaCalendario extends javax.swing.JFrame {
         this.setSize(800, 600);
         cargarIconos();
         actualizarImagenMapa();
-
+        recuperarUbicaciones();
     }
 
     /**
@@ -68,6 +73,33 @@ public class MapaCalendario extends javax.swing.JFrame {
         btnZoomIn.setIcon(iconoZoomIn);
         ImageIcon iconoZoomOut = new ImageIcon(getClass().getResource("/imagenes/icons8-zoom-out-50.png"));
         btnZoomOut.setIcon(iconoZoomOut);
+    }
+    
+    /**
+     * Accede al subsistema de recupera ubicaciones por los campus
+     */
+    private void recuperarUbicaciones() {
+        IRecuperarUbicaciones on = new FachadaRecuperarUbicaciones();
+        List<String> campusUbicaciones = on.recuperarEdificios();
+
+        for (String campusItem : campusUbicaciones) {
+            this.cmbCampus.addItem(campusItem);
+        }
+        cambioCampus(campusUbicaciones.get(0));
+    }
+
+    /**
+     * Cambia el comboBox de ubicaciones segun el campus
+     * @param campus 
+     */
+    private void cambioCampus(String campus) {
+        IRecuperarUbicaciones on = new FachadaRecuperarUbicaciones();
+        List<String> ubicacionesCampus = on.recuperarEdificiosPorCampus(campus);
+
+        this.cmbMapa.removeAllItems();
+        for (String ubicacionCampus : ubicacionesCampus) {
+            this.cmbMapa.addItem(ubicacionCampus);
+        }
     }
 
     //TODO
@@ -104,7 +136,6 @@ public class MapaCalendario extends javax.swing.JFrame {
         lblTituloUbicacion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -116,7 +147,6 @@ public class MapaCalendario extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnAtras.setBackground(new java.awt.Color(255, 255, 255));
         btnAtras.setBorder(null);
         btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -132,7 +162,6 @@ public class MapaCalendario extends javax.swing.JFrame {
             }
         });
 
-        btnGuardar.setBackground(new java.awt.Color(255, 255, 255));
         btnGuardar.setBorder(null);
         btnGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -148,7 +177,6 @@ public class MapaCalendario extends javax.swing.JFrame {
             }
         });
 
-        cmbMapa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AV0900 Aula Audiovisual", "AV1000 CISCO", "AV1100", "AV1200", "AV1300", "AV1400", "AV1500", "AV1600", "AV1700", "AV1800" }));
         cmbMapa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 cmbMapaMouseExited(evt);
@@ -169,7 +197,6 @@ public class MapaCalendario extends javax.swing.JFrame {
         lblUbicacionEstatico.setText("Buscar ubicacion en mapa");
         lblUbicacionEstatico.setOpaque(true);
 
-        cmbCampus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Obregon Nainari", "Obregon Centro" }));
         cmbCampus.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbCampusItemStateChanged(evt);
@@ -193,7 +220,6 @@ public class MapaCalendario extends javax.swing.JFrame {
         lblCampusEstatico.setText("                    Campus");
         lblCampusEstatico.setOpaque(true);
 
-        btnZoomIn.setBackground(new java.awt.Color(255, 255, 255));
         btnZoomIn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnZoomInMouseEntered(evt);
@@ -208,7 +234,6 @@ public class MapaCalendario extends javax.swing.JFrame {
             }
         });
 
-        btnZoomOut.setBackground(new java.awt.Color(255, 255, 255));
         btnZoomOut.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnZoomOutMouseEntered(evt);
@@ -249,7 +274,7 @@ public class MapaCalendario extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnZoomOut, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                            .addComponent(btnZoomOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnZoomIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(lblUbicacionEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -333,8 +358,10 @@ public class MapaCalendario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void cmbCampusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCampusItemStateChanged
-        String campus = cmbCampus.getSelectedItem().toString();
-        setMapa(campus);
+        
+        String campusUbi = cmbCampus.getSelectedItem().toString();
+        setMapa(campusUbi);
+        cambioCampus(campusUbi);
     }//GEN-LAST:event_cmbCampusItemStateChanged
 
     private void setMapa(String campus) {

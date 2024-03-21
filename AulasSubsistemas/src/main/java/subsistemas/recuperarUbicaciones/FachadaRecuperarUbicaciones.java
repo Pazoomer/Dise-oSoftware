@@ -1,6 +1,7 @@
 
 package subsistemas.recuperarUbicaciones;
 
+import DTOS.campus.CampusConsultableDTO;
 import java.util.List;
 
 /**
@@ -11,18 +12,18 @@ public class FachadaRecuperarUbicaciones implements IRecuperarUbicaciones {
 
     private Ubicaciones ubicaciones;
 
-    public FachadaRecuperarUbicaciones(Ubicaciones ubicaciones) {
-        this.ubicaciones = ubicaciones;
+    public FachadaRecuperarUbicaciones() {
+        this.ubicaciones = new Ubicaciones();
     }
 
     @Override
-    public List<String> recuperarCampus() {
-        return ubicaciones.recuperarCampus();
+    public List<String> recuperarEdificios() {
+        return ubicaciones.recuperarEdificios();
     }
 
     @Override
-    public List<String> recuperarEdificios(String campus) {
-        return ubicaciones.recuperarEdificios(campus);
+    public List<String> recuperarEdificiosPorCampus(String campus) {
+        return ubicaciones.recuperarEdificiosPorCampus(campus);
     }
     
 }
