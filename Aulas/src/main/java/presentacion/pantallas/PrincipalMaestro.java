@@ -45,9 +45,9 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         initComponents();
         this.maestro = maestro;
         cargarMaestro();
+        cargarIconos();
         this.setVisible(true);
         this.setSize(800, 600);
-        cargarIconos();
 
     }
 
@@ -57,6 +57,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
     private void cargarIconos() {
         // Carga el icono de retorno en el botón btnAtras
         ImageIcon iconoReturn = new ImageIcon(getClass().getResource("/imagenes/icons8-return-50.png"));
+        
         btnAtras.setIcon(iconoReturn);
         // Carga el icono de calendario en el botón btnCalendario
         ImageIcon iconoCalendario = new ImageIcon(getClass().getResource("/imagenes/icons8-calendar-50.png"));

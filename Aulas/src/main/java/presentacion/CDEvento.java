@@ -252,8 +252,9 @@ public class CDEvento extends javax.swing.JDialog {
         txtNombre.setText(this.eventoEditable.getNombre());
         txtDescripcion.setText(this.eventoEditable.getDescripcion());
         txtUbicacion.setText(this.eventoEditable.getUbicacion());
-        int horasDuracion = (int) eventoEditable.getHorasDuracionEvento();
-        cmbDuracionEvento.setSelectedItem(String.valueOf(horasDuracion));
+        String duracion = String.valueOf(eventoEditable.getHorasDuracionEvento());
+//        if(duracion.charAt(2)!=0)
+        cmbDuracionEvento.setSelectedItem(duracion);
         String horaInicio = eventoEditable.getHoraInicio().toString();
         System.out.println(horaInicio);
         for (int i = 0; i < cmbHora.getModel().getSize(); i++) {

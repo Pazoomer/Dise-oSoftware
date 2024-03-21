@@ -29,10 +29,9 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     private MaestroEditableDTO maestro;
     PrincipalMaestro prinMaestro;
     List<EventoConsultableDTO> calendarioMes;
-    List<EventoConsultableDTO> eventosSemana;
+    List<EventoConsultableDTO> calendarioMaestroTemporal;
     static ModeloTablaHorario modelo;
     private CDEvento cdEvento;
-    private PrincipalCalendario prinCalendario;
     public static boolean isDisplayed=false;
     public static EventoConsultableDTO eventoSeleccionado;
     
@@ -47,8 +46,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         this.maestro=maestro;
         this.prinMaestro=prinMaestro;
         modelo=new ModeloTablaHorario();
-        prinCalendario=this;
-        eventosSemana=new ArrayList<>();
+        calendarioMaestroTemporal=maestro.getCalendario();
         cargarCalendario();
         cargarEventos();
         this.setVisible(true);
@@ -223,7 +221,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
        int mes=fecha.get(Calendar.MONTH);
        calendarioMes=new ArrayList<>();
         
-        for (EventoConsultableDTO evento : maestro.getCalendario()) {
+        for (EventoConsultableDTO evento : calendarioMaestroTemporal) {
             System.out.println("evento desde metodo cargar Calendario: "+ evento);
             if (evento.getFechaInicio().get(Calendar.MONTH) == mes || evento.getTipo().equalsIgnoreCase("semanal")) {
                 calendarioMes.add(evento);
@@ -248,7 +246,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     }
 
     public void añadirEvento(EventoConsultableDTO evento) {
-        maestro.getCalendario().add(evento);
+        calendarioMaestroTemporal.add(evento);
         cargarCalendario();
         cargarEventos();
     }
@@ -536,13 +534,13 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         System.out.println("evento antes de editar: "+ev);
         editarEvento();
         int index=0;
-        for (EventoConsultableDTO e : maestro.getCalendario()) {
+        for (EventoConsultableDTO e : calendarioMaestroTemporal) {
             if (e.getNombre().equals(ev.getNombre())) {
-                index=maestro.getCalendario().indexOf(e);
+                index=calendarioMaestroTemporal.indexOf(e);
                 break;
             }
         }
-        maestro.getCalendario().set(index, eventoSeleccionado);
+        calendarioMaestroTemporal.set(index, eventoSeleccionado);
         System.out.println("evento editado: "+eventoSeleccionado);
         cargarEventos();
     }//GEN-LAST:event_btnEditarEventoActionPerformed
