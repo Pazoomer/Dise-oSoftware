@@ -104,7 +104,7 @@ public class CDEvento extends javax.swing.JDialog {
         for (int i = 0; i < 7; i++) {
             if(arrChkBx[i].isSelected()){
                 diasSemana.add(i+1);
-                System.out.println("dia numero: "+(i+1));
+               // System.out.println("dia numero: "+(i+1));
             } 
         }
         
@@ -112,7 +112,7 @@ public class CDEvento extends javax.swing.JDialog {
         int hora=Integer.parseInt(horaSeleccionada.substring(0, 2));
         int minutos=Integer.parseInt(horaSeleccionada.substring(3));
         LocalTime horaInicio=LocalTime.of(hora, minutos);
-        System.out.println("hora inicio evento desde cdEvento: "+hora+":"+minutos);
+        //System.out.println("hora inicio evento desde cdEvento: "+hora+":"+minutos);
         
         EventoConsultableDTO eventoN;
         
@@ -123,7 +123,7 @@ public class CDEvento extends javax.swing.JDialog {
 //                diasSemana, ubicacion, fecha, horaInicio, horasDuracion);
 //        }
         
-        JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
+        //JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
         calendario.añadirEvento(eventoN);
         return eventoN;
     }
