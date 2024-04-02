@@ -14,7 +14,7 @@ import java.util.List;
  * @author luiis
  */
 public class Evento {
-    private String tipo;
+    private TipoEventoEnum tipo;
     private String nombre;
     private String descripcion;
     private List<Integer> diasSemana;
@@ -28,32 +28,66 @@ public class Evento {
         this.diasSemana=new ArrayList<>();
     }
 
-    public Evento(String tipo, String nombre, String descripcion, List<Integer> diasSemana, String ubicacion, Calendar fechaInicio, Calendar fechaFin, LocalTime horaInicio, float horasDuracionEvento) {
+    /**
+     * Constructor para eventos que van a durar mas de un dia. Aplica para eventos de 
+     * tipo semanal o unico de varios dias
+     * @param tipo
+     * @param nombre
+     * @param descripcion
+     * @param diasSemana
+     * @param ubicacion
+     * @param fechaInicio
+     * @param fechaFin
+     * @param horaInicio
+     * @param horasDuracionEvento 
+     */
+    public Evento(TipoEventoEnum tipo, String nombre, String descripcion, List<Integer> diasSemana, 
+            String ubicacion, Calendar fechaInicio, Calendar fechaFin, LocalTime horaInicio, float horasDuracionEvento) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.diasSemana = diasSemana;
         this.ubicacion = ubicacion;
         this.fechaInicio = fechaInicio;
+        this.fechaInicio.set(Calendar.HOUR_OF_DAY, horaInicio.getHour());
+        this.fechaInicio.set(Calendar.MINUTE, horaInicio.getMinute());
         this.fechaFin = fechaFin;
         this.horaInicio = horaInicio;
         this.horasDuracionEvento = horasDuracionEvento;
     }
 
-    public Evento(String tipo, String nombre, String descripcion, Calendar fechaInicio, LocalTime horaInicio, float horasDuracionEvento) {
-        this.tipo = tipo;
+    /**
+     * Constructor para eventos de un solo dia.Calcula la fecha fin del evento tomando la fecha inicio
+ como base y a esta se le suman las horas que dura el evento
+     * @param nombre
+     * @param descripcion
+     * @param fechaInicio
+     * @param ubicacion
+     * @param horaInicio
+     * @param horasDuracionEvento 
+     */
+    public Evento(String nombre, String descripcion, Calendar fechaInicio, String ubicacion,
+            LocalTime horaInicio, float horasDuracionEvento) {
+        this.tipo = TipoEventoEnum.UNICO_UN_DIA;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fechaInicio = fechaInicio;
+        this.ubicacion = ubicacion;
+        this.fechaInicio.set(Calendar.HOUR_OF_DAY, horaInicio.getHour());
+        this.fechaInicio.set(Calendar.MINUTE, horaInicio.getMinute());
         this.horaInicio = horaInicio;
         this.horasDuracionEvento = horasDuracionEvento;
         Calendar fechaCopia=fechaInicio;
-        fechaCopia.set(Calendar.HOUR_OF_DAY, horaInicio.getHour());
-        fechaCopia.add(Calendar.HOUR_OF_DAY, (int)horasDuracionEvento);
+        int horas=(int)horasDuracionEvento;
+        double copiaHoras=horasDuracionEvento;
+        double decimal=copiaHoras-horas;
+        int minutos=(int)(decimal*100);
+        fechaCopia.add(Calendar.HOUR_OF_DAY, horas);
+        fechaCopia.add(Calendar.MINUTE, minutos);
         this.fechaFin=fechaCopia;
     }
 
-    public String getTipo() {
+    public TipoEventoEnum getTipo() {
         return tipo;
     }
 
@@ -89,6 +123,22 @@ public class Evento {
         return horasDuracionEvento;
     }
 
+    public Evento editarEvento(Evento evento){
+        return evento;
+    }
+    
+    public boolean agregarEvento(Evento evento){
+        return true;
+    }
+    
+    public Evento obtenerEvento(Evento evento){
+        return evento;
+    }
+    
+    public boolean eliminarEvento(Evento evento){
+        return true;
+    }
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
