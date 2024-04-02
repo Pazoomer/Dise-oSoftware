@@ -2,6 +2,7 @@
 package presentacion.pantallas;
 
 import DTOS.evento.EventoConsultableDTO;
+import DTOS.evento.TipoEventoEnumDTO;
 import DTOS.maestro.MaestroEditableDTO;
 import java.awt.Color;
 import java.time.LocalTime;
@@ -70,7 +71,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         cargarCalendario();
         for(EventoConsultableDTO evento:calendarioMes){
              if (evento.getFechaInicio().get(Calendar.WEEK_OF_MONTH) == semana
-                     || evento.getTipo().equalsIgnoreCase("semanal")) {
+                     || evento.getTipo().equals(TipoEventoEnumDTO.SEMANAL)) {
                 eventosDeSemana.add(evento);
                 //System.out.println("metodo eventos de la semana: "+evento.getNombre());
             }//else
@@ -94,14 +95,14 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No hay eventos de la semana");
         }
         eventos.forEach(e->{
-            List<Integer> diasEvento=e.getDiasSemana2();
+            List<Integer> diasEvento=e.getDiasSemana();
             //System.out.println("evento de la semana dentro de foreach: "+e);
             LocalTime horaInicio=e.getHoraInicio();
             int hora=horaInicio.getHour();
             int minutos=horaInicio.getMinute();
             float duracion=e.getHorasDuracionEvento();
             //System.out.println("duracion evento:"+duracion);
-            if(e.getTipo().equalsIgnoreCase("semanal")){
+            if(e.getTipo().equals(TipoEventoEnumDTO.SEMANAL)){
                 for (int i : diasEvento) {
                     //System.out.println("dia: " + i);
                     setEvento(hora, minutos, duracion, i, e);
@@ -226,7 +227,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         
         for (EventoConsultableDTO evento : calendarioMaestroTemporal) {
             //System.out.println("evento desde metodo cargar Calendario: "+ evento);
-            if (evento.getFechaInicio().get(Calendar.MONTH) == mes || evento.getTipo().equalsIgnoreCase("semanal")) {
+            if (evento.getFechaInicio().get(Calendar.MONTH) == mes || evento.getTipo().equals(TipoEventoEnumDTO.SEMANAL)) {
                 calendarioMes.add(evento);
                 //System.out.println("evento del maestro: "+evento.getNombre());
             }
