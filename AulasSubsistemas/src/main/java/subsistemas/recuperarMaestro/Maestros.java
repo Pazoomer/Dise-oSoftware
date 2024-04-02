@@ -2,8 +2,9 @@
 package subsistemas.recuperarMaestro;
 
 import DTOS.evento.EventoConsultableDTO;
+import DTOS.evento.TipoEventoEnumDTO;
 import DTOS.maestro.MaestroEditableDTO;
-import excepciones.PersistenciaException;
+import excepciones.NegocioException;
 import java.awt.Color;
 import java.awt.Image;
 import java.time.LocalTime;
@@ -19,7 +20,7 @@ import javax.swing.ImageIcon;
 public class Maestros {
     //TODO
     //Solo soy una fachada
-    protected MaestroEditableDTO recuperarMaestro() throws PersistenciaException{
+    protected MaestroEditableDTO recuperarMaestro() throws NegocioException{
         List<EventoConsultableDTO> calendario = new ArrayList<>();
 //
 //        Calendar calendar = Calendar.getInstance();
@@ -37,8 +38,8 @@ public class Maestros {
         diasSemana.add(4);
         diasSemana.add(6);
         LocalTime horaInicio = LocalTime.of(10, 0);
-        EventoConsultableDTO ev1 = new EventoConsultableDTO("semanal", "diseño de software", "clase de diseño", Color.yellow,
-                diasSemana, "1826", fecha2, horaInicio, 2.5f);
+        EventoConsultableDTO ev1 = new EventoConsultableDTO(TipoEventoEnumDTO.SEMANAL, "diseño de software", "clase de diseño", Color.yellow,
+                diasSemana, "1826", fecha2,fecha2, horaInicio, 2.5f);
         calendario.add(ev1);
         
         String rutaRealtiva = "fotoMaestro.png";

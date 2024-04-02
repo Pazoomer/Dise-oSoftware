@@ -2,7 +2,7 @@
 package subsistemas.accesoMaestro;
 
 import DTOS.maestro.MaestroEditableDTO;
-import excepciones.PersistenciaException;
+import excepciones.NegocioException;
 
 /**
  *
@@ -17,7 +17,7 @@ public class FachadaEditarMaestro implements IAccesoMaestro {
     }
    
     @Override
-    public MaestroEditableDTO editarMaestro(MaestroEditableDTO maestro) throws PersistenciaException {
+    public MaestroEditableDTO editarMaestro(MaestroEditableDTO maestro) throws NegocioException {
         //TODO
         //Solo soy una fachada
         return maestros.editarMaestro(maestro);

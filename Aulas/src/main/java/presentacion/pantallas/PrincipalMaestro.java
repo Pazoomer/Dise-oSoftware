@@ -2,7 +2,7 @@ package presentacion.pantallas;
 
 import DTOS.evento.EventoConsultableDTO;
 import DTOS.maestro.MaestroEditableDTO;
-import excepciones.PersistenciaException;
+import excepciones.NegocioException;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
@@ -93,7 +93,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         try {
             maestro = accesoM.editarMaestro(maestroAuxiliar);
             maestro.setCalendario(calendarioAuxiliar);
-        } catch (PersistenciaException ex) {
+        } catch (NegocioException ex) {
             Logger.getLogger(PrincipalMaestro.class.getName()).log(Level.SEVERE, "No se pudo actualizar la informacion en la base de datos", ex);
         }
         JOptionPane.showMessageDialog(null, "Se actualizo su informacion", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);

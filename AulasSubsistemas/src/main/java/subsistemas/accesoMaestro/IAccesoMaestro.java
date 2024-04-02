@@ -2,7 +2,7 @@
 package subsistemas.accesoMaestro;
 
 import DTOS.maestro.MaestroEditableDTO;
-import excepciones.PersistenciaException;
+import excepciones.NegocioException;
 
 /**
  *
@@ -10,5 +10,5 @@ import excepciones.PersistenciaException;
  */
 public interface IAccesoMaestro {
 
-    MaestroEditableDTO editarMaestro(MaestroEditableDTO maestro) throws PersistenciaException;
+    MaestroEditableDTO editarMaestro(MaestroEditableDTO maestro) throws NegocioException;
 }

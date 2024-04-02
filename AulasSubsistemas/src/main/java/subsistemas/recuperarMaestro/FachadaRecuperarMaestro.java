@@ -2,7 +2,7 @@
 package subsistemas.recuperarMaestro;
 
 import DTOS.maestro.MaestroEditableDTO;
-import excepciones.PersistenciaException;
+import excepciones.NegocioException;
 
 /**
  *
@@ -19,7 +19,7 @@ public class FachadaRecuperarMaestro implements IRecuperarMaestro {
     //TODO
     //Solo soy una fachada
     @Override
-    public MaestroEditableDTO recuperarMaestro() throws PersistenciaException {
+    public MaestroEditableDTO recuperarMaestro() throws NegocioException {
         return maestros.recuperarMaestro();
     }
 

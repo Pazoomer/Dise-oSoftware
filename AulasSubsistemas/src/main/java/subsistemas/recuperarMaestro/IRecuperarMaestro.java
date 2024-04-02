@@ -2,7 +2,7 @@
 package subsistemas.recuperarMaestro;
 
 import DTOS.maestro.MaestroEditableDTO;
-import excepciones.PersistenciaException;
+import excepciones.NegocioException;
 
 /**
  *
@@ -10,5 +10,5 @@ import excepciones.PersistenciaException;
  */
 public interface IRecuperarMaestro {
     
-    MaestroEditableDTO recuperarMaestro()throws PersistenciaException;
+    MaestroEditableDTO recuperarMaestro()throws NegocioException;
 }

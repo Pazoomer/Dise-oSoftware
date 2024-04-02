@@ -2,7 +2,7 @@
 package presentacion.pantallas;
 
 import DTOS.maestro.MaestroEditableDTO;
-import excepciones.PersistenciaException;
+import excepciones.NegocioException;
 import subsistemas.recuperarMaestro.IRecuperarMaestro;
 import subsistemas.recuperarMaestro.FachadaRecuperarMaestro;
 
@@ -23,7 +23,7 @@ public class Prueba {
         MaestroEditableDTO maestroE = null;
         try {
             maestroE = rMaestro.recuperarMaestro();
-        } catch (PersistenciaException e) {
+        } catch (NegocioException e) {
             System.out.println("error al cargar el maestro");
         }
         if (maestroE != null) {
