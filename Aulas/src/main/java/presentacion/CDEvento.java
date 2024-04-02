@@ -1,7 +1,7 @@
 
 package presentacion;
 
-import DTOS.evento.EventoConsultableDTO;
+import DTOS.evento.*;
 import java.awt.Color;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -86,12 +86,18 @@ public class CDEvento extends javax.swing.JDialog {
     }
     
     private EventoConsultableDTO crearEvento(){
-        String tipo=(String) this.cmbTipo.getSelectedItem();
+        String tipoStr=(String) this.cmbTipo.getSelectedItem();
+        TipoEventoEnumDTO tipo;
+        if(tipoStr.equals("Unico"))
+            tipo=TipoEventoEnumDTO.UNICO_UN_DIA;
+        else
+            tipo=TipoEventoEnumDTO.SEMANAL;
+        
         String descripcion = this.txtDescripcion.getText();
         String nombre = this.txtNombre.getText();
         String ubicacion = this.txtUbicacion.getText();
         Calendar fecha=Calendar.getInstance();
-        if(tipo.equalsIgnoreCase("Unico"))
+        if(tipo.equals(TipoEventoEnumDTO.UNICO_UN_DIA))
             fecha = this.dtcFecha.getCalendar();
         Color color = this.lblEjemploEstatico.getForeground();
         String duracionStr=(String)cmbDuracionEvento.getSelectedItem();
@@ -116,12 +122,12 @@ public class CDEvento extends javax.swing.JDialog {
         
         EventoConsultableDTO eventoN;
         
-//        if(tipo.equalsIgnoreCase("unico")){
-            eventoN=new EventoConsultableDTO(tipo, nombre, descripcion, color, diasSemana, ubicacion, fecha, horaInicio, horasDuracion);
-//        }else{
-//            eventoN=new EventoConsultableDTO(tipo, nombre, descripcion, color, 
-//                diasSemana, ubicacion, fecha, horaInicio, horasDuracion);
-//        }
+        if(tipo.equals(TipoEventoEnumDTO.UNICO_UN_DIA)){
+            eventoN=new EventoConsultableDTO(nombre, descripcion, color, ubicacion, fecha, horaInicio, horasDuracion);
+        }else{
+            eventoN=new EventoConsultableDTO(tipo, nombre, descripcion, color, 
+                diasSemana, ubicacion, fecha, fecha,horaInicio, horasDuracion);
+        }
         
         //JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
         calendario.añadirEvento(eventoN);
@@ -132,77 +138,77 @@ public class CDEvento extends javax.swing.JDialog {
     //Al hacer clic sobre el boton deberia intentar añadir el evento al calendario.
     //primero se asegura que no haya eventos a la misma hora
     private void añadirEvento(){
-        String tipo=(String) this.cmbTipo.getSelectedItem();
-        String descripcion = this.txtDescripcion.getText();
-        String nombre = this.txtNombre.getText();
-        String ubicacion = this.txtUbicacion.getText();
-        Date fecha = this.dtcFecha.getDate();
-        Color color = this.lblEjemploEstatico.getForeground();
-        Calendar calendar=null;
-        boolean[] diasSemana=new boolean[7];
-        diasSemana[0]=this.chbLunes.isSelected();
-        diasSemana[1]=this.chbMartes.isSelected();
-        diasSemana[2]=this.chbMiercoles.isSelected();
-        diasSemana[3]=this.chbJueves.isSelected();
-        diasSemana[4]=this.chbViernes.isSelected();
-        diasSemana[5]=this.chbSabado.isSelected();
-        diasSemana[6]=this.chbDomingo.isSelected();
-        String AMPM=(String)this.cmbAMPM.getSelectedItem();
-        String hora=(String)this.cmbHora.getSelectedItem();
-        if (hora.equals("-1")) {
-            hora="7:00";
-        }
-        int[] horaNumerica = convertirHora(hora);
-
-        if (tipo.equalsIgnoreCase("semanal")) {
-
-            int dias = 0;
-            for (int i = 0; i < 7; i++) {
-                if (diasSemana[i] == true) {
-                    dias++;
-                }
-            }
-            if (dias == 0) {
-                JOptionPane.showMessageDialog(null, "Debes seleccionar al menos un dia de la semana para los eventos semanales", "Mensaje de error", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
-        }
-        if (fecha == null && tipo.equalsIgnoreCase("unico")) {
-            JOptionPane.showMessageDialog(null, "Debes colocar una fecha para los eventos unicos", "Mensaje de error", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        } else if (fecha == null && tipo.equalsIgnoreCase("semanal")) {
-            fecha = new Date();
-        }
-
-        if (AMPM.equalsIgnoreCase("PM")) {
-            horaNumerica[0] = horaNumerica[0] + 12;
-        }
-
-        if (horaNumerica[0] == 12) {
-            horaNumerica[0] = 0;
-        } else if (horaNumerica[0] < 7 || horaNumerica[0] > 19) {
-            JOptionPane.showMessageDialog(null, "No se pueden hacer eventos fuera del horario escolar (7:00 AM - 7:30 PM)", "Mensaje de error", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        
-        try {
-            calendar = Calendar.getInstance();
-            calendar.setTime(fecha);
-            calendar.set(Calendar.HOUR_OF_DAY,horaNumerica[0] );
-            calendar.set(Calendar.MINUTE,horaNumerica[1] );
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "La fecha no es valida", "Mensaje de error", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        if (calendar==null) {
-            JOptionPane.showMessageDialog(null, "La fecha no es valida", "Mensaje de error", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-        EventoConsultableDTO evento = new EventoConsultableDTO(tipo, nombre, descripcion, color, diasSemana, ubicacion, calendar,null);
-        JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
-        System.out.println(evento);
-        calendario.añadirEvento(evento);
-
+//        String tipo=(String) this.cmbTipo.getSelectedItem();
+//        String descripcion = this.txtDescripcion.getText();
+//        String nombre = this.txtNombre.getText();
+//        String ubicacion = this.txtUbicacion.getText();
+//        Date fecha = this.dtcFecha.getDate();
+//        Color color = this.lblEjemploEstatico.getForeground();
+//        Calendar calendar=null;
+//        boolean[] diasSemana=new boolean[7];
+//        diasSemana[0]=this.chbLunes.isSelected();
+//        diasSemana[1]=this.chbMartes.isSelected();
+//        diasSemana[2]=this.chbMiercoles.isSelected();
+//        diasSemana[3]=this.chbJueves.isSelected();
+//        diasSemana[4]=this.chbViernes.isSelected();
+//        diasSemana[5]=this.chbSabado.isSelected();
+//        diasSemana[6]=this.chbDomingo.isSelected();
+//        String AMPM=(String)this.cmbAMPM.getSelectedItem();
+//        String hora=(String)this.cmbHora.getSelectedItem();
+//        if (hora.equals("-1")) {
+//            hora="7:00";
+//        }
+//        int[] horaNumerica = convertirHora(hora);
+//
+//        if (tipo.equalsIgnoreCase("semanal")) {
+//
+//            int dias = 0;
+//            for (int i = 0; i < 7; i++) {
+//                if (diasSemana[i] == true) {
+//                    dias++;
+//                }
+//            }
+//            if (dias == 0) {
+//                JOptionPane.showMessageDialog(null, "Debes seleccionar al menos un dia de la semana para los eventos semanales", "Mensaje de error", JOptionPane.INFORMATION_MESSAGE);
+//                return;
+//            }
+//        }
+//        if (fecha == null && tipo.equalsIgnoreCase("unico")) {
+//            JOptionPane.showMessageDialog(null, "Debes colocar una fecha para los eventos unicos", "Mensaje de error", JOptionPane.INFORMATION_MESSAGE);
+//            return;
+//        } else if (fecha == null && tipo.equalsIgnoreCase("semanal")) {
+//            fecha = new Date();
+//        }
+//
+//        if (AMPM.equalsIgnoreCase("PM")) {
+//            horaNumerica[0] = horaNumerica[0] + 12;
+//        }
+//
+//        if (horaNumerica[0] == 12) {
+//            horaNumerica[0] = 0;
+//        } else if (horaNumerica[0] < 7 || horaNumerica[0] > 19) {
+//            JOptionPane.showMessageDialog(null, "No se pueden hacer eventos fuera del horario escolar (7:00 AM - 7:30 PM)", "Mensaje de error", JOptionPane.INFORMATION_MESSAGE);
+//            return;
+//        }
+//        
+//        try {
+//            calendar = Calendar.getInstance();
+//            calendar.setTime(fecha);
+//            calendar.set(Calendar.HOUR_OF_DAY,horaNumerica[0] );
+//            calendar.set(Calendar.MINUTE,horaNumerica[1] );
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, "La fecha no es valida", "Mensaje de error", JOptionPane.INFORMATION_MESSAGE);
+//            return;
+//        }
+//        if (calendar==null) {
+//            JOptionPane.showMessageDialog(null, "La fecha no es valida", "Mensaje de error", JOptionPane.INFORMATION_MESSAGE);
+//            return;
+//        }
+////        EventoConsultableDTO evento = new EventoConsultableDTO(tipo, nombre, descripcion, color, diasSemana, ubicacion, calendar,null);
+////        JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
+////        System.out.println(evento);
+////        calendario.añadirEvento(evento);
+//
     }
 
     private int[] convertirHora(String horaString) {
@@ -276,13 +282,13 @@ public class CDEvento extends javax.swing.JDialog {
             cmbAMPM.setSelectedIndex(0);
         else
             cmbAMPM.setSelectedIndex(1);
-        if(eventoEditable.getTipo().equals("unico")){
+        if(eventoEditable.getTipo().equals(TipoEventoEnumDTO.UNICO_UN_DIA)){
             dtcFecha.setDate(this.eventoEditable.getFechaInicio().getTime());
             cmbTipo.setSelectedIndex(1);
         }
-        else if(eventoEditable.getTipo().equalsIgnoreCase("semanal")){
+        else if(eventoEditable.getTipo().equals(TipoEventoEnumDTO.SEMANAL)){
             cmbTipo.setSelectedIndex(0);
-            List<Integer> diasSemana=eventoEditable.getDiasSemana2();
+            List<Integer> diasSemana=eventoEditable.getDiasSemana();
             for(int i:diasSemana){
                 switch(i){
                     case 1 -> chbDomingo.setSelected(true);
