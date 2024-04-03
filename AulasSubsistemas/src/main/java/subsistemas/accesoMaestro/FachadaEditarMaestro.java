@@ -10,17 +10,28 @@ import excepciones.NegocioException;
  */
 public class FachadaEditarMaestro implements IAccesoMaestro {
 
-    private final Maestros maestros;
+    private final ControlMaestro maestros;
 
     public FachadaEditarMaestro() {
-        this.maestros = new Maestros();
+        this.maestros = new ControlMaestro();
     }
    
     @Override
-    public MaestroEditableDTO editarMaestro(MaestroEditableDTO maestro) throws NegocioException {
+    public MaestroEditableDTO agregarEventoCalendario(MaestroEditableDTO maestro) throws NegocioException {
         //TODO
         //Solo soy una fachada
-        return maestros.editarMaestro(maestro);
+         try{
+        return maestros.agregarEventoCalendario(maestro);
+        }catch(NegocioException e){
+                    throw new NegocioException(e.getMessage());
+        }
     }
-
+     public MaestroEditableDTO editarMaestro(MaestroEditableDTO maestro) throws NegocioException {
+        
+      try{
+        return maestros.editarMaestro(maestro);
+        }catch(NegocioException e){
+                    throw new NegocioException(e.getMessage());
+        }
+     }
 }

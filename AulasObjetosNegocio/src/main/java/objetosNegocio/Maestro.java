@@ -69,7 +69,7 @@ public class Maestro {
         this.descripcion = descripcion;
     }
 
-    public List<Evento> getCalendario(List<Evento> calendario) {
+    public List<Evento> getCalendario() {
         return calendario;
     }
 
@@ -80,7 +80,7 @@ public class Maestro {
     public void agregarEventoCalendario(Evento evento){
         this.calendario.add(evento);
     }
-    
+  
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
