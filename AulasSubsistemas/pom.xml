@@ -10,6 +10,12 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>AulasDTO</artifactId>
             <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.myCompany</groupId>
+                    <artifactId>AulasDatos</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>bda</groupId>
