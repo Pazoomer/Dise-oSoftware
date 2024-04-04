@@ -2,7 +2,6 @@
 package objetosNegocio;
 
 import java.io.Serializable;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -57,7 +56,7 @@ public class Evento implements Serializable {
     
     @Column(name="horaInicio",nullable=true)
     @Temporal(TemporalType.TIME)
-    private LocalTime horaInicio;
+    private Calendar horaInicio;
     
     @Column(name="horasDuracionEvento",nullable=true)
     private float horasDuracionEvento;
@@ -78,7 +77,7 @@ public class Evento implements Serializable {
         this.diasSemana=new ArrayList<>();
     }
 
-    public Evento(TipoEventoEnum tipo, String nombre, String descripcion, List<DiasSemana> diasSemana, String ubicacion, Calendar fechaInicio, Calendar fechaFin, LocalTime horaInicio, float horasDuracionEvento, Maestro maestro) {
+    public Evento(TipoEventoEnum tipo, String nombre, String descripcion, List<DiasSemana> diasSemana, String ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento, Maestro maestro) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -107,15 +106,13 @@ public class Evento implements Serializable {
      * @param horasDuracionEvento 
      */
     public Evento(TipoEventoEnum tipo, String nombre, String descripcion, List<DiasSemana> diasSemana, 
-            String ubicacion, Calendar fechaInicio, Calendar fechaFin, LocalTime horaInicio, float horasDuracionEvento) {
+            String ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.diasSemana = diasSemana;
         this.ubicacion = ubicacion;
         this.fechaInicio = fechaInicio;
-        this.fechaInicio.set(Calendar.HOUR_OF_DAY, horaInicio.getHour());
-        this.fechaInicio.set(Calendar.MINUTE, horaInicio.getMinute());
         this.fechaFin = fechaFin;
         this.horaInicio = horaInicio;
         this.horasDuracionEvento = horasDuracionEvento;
@@ -132,14 +129,12 @@ public class Evento implements Serializable {
      * @param horasDuracionEvento 
      */
     public Evento(String nombre, String descripcion, Calendar fechaInicio, String ubicacion,
-            LocalTime horaInicio, float horasDuracionEvento) {
+            Calendar horaInicio, float horasDuracionEvento) {
         this.tipo = TipoEventoEnum.UNICO_UN_DIA;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fechaInicio = fechaInicio;
         this.ubicacion = ubicacion;
-        this.fechaInicio.set(Calendar.HOUR_OF_DAY, horaInicio.getHour());
-        this.fechaInicio.set(Calendar.MINUTE, horaInicio.getMinute());
         this.horaInicio = horaInicio;
         this.horasDuracionEvento = horasDuracionEvento;
         Calendar fechaCopia=fechaInicio;
@@ -180,7 +175,7 @@ public class Evento implements Serializable {
         return fechaFin;
     }
 
-    public LocalTime getHoraInicio() {
+    public Calendar getHoraInicio() {
         return horaInicio;
     }
 
