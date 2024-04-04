@@ -1,37 +1,68 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package objetosNegocio;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
- * @author luiis
+ * @author t1pas
  */
-public class Maestro {
-    private Long id;
+@Entity
+@Table(name = "maestro")
+public class Maestro implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id_maestro_bd")
+    private Long idBd;
+
+    public Long getIdBd() {
+        return idBd;
+    }
+
+    public void setIdBd(Long idBd) {
+        this.idBd = idBd;
+    }
+    
+    @Column(name="id_maestro",nullable=false)
+    private Long idMaestro; //Representa el identificador fuera de la base de datos
+    
+    @Column(name="nombre",nullable=true,length=150)
     private String nombre;
+    
+    @Column(name="cubiculo", nullable = true, length = 50)
     private String cubiculo;
+
+    @Column(name = "descripcion", nullable = true, length = 200)
     private String descripcion;
-    private List<Evento> calendario; 
+    
+    @OneToMany(mappedBy = "Maestro", cascade = CascadeType.ALL)
+    private List<Evento> calendario;
 
     public Maestro() {
         this.calendario=new ArrayList<>();
     }
 
-    public Maestro(Long id, String nombre, String cubiculo, String descripcion, List<Evento> calendario) {
-        this.id = id;
+    public Maestro(Long idMaestro, String nombre, String cubiculo, String descripcion, List<Evento> calendario) {
+        this.idMaestro = idMaestro;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
         this.descripcion = descripcion;
         this.calendario = calendario;
     }
 
-    public Maestro(Long id, String nombre, String cubiculo, String descripcion) {
-        this.id = id;
+    public Maestro(Long idMaestro,String nombre, String cubiculo, String descripcion) {
+        this.idMaestro = idMaestro;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
         this.descripcion = descripcion;
@@ -41,8 +72,8 @@ public class Maestro {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdMaestro(Long idMaestro) {
+        this.idMaestro = idMaestro;
     }
 
     public String getNombre(String nombre) {
@@ -80,17 +111,40 @@ public class Maestro {
     public void agregarEventoCalendario(Evento evento){
         this.calendario.add(evento);
     }
-  
+
+    public Long getIdMaestro() {
+        return idMaestro;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getCubiculo() {
+        return cubiculo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+    
+    
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Maestro{");
-        sb.append("id=").append(id);
+        sb.append("idBd=").append(idBd);
+        sb.append(", idMaestro=").append(idMaestro);
         sb.append(", nombre=").append(nombre);
         sb.append(", cubiculo=").append(cubiculo);
         sb.append(", descripcion=").append(descripcion);
+        sb.append(", calendario=").append(calendario);
         sb.append('}');
         return sb.toString();
     }
+    
+    
+  
     
 }

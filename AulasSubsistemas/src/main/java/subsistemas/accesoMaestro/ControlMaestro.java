@@ -9,8 +9,8 @@ import DTOS.maestro.MaestroEditableDTO;
 import excepciones.NegocioException;
 import java.util.ArrayList;
 import java.util.List;
-import objetosNegocio.Evento;
-import objetosNegocio.Maestro;
+import objetosNegocio.EventoA;
+import objetosNegocio.MaestroA;
 import objetosNegocio.TipoEventoEnum;
 import subsistemas.recuperarMaestro.FachadaRecuperarMaestro;
 import subsistemas.recuperarMaestro.IRecuperarMaestro;
@@ -24,8 +24,8 @@ public class ControlMaestro {
     
     
      public MaestroEditableDTO agregarEventoCalendario(MaestroEditableDTO maestro) throws NegocioException{
-        Maestro maestroEditable=convertMaestro(maestro);
-        for(Evento evento: maestroEditable.getCalendario()){ 
+        MaestroA maestroEditable=convertMaestro(maestro);
+        for(EventoA evento: maestroEditable.getCalendario()){ 
             maestroEditable.agregarEventoCalendario(evento);   
         }
        return maestro;   
@@ -34,27 +34,27 @@ public class ControlMaestro {
           
         recuperaM=new FachadaRecuperarMaestro();
         MaestroEditableDTO maestroRecuperado=recuperaM.recuperarMaestro();
-        Maestro maestroEditado=convertMaestro(maestroRecuperado);
+        MaestroA maestroEditado=convertMaestro(maestroRecuperado);
         return maestroRecuperado;
      }
-    private Maestro convertMaestro(MaestroEditableDTO maestro){
-        Maestro maestroCon=new Maestro();
+    private MaestroA convertMaestro(MaestroEditableDTO maestro){
+        MaestroA maestroCon=new MaestroA();
         maestroCon.setId(maestro.getId());
         maestroCon.setNombre(maestro.getNombre());
         maestroCon.setCubiculo(maestro.getCubiculo());
-        List<Evento> listaEventos = new ArrayList<>();
+        List<EventoA> listaEventos = new ArrayList<>();
         for (EventoConsultableDTO dtoEvento: maestro.getCalendario()){
-            Evento even=toBO(dtoEvento);
+            EventoA even=toBO(dtoEvento);
             listaEventos.add(even);
         }
         maestroCon.setCalendario(listaEventos);
         return maestroCon;
     }
-    private Evento toBO(EventoConsultableDTO evento){
-        Evento eventoConvertido = null;
+    private EventoA toBO(EventoConsultableDTO evento){
+        EventoA eventoConvertido = null;
         switch (evento.getTipo()) {
             case UNICO_UN_DIA ->
-                eventoConvertido = new Evento(
+                eventoConvertido = new EventoA(
                         evento.getNombre(),
                         evento.getDescripcion(),
                         evento.getFechaInicio(),
@@ -63,7 +63,7 @@ public class ControlMaestro {
                         evento.getHorasDuracionEvento()
                 );
             case UNICO_VARIOS_DIAS ->
-                eventoConvertido = new Evento(
+                eventoConvertido = new EventoA(
                         TipoEventoEnum.UNICO_VARIOS_DIAS,
                         evento.getNombre(),
                         evento.getDescripcion(),
@@ -75,7 +75,7 @@ public class ControlMaestro {
                         evento.getHorasDuracionEvento()
                 );
             case SEMANAL ->
-                eventoConvertido = new Evento(
+                eventoConvertido = new EventoA(
                         TipoEventoEnum.SEMANAL,
                         evento.getNombre(),
                         evento.getDescripcion(),

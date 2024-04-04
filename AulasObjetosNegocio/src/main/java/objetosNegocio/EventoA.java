@@ -1,97 +1,29 @@
 
 package objetosNegocio;
 
-import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
- * @author t1pas
+ * @author luiis
  */
-@Entity
-@Table(name = "evento")
-public class Evento implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="evento_id")
-    private Long id;
-    
-    @Column(name="tipo",nullable=true)
+public class EventoA {
     private TipoEventoEnum tipo;
-    
-    @Column(name="nombre",nullable=true,length=100)
     private String nombre;
-    
-    @Column(name="descripcion",nullable=true,length=200)
     private String descripcion;
-    
-    @OneToMany(mappedBy = "Evento", cascade = CascadeType.ALL)
-    private List<DiasSemana> diasSemana;
-    
-    @Column(name="ubicacion",nullable=true,length=100)
+    private List<Integer> diasSemana;
     private String ubicacion;
-    
-    @Temporal(TemporalType.DATE)
-    @Column(name="fechaInicio",nullable=true)
     private Calendar fechaInicio;
-    
-    @Temporal(TemporalType.DATE)
-    @Column(name="fechaFin",nullable=true)
     private Calendar fechaFin;
-    
-    @Column(name="horaInicio",nullable=true)
-    @Temporal(TemporalType.TIME)
     private LocalTime horaInicio;
-    
-    @Column(name="horasDuracionEvento",nullable=true)
     private float horasDuracionEvento;
-    
-    @ManyToOne
-    @JoinColumn(name = "id_maestro_bd", nullable = false)
-    private Maestro maestro;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-    
-     public Evento() {
+    public EventoA() {
         this.diasSemana=new ArrayList<>();
     }
-
-    public Evento(TipoEventoEnum tipo, String nombre, String descripcion, List<DiasSemana> diasSemana, String ubicacion, Calendar fechaInicio, Calendar fechaFin, LocalTime horaInicio, float horasDuracionEvento, Maestro maestro) {
-        this.tipo = tipo;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.diasSemana = diasSemana;
-        this.ubicacion = ubicacion;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-        this.horaInicio = horaInicio;
-        this.horasDuracionEvento = horasDuracionEvento;
-        this.maestro = maestro;
-    }
-     
-     
 
     /**
      * Constructor para eventos que van a durar mas de un dia. Aplica para eventos de 
@@ -106,7 +38,7 @@ public class Evento implements Serializable {
      * @param horaInicio
      * @param horasDuracionEvento 
      */
-    public Evento(TipoEventoEnum tipo, String nombre, String descripcion, List<DiasSemana> diasSemana, 
+    public EventoA(TipoEventoEnum tipo, String nombre, String descripcion, List<Integer> diasSemana, 
             String ubicacion, Calendar fechaInicio, Calendar fechaFin, LocalTime horaInicio, float horasDuracionEvento) {
         this.tipo = tipo;
         this.nombre = nombre;
@@ -131,7 +63,7 @@ public class Evento implements Serializable {
      * @param horaInicio
      * @param horasDuracionEvento 
      */
-    public Evento(String nombre, String descripcion, Calendar fechaInicio, String ubicacion,
+    public EventoA(String nombre, String descripcion, Calendar fechaInicio, String ubicacion,
             LocalTime horaInicio, float horasDuracionEvento) {
         this.tipo = TipoEventoEnum.UNICO_UN_DIA;
         this.nombre = nombre;
@@ -164,7 +96,7 @@ public class Evento implements Serializable {
         return descripcion;
     }
 
-    public List<DiasSemana> getDiasSemana() {
+    public List<Integer> getDiasSemana() {
         return diasSemana;
     }
 
@@ -203,21 +135,12 @@ public class Evento implements Serializable {
     public boolean eliminarEvento(EventoA evento){
         return true;
     }
-
-    public Maestro getMaestro() {
-        return maestro;
-    }
-
-    public void setMaestro(Maestro maestro) {
-        this.maestro = maestro;
-    }
-
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Evento{");
-        sb.append("id=").append(id);
-        sb.append(", tipo=").append(tipo);
+        sb.append("tipo=").append(tipo);
         sb.append(", nombre=").append(nombre);
         sb.append(", descripcion=").append(descripcion);
         sb.append(", diasSemana=").append(diasSemana);
@@ -226,11 +149,9 @@ public class Evento implements Serializable {
         sb.append(", fechaFin=").append(fechaFin);
         sb.append(", horaInicio=").append(horaInicio);
         sb.append(", horasDuracionEvento=").append(horasDuracionEvento);
-        sb.append(", maestro=").append(maestro);
         sb.append('}');
         return sb.toString();
     }
     
-
     
 }

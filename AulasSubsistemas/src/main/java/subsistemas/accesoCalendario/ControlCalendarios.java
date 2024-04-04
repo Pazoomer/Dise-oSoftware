@@ -6,7 +6,7 @@ import DTOS.evento.TipoEventoEnumDTO;
 import excepciones.NegocioException;
 import java.awt.Color;
 import java.util.List;
-import objetosNegocio.Evento;
+import objetosNegocio.EventoA;
 import objetosNegocio.TipoEventoEnum;
 
 /**
@@ -50,7 +50,7 @@ class ControlCalendarios {
      * @param color
      * @return 
      */
-    private EventoConsultableDTO toDTO(Evento evento,Color color){
+    private EventoConsultableDTO toDTO(EventoA evento,Color color){
         EventoConsultableDTO eventoConvertido = null;
         switch (evento.getTipo()) {
             case UNICO_UN_DIA ->
@@ -97,11 +97,11 @@ class ControlCalendarios {
      * @param evento
      * @return 
      */
-    private Evento toBO(EventoConsultableDTO evento){
-        Evento eventoConvertido = null;
+    private EventoA toBO(EventoConsultableDTO evento){
+        EventoA eventoConvertido = null;
         switch (evento.getTipo()) {
             case UNICO_UN_DIA ->
-                eventoConvertido = new Evento(
+                eventoConvertido = new EventoA(
                         evento.getNombre(),
                         evento.getDescripcion(),
                         evento.getFechaInicio(),
@@ -110,7 +110,7 @@ class ControlCalendarios {
                         evento.getHorasDuracionEvento()
                 );
             case UNICO_VARIOS_DIAS ->
-                eventoConvertido = new Evento(
+                eventoConvertido = new EventoA(
                         TipoEventoEnum.UNICO_VARIOS_DIAS,
                         evento.getNombre(),
                         evento.getDescripcion(),
@@ -122,7 +122,7 @@ class ControlCalendarios {
                         evento.getHorasDuracionEvento()
                 );
             case SEMANAL ->
-                eventoConvertido = new Evento(
+                eventoConvertido = new EventoA(
                         TipoEventoEnum.SEMANAL,
                         evento.getNombre(),
                         evento.getDescripcion(),
@@ -139,7 +139,7 @@ class ControlCalendarios {
     
     public List<EventoConsultableDTO> editarEvento(List<EventoConsultableDTO> calendario, 
             EventoConsultableDTO evento) throws NegocioException{
-        Evento eventoEditable=toBO(evento);
+        EventoA eventoEditable=toBO(evento);
         eventoEditable=eventoEditable.editarEvento(eventoEditable);
         EventoConsultableDTO eventoEditado=toDTO(eventoEditable, evento.getColor());
         if(calendario.add(eventoEditado))
@@ -149,7 +149,7 @@ class ControlCalendarios {
     
     public List<EventoConsultableDTO> agregarEvento(List<EventoConsultableDTO> calendario,
             EventoConsultableDTO evento) throws NegocioException{
-        Evento eventoEditable=toBO(evento);
+        EventoA eventoEditable=toBO(evento);
         if(eventoEditable.agregarEvento(eventoEditable)){
             calendario.add(evento);
             return calendario;
@@ -157,7 +157,7 @@ class ControlCalendarios {
     }
     
     public EventoConsultableDTO obtenerEvento(EventoConsultableDTO evento)throws NegocioException{
-        Evento eventoEditable=toBO(evento);
+        EventoA eventoEditable=toBO(evento);
         eventoEditable=eventoEditable.obtenerEvento(eventoEditable);
         if(eventoEditable!=null){
             EventoConsultableDTO eventoEditado=toDTO(eventoEditable, evento.getColor());
@@ -168,7 +168,7 @@ class ControlCalendarios {
     
     public List<EventoConsultableDTO> eliminarEvento(List<EventoConsultableDTO> calendario, 
             EventoConsultableDTO evento)throws NegocioException{
-        Evento eventoEditable=toBO(evento);
+        EventoA eventoEditable=toBO(evento);
         if(eventoEditable.eliminarEvento(eventoEditable)){
             if(calendario.remove(evento))
                 return calendario;
