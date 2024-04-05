@@ -1,10 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package BO;
 
-import DAO.MaestroDAO;
+import DAO.maestroDAO.MaestroDAO;
+import DAO.exceptions.PersistenciaException;
+import DAO.exceptions.ValidacionException;
+import conexion.IConexionDAO;
 import java.util.Collections;
 import java.util.List;
 import objetosNegocio.Maestro;
@@ -15,31 +15,35 @@ import objetosNegocio.Maestro;
  */
 public class MaestroBO {
     
-    public boolean guardarMaestro(Maestro maestro) {
-        try {
-            if (maestro != null) { // Verifica que el maestro no sea null
-                MaestroDAO mDao = new MaestroDAO();
+    private final IConexionDAO conexion;
+
+    public MaestroBO(IConexionDAO conexion) {
+        this.conexion=conexion;
+    }
+
+    public boolean guardarMaestro(MaestroEditableDTO maestroEditableDTO) throws ValidacionException, PersistenciaException {
+
+        if (maestro != null) { // Verifica que el maestro no sea null
+            try {
+                MaestroDAO mDao = new MaestroDAO(conexion);
                 mDao.guardarMaestro(maestro); // Guardar maestro
-                mDao.close(); // Cerrar el DAO después de usarlo para evitar pérdidas de recursos
                 return true; // Devolver true para indicar que se guardo correctamente
-            } else {
-                // Si el maestro es null, imprimir un mensaje de error
-                System.out.println("El maestro no existe");
-                return false; // Devolver false para indicar que ha habido un error al guardar maestro
+            } catch (Exception e) {
+                // Manejar la excepción
+                throw new PersistenciaException(e); // Imprimir la traza de la excepción para depuración
             }
-        } catch (Exception e) {
-            // Manejar la excepción
-            e.printStackTrace(); // Imprimir la traza de la excepción para depuración
-            return false; // Devolver false para indicar que ha habido un error
+        } else {
+            // Si el maestro es null, imprimir un mensaje de error
+            throw new ValidacionException("El maestro es null");
         }
+
     }
 
     public boolean actualizarMaestro(Maestro maestro) {
         try {
             if (maestro != null) { // Verifica que el maestro no sea null
-                MaestroDAO mDao = new MaestroDAO();
+                MaestroDAO mDao = new MaestroDAO(conexion);
                 mDao.actualizarMaestro(maestro); // Actualizarr maestro
-                mDao.close(); // Cerrar el DAO después de usarlo para evitar pérdidas de recursos
                 return true; // Devolver true para indicar que se actualizo correctamente
             } else {
                 // Si el maestro es null, imprimir un mensaje de error
@@ -57,9 +61,8 @@ public class MaestroBO {
         try {
             // Verificar que el ID del maestro no sea null ni cero
             if (maestroId != 0) {
-                MaestroDAO eDao = new MaestroDAO();
+                MaestroDAO eDao = new MaestroDAO(conexion);
                 eDao.eliminarMaestro(maestroId); // Eliminar maetsro
-                eDao.close(); // Cerrar el DAO después de usarlo para evitar pérdidas de recursos
                 return true; // Devolver true para indicar que el maestro se eliminó correctamente
             } else {
                 // Si el ID del maestro es null o cero, imprimir un mensaje de error
@@ -76,9 +79,8 @@ public class MaestroBO {
     public Maestro obtenerMaestroPorId(Long maestroId) {
         try {
             if (maestroId != null && maestroId != 0) { // Verificar que el ID del maestro no sea null ni cero
-                MaestroDAO mDao = new MaestroDAO();
+                MaestroDAO mDao = new MaestroDAO(conexion);
                 Maestro evento = mDao.obtenerMaestroPorId(maestroId);
-                mDao.close(); // Cerrar el DAO después de usarlo para evitar pérdidas de recursos
                 return evento; // Devolver el maestro obtenido
             } else {
                 // Si el ID del maestro es null o cero, imprimir un mensaje de error
@@ -94,7 +96,7 @@ public class MaestroBO {
 
     public List<Maestro> obtenerTodosLosMaestros() {
         try {
-            MaestroDAO mDao = new MaestroDAO();
+            MaestroDAO mDao = new MaestroDAO(conexion);
             List<Maestro> maestros = mDao.obtenerTodosLosMaestros();
 
             if (maestros != null) { // Verificar si la lista de maestros obtenida no es null

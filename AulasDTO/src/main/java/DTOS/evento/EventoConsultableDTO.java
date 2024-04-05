@@ -1,8 +1,7 @@
 package DTOS.evento;
 
-import java.awt.Color;
+import DTOS.DiasSemana.DiasSemanaDTO;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.List;
 
@@ -15,12 +14,12 @@ public class EventoConsultableDTO {
     private TipoEventoEnumDTO tipo;
     private final String nombre;
     private final String descripcion;
-    private final Color color;
-    private List<Integer> diasSemana;
+    private final String color;
+    private List<DiasSemanaDTO> diasSemana;
     private final String ubicacion;
     private Calendar fechaInicio;
     private Calendar fechaFin;
-    private final LocalTime horaInicio;
+    private final Calendar horaInicio;
     private final float horasDuracionEvento;
 
     /**
@@ -36,16 +35,16 @@ public class EventoConsultableDTO {
      * @param horaInicio
      * @param horasDuracionEvento
      */
-    public EventoConsultableDTO(String nombre, String descripcion, Color color,
-            String ubicacion, Calendar fechaInicio, LocalTime horaInicio, float horasDuracionEvento) {
+    public EventoConsultableDTO(String nombre, String descripcion, String color,
+            String ubicacion, Calendar fechaInicio, Calendar horaInicio, float horasDuracionEvento) {
         this.tipo = TipoEventoEnumDTO.UNICO_UN_DIA;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.color = color;
         this.ubicacion = ubicacion;
         this.fechaInicio = fechaInicio;
-        this.fechaInicio.set(Calendar.HOUR_OF_DAY, horaInicio.getHour());
-        this.fechaInicio.set(Calendar.MINUTE, horaInicio.getMinute());
+        this.fechaInicio.set(Calendar.HOUR_OF_DAY, horaInicio.get(Calendar.HOUR));
+        this.fechaInicio.set(Calendar.MINUTE, horaInicio.get(Calendar.MINUTE));
         this.horaInicio = horaInicio;
         //las horas se almacenan en un float para que permita guardar eventos
         //de hora y media por ejemplo
@@ -79,8 +78,8 @@ public class EventoConsultableDTO {
      * @param horaInicio
      * @param horasDuracionEvento
      */
-    public EventoConsultableDTO(TipoEventoEnumDTO tipo, String nombre, String descripcion, Color color, List<Integer> diasSemanaa,
-            String ubicacion, Calendar fechaInicio, Calendar fechaFin, LocalTime horaInicio, float horasDuracionEvento) {
+    public EventoConsultableDTO(TipoEventoEnumDTO tipo, String nombre, String descripcion, String color, List<DiasSemanaDTO> diasSemanaa,
+            String ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento) {
         this.fechaInicio = fechaInicio;
         this.fechaFin = Calendar.getInstance();
         this.horaInicio = horaInicio;
@@ -111,7 +110,7 @@ public class EventoConsultableDTO {
 //        this.horasDuracionEvento=0.0f;
 //    }
 
-    public void setDiasSemana(List<Integer> diasSemana) {
+    public void setDiasSemana(List<DiasSemanaDTO> diasSemana) {
         this.diasSemana = diasSemana;
     }
 
@@ -124,7 +123,7 @@ public class EventoConsultableDTO {
     }
 
     
-    public LocalTime getHoraInicio() {
+    public Calendar getHoraInicio() {
         return horaInicio;
     }
 
@@ -132,7 +131,7 @@ public class EventoConsultableDTO {
         return horasDuracionEvento;
     }
 
-    public List<Integer> getDiasSemana() {
+    public List<DiasSemanaDTO> getDiasSemana() {
         return diasSemana;
     }
 
@@ -144,7 +143,7 @@ public class EventoConsultableDTO {
         return descripcion;
     }
 
-    public Color getColor() {
+    public String getColor() {
         return color;
     }
 

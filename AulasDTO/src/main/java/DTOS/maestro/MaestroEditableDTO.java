@@ -3,7 +3,6 @@ package DTOS.maestro;
 
 import DTOS.evento.EventoConsultableDTO;
 import java.util.List;
-import javax.swing.Icon;
 
 /**
  *
@@ -14,7 +13,7 @@ public class MaestroEditableDTO {
     private final String nombre;
     private final String cubiculo;
     private final String descripcion;
-    private final Icon foto;
+    private final String foto;
     private List<EventoConsultableDTO> calendario;   
 
     /**
@@ -26,7 +25,7 @@ public class MaestroEditableDTO {
      * @param foto
      * @param calendario 
      */
-    public MaestroEditableDTO(Long id, String nombre, String cubiculo, String descripcion, Icon foto, List<EventoConsultableDTO> calendario) {
+    public MaestroEditableDTO(Long id, String nombre, String cubiculo, String descripcion, String foto, List<EventoConsultableDTO> calendario) {
         this.id = id;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
@@ -43,7 +42,7 @@ public class MaestroEditableDTO {
      * @param foto
      * @param calendario 
      */
-    public MaestroEditableDTO(String nombre, String cubiculo, String descripcion, Icon foto, List<EventoConsultableDTO> calendario) {
+    public MaestroEditableDTO(String nombre, String cubiculo, String descripcion, String foto, List<EventoConsultableDTO> calendario) {
         this.nombre = nombre;
         this.cubiculo = cubiculo;
         this.descripcion = descripcion;
@@ -61,7 +60,7 @@ public class MaestroEditableDTO {
      * @param descripcion
      * @param foto 
      */
-    public MaestroEditableDTO(Long id, String nombre, String cubiculo, String descripcion, Icon foto) {
+    public MaestroEditableDTO(Long id, String nombre, String cubiculo, String descripcion, String foto) {
         this.id = id;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
@@ -86,7 +85,7 @@ public class MaestroEditableDTO {
         return descripcion;
     }
 
-    public Icon getFoto() {
+    public String getFoto() {
         return foto;
     }
 
