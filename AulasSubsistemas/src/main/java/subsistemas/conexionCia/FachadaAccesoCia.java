@@ -1,13 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package subsistemas.conexionCia;
+
+import DTOS.maestro.MaestroEditableDTO;
+import excepciones.NegocioException;
+import objetosNegocio.Maestro;
 
 /**
  *
  * @author t1pas
  */
-public class FachadaAccesoCia {
-    
+public class FachadaAccesoCia implements IAccesoCia {
+
+    private final AccesoCia accesoCia;
+
+    public FachadaAccesoCia() {
+        this.accesoCia = new AccesoCia();
+    }
+
+    //TODO
+    //Solo soy una fachada
+    @Override
+    public MaestroEditableDTO accesoCia() throws NegocioException {
+        return accesoCia.AccesoCia();
+    }
+
 }

@@ -1,8 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
+
 package subsistemas.conexionGoogleMaps;
+
+import excepciones.NegocioException;
+import java.util.List;
 
 /**
  *
@@ -10,4 +10,5 @@ package subsistemas.conexionGoogleMaps;
  */
 public interface IAccesoGoogleMaps {
     
+    List<String> accesoGoogleMaps()throws NegocioException;
 }

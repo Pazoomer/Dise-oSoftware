@@ -2,16 +2,8 @@ package BO.accesoMaestroBO;
 
 import DAO.exceptions.PersistenciaException;
 import DAO.exceptions.ValidacionException;
-import DAO.maestroDAO.MaestroDAO;
-import DTOS.DiasSemana.DiasSemanaDTO;
-import DTOS.evento.EventoConsultableDTO;
 import DTOS.maestro.MaestroEditableDTO;
 import conexion.IConexionDAO;
-import java.util.ArrayList;
-import java.util.List;
-import objetosNegocio.DiasSemana;
-import objetosNegocio.Evento;
-import objetosNegocio.Maestro;
 
 /**
  *
@@ -27,11 +19,15 @@ public class AccesoMaestroBO implements IAccesoMaestroBO {
 
     @Override
     public MaestroEditableDTO recuperarMaestro(MaestroEditableDTO maestroEditableDTO) throws PersistenciaException, ValidacionException {
-        Long maestroId = maestroEditableDTO.getId();
-        if (maestroId != null && maestroId != 0) { // Verificar que el ID del maestro no sea null ni cero
-            MaestroDAO mDao = new MaestroDAO(conexion);
-            Maestro maestro = mDao.obtenerMaestroPorId(maestroId);
-
+        //Long maestroId = maestroEditableDTO.getId();
+        //if (maestroId != null && maestroId != 0) { // Verificar que el ID del maestro no sea null ni cero
+            //MaestroDAO mDao = new MaestroDAO(conexion);
+            //Maestro maestro = mDao.obtenerMaestroPorId(maestroId);
+            IAccesoCia accesoCia=new FachadaAccesoCia();
+            MaestroEditableDTO maestro=accesoCia.accesoCia();
+            return maestro;
+            
+            /*
             List<EventoConsultableDTO> eventosConsultables = new ArrayList<>();
             for (Evento evento : maestro.getCalendario()) {
 
@@ -107,12 +103,13 @@ public class AccesoMaestroBO implements IAccesoMaestroBO {
                     maestro.getFoto(),
                     eventosConsultables
             );
-            return maestroEncontrado; // Devolver el maestro obtenido
-        } else {
+            return maestroEncontrado; // Devolver el maestro obtenido*/
+        //} else {
             // Si el ID del maestro es null o cero, imprimir un mensaje de error
-            throw new ValidacionException("El Maestro no existe");
+            //throw new ValidacionException("El Maestro no existe");
 
-        }
+       // }
+    
     }
 
 }

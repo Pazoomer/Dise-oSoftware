@@ -1,13 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package subsistemas.conexionGoogleMaps;
+
+import excepciones.NegocioException;
+import java.util.List;
 
 /**
  *
  * @author t1pas
  */
-public class AccesoGoogleMaps implements IAccesoGoogleMaps {
+public class AccesoGoogleMaps {
+
+    public List<String> accesoGoogleMaps() throws NegocioException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

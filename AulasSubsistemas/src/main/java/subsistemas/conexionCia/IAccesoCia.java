@@ -1,13 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
+
 package subsistemas.conexionCia;
+
+import DTOS.maestro.MaestroEditableDTO;
+import excepciones.NegocioException;
+import objetosNegocio.Maestro;
 
 /**
  *
  * @author t1pas
  */
 public interface IAccesoCia {
-    
+    MaestroEditableDTO accesoCia()throws NegocioException;
 }
