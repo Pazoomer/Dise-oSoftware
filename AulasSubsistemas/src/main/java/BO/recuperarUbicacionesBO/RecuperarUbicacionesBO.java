@@ -3,7 +3,7 @@ package BO.recuperarUbicacionesBO;
 
 import conexion.IConexionDAO;
 import java.util.List;
-import subsistemas.recuperarUbicaciones.FachadaRecuperarUbicaciones;
+import subsistemas.recuperarUbicaciones.RecuperarUbicaciones;
 import subsistemas.recuperarUbicaciones.IRecuperarUbicaciones;
 
 /**

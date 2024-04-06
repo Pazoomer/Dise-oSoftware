@@ -9,12 +9,12 @@ import excepciones.NegocioException;
  *
  * @author t1pas
  */
-public class FachadaRecuperarMaestro implements IRecuperarMaestro {
+public class RecuperarMaestro implements IRecuperarMaestro {
     
     private final IConexionDAO conexion;
      private final Maestros maestros;
 
-    public FachadaRecuperarMaestro(IConexionDAO conexion) {
+    public RecuperarMaestro(IConexionDAO conexion) {
         this.conexion = conexion;
         this.maestros = new Maestros(conexion);
     }

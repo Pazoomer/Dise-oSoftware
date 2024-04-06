@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 import subsistemas.accesoMaestro.IAccesoMaestro;
 import subsistemas.accesoMaestro.EditarMaestro;
 import subsistemas.recuperarMaestro.IRecuperarMaestro;
-import subsistemas.recuperarMaestro.FachadaRecuperarMaestro;
+import subsistemas.recuperarMaestro.RecuperarMaestro;
 import javax.swing.ImageIcon;
 
 /**

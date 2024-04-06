@@ -1,12 +1,11 @@
 package BO.accesoMaestroBO;
 
-import DAO.exceptions.PersistenciaException;
-import DAO.exceptions.ValidacionException;
 import DTOS.maestro.MaestroEditableDTO;
 import conexion.IConexionDAO;
 import excepciones.NegocioException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import subsistemas.accesoMaestro.EditarMaestro;
 import subsistemas.accesoMaestro.IAccesoMaestro;
 
 /**

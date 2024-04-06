@@ -4,7 +4,7 @@ package presentacion.pantallas;
 import DTOS.maestro.MaestroEditableDTO;
 import excepciones.NegocioException;
 import subsistemas.recuperarMaestro.IRecuperarMaestro;
-import subsistemas.recuperarMaestro.FachadaRecuperarMaestro;
+import subsistemas.recuperarMaestro.RecuperarMaestro;
 
 
 
@@ -19,7 +19,7 @@ public class Prueba {
      */
     public static void main(String[] args) {
 
-        IRecuperarMaestro rMaestro = new FachadaRecuperarMaestro();
+        IRecuperarMaestro rMaestro = new RecuperarMaestro();
         MaestroEditableDTO maestroE = null;
         try {
             maestroE = rMaestro.recuperarMaestro();

@@ -1,9 +1,7 @@
 package DTOS.evento;
 
-import DTOS.DiasSemana.DiasSemanaDTO;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 
 /**
  *

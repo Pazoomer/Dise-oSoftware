@@ -1,20 +1,15 @@
 
 package subsistemas.conexionCia;
 
-import DTOS.DiasSemana.DiasSemanaDTO;
 import DTOS.evento.EventoConsultableDTO;
-import DTOS.evento.TipoEventoEnumDTO;
 import static DTOS.evento.TipoEventoEnumDTO.UNICO_UN_DIA;
 import DTOS.maestro.MaestroEditableDTO;
 import conexion.IConexionDAO;
 import excepciones.NegocioException;
-import java.awt.Image;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.swing.ImageIcon;
 import objetosNegocio.Evento;
 import objetosNegocio.Maestro;
 

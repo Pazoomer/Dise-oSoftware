@@ -3,6 +3,13 @@ package BO.recuperarMaestroBO;
 
 import DTOS.maestro.MaestroEditableDTO;
 import conexion.IConexionDAO;
+import excepciones.NegocioException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import subsistemas.conexionCia.FachadaAccesoCia;
+import subsistemas.conexionCia.IAccesoCia;
+import subsistemas.recuperarMaestro.IRecuperarMaestro;
+import subsistemas.recuperarMaestro.RecuperarMaestro;
 
 /**
  *
@@ -18,11 +25,20 @@ public class RecuperarMaestroBO implements IRecuperarMaestroBO{
 
     @Override
     public MaestroEditableDTO recuperarMaestro(MaestroEditableDTO maestroEditableDTO) {
-        if (maestroEditableDTO==null) {
-            IAccesoCia dao=new FachadaAccesoCia(conexion);
-            return FachadaAccesoCia.accesoCia();
-        }else{
-            
+        if (maestroEditableDTO == null) {
+            IAccesoCia dao = new FachadaAccesoCia(conexion);
+            try {
+                return dao.accesoCia();
+            } catch (NegocioException ex) {
+                Logger.getLogger(RecuperarMaestroBO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            IRecuperarMaestro dao=new RecuperarMaestro(conexion);
+            try {
+                return dao.recuperarMaestro();
+            } catch (NegocioException ex) {
+                Logger.getLogger(RecuperarMaestroBO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null;
         //Long maestroId = maestroEditableDTO.getId();
