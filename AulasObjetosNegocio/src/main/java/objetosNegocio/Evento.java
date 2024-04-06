@@ -13,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,8 +39,8 @@ public class Evento implements Serializable {
     @Column(name="descripcion",nullable=true,length=200)
     private String descripcion;
     
-    @OneToMany(mappedBy = "Evento", cascade = CascadeType.ALL)
-    private List<DiasSemana> diasSemana;
+    @Column(name="dias_semana")
+    private String diasSemana;
     
     @Column(name="ubicacion",nullable=true,length=100)
     private String ubicacion;
@@ -74,10 +73,9 @@ public class Evento implements Serializable {
     }
     
      public Evento() {
-        this.diasSemana=new ArrayList<>();
     }
 
-    public Evento(TipoEventoEnum tipo, String nombre, String descripcion, List<DiasSemana> diasSemana, String ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento, Maestro maestro) {
+    public Evento(TipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, String ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento, Maestro maestro) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -105,7 +103,7 @@ public class Evento implements Serializable {
      * @param horaInicio
      * @param horasDuracionEvento 
      */
-    public Evento(TipoEventoEnum tipo, String nombre, String descripcion, List<DiasSemana> diasSemana, 
+    public Evento(TipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, 
             String ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento) {
         this.tipo = tipo;
         this.nombre = nombre;
@@ -159,7 +157,7 @@ public class Evento implements Serializable {
         return descripcion;
     }
 
-    public List<DiasSemana> getDiasSemana() {
+    public String getDiasSemana() {
         return diasSemana;
     }
 
@@ -183,19 +181,19 @@ public class Evento implements Serializable {
         return horasDuracionEvento;
     }
 
-    public EventoA editarEvento(EventoA evento){
+    public Evento editarEvento(Evento evento){
         return evento;
     }
     
-    public boolean agregarEvento(EventoA evento){
+    public boolean agregarEvento(Evento evento){
         return true;
     }
     
-    public EventoA obtenerEvento(EventoA evento){
+    public Evento obtenerEvento(Evento evento){
         return evento;
     }
     
-    public boolean eliminarEvento(EventoA evento){
+    public boolean eliminarEvento(Evento evento){
         return true;
     }
 
