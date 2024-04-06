@@ -32,6 +32,7 @@ public class MapaCalendario extends javax.swing.JFrame {
      */
     public MapaCalendario(CDEvento cdEvento) {
         setUndecorated(true);
+        setAlwaysOnTop(true);
         this.setResizable(false);
         initComponents();
         this.cdEvento = cdEvento;
@@ -111,7 +112,8 @@ public class MapaCalendario extends javax.swing.JFrame {
     }
 
     private void cerrar() {
-        cdEvento.calendario.setVisible(true);
+        this.dispose();
+        //cdEvento.calendario.setVisible(true);
         cdEvento.setVisible(true);
     }
 
@@ -354,7 +356,7 @@ public class MapaCalendario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        dispose();
+        cerrar();
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void cmbCampusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCampusItemStateChanged

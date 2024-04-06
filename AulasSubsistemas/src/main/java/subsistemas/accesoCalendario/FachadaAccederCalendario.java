@@ -2,18 +2,20 @@
 package subsistemas.accesoCalendario;
 
 import DTOS.evento.EventoConsultableDTO;
+import com.toedter.calendar.JCalendar;
 import excepciones.NegocioException;
 import java.util.List;
+import javax.swing.JTable;
 
 /**
  *
- * @author t1pas
+ * @author t1pas, luisa morales
  */
-public class FachadaEditarCalendario implements IAccesoCalendario{
+public class FachadaAccederCalendario implements IAccesoCalendario{
 
     private final ControlCalendarios calendarios;
 
-    public FachadaEditarCalendario() {
+    public FachadaAccederCalendario() {
         this.calendarios = new ControlCalendarios();
     }
     
@@ -56,5 +58,15 @@ public class FachadaEditarCalendario implements IAccesoCalendario{
         }catch(NegocioException e){
             throw new NegocioException(e.getMessage());
         }
+    }
+
+    @Override
+    public EventoConsultableDTO inicializarCalendario(List<EventoConsultableDTO> calendario, JCalendar jcalendar, JTable tabla){
+        return calendarios.inicializarCalendario(jcalendar, calendario, tabla);
+    }
+
+    @Override
+    public EventoConsultableDTO refreshCalendario(List<EventoConsultableDTO> calendario, JCalendar jCalendar, JTable tabla) {
+        return calendarios.refrescarCalendario(jCalendar, calendario, tabla);
     }
 }
