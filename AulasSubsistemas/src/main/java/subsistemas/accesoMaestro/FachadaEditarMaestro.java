@@ -16,22 +16,23 @@ public class FachadaEditarMaestro implements IAccesoMaestro {
         this.maestros = new ControlMaestro();
     }
    
+//    @Override
+//    public MaestroEditableDTO agregarEventoCalendario(MaestroEditableDTO maestro) throws NegocioException {
+//        //TODO
+//        //Solo soy una fachada
+//         try{
+//        return maestros.agregarEventoCalendario(maestro);
+//        }catch(NegocioException e){
+//                    throw new NegocioException(e.getMessage());
+//        }
+//    }
+    
     @Override
-    public MaestroEditableDTO agregarEventoCalendario(MaestroEditableDTO maestro) throws NegocioException {
-        //TODO
-        //Solo soy una fachada
-         try{
-        return maestros.agregarEventoCalendario(maestro);
-        }catch(NegocioException e){
-                    throw new NegocioException(e.getMessage());
+    public MaestroEditableDTO editarMaestro(MaestroEditableDTO maestro) throws NegocioException {
+        try {
+            return maestros.editarMaestro(maestro);
+        } catch (NegocioException e) {
+            throw new NegocioException(e.getMessage());
         }
     }
-     public MaestroEditableDTO editarMaestro(MaestroEditableDTO maestro) throws NegocioException {
-        
-      try{
-        return maestros.editarMaestro(maestro);
-        }catch(NegocioException e){
-                    throw new NegocioException(e.getMessage());
-        }
-     }
 }
