@@ -10,7 +10,11 @@ import java.util.List;
  * @author t1pas
  */
 public interface IAccesoCalendario {
-    List<EventoConsultableDTO> editarCalendario(List<EventoConsultableDTO> calendario,
-            EventoConsultableDTO evento, String tipoOperacion) throws NegocioException;
-    EventoConsultableDTO obtenerEvento(EventoConsultableDTO evento) throws NegocioException;
+    
+    boolean editarCalendario(List<EventoConsultableDTO> calendario);
+
+//    List<EventoConsultableDTO> editarCalendario(List<EventoConsultableDTO> calendario,
+//            EventoConsultableDTO evento, String tipoOperacion) throws NegocioException;
+//
+//    EventoConsultableDTO obtenerEvento(EventoConsultableDTO evento) throws NegocioException;
 }

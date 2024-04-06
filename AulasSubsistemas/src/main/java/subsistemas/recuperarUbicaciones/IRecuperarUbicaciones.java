@@ -1,7 +1,6 @@
 
 package subsistemas.recuperarUbicaciones;
 
-import DTOS.campus.CampusConsultableDTO;
 import java.util.List;
 
 /**

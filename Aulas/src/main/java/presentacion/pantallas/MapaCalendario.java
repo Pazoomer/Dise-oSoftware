@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import presentacion.CDEvento;
-import subsistemas.recuperarUbicaciones.FachadaRecuperarUbicaciones;
+import subsistemas.recuperarUbicaciones.RecuperarUbicaciones;
 import subsistemas.recuperarUbicaciones.IRecuperarUbicaciones;
 
 /**
@@ -79,7 +79,7 @@ public class MapaCalendario extends javax.swing.JFrame {
      * Accede al subsistema de recupera ubicaciones por los campus
      */
     private void recuperarUbicaciones() {
-        IRecuperarUbicaciones on = new FachadaRecuperarUbicaciones();
+        IRecuperarUbicaciones on = new RecuperarUbicaciones();
         List<String> campusUbicaciones = on.recuperarEdificios();
 
         for (String campusItem : campusUbicaciones) {
@@ -93,7 +93,7 @@ public class MapaCalendario extends javax.swing.JFrame {
      * @param campus 
      */
     private void cambioCampus(String campus) {
-        IRecuperarUbicaciones on = new FachadaRecuperarUbicaciones();
+        IRecuperarUbicaciones on = new RecuperarUbicaciones();
         List<String> ubicacionesCampus = on.recuperarEdificiosPorCampus(campus);
 
         this.cmbMapa.removeAllItems();

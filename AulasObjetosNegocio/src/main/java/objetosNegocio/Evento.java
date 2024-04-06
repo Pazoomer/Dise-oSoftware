@@ -41,8 +41,8 @@ public class Evento implements Serializable {
     @Column(name="descripcion",nullable=true,length=200)
     private String descripcion;
     
-    @OneToMany(mappedBy = "Evento", cascade = CascadeType.ALL)
-    private List<DiasSemana> diasSemana;
+    @Column(name="diasSemana",nullable=true,length=8)
+    private String diasSemana;
     
     @Column(name="ubicacion",nullable=true,length=100)
     private String ubicacion;
@@ -78,10 +78,41 @@ public class Evento implements Serializable {
     }
     
      public Evento() {
-        this.diasSemana=new ArrayList<>();
+
     }
 
-    public Evento(TipoEventoEnumDTO tipo, String nombre, String descripcion, List<DiasSemana> diasSemana, String ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento, Maestro maestro) {
+    public Evento(TipoEventoEnumDTO tipo, String nombre, String descripcion, String diasSemana, String ubicacion, String color, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento, Maestro maestro) {
+        this.tipo = tipo;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.diasSemana = diasSemana;
+        this.ubicacion = ubicacion;
+        this.color = color;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.horaInicio = horaInicio;
+        this.horasDuracionEvento = horasDuracionEvento;
+        this.maestro = maestro;
+    }
+     
+     
+
+    public Evento(TipoEventoEnumDTO tipo, String nombre, String descripcion, String diasSemana, String ubicacion, String color, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento) {
+        this.tipo = tipo;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.diasSemana = diasSemana;
+        this.ubicacion = ubicacion;
+        this.color = color;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.horaInicio = horaInicio;
+        this.horasDuracionEvento = horasDuracionEvento;
+    }
+     
+     
+
+    public Evento(TipoEventoEnumDTO tipo, String nombre, String descripcion, String diasSemana, String ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento, Maestro maestro) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -110,7 +141,7 @@ public class Evento implements Serializable {
      * @param horaInicio
      * @param horasDuracionEvento 
      */
-    public Evento(String color, TipoEventoEnumDTO tipo, String nombre, String descripcion, List<DiasSemana> diasSemana, 
+    public Evento(String color, TipoEventoEnumDTO tipo, String nombre, String descripcion,String diasSemana, 
             String ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento) {
         this.color=color;
         this.tipo = tipo;
@@ -167,7 +198,7 @@ public class Evento implements Serializable {
         return descripcion;
     }
 
-    public List<DiasSemana> getDiasSemana() {
+    public String getDiasSemana() {
         return diasSemana;
     }
 

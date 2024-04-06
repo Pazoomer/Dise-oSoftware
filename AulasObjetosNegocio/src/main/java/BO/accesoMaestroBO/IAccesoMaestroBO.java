@@ -10,5 +10,5 @@ import DTOS.maestro.MaestroEditableDTO;
  * @author t1pas
  */
 public interface IAccesoMaestroBO {
-    MaestroEditableDTO recuperarMaestro(MaestroEditableDTO maestroEditableDTO) throws PersistenciaException,ValidacionException;
+    boolean editarMaestro(MaestroEditableDTO maestroEditableDTO);
 }

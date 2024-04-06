@@ -1,18 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package subsistemas.accesoMaestro;
 
-import DTOS.evento.EventoConsultableDTO;
 import DTOS.maestro.MaestroEditableDTO;
+import conexion.IConexionDAO;
 import excepciones.NegocioException;
-import java.util.ArrayList;
-import java.util.List;
-import objetosNegocio.EventoA;
-import objetosNegocio.MaestroA;
-import objetosNegocio.TipoEventoEnum;
-import subsistemas.recuperarMaestro.FachadaRecuperarMaestro;
+import javax.persistence.EntityManager;
+import objetosNegocio.Maestro;
 import subsistemas.recuperarMaestro.IRecuperarMaestro;
 
 /**
@@ -22,21 +15,54 @@ import subsistemas.recuperarMaestro.IRecuperarMaestro;
 public class ControlMaestro {
     private IRecuperarMaestro recuperaM;
     
-    
+    private final IConexionDAO conexion;
+
+    public ControlMaestro(IConexionDAO conexion) {
+        this.conexion = conexion;
+    }
+    /*
      public MaestroEditableDTO agregarEventoCalendario(MaestroEditableDTO maestro) throws NegocioException{
         MaestroA maestroEditable=convertMaestro(maestro);
         for(EventoA evento: maestroEditable.getCalendario()){ 
-            maestroEditable.agregarEventoCalendario(evento);   
+            maestroEditable.agregarEventoCalendario(evento);
         }
-       return maestro;   
-    }
-     public MaestroEditableDTO editarMaestro(MaestroEditableDTO maestro) throws NegocioException{
-          
+        return maestro;
+    }*/
+
+    public boolean editarMaestro(MaestroEditableDTO maestro) throws NegocioException {
+        EntityManager entityManager=conexion.crearConexion();
+        try {
+            
+            entityManager.getTransaction().begin();
+
+            // Obtener el maestro a actualizar desde la base de datos
+            Maestro maestroPersistido = entityManager.find(Maestro.class, maestro.getId());
+
+            // Actualizar los atributos del maestro con los valores proporcionados en el DTO
+            maestroPersistido.setNombre(maestro.getNombre());
+            maestroPersistido.setCubiculo(maestro.getCubiculo());
+            maestroPersistido.setFoto(maestro.getFoto());
+            maestroPersistido.setDescripcion(maestro.getDescripcion());
+
+            // Completar la transacción
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            // Manejar cualquier excepción y hacer rollback en caso de error
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
+            throw new NegocioException("Error al editar el maestro", e);
+        }
+        return true;
+
+        /*
         recuperaM=new FachadaRecuperarMaestro();
         MaestroEditableDTO maestroRecuperado=recuperaM.recuperarMaestro();
         MaestroA maestroEditado=convertMaestro(maestroRecuperado);
         return maestroRecuperado;
-     }
+         */
+    }
+    /*
     private MaestroA convertMaestro(MaestroEditableDTO maestro){
         MaestroA maestroCon=new MaestroA();
         maestroCon.setId(maestro.getId());
@@ -50,6 +76,7 @@ public class ControlMaestro {
         maestroCon.setCalendario(listaEventos);
         return maestroCon;
     }
+    /*
     private EventoA toBO(EventoConsultableDTO evento){
         EventoA eventoConvertido = null;
         switch (evento.getTipo()) {
@@ -88,5 +115,5 @@ public class ControlMaestro {
                 );
         }
         return eventoConvertido;
-    }
+    }*/
 }

@@ -1,13 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
+
 package BO.accesoCalendarioBO;
+
+import DTOS.evento.EventoConsultableDTO;
+import java.util.List;
 
 /**
  *
  * @author t1pas
  */
 public interface IAccesoCalendarioBO {
-    
+    boolean editarCalendario(List<EventoConsultableDTO> calendario);
 }

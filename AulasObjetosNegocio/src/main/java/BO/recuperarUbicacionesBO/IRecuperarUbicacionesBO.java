@@ -1,13 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
+
 package BO.recuperarUbicacionesBO;
+
+import java.util.List;
 
 /**
  *
  * @author t1pas
  */
 public interface IRecuperarUbicacionesBO {
+    public List<String> recuperarCampus();
     
+    public List<String> recuperarEdificiosPorCampus(String campus);
 }

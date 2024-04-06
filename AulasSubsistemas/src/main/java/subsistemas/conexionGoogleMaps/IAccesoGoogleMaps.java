@@ -10,5 +10,7 @@ import java.util.List;
  */
 public interface IAccesoGoogleMaps {
     
-    List<String> accesoGoogleMaps()throws NegocioException;
+    List<String> accesoEdificiosGoogleMaps()throws NegocioException;
+    
+    List<String> accesoEdificiosPorCampusGoogleMaps(String campus)throws NegocioException;
 }

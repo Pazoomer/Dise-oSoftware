@@ -15,7 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import subsistemas.accesoMaestro.IAccesoMaestro;
-import subsistemas.accesoMaestro.FachadaEditarMaestro;
+import subsistemas.accesoMaestro.EditarMaestro;
 import subsistemas.recuperarMaestro.IRecuperarMaestro;
 import subsistemas.recuperarMaestro.FachadaRecuperarMaestro;
 import javax.swing.ImageIcon;
@@ -86,7 +86,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         String cubiculo = this.txtCubiculo.getText();
         Icon foto = this.lblFotoMaestro.getIcon();
 
-        accesoM = new FachadaEditarMaestro();
+        accesoM = new EditarMaestro();
         List<EventoConsultableDTO> calendarioAuxiliar = maestro.getCalendario();
 
         MaestroEditableDTO maestroAuxiliar = new MaestroEditableDTO(maestro.getId(), maestro.getNombre(), cubiculo, descripcion, foto);
