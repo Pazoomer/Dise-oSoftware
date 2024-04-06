@@ -34,7 +34,7 @@ public class MaestroA {
         this.descripcion = descripcion;
     }
 
-    public Long getId(Long id) {
+    public Long getId() {
         return id;
     }
 
@@ -42,7 +42,7 @@ public class MaestroA {
         this.id = id;
     }
 
-    public String getNombre(String nombre) {
+    public String getNombre() {
         return nombre;
     }
 
@@ -50,7 +50,7 @@ public class MaestroA {
         this.nombre = nombre;
     }
 
-    public String getCubiculo(String cubiculo) {
+    public String getCubiculo() {
         return cubiculo;
     }
 
@@ -58,7 +58,7 @@ public class MaestroA {
         this.cubiculo = cubiculo;
     }
 
-    public String getDescripcion(String descripcion) {
+    public String getDescripcion() {
         return descripcion;
     }
 
@@ -78,6 +78,14 @@ public class MaestroA {
         this.calendario.add(evento);
     }
   
+    public MaestroA obtenerMaestro(MaestroA maestro){
+        return maestro;
+    }
+    
+    public MaestroA editarMaestro(MaestroA maestroEditado){
+        return maestroEditado;
+    }
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

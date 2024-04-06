@@ -30,9 +30,9 @@ public class Maestro implements Serializable {
         return idBd;
     }
 
-    public void setIdBd(Long idBd) {
-        this.idBd = idBd;
-    }
+//    public void setIdBd(Long idBd) {
+//        this.idBd = idBd;
+//    }
     
     @Column(name="id_maestro",nullable=false)
     private Long idMaestro; //Representa el identificador fuera de la base de datos
@@ -46,9 +46,9 @@ public class Maestro implements Serializable {
     @Column(name = "descripcion", nullable = true, length = 200)
     private String descripcion;
     
-    @OneToMany(mappedBy = "Maestro", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "Maestro", cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE})
     private List<Evento> calendario;
-
+    
     public Maestro() {
         this.calendario=new ArrayList<>();
     }
@@ -68,15 +68,22 @@ public class Maestro implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Long getId(Long id) {
-        return id;
+    public Maestro(String nombre, String cubiculo, String descripcion, List<Evento> calendario) {
+        this.nombre = nombre;
+        this.cubiculo = cubiculo;
+        this.descripcion = descripcion;
+        this.calendario = calendario;
+    }
+    
+    public Long getIdMaestro() {
+        return idMaestro;
     }
 
     public void setIdMaestro(Long idMaestro) {
         this.idMaestro = idMaestro;
     }
 
-    public String getNombre(String nombre) {
+    public String getNombre() {
         return nombre;
     }
 
@@ -84,7 +91,7 @@ public class Maestro implements Serializable {
         this.nombre = nombre;
     }
 
-    public String getCubiculo(String cubiculo) {
+    public String getCubiculo() {
         return cubiculo;
     }
 
@@ -92,7 +99,7 @@ public class Maestro implements Serializable {
         this.cubiculo = cubiculo;
     }
 
-    public String getDescripcion(String descripcion) {
+    public String getDescripcion() {
         return descripcion;
     }
 
@@ -104,6 +111,14 @@ public class Maestro implements Serializable {
         return calendario;
     }
 
+    public Maestro obtenerMaestro(Maestro maestro){
+        return maestro;
+    }
+    
+    public Maestro editarMaestro(Maestro maestroEditado){
+        return maestroEditado;
+    }
+    
     public void setCalendario(List<Evento> calendario) {
         this.calendario = calendario;
     }
@@ -111,24 +126,6 @@ public class Maestro implements Serializable {
     public void agregarEventoCalendario(Evento evento){
         this.calendario.add(evento);
     }
-
-    public Long getIdMaestro() {
-        return idMaestro;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getCubiculo() {
-        return cubiculo;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-    
-    
 
     @Override
     public String toString() {
