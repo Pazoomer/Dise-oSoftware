@@ -1,5 +1,9 @@
 package presentacion.pantallas;
 
+import BO.recuperarMaestroBO.IRecuperarMaestroBO;
+import BO.recuperarMaestroBO.RecuperarMaestroBO;
+import BO.recuperarUbicacionesBO.IRecuperarUbicacionesBO;
+import BO.recuperarUbicacionesBO.RecuperarUbicacionesBO;
 import DTOS.campus.CampusConsultableDTO;
 import conexion.IConexionDAO;
 import java.awt.Color;
@@ -83,8 +87,8 @@ public class MapaCalendario extends javax.swing.JFrame {
      * Accede al subsistema de recupera ubicaciones por los campus
      */
     private void recuperarUbicaciones() {
-        IRecuperarUbicaciones on = new RecuperarUbicaciones(conexion);
-        List<String> campusUbicaciones = on.recuperarEdificios();
+        IRecuperarUbicacionesBO a=new RecuperarUbicacionesBO(conexion);
+        List<String> campusUbicaciones=a.recuperarCampus();
 
         for (String campusItem : campusUbicaciones) {
             this.cmbCampus.addItem(campusItem);

@@ -24,21 +24,25 @@ public class RecuperarMaestroBO implements IRecuperarMaestroBO{
     }
 
     @Override
-    public MaestroEditableDTO recuperarMaestro(MaestroEditableDTO maestroEditableDTO) {
-        if (maestroEditableDTO == null) {
-            IAccesoCia dao = new FachadaAccesoCia(conexion);
-            try {
-                return dao.accesoCia();
-            } catch (NegocioException ex) {
-                Logger.getLogger(RecuperarMaestroBO.class.getName()).log(Level.SEVERE, null, ex);
+    public MaestroEditableDTO recuperarMaestro() {
+        MaestroEditableDTO maestroEditable;
+        IRecuperarMaestro recuperarMaestroDAO = new RecuperarMaestro(conexion);
+        try {
+            maestroEditable = recuperarMaestroDAO.recuperarMaestro();
+
+            if (maestroEditable != null) {
+                return maestroEditable;
             }
-        } else {
-            IRecuperarMaestro dao=new RecuperarMaestro(conexion);
-            try {
-                return dao.recuperarMaestro();
-            } catch (NegocioException ex) {
-                Logger.getLogger(RecuperarMaestroBO.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+        } catch (NegocioException ex) {
+            Logger.getLogger(RecuperarMaestroBO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        IAccesoCia accesoCiaDAO = new FachadaAccesoCia(conexion);
+        try {
+            return accesoCiaDAO.accesoCia();
+        } catch (NegocioException ex) {
+            Logger.getLogger(RecuperarMaestroBO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
         //Long maestroId = maestroEditableDTO.getId();

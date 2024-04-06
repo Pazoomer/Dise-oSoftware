@@ -35,6 +35,9 @@ public class Maestros {
             Maestro maestro = entityManager.createQuery("SELECT m FROM Maestro m", Maestro.class)
                                           .setMaxResults(1)
                                           .getSingleResult();
+            if (maestro==null) {
+                return null;
+            }
             return convertirAMaestroEditableDTO(maestro);
         } catch (Exception e) {
             throw new NegocioException("Error al recuperar el primer maestro", e);

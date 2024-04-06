@@ -4,14 +4,7 @@ package presentacion;
 import DTOS.evento.*;
 import conexion.IConexionDAO;
 import java.awt.Color;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import javax.swing.JCheckBox;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -123,26 +116,26 @@ public class CDEvento extends javax.swing.JDialog {
         String diasSemana = stringBuilder.toString();
 
             String horaSeleccionada = (String) cmbHora.getSelectedItem();
-            int hora = Integer.parseInt(horaSeleccionada.substring(0, 2));
-            int minutos = Integer.parseInt(horaSeleccionada.substring(3));
-            Calendar horaInicio = Calendar.getInstance();
-            horaInicio.set(Calendar.HOUR, hora);
-            horaInicio.set(Calendar.MINUTE, minutos);
-            //System.out.println("hora inicio evento desde cdEvento: "+hora+":"+minutos);
+        int hora = Integer.parseInt(horaSeleccionada.substring(0, 2));
+        int minutos = Integer.parseInt(horaSeleccionada.substring(3));
+        Calendar horaInicio = Calendar.getInstance();
+        horaInicio.set(Calendar.HOUR, hora);
+        horaInicio.set(Calendar.MINUTE, minutos);
+        //System.out.println("hora inicio evento desde cdEvento: "+hora+":"+minutos);
 
-            EventoConsultableDTO eventoN;
+        EventoConsultableDTO eventoN;
 
-        if(tipo.equals(TipoEventoEnumDTO.UNICO_UN_DIA)){
-            eventoN=new EventoConsultableDTO(nombre, descripcion, "", ubicacion, fecha, horaInicio, horasDuracion);
-        }else{
-                eventoN = new EventoConsultableDTO(tipo, nombre, descripcion, "",
-                        diasSemana, ubicacion, fecha, fecha, horaInicio, horasDuracion);
-            }
+        if (tipo.equals(TipoEventoEnumDTO.UNICO_UN_DIA)) {
+            eventoN = new EventoConsultableDTO(nombre, descripcion, "", ubicacion, fecha, horaInicio, horasDuracion);
+        } else {
+            eventoN = new EventoConsultableDTO(tipo, nombre, descripcion, "",
+                    diasSemana, ubicacion, fecha, fecha, horaInicio, horasDuracion);
+        }
 
-            //JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
-            calendario.añadirEvento(eventoN);
-            return eventoN;
-        
+        //JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
+        calendario.añadirEvento(eventoN);
+        return eventoN;
+
     }
     //TODO
         //Al hacer clic sobre el boton deberia intentar añadir el evento al calendario.

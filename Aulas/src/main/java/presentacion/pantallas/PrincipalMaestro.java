@@ -1,5 +1,7 @@
 package presentacion.pantallas;
 
+import BO.accesoMaestroBO.AccesoMaestroBO;
+import BO.accesoMaestroBO.IAccesoMaestroBO;
 import DTOS.evento.EventoConsultableDTO;
 import DTOS.maestro.MaestroEditableDTO;
 import conexion.IConexionDAO;
@@ -10,15 +12,10 @@ import java.io.File;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import subsistemas.accesoMaestro.IAccesoMaestro;
 import subsistemas.accesoMaestro.EditarMaestro;
-import subsistemas.recuperarMaestro.IRecuperarMaestro;
-import subsistemas.recuperarMaestro.RecuperarMaestro;
 import javax.swing.ImageIcon;
 
 /**
@@ -108,16 +105,13 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         String cubiculo = this.txtCubiculo.getText();
         String foto = "fotoMaestro.png"; //TODO: Hardcodeado
 
-        accesoM = new EditarMaestro(conexion);
+        IAccesoMaestroBO accesoMaestroBO=new AccesoMaestroBO(conexion);
+
         List<EventoConsultableDTO> calendarioAuxiliar = maestro.getCalendario();
 
         MaestroEditableDTO maestroAuxiliar = new MaestroEditableDTO(maestro.getId(), maestro.getNombre(), cubiculo, descripcion, foto);
-        try {
-            accesoM.editarMaestro(maestroAuxiliar);
-            maestro.setCalendario(calendarioAuxiliar);
-        } catch (NegocioException ex) {
-            Logger.getLogger(PrincipalMaestro.class.getName()).log(Level.SEVERE, "No se pudo actualizar la informacion en la base de datos", ex);
-        }
+        accesoMaestroBO.editarMaestro(maestroAuxiliar);
+        maestro.setCalendario(calendarioAuxiliar);
         JOptionPane.showMessageDialog(null, "Se actualizo su informacion", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
 
     }

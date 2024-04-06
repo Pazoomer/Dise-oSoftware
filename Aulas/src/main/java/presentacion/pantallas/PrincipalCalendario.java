@@ -1,12 +1,13 @@
 
 package presentacion.pantallas;
 
+import BO.accesoCalendarioBO.AccesoCalendarioBO;
+import BO.accesoCalendarioBO.IAccesoCalendarioBO;
 import DTOS.evento.EventoConsultableDTO;
 import DTOS.evento.TipoEventoEnumDTO;
 import DTOS.maestro.MaestroEditableDTO;
 import conexion.IConexionDAO;
 import java.awt.Color;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -257,7 +258,13 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     }
 
     public void añadirEvento(EventoConsultableDTO evento) {
+
         calendarioMaestroTemporal.add(evento);
+
+        IAccesoCalendarioBO accesoCalendarioBO = new AccesoCalendarioBO(conexion);
+
+        accesoCalendarioBO.editarCalendario(calendarioMaestroTemporal);
+
         cargarCalendario();
         cargarEventos();
     }
