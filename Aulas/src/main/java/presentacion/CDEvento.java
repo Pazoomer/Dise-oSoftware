@@ -3,19 +3,16 @@ package presentacion;
 
 import DTOS.evento.*;
 import java.awt.Color;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JCheckBox;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import presentacion.pantallas.MapaCalendario;
 import presentacion.pantallas.PrincipalCalendario;
+import subsistemas.accesoCalendario.FachadaAccederCalendario;
+import subsistemas.accesoCalendario.IAccesoCalendario;
 
 /**
  *
@@ -24,8 +21,9 @@ import presentacion.pantallas.PrincipalCalendario;
 public class CDEvento extends javax.swing.JDialog {
 
     public final PrincipalCalendario calendario;
-    private final java.awt.Frame parent;
+    //private final java.awt.Frame parent;
     private EventoConsultableDTO eventoEditable;
+    private IAccesoCalendario accesoCalendario; 
     private String tipoOperacion;
     /**
      * Creates new form CDEvento
@@ -33,17 +31,15 @@ public class CDEvento extends javax.swing.JDialog {
      * @param calendario
      * @param modal
      */
-    public CDEvento(java.awt.Frame parent,PrincipalCalendario calendario, boolean modal,String tipoOperacion) {
-        super(parent, modal);
+    public CDEvento(PrincipalCalendario calendario, boolean modal,String tipoOperacion) {
+        super(calendario, modal);
         initComponents();
         this.calendario=calendario;
-        this.parent=parent;
+        //this.parent=parent;
         this.tipoOperacion=tipoOperacion;
         this.setSize(500, 620);
         actualizarPermisos();
         cargarIconos();
-        
-        
     }
     
     /**
@@ -67,11 +63,11 @@ public class CDEvento extends javax.swing.JDialog {
         lblInfoEventoEstatico.setIcon(iconoDatos);
     }
     
-    public CDEvento(java.awt.Frame parent,PrincipalCalendario calendario,EventoConsultableDTO eventoEditable , boolean modal,String tipoOperacion) {
-        super(parent, modal);
+    public CDEvento(PrincipalCalendario calendario,EventoConsultableDTO eventoEditable , boolean modal,String tipoOperacion) {
+        super(calendario, modal);
         initComponents();
         this.calendario=calendario;
-        this.parent=parent;
+        //this.parent=parent;
         this.eventoEditable=eventoEditable;
         this.tipoOperacion=tipoOperacion;
         cargarIconos();
@@ -105,11 +101,12 @@ public class CDEvento extends javax.swing.JDialog {
         if(duracionStr.length()>1)
             horasDuracion=horasDuracion+0.5f;
         
-        List<Integer> diasSemana=new ArrayList<>();
+        String diasSemana="";
         JCheckBox[] arrChkBx={chbDomingo,chbLunes,chbMartes,chbMiercoles,chbJueves,chbViernes,chbSabado};
+        String[] diasStr={"Do","Lu","Ma","Mi","Ju","Vi","Sa"};
         for (int i = 0; i < 7; i++) {
             if(arrChkBx[i].isSelected()){
-                diasSemana.add(i+1);
+                diasSemana=diasSemana.concat(diasStr[i]);
                // System.out.println("dia numero: "+(i+1));
             } 
         }
@@ -117,7 +114,9 @@ public class CDEvento extends javax.swing.JDialog {
         String horaSeleccionada=(String)cmbHora.getSelectedItem();
         int hora=Integer.parseInt(horaSeleccionada.substring(0, 2));
         int minutos=Integer.parseInt(horaSeleccionada.substring(3));
-        LocalTime horaInicio=LocalTime.of(hora, minutos);
+        Calendar horaInicio=Calendar.getInstance();
+        horaInicio.set(Calendar.HOUR_OF_DAY, hora);
+        horaInicio.set(Calendar.MINUTE, minutos);
         //System.out.println("hora inicio evento desde cdEvento: "+hora+":"+minutos);
         
         EventoConsultableDTO eventoN;
@@ -228,7 +227,7 @@ public class CDEvento extends javax.swing.JDialog {
      */
     private void abrirMapa(){
         new MapaCalendario(this).setVisible(true);
-        calendario.setVisible(false);
+        //calendario.setVisible(false);
         this.setVisible(false);
     }
     
@@ -236,7 +235,7 @@ public class CDEvento extends javax.swing.JDialog {
      * Abre un seleccionador de color y se le asigna al evento
      */
     private void abrirSeleccionColor() {
-        CuadroDialogoColor color = new CuadroDialogoColor(parent);
+        CuadroDialogoColor color = new CuadroDialogoColor(calendario);
         color.setVisible(true);
         this.lblEjemploEstatico.setForeground(color.getColor());
     }
@@ -245,7 +244,7 @@ public class CDEvento extends javax.swing.JDialog {
      * Abre un seleccionador de fecha y se le asigna al evento
      */
     private void abrirSeleccionFecha(){
-        CuadroDialogoCalendario calendarioFecha = new CuadroDialogoCalendario(parent);
+        CuadroDialogoCalendario calendarioFecha = new CuadroDialogoCalendario(calendario);
         calendarioFecha.setVisible(true);
         if (calendarioFecha.getDate()!=null) {
             this.dtcFecha.setDate(calendarioFecha.getDate());  
@@ -253,9 +252,12 @@ public class CDEvento extends javax.swing.JDialog {
         
     }
     
-    public EventoConsultableDTO editarEvento(){
+    public void editarEvento(){
+        accesoCalendario=new FachadaAccederCalendario();
         EventoConsultableDTO eventoEditado=crearEvento();
-        return eventoEditado;
+        calendario.editarEvento(eventoEditado);
+//        eventoEditado=accesoCalendario.editarCalendario(list, eventoEditado, "editar");
+        //return eventoEditado;
     }
     
     public void desplegarEventoEditable(){
@@ -288,7 +290,7 @@ public class CDEvento extends javax.swing.JDialog {
         }
         else if(eventoEditable.getTipo().equals(TipoEventoEnumDTO.SEMANAL)){
             cmbTipo.setSelectedIndex(0);
-            List<Integer> diasSemana=eventoEditable.getDiasSemana();
+            List<Integer> diasSemana=diasSemanaNum(eventoEditable.getDiasSemana());
             for(int i:diasSemana){
                 switch(i){
                     case 1 -> chbDomingo.setSelected(true);
@@ -301,6 +303,23 @@ public class CDEvento extends javax.swing.JDialog {
                 }
             }
         }
+    }
+    
+    private List<Integer> diasSemanaNum(String dias) {
+        String[] diasArr = dias.split(",", 7);
+        List<Integer> diasNum = new ArrayList<>();
+        for (String s : diasArr) {
+            switch (s) {
+                case "Do" ->diasNum.add(1);
+                case "Lu" ->diasNum.add(2);
+                case "Ma" ->diasNum.add(3);
+                case "Mi" ->diasNum.add(4);
+                case "Ju" ->diasNum.add(5);
+                case "Vi" ->diasNum.add(6);
+                case "Sa" ->diasNum.add(7);
+            }
+        }
+        return diasNum;
     }
     
     public void desplegarEvento(){
@@ -474,7 +493,7 @@ public class CDEvento extends javax.swing.JDialog {
 
         lblEjemploEstatico.setText("EJEMPLO COLOR");
         pnlEvento.add(lblEjemploEstatico);
-        lblEjemploEstatico.setBounds(30, 340, 140, 14);
+        lblEjemploEstatico.setBounds(30, 340, 140, 16);
 
         btnLimpiar.setBorder(null);
         btnLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -498,14 +517,14 @@ public class CDEvento extends javax.swing.JDialog {
         chbLunes.setText("Lunes");
         chbLunes.setBorder(null);
         pnlEvento.add(chbLunes);
-        chbLunes.setBounds(30, 80, 85, 15);
+        chbLunes.setBounds(30, 80, 85, 17);
 
         chbMartes.setBackground(new java.awt.Color(255, 255, 255));
         chbMartes.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbMartes.setText("Martes");
         chbMartes.setBorder(null);
         pnlEvento.add(chbMartes);
-        chbMartes.setBounds(30, 100, 85, 15);
+        chbMartes.setBounds(30, 100, 85, 17);
 
         chbMiercoles.setBackground(new java.awt.Color(255, 255, 255));
         chbMiercoles.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
@@ -517,7 +536,7 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(chbMiercoles);
-        chbMiercoles.setBounds(30, 120, 85, 15);
+        chbMiercoles.setBounds(30, 120, 85, 17);
 
         chbJueves.setBackground(new java.awt.Color(255, 255, 255));
         chbJueves.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
@@ -529,28 +548,28 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(chbJueves);
-        chbJueves.setBounds(30, 140, 85, 15);
+        chbJueves.setBounds(30, 140, 85, 17);
 
         chbViernes.setBackground(new java.awt.Color(255, 255, 255));
         chbViernes.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbViernes.setText("Viernes");
         chbViernes.setBorder(null);
         pnlEvento.add(chbViernes);
-        chbViernes.setBounds(120, 80, 85, 15);
+        chbViernes.setBounds(120, 80, 85, 17);
 
         chbSabado.setBackground(new java.awt.Color(255, 255, 255));
         chbSabado.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbSabado.setText("Sabado");
         chbSabado.setBorder(null);
         pnlEvento.add(chbSabado);
-        chbSabado.setBounds(120, 100, 85, 15);
+        chbSabado.setBounds(120, 100, 85, 17);
 
         chbDomingo.setBackground(new java.awt.Color(255, 255, 255));
         chbDomingo.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbDomingo.setText("Domingo");
         chbDomingo.setBorder(null);
         pnlEvento.add(chbDomingo);
-        chbDomingo.setBounds(120, 120, 85, 15);
+        chbDomingo.setBounds(120, 120, 85, 17);
         pnlEvento.add(dtcFecha);
         dtcFecha.setBounds(30, 200, 160, 30);
 
@@ -572,11 +591,11 @@ public class CDEvento extends javax.swing.JDialog {
 
         cmbHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01:00", "01:30", "02:00", "02:30", "03:00", "03:30", "04:00", "04:30", "05:00", "05:30", "06:00", "06:30", "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30" }));
         pnlEvento.add(cmbHora);
-        cmbHora.setBounds(30, 260, 68, 20);
+        cmbHora.setBounds(30, 260, 68, 22);
 
         cmbAMPM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AM", "PM" }));
         pnlEvento.add(cmbAMPM);
-        cmbAMPM.setBounds(100, 260, 59, 20);
+        cmbAMPM.setBounds(100, 260, 59, 22);
 
         lblNombreEstatico.setBackground(new java.awt.Color(255, 255, 255));
         lblNombreEstatico.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -613,7 +632,7 @@ public class CDEvento extends javax.swing.JDialog {
 
         cmbDuracionEvento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "1.5", "2", "2.5", "3", "3.5", "4", "4.5", "5" }));
         pnlEvento.add(cmbDuracionEvento);
-        cmbDuracionEvento.setBounds(270, 310, 42, 20);
+        cmbDuracionEvento.setBounds(270, 310, 72, 22);
 
         lblHorasDuracion.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         lblHorasDuracion.setForeground(new java.awt.Color(22, 81, 198));
@@ -643,7 +662,7 @@ public class CDEvento extends javax.swing.JDialog {
         if(tipoOperacion.equals("agregar"))
             añadirEvento2();
         else if(tipoOperacion.equals("editar")){
-            PrincipalCalendario.eventoSeleccionado=editarEvento();
+            editarEvento();
         }
         this.dispose();
     }//GEN-LAST:event_btnAñadirActionPerformed
@@ -714,7 +733,7 @@ public class CDEvento extends javax.swing.JDialog {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        PrincipalCalendario.isDisplayed=false;
+        //PrincipalCalendario.isDisplayed=false;
     }//GEN-LAST:event_formWindowClosing
 
     private void actualizarPermisos(){
