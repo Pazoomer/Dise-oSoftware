@@ -2,6 +2,7 @@
 package subsistemas.conexionCia;
 
 import DTOS.maestro.MaestroEditableDTO;
+import conexion.IConexionDAO;
 import excepciones.NegocioException;
 import objetosNegocio.Maestro;
 
@@ -10,11 +11,13 @@ import objetosNegocio.Maestro;
  * @author t1pas
  */
 public class FachadaAccesoCia implements IAccesoCia {
-
+    
+    private final IConexionDAO conexion;
     private final AccesoCia accesoCia;
 
-    public FachadaAccesoCia() {
-        this.accesoCia = new AccesoCia();
+    public FachadaAccesoCia(IConexionDAO conexion) {
+        this.conexion = conexion;
+        this.accesoCia = new AccesoCia(conexion);
     }
 
     //TODO

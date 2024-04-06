@@ -2,15 +2,29 @@
 package BO.recuperarMaestroBO;
 
 import DTOS.maestro.MaestroEditableDTO;
+import conexion.IConexionDAO;
 
 /**
  *
  * @author t1pas
  */
 public class RecuperarMaestroBO implements IRecuperarMaestroBO{
+    
+    private final IConexionDAO conexion;
+
+    public RecuperarMaestroBO(IConexionDAO conexion) {
+        this.conexion = conexion;
+    }
 
     @Override
     public MaestroEditableDTO recuperarMaestro(MaestroEditableDTO maestroEditableDTO) {
+        if (maestroEditableDTO==null) {
+            IAccesoCia dao=new FachadaAccesoCia(conexion);
+            return FachadaAccesoCia.accesoCia();
+        }else{
+            
+        }
+        return null;
         //Long maestroId = maestroEditableDTO.getId();
         //if (maestroId != null && maestroId != 0) { // Verificar que el ID del maestro no sea null ni cero
             //MaestroDAO mDao = new MaestroDAO(conexion);

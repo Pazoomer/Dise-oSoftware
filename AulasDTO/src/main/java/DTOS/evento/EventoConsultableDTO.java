@@ -15,7 +15,7 @@ public class EventoConsultableDTO {
     private final String nombre;
     private final String descripcion;
     private final String color;
-    private List<DiasSemanaDTO> diasSemana;
+    private String diasSemana;
     private final String ubicacion;
     private Calendar fechaInicio;
     private Calendar fechaFin;
@@ -78,7 +78,7 @@ public class EventoConsultableDTO {
      * @param horaInicio
      * @param horasDuracionEvento
      */
-    public EventoConsultableDTO(TipoEventoEnumDTO tipo, String nombre, String descripcion, String color, List<DiasSemanaDTO> diasSemanaa,
+    public EventoConsultableDTO(TipoEventoEnumDTO tipo, String nombre, String descripcion, String color,String diasSemanaa,
             String ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento) {
         this.fechaInicio = fechaInicio;
         this.fechaFin = Calendar.getInstance();
@@ -110,7 +110,7 @@ public class EventoConsultableDTO {
 //        this.horasDuracionEvento=0.0f;
 //    }
 
-    public void setDiasSemana(List<DiasSemanaDTO> diasSemana) {
+    public void setDiasSemana(String diasSemana) {
         this.diasSemana = diasSemana;
     }
 
@@ -131,7 +131,7 @@ public class EventoConsultableDTO {
         return horasDuracionEvento;
     }
 
-    public List<DiasSemanaDTO> getDiasSemana() {
+    public String getDiasSemana() {
         return diasSemana;
     }
 
