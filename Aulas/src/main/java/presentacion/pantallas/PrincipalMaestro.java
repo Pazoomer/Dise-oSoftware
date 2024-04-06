@@ -87,12 +87,12 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         Icon foto = this.lblFotoMaestro.getIcon();
 
         accesoM = new FachadaEditarMaestro();
-        List<EventoConsultableDTO> calendarioAuxiliar = maestro.getCalendario();
+        //List<EventoConsultableDTO> calendarioAuxiliar = maestro.getCalendario();
 
         MaestroEditableDTO maestroAuxiliar = new MaestroEditableDTO(maestro.getId(), maestro.getNombre(), cubiculo, descripcion, foto);
         try {
             maestro = accesoM.editarMaestro(maestroAuxiliar);
-            maestro.setCalendario(calendarioAuxiliar);
+            //maestro.setCalendario(calendarioAuxiliar);
         } catch (NegocioException ex) {
             Logger.getLogger(PrincipalMaestro.class.getName()).log(Level.SEVERE, "No se pudo actualizar la informacion en la base de datos", ex);
         }
