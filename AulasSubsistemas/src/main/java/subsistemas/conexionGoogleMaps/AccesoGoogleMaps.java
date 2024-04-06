@@ -3,8 +3,10 @@ package subsistemas.conexionGoogleMaps;
 
 import conexion.IConexionDAO;
 import excepciones.NegocioException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -23,36 +25,43 @@ public class AccesoGoogleMaps {
         EntityManager entityManager = conexion.crearConexion();
         List<String> nombresCampus;
 
-        // Consulta JPQL para obtener los nombres de todos los campus
-        String jpql = "SELECT c.nombre FROM Campus c";
+        // Consulta SQL nativa para obtener solo los nombres de todos los campus
+        String sql = "SELECT nombre FROM Campus";
 
-        // Crear una TypedQuery con la consulta JPQL
-        TypedQuery<String> query = entityManager.createQuery(jpql, String.class);
+        // Crear una consulta nativa
+        Query query = entityManager.createNativeQuery(sql);
 
-        // Ejecutar la consulta y obtener los resultados
+        // Ejecutar la consulta y obtener los nombres de los campus
         nombresCampus = query.getResultList();
+        
         entityManager.close();
 
         return nombresCampus;
     }
 
     List<String> accesoEdificiosPorCampusGoogleMaps(String campus) throws NegocioException {
+
+        System.out.println(campus);
         EntityManager entityManager = conexion.crearConexion();
-        List<String> edificios;
+        List<String> nombresEdificios;
 
-        // Consulta JPQL para obtener los nombres de los edificios por campus
-        String jpql = "SELECT u.nombre FROM Ubicacion u WHERE u.campus.nombre = :nombreCampus";
+        try {
+            // Consulta SQL nativa para obtener los nombres de los edificios por campus
+            String sql = "SELECT nombre FROM ubicacion WHERE campus_id = (SELECT id FROM campus WHERE nombre = :nombreCampus)";
 
-        // Crear una TypedQuery con la consulta JPQL
-        TypedQuery<String> query = entityManager.createQuery(jpql, String.class);
-        query.setParameter("nombreCampus", campus);
+            // Crear una consulta nativa
+            Query query = entityManager.createNativeQuery(sql);
+            query.setParameter("nombreCampus", campus);
 
-        // Ejecutar la consulta y obtener los resultados
-        edificios = query.getResultList();
-        
-        entityManager.close();
+            System.out.println(sql);
+            // Ejecutar la consulta y obtener los nombres de los edificios
+            nombresEdificios = query.getResultList();
+        } finally {
+            // Siempre cierra el EntityManager
+            entityManager.close();
+        }
 
-        return edificios;
+        return nombresEdificios;
+
     }
-    
 }

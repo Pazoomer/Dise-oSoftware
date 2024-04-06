@@ -1,17 +1,13 @@
 package presentacion.pantallas;
 
-import BO.recuperarMaestroBO.IRecuperarMaestroBO;
-import BO.recuperarMaestroBO.RecuperarMaestroBO;
 import BO.recuperarUbicacionesBO.IRecuperarUbicacionesBO;
 import BO.recuperarUbicacionesBO.RecuperarUbicacionesBO;
-import DTOS.campus.CampusConsultableDTO;
 import conexion.IConexionDAO;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import presentacion.CDEvento;
@@ -87,8 +83,8 @@ public class MapaCalendario extends javax.swing.JFrame {
      * Accede al subsistema de recupera ubicaciones por los campus
      */
     private void recuperarUbicaciones() {
-        IRecuperarUbicacionesBO a=new RecuperarUbicacionesBO(conexion);
-        List<String> campusUbicaciones=a.recuperarCampus();
+        IRecuperarUbicacionesBO recuperarUbicacionesBO=new RecuperarUbicacionesBO(conexion);
+        List<String> campusUbicaciones=recuperarUbicacionesBO.recuperarCampus();
 
         for (String campusItem : campusUbicaciones) {
             this.cmbCampus.addItem(campusItem);
@@ -101,8 +97,9 @@ public class MapaCalendario extends javax.swing.JFrame {
      * @param campus 
      */
     private void cambioCampus(String campus) {
-        IRecuperarUbicaciones on = new RecuperarUbicaciones(conexion);
-        List<String> ubicacionesCampus = on.recuperarEdificiosPorCampus(campus);
+        
+        IRecuperarUbicacionesBO recuperarUbicacionesBO=new RecuperarUbicacionesBO(conexion);
+        List<String> ubicacionesCampus = recuperarUbicacionesBO.recuperarEdificiosPorCampus(campus);
 
         this.cmbMapa.removeAllItems();
         for (String ubicacionCampus : ubicacionesCampus) {

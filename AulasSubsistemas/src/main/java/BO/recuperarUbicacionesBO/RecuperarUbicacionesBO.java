@@ -20,8 +20,8 @@ public class RecuperarUbicacionesBO implements IRecuperarUbicacionesBO {
 
     @Override
     public List<String> recuperarCampus() {
-        IRecuperarUbicaciones dao = new RecuperarUbicaciones(conexion);
-        return dao.recuperarEdificios();
+        IRecuperarUbicaciones recuperarUbicaciones = new RecuperarUbicaciones(conexion);
+        return recuperarUbicaciones.recuperarEdificios();
     }
 
     @Override

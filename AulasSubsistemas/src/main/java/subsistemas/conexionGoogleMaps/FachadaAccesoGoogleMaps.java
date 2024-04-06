@@ -21,12 +21,12 @@ public class FachadaAccesoGoogleMaps implements IAccesoGoogleMaps {
     
     @Override
     public List<String> accesoEdificiosGoogleMaps() throws NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return accesoGoogleMaps.accesoEdificiosGoogleMaps();
     }
 
     @Override
     public List<String> accesoEdificiosPorCampusGoogleMaps(String campus) throws NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       return accesoGoogleMaps.accesoEdificiosPorCampusGoogleMaps(campus);
     }
 
 }
