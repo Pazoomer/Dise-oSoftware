@@ -11,4 +11,5 @@ import excepciones.NegocioException;
 public interface IRecuperarMaestro {
     
     MaestroEditableDTO recuperarMaestro()throws NegocioException;
+    MaestroEditableDTO recuperarMaestro2(MaestroEditableDTO maestro)throws NegocioException;
 }

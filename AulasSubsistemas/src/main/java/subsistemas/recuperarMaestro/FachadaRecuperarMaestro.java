@@ -10,10 +10,10 @@ import excepciones.NegocioException;
  */
 public class FachadaRecuperarMaestro implements IRecuperarMaestro {
 
-    private final Maestros maestros;
+    private final ControlRecuperarMaestro maestros;
 
     public FachadaRecuperarMaestro() {
-        this.maestros = new Maestros();
+        this.maestros = new ControlRecuperarMaestro();
     }
     
     //TODO
@@ -21,6 +21,11 @@ public class FachadaRecuperarMaestro implements IRecuperarMaestro {
     @Override
     public MaestroEditableDTO recuperarMaestro() throws NegocioException {
         return maestros.recuperarMaestro();
+    }
+
+    @Override
+    public MaestroEditableDTO recuperarMaestro2(MaestroEditableDTO maestro) throws NegocioException {
+        return maestros.recuperarMaestro2(maestro);
     }
 
 }
