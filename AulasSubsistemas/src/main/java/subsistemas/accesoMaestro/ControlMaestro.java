@@ -5,6 +5,8 @@ import DTOS.maestro.MaestroEditableDTO;
 import conexion.IConexionDAO;
 import excepciones.NegocioException;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 import objetosNegocio.Maestro;
 import subsistemas.recuperarMaestro.IRecuperarMaestro;
 
@@ -35,8 +37,10 @@ public class ControlMaestro {
             
             entityManager.getTransaction().begin();
 
-            // Obtener el maestro a actualizar desde la base de datos
-            Maestro maestroPersistido = entityManager.find(Maestro.class, maestro.getId());
+            String jpql = "SELECT m FROM Maestro m WHERE m.idMaestro = :idMaestro";
+            TypedQuery<Maestro> query = entityManager.createQuery(jpql, Maestro.class);
+            query.setParameter("idMaestro", maestro.getId());
+            Maestro maestroPersistido = query.getSingleResult();
 
             // Actualizar los atributos del maestro con los valores proporcionados en el DTO
             maestroPersistido.setNombre(maestro.getNombre());
@@ -46,12 +50,21 @@ public class ControlMaestro {
 
             // Completar la transacción
             entityManager.getTransaction().commit();
-        } catch (Exception e) {
-            // Manejar cualquier excepción y hacer rollback en caso de error
+        } catch (NoResultException e) {
+            // Manejar el caso en que no se encuentre ningún Maestro con el valor proporcionado
             if (entityManager.getTransaction().isActive()) {
                 entityManager.getTransaction().rollback();
             }
+            throw new NegocioException("Maestro no encontrado para el id_maestro: " + maestro.getIdBD(), e);
+        } catch (Exception e) {
+            // Manejar cualquier otra excepción y hacer rollback en caso de error
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
+            e.printStackTrace();
             throw new NegocioException("Error al editar el maestro", e);
+        } finally {
+            entityManager.close();
         }
         return true;
 

@@ -11,6 +11,7 @@ import excepciones.NegocioException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import objetosNegocio.Evento;
 import objetosNegocio.Maestro;
 
@@ -34,11 +35,10 @@ public class Maestros {
             // Consulta JPQL para obtener el primer maestro de la base de datos
             Maestro maestro = entityManager.createQuery("SELECT m FROM Maestro m", Maestro.class)
                                           .setMaxResults(1)
-                                          .getSingleResult();
-            if (maestro==null) {
-                return null;
-            }
+                             .getSingleResult();
             return convertirAMaestroEditableDTO(maestro);
+        } catch (NoResultException e) {
+            return null;
         } catch (Exception e) {
             throw new NegocioException("Error al recuperar el primer maestro", e);
         } finally {
@@ -58,6 +58,7 @@ public class Maestros {
                 maestro.getFoto(),
                 convertirAEventoEditableDTO(maestro.getCalendario())
         );
+        maestroDTO.setIdBD(maestro.getIdBd());
         return maestroDTO;
     }
 

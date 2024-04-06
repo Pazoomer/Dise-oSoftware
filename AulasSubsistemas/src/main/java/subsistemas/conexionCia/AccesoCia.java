@@ -38,6 +38,7 @@ public class AccesoCia {
             maestro.setCubiculo("AV0900");
             maestro.setDescripcion("Doy asesorias de 9 a 11 de bases de datos los sabados y domingos");
             maestro.setFoto("fotoMaestro.png");
+            maestro.setIdMaestro(1L);
             
             // Persistir el maestro en la base de datos
             entityManager.persist(maestro);
@@ -66,15 +67,14 @@ public class AccesoCia {
             Calendar calendar3h=Calendar.getInstance();
             calendar3h.set(Calendar.HOUR, 12);
             
+            Evento evento1 = new Evento(UNICO_UN_DIA, "Examen 4", "Ultimo examen del semestre, no faltar", null, "RED", "AV0100", calendar1d, null, calendar1h, 1.5f,maestro);
+            eventos.add(evento1);
             
-                Evento evento1 = new Evento(UNICO_UN_DIA,"Examen 4","Ultimo examen del semestre, no faltar",null,"RED","AV0100",calendar1d,null,calendar1h,1.5f);
-                eventos.add(evento1);
+            Evento evento2 = new Evento(UNICO_UN_DIA, "Clases de repaso", "Repaso para el ultimo examen", null, "RED", "AV0100", calendar2d, null, calendar2h, 1.0f,maestro);
+            eventos.add(evento2);
             
-                Evento evento2 = new Evento(UNICO_UN_DIA,"Clases de repaso","Repaso para el ultimo examen",null,"RED","AV0100",calendar2d,null,calendar2h,1.0f);
-                eventos.add(evento2);
-                
-                Evento evento3 = new Evento(UNICO_UN_DIA,"Fiesta de salida","Para todos, incluso reprobados",null,"RED","AV0100",calendar3d,null,calendar3h,2.0f);
-                eventos.add(evento3);
+            Evento evento3 = new Evento(UNICO_UN_DIA, "Fiesta de salida", "Para todos, incluso reprobados", null, "RED", "AV0100", calendar3d, null, calendar3h, 2.0f,maestro);
+            eventos.add(evento3);
 
             // Asociar la lista de eventos al maestro
             maestro.setCalendario(eventos);

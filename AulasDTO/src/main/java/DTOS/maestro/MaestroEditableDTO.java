@@ -9,6 +9,7 @@ import java.util.List;
  * @author t1pas
  */
 public class MaestroEditableDTO {
+    private Long idBD;
     private final Long id;
     private final String nombre;
     private final String cubiculo;
@@ -96,5 +97,15 @@ public class MaestroEditableDTO {
     public void setCalendario(List<EventoConsultableDTO> calendario) {
         this.calendario = calendario;
     }
+
+    public Long getIdBD() {
+        return idBD;
+    }
+
+    public void setIdBD(Long idBD) {
+        this.idBD = idBD;
+    }
+    
+    
 
 }
