@@ -4,6 +4,7 @@ package presentacion.pantallas;
 import DTOS.evento.EventoConsultableDTO;
 import DTOS.evento.TipoEventoEnumDTO;
 import DTOS.maestro.MaestroEditableDTO;
+import conexion.IConexionDAO;
 import java.awt.Color;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -34,19 +35,22 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     private CDEvento cdEvento;
     public static boolean isDisplayed=false;
     public static EventoConsultableDTO eventoSeleccionado;
+     private final IConexionDAO conexion;
     
     
     /**
      * Creates new form PrincipalCalendario
      * @param prinMaestro
      * @param maestro
+     * @param conexion
      */
-    public PrincipalCalendario(PrincipalMaestro prinMaestro, MaestroEditableDTO maestro) {
+    public PrincipalCalendario(PrincipalMaestro prinMaestro, MaestroEditableDTO maestro, IConexionDAO conexion) {
         setUndecorated(true);
         this.setResizable(false);
         initComponents();
         this.maestro=maestro;
         this.prinMaestro=prinMaestro;
+        this.conexion=conexion;
         modelo=new ModeloTablaHorario();
         calendarioMaestroTemporal=maestro.getCalendario();
         cargarCalendario();
@@ -95,19 +99,22 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No hay eventos de la semana");
         }
         eventos.forEach(e->{
-            List<Integer> diasEvento=e.getDiasSemana();
+            String diasEvento=e.getDiasSemana();
             //System.out.println("evento de la semana dentro de foreach: "+e);
-            LocalTime horaInicio=e.getHoraInicio();
-            int hora=horaInicio.getHour();
-            int minutos=horaInicio.getMinute();
-            float duracion=e.getHorasDuracionEvento();
+            Calendar horaInicio = e.getHoraInicio();
+            int hora = horaInicio.get(Calendar.HOUR);
+            int minutos = horaInicio.get(Calendar.MINUTE);
+            float duracion = e.getHorasDuracionEvento();
             //System.out.println("duracion evento:"+duracion);
-            if(e.getTipo().equals(TipoEventoEnumDTO.SEMANAL)){
-                for (int i : diasEvento) {
-                    //System.out.println("dia: " + i);
-                    setEvento(hora, minutos, duracion, i, e);
-                } 
-            }else{
+            if (e.getTipo().equals(TipoEventoEnumDTO.SEMANAL)) {
+                for (int i = 0; i < 7; i++) {
+                    if (diasEvento.charAt(i) == '1') {
+                        setEvento(hora, minutos, duracion, i, e);
+                    }
+
+                }
+
+            } else {
                 int diaEv=e.getFechaInicio().get(Calendar.DAY_OF_WEEK);
                 //System.out.println("dia ev dentro d foreachh:"+diaEv);
                 setEvento(hora, minutos, duracion,
@@ -180,7 +187,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     
     private void desplegarInfoEvento(){
         if(eventoSeleccionado!=null){
-            CDEvento cdEv = new CDEvento(this, this, eventoSeleccionado, true,"desplegar");
+            CDEvento cdEv = new CDEvento(this, this, eventoSeleccionado, true,"desplegar",conexion);
             cdEv.desplegarEvento();
             cdEv.setVisible(true);
         }//else System.out.println("el evento es null");
@@ -256,13 +263,13 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     }
 
     private void añadirEvento() {
-        cdEvento = new CDEvento(this,this, true,"agregar");
+        cdEvento = new CDEvento(this,this, true,"agregar",conexion);
         cdEvento.setVisible(true);
     }
     
     private void editarEvento(){
         if(eventoSeleccionado!=null){
-            cdEvento = new CDEvento(this, this, eventoSeleccionado, true,"editar");
+            cdEvento = new CDEvento(this, this, eventoSeleccionado, true,"editar",conexion);
             cdEvento.desplegarEventoEditable();
             cdEvento.setVisible(true);
             //eventoSeleccionado=cdEvento.editarEvento();

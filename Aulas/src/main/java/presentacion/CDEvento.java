@@ -2,6 +2,7 @@
 package presentacion;
 
 import DTOS.evento.*;
+import conexion.IConexionDAO;
 import java.awt.Color;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,25 +28,39 @@ public class CDEvento extends javax.swing.JDialog {
     private final java.awt.Frame parent;
     private EventoConsultableDTO eventoEditable;
     private String tipoOperacion;
+    private final IConexionDAO conexion;
     /**
      * Creates new form CDEvento
      * @param parent
      * @param calendario
      * @param modal
+     * @param tipoOperacion
+     * @param conexion
      */
-    public CDEvento(java.awt.Frame parent,PrincipalCalendario calendario, boolean modal,String tipoOperacion) {
+    public CDEvento(java.awt.Frame parent, PrincipalCalendario calendario, boolean modal, String tipoOperacion, IConexionDAO conexion) {
         super(parent, modal);
         initComponents();
-        this.calendario=calendario;
-        this.parent=parent;
-        this.tipoOperacion=tipoOperacion;
+        this.calendario = calendario;
+        this.parent = parent;
+        this.conexion = conexion;
+        this.tipoOperacion = tipoOperacion;
         this.setSize(500, 620);
         actualizarPermisos();
         cargarIconos();
-        
-        
     }
-    
+
+    public CDEvento(java.awt.Frame parent, PrincipalCalendario calendario, EventoConsultableDTO eventoEditable, boolean modal, String tipoOperacion, IConexionDAO conexion) {
+        super(parent, modal);
+        initComponents();
+        this.calendario = calendario;
+        this.parent = parent;
+        this.conexion=conexion;
+        this.eventoEditable = eventoEditable;
+        this.tipoOperacion = tipoOperacion;
+        cargarIconos();
+        this.setSize(500, 620);
+    }
+
     /**
      * Carga los iconos en los botones de la interfaz.
      */
@@ -65,17 +80,6 @@ public class CDEvento extends javax.swing.JDialog {
         // Carga el icono de datos en el label lblInfoEventoEstatico
         ImageIcon iconoDatos = new ImageIcon(getClass().getResource("/imagenes/icons8-note-50.png"));
         lblInfoEventoEstatico.setIcon(iconoDatos);
-    }
-    
-    public CDEvento(java.awt.Frame parent,PrincipalCalendario calendario,EventoConsultableDTO eventoEditable , boolean modal,String tipoOperacion) {
-        super(parent, modal);
-        initComponents();
-        this.calendario=calendario;
-        this.parent=parent;
-        this.eventoEditable=eventoEditable;
-        this.tipoOperacion=tipoOperacion;
-        cargarIconos();
-        this.setSize(500, 620);
     }
     
     private void añadirEvento2(){
@@ -100,44 +104,50 @@ public class CDEvento extends javax.swing.JDialog {
         if(tipo.equals(TipoEventoEnumDTO.UNICO_UN_DIA))
             fecha = this.dtcFecha.getCalendar();
         Color color = this.lblEjemploEstatico.getForeground();
-        String duracionStr=(String)cmbDuracionEvento.getSelectedItem();
-        float horasDuracion=Float.parseFloat(String.valueOf(duracionStr.charAt(0)));
-        if(duracionStr.length()>1)
-            horasDuracion=horasDuracion+0.5f;
-        
-        List<Integer> diasSemana=new ArrayList<>();
-        JCheckBox[] arrChkBx={chbDomingo,chbLunes,chbMartes,chbMiercoles,chbJueves,chbViernes,chbSabado};
-        for (int i = 0; i < 7; i++) {
-            if(arrChkBx[i].isSelected()){
-                diasSemana.add(i+1);
-               // System.out.println("dia numero: "+(i+1));
-            } 
+        String duracionStr = (String) cmbDuracionEvento.getSelectedItem();
+        float horasDuracion = Float.parseFloat(String.valueOf(duracionStr.charAt(0)));
+        if (duracionStr.length() > 1) {
+            horasDuracion = horasDuracion + 0.5f;
         }
-        
-        String horaSeleccionada=(String)cmbHora.getSelectedItem();
-        int hora=Integer.parseInt(horaSeleccionada.substring(0, 2));
-        int minutos=Integer.parseInt(horaSeleccionada.substring(3));
-        LocalTime horaInicio=LocalTime.of(hora, minutos);
-        //System.out.println("hora inicio evento desde cdEvento: "+hora+":"+minutos);
-        
-        EventoConsultableDTO eventoN;
-        
+
+        JCheckBox[] arrChkBx = {chbDomingo, chbLunes, chbMartes, chbMiercoles, chbJueves, chbViernes, chbSabado};
+        StringBuilder stringBuilder = new StringBuilder();
+        for (JCheckBox checkBox : arrChkBx) {
+            // Verificar si el checkbox está seleccionado o no y agregar '1' o '0' al string
+            if (checkBox.isSelected()) {
+                stringBuilder.append('1');
+            } else {
+                stringBuilder.append('0');
+            }
+        }
+        String diasSemana = stringBuilder.toString();
+
+            String horaSeleccionada = (String) cmbHora.getSelectedItem();
+            int hora = Integer.parseInt(horaSeleccionada.substring(0, 2));
+            int minutos = Integer.parseInt(horaSeleccionada.substring(3));
+            Calendar horaInicio = Calendar.getInstance();
+            horaInicio.set(Calendar.HOUR, hora);
+            horaInicio.set(Calendar.MINUTE, minutos);
+            //System.out.println("hora inicio evento desde cdEvento: "+hora+":"+minutos);
+
+            EventoConsultableDTO eventoN;
+
         if(tipo.equals(TipoEventoEnumDTO.UNICO_UN_DIA)){
-            eventoN=new EventoConsultableDTO(nombre, descripcion, color, ubicacion, fecha, horaInicio, horasDuracion);
+            eventoN=new EventoConsultableDTO(nombre, descripcion, "", ubicacion, fecha, horaInicio, horasDuracion);
         }else{
-            eventoN=new EventoConsultableDTO(tipo, nombre, descripcion, color, 
-                diasSemana, ubicacion, fecha, fecha,horaInicio, horasDuracion);
-        }
+                eventoN = new EventoConsultableDTO(tipo, nombre, descripcion, "",
+                        diasSemana, ubicacion, fecha, fecha, horaInicio, horasDuracion);
+            }
+
+            //JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
+            calendario.añadirEvento(eventoN);
+            return eventoN;
         
-        //JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
-        calendario.añadirEvento(eventoN);
-        return eventoN;
     }
-    
     //TODO
-    //Al hacer clic sobre el boton deberia intentar añadir el evento al calendario.
-    //primero se asegura que no haya eventos a la misma hora
-    private void añadirEvento(){
+        //Al hacer clic sobre el boton deberia intentar añadir el evento al calendario.
+        //primero se asegura que no haya eventos a la misma hora
+    private void añadirEvento() {
 //        String tipo=(String) this.cmbTipo.getSelectedItem();
 //        String descripcion = this.txtDescripcion.getText();
 //        String nombre = this.txtNombre.getText();
@@ -227,7 +237,7 @@ public class CDEvento extends javax.swing.JDialog {
      * Abre el frame MapaCalendario
      */
     private void abrirMapa(){
-        new MapaCalendario(this).setVisible(true);
+        new MapaCalendario(this,conexion).setVisible(true);
         calendario.setVisible(false);
         this.setVisible(false);
     }
@@ -285,24 +295,35 @@ public class CDEvento extends javax.swing.JDialog {
         if(eventoEditable.getTipo().equals(TipoEventoEnumDTO.UNICO_UN_DIA)){
             dtcFecha.setDate(this.eventoEditable.getFechaInicio().getTime());
             cmbTipo.setSelectedIndex(1);
-        }
-        else if(eventoEditable.getTipo().equals(TipoEventoEnumDTO.SEMANAL)){
+        } else if (eventoEditable.getTipo().equals(TipoEventoEnumDTO.SEMANAL)) {
             cmbTipo.setSelectedIndex(0);
-            List<Integer> diasSemana=eventoEditable.getDiasSemana();
-            for(int i:diasSemana){
-                switch(i){
-                    case 1 -> chbDomingo.setSelected(true);
-                    case 2 -> chbLunes.setSelected(true);
-                    case 3 -> chbMartes.setSelected(true);
-                    case 4 -> chbMiercoles.setSelected(true);
-                    case 5 -> chbJueves.setSelected(true);
-                    case 6 -> chbViernes.setSelected(true);
-                    case 7 -> chbSabado.setSelected(true);
+            String diasSemana = eventoEditable.getDiasSemana();
+            for (int i = 0; i < diasSemana.length(); i++) {
+                char dia = diasSemana.charAt(i);
+                switch (i + 1) { // Sumamos 1 para que coincida con el índice de los días de la semana
+                    case 1 ->
+                        chbDomingo.setSelected(dia == '1');
+                    case 2 ->
+                        chbLunes.setSelected(dia == '1');
+                    case 3 ->
+                        chbMartes.setSelected(dia == '1');
+                    case 4 ->
+                        chbMiercoles.setSelected(dia == '1');
+                    case 5 ->
+                        chbJueves.setSelected(dia == '1');
+                    case 6 ->
+                        chbViernes.setSelected(dia == '1');
+                    case 7 ->
+                        chbSabado.setSelected(dia == '1');
+                    default -> {
+                    }
                 }
+                // Sumamos 1 para que coincida con el índice de los días de la semana
+                // Manejar cualquier otro caso si es necesario
             }
         }
     }
-    
+
     public void desplegarEvento(){
         desplegarInfo();
         txtNombre.setEditable(false);

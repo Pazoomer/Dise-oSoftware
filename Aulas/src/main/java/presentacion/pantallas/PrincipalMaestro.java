@@ -2,6 +2,7 @@ package presentacion.pantallas;
 
 import DTOS.evento.EventoConsultableDTO;
 import DTOS.maestro.MaestroEditableDTO;
+import conexion.IConexionDAO;
 import excepciones.NegocioException;
 import java.awt.Color;
 import java.awt.Image;
@@ -35,20 +36,24 @@ public class PrincipalMaestro extends javax.swing.JFrame {
      * Permite el acceso a editar la informacion del maestro
      */
     private IAccesoMaestro accesoM;
+    
+    private final IConexionDAO conexion;
 
     /**
      * Creates new form PrincipalMaestro
      *
      * @param maestro
+     * @param conexion
      */
-    public PrincipalMaestro(MaestroEditableDTO maestro) {
+    public PrincipalMaestro(MaestroEditableDTO maestro, IConexionDAO conexion) {
         initComponents();
         this.maestro = maestro;
+        this.conexion=conexion;
         cargarMaestro();
         cargarIconos();
         this.setVisible(true);
         this.setSize(800, 600);
-
+        
     }
 
     /**
@@ -74,7 +79,24 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         this.txtCubiculo.setText(maestro.getCubiculo());
         this.txaDescripcion.setText(maestro.getDescripcion());
         this.lblNombreMaestro.setText(maestro.getNombre());
-        this.lblFotoMaestro.setIcon(maestro.getFoto());
+        this.lblFotoMaestro.setIcon(cargarIconoDesdeArchivo(maestro.getFoto()));
+    }
+    
+    public ImageIcon cargarIconoDesdeArchivo(String nombreArchivo) {
+        // Obtener la ruta del directorio del proyecto
+        String directorioProyecto = System.getProperty("user.dir");
+        String rutaImagen = directorioProyecto + File.separator + nombreArchivo;
+
+        // Verificar si el archivo de imagen existe
+        File archivoImagen = new File(rutaImagen);
+        if (!archivoImagen.exists()) {
+            System.out.println("El archivo de imagen '" + nombreArchivo + "' no existe en la carpeta del proyecto.");
+            return null;
+        }
+
+        // Cargar la imagen y convertirla en un ImageIcon
+        ImageIcon icono = new ImageIcon(rutaImagen);
+        return icono;
     }
 
     /**
@@ -84,14 +106,14 @@ public class PrincipalMaestro extends javax.swing.JFrame {
     private void editarInformacion() {
         String descripcion = this.txaDescripcion.getText();
         String cubiculo = this.txtCubiculo.getText();
-        Icon foto = this.lblFotoMaestro.getIcon();
+        String foto = "fotoMaestro.png"; //TODO: Hardcodeado
 
-        accesoM = new EditarMaestro();
+        accesoM = new EditarMaestro(conexion);
         List<EventoConsultableDTO> calendarioAuxiliar = maestro.getCalendario();
 
         MaestroEditableDTO maestroAuxiliar = new MaestroEditableDTO(maestro.getId(), maestro.getNombre(), cubiculo, descripcion, foto);
         try {
-            maestro = accesoM.editarMaestro(maestroAuxiliar);
+            accesoM.editarMaestro(maestroAuxiliar);
             maestro.setCalendario(calendarioAuxiliar);
         } catch (NegocioException ex) {
             Logger.getLogger(PrincipalMaestro.class.getName()).log(Level.SEVERE, "No se pudo actualizar la informacion en la base de datos", ex);
@@ -123,7 +145,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
      * PrincipalCalendario y ocultarse este frame
      */
     private void abrirCalendario() {
-        new PrincipalCalendario(this, maestro).setVisible(true);
+        new PrincipalCalendario(this, maestro,conexion).setVisible(true);
         this.setVisible(false);
     }
 
