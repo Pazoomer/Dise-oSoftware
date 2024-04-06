@@ -2,13 +2,13 @@ package DTOS.evento;
 
 import java.awt.Color;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
- * @author t1pas
+ * @author t1pas, luisa
  */
 public class EventoConsultableDTO {
 
@@ -16,11 +16,11 @@ public class EventoConsultableDTO {
     private final String nombre;
     private final String descripcion;
     private final Color color;
-    private List<Integer> diasSemana;
+    private String diasSemana;
     private final String ubicacion;
     private Calendar fechaInicio;
     private Calendar fechaFin;
-    private final LocalTime horaInicio;
+    private final Calendar horaInicio;
     private final float horasDuracionEvento;
 
     /**
@@ -37,15 +37,15 @@ public class EventoConsultableDTO {
      * @param horasDuracionEvento
      */
     public EventoConsultableDTO(String nombre, String descripcion, Color color,
-            String ubicacion, Calendar fechaInicio, LocalTime horaInicio, float horasDuracionEvento) {
+            String ubicacion, Calendar fechaInicio, Calendar horaInicio, float horasDuracionEvento) {
         this.tipo = TipoEventoEnumDTO.UNICO_UN_DIA;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.color = color;
         this.ubicacion = ubicacion;
         this.fechaInicio = fechaInicio;
-        this.fechaInicio.set(Calendar.HOUR_OF_DAY, horaInicio.getHour());
-        this.fechaInicio.set(Calendar.MINUTE, horaInicio.getMinute());
+        this.fechaInicio.set(Calendar.HOUR_OF_DAY, horaInicio.get(Calendar.HOUR_OF_DAY));
+        this.fechaInicio.set(Calendar.MINUTE, horaInicio.get(Calendar.MINUTE));
         this.horaInicio = horaInicio;
         //las horas se almacenan en un float para que permita guardar eventos
         //de hora y media por ejemplo
@@ -79,8 +79,8 @@ public class EventoConsultableDTO {
      * @param horaInicio
      * @param horasDuracionEvento
      */
-    public EventoConsultableDTO(TipoEventoEnumDTO tipo, String nombre, String descripcion, Color color, List<Integer> diasSemanaa,
-            String ubicacion, Calendar fechaInicio, Calendar fechaFin, LocalTime horaInicio, float horasDuracionEvento) {
+    public EventoConsultableDTO(TipoEventoEnumDTO tipo, String nombre, String descripcion, Color color, String diasSemanaa,
+            String ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento) {
         this.fechaInicio = fechaInicio;
         this.fechaFin = Calendar.getInstance();
         this.horaInicio = horaInicio;
@@ -111,7 +111,7 @@ public class EventoConsultableDTO {
 //        this.horasDuracionEvento=0.0f;
 //    }
 
-    public void setDiasSemana(List<Integer> diasSemana) {
+    public void setDiasSemana(String diasSemana) {
         this.diasSemana = diasSemana;
     }
 
@@ -124,7 +124,7 @@ public class EventoConsultableDTO {
     }
 
     
-    public LocalTime getHoraInicio() {
+    public Calendar getHoraInicio() {
         return horaInicio;
     }
 
@@ -132,7 +132,7 @@ public class EventoConsultableDTO {
         return horasDuracionEvento;
     }
 
-    public List<Integer> getDiasSemana() {
+    public String getDiasSemana() {
         return diasSemana;
     }
 
@@ -190,4 +190,28 @@ public class EventoConsultableDTO {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
         return formatoFecha.format(fecha.getTime());
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 73 * hash + Objects.hashCode(this.nombre);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final EventoConsultableDTO other = (EventoConsultableDTO) obj;
+        return Objects.equals(this.nombre, other.nombre);
+    }
+    
+    
 }

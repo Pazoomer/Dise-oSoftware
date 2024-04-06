@@ -10,13 +10,17 @@ import javax.swing.Icon;
  * @author t1pas
  */
 public class MaestroEditableDTO {
-    private final Long id;
-    private final String nombre;
-    private final String cubiculo;
-    private final String descripcion;
-    private final Icon foto;
+    private Long id;
+    private String nombre;
+    private String cubiculo;
+    private String descripcion;
+    private Icon foto;
     private List<EventoConsultableDTO> calendario;   
 
+    public MaestroEditableDTO() {
+    }
+
+    
     /**
      * Constructor con todos los atributos
      * @param id
@@ -69,6 +73,28 @@ public class MaestroEditableDTO {
         this.foto = foto;
         this.calendario=null;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setCubiculo(String cubiculo) {
+        this.cubiculo = cubiculo;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setFoto(Icon foto) {
+        this.foto = foto;
+    }
+    
+    
     
     public Long getId() {
         return id;
