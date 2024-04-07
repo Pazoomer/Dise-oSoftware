@@ -3,6 +3,7 @@ package subsistemas.conexionGoogleMaps;
 
 import conexion.IConexionDAO;
 import excepciones.NegocioException;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -41,21 +42,28 @@ public class AccesoGoogleMaps {
 
     List<String> accesoEdificiosPorCampusGoogleMaps(String campus) throws NegocioException {
 
-        System.out.println(campus);
         EntityManager entityManager = conexion.crearConexion();
         List<String> nombresEdificios;
 
         try {
-            // Consulta SQL nativa para obtener los nombres de los edificios por campus
-            String sql = "SELECT nombre FROM ubicacion WHERE campus_id = (SELECT id FROM campus WHERE nombre = :nombreCampus)";
 
-            // Crear una consulta nativa
-            Query query = entityManager.createNativeQuery(sql);
-            query.setParameter("nombreCampus", campus);
+            if (campus.equalsIgnoreCase("Obregon Nainari")) {
+                String sql1 = "SELECT nombre FROM ubicacion WHERE campus_id = 1";
 
-            System.out.println(sql);
-            // Ejecutar la consulta y obtener los nombres de los edificios
-            nombresEdificios = query.getResultList();
+                Query query1 = entityManager.createNativeQuery(sql1);
+
+                // Ejecutar la consulta
+                nombresEdificios = query1.getResultList();
+            } else {
+                String sql1 = "SELECT nombre FROM ubicacion WHERE campus_id = 2";
+
+                Query query1 = entityManager.createNativeQuery(sql1);
+
+                // Ejecutar la consulta
+                nombresEdificios = query1.getResultList();
+            }
+
+
         } finally {
             // Siempre cierra el EntityManager
             entityManager.close();
