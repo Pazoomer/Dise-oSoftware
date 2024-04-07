@@ -1,25 +1,59 @@
 package subsistemas.recuperarUbicaciones;
 
+import conexion.IConexionDAO;
+import excepciones.NegocioException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import subsistemas.conexionGoogleMaps.FachadaAccesoGoogleMaps;
+import subsistemas.conexionGoogleMaps.IAccesoGoogleMaps;
 
 /**
  *
  * @author t1pas
  */
 public class Ubicaciones {
+    
+    private final IConexionDAO conexion;
 
-    protected List<String> recuperarEdificios() {
-        List<String> campus = new ArrayList<>();
-
-        campus.add("Obregon Nainari");
-        campus.add("Obregon Centro");
-
-        return campus;
-
+    public Ubicaciones(IConexionDAO conexion) {
+        this.conexion = conexion;
     }
 
+    protected List<String> recuperarEdificios() {
+        IAccesoGoogleMaps dao = new FachadaAccesoGoogleMaps(conexion);
+
+        try {
+            return dao.accesoEdificiosGoogleMaps();
+        } catch (NegocioException ex) {
+            Logger.getLogger(Ubicaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    /*
+            List<String> campus = new ArrayList<>();
+            
+            campus.add("Obregon Nainari");
+            campus.add("Obregon Centro");
+            
+            return campus;
+        */    
+
     protected List<String> recuperarEdificiosPorCampus(String campus) {
+        IAccesoGoogleMaps dao=new FachadaAccesoGoogleMaps(conexion);
+        
+        try {
+            return dao.accesoEdificiosPorCampusGoogleMaps(campus);
+        } catch (NegocioException ex) {
+            Logger.getLogger(Ubicaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+        /*
         if (campus.equalsIgnoreCase("Obregon Nainari")) {
             List<String> edificiosNainari = new ArrayList<>();
             edificiosNainari.add("AV0200 Aula Integracion Proyeccion");
@@ -122,4 +156,5 @@ public class Ubicaciones {
         }
         return null;
     }
+*/
 }

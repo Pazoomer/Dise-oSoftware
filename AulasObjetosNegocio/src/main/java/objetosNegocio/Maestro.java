@@ -25,14 +25,6 @@ public class Maestro implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_maestro_bd")
     private Long idBd;
-
-    public Long getIdBd() {
-        return idBd;
-    }
-
-//    public void setIdBd(Long idBd) {
-//        this.idBd = idBd;
-//    }
     
     @Column(name="id_maestro",nullable=false)
     private Long idMaestro; //Representa el identificador fuera de la base de datos
@@ -46,35 +38,43 @@ public class Maestro implements Serializable {
     @Column(name = "descripcion", nullable = true, length = 200)
     private String descripcion;
     
-    @OneToMany(mappedBy = "Maestro", cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE})
+    @Column(name = "foto", nullable = true, length = 300)
+    private String foto;
+    
+    @OneToMany(mappedBy = "Maestro", cascade = CascadeType.ALL)
     private List<Evento> calendario;
     
     public Maestro() {
         this.calendario=new ArrayList<>();
     }
 
-    public Maestro(Long idMaestro, String nombre, String cubiculo, String descripcion, List<Evento> calendario) {
+    public Maestro(Long idMaestro, String nombre, String cubiculo, String descripcion, String foto, List<Evento> calendario) {
         this.idMaestro = idMaestro;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
         this.descripcion = descripcion;
+        this.foto = foto;
         this.calendario = calendario;
     }
 
-    public Maestro(Long idMaestro,String nombre, String cubiculo, String descripcion) {
+    public Maestro(Long idMaestro, String nombre, String cubiculo, String descripcion, String foto) {
         this.idMaestro = idMaestro;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
         this.descripcion = descripcion;
+        this.foto = foto;
     }
 
-    public Maestro(String nombre, String cubiculo, String descripcion, List<Evento> calendario) {
-        this.nombre = nombre;
-        this.cubiculo = cubiculo;
-        this.descripcion = descripcion;
-        this.calendario = calendario;
+   
+
+    public Long getIdBd() {
+        return idBd;
     }
-    
+
+    public void setIdBd(Long idBd) {
+        this.idBd = idBd;
+    }
+
     public Long getIdMaestro() {
         return idMaestro;
     }
@@ -123,8 +123,12 @@ public class Maestro implements Serializable {
         this.calendario = calendario;
     }
 
-    public void agregarEventoCalendario(Evento evento){
-        this.calendario.add(evento);
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     @Override
@@ -136,10 +140,14 @@ public class Maestro implements Serializable {
         sb.append(", nombre=").append(nombre);
         sb.append(", cubiculo=").append(cubiculo);
         sb.append(", descripcion=").append(descripcion);
+        sb.append(", foto=").append(foto);
         sb.append(", calendario=").append(calendario);
         sb.append('}');
         return sb.toString();
     }
+    
+    
+
     
     
   

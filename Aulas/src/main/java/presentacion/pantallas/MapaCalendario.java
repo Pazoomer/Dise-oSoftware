@@ -1,16 +1,17 @@
 package presentacion.pantallas;
 
-import DTOS.campus.CampusConsultableDTO;
+import BO.recuperarUbicacionesBO.IRecuperarUbicacionesBO;
+import BO.recuperarUbicacionesBO.RecuperarUbicacionesBO;
+import conexion.IConexionDAO;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import presentacion.CDEvento;
-import subsistemas.recuperarUbicaciones.FachadaRecuperarUbicaciones;
+import subsistemas.recuperarUbicaciones.RecuperarUbicaciones;
 import subsistemas.recuperarUbicaciones.IRecuperarUbicaciones;
 
 /**
@@ -24,18 +25,21 @@ public class MapaCalendario extends javax.swing.JFrame {
     private int h = 0;
     private Image img = null;
     private String ubicacion;
+    private final IConexionDAO conexion;
 
     /**
      * Creates new form MapaCalendario
      *
      * @param cdEvento
+     * @param conexion
      */
-    public MapaCalendario(CDEvento cdEvento) {
+    public MapaCalendario(CDEvento cdEvento,IConexionDAO conexion) {
         setUndecorated(true);
         setAlwaysOnTop(true);
         this.setResizable(false);
         initComponents();
         this.cdEvento = cdEvento;
+        this.conexion = conexion;
         setMapa("Obregon Nainari");
         this.setSize(800, 600);
         cargarIconos();
@@ -80,8 +84,8 @@ public class MapaCalendario extends javax.swing.JFrame {
      * Accede al subsistema de recupera ubicaciones por los campus
      */
     private void recuperarUbicaciones() {
-        IRecuperarUbicaciones on = new FachadaRecuperarUbicaciones();
-        List<String> campusUbicaciones = on.recuperarEdificios();
+        IRecuperarUbicacionesBO recuperarUbicacionesBO=new RecuperarUbicacionesBO(conexion);
+        List<String> campusUbicaciones=recuperarUbicacionesBO.recuperarCampus();
 
         for (String campusItem : campusUbicaciones) {
             this.cmbCampus.addItem(campusItem);
@@ -94,8 +98,9 @@ public class MapaCalendario extends javax.swing.JFrame {
      * @param campus 
      */
     private void cambioCampus(String campus) {
-        IRecuperarUbicaciones on = new FachadaRecuperarUbicaciones();
-        List<String> ubicacionesCampus = on.recuperarEdificiosPorCampus(campus);
+        
+        IRecuperarUbicacionesBO recuperarUbicacionesBO=new RecuperarUbicacionesBO(conexion);
+        List<String> ubicacionesCampus = recuperarUbicacionesBO.recuperarEdificiosPorCampus(campus);
 
         this.cmbMapa.removeAllItems();
         for (String ubicacionCampus : ubicacionesCampus) {

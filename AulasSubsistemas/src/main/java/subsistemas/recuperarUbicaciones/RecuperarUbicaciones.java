@@ -1,19 +1,21 @@
 
 package subsistemas.recuperarUbicaciones;
 
-import DTOS.campus.CampusConsultableDTO;
+import conexion.IConexionDAO;
 import java.util.List;
 
 /**
  *
  * @author luiis
  */
-public class FachadaRecuperarUbicaciones implements IRecuperarUbicaciones {
+public class RecuperarUbicaciones implements IRecuperarUbicaciones {
+    
+    private final IConexionDAO conexion;
+    private final Ubicaciones ubicaciones;
 
-    private Ubicaciones ubicaciones;
-
-    public FachadaRecuperarUbicaciones() {
-        this.ubicaciones = new Ubicaciones();
+    public RecuperarUbicaciones(IConexionDAO conexion) {
+         this.ubicaciones = new Ubicaciones(conexion);
+        this.conexion = conexion;
     }
 
     @Override

@@ -1,7 +1,10 @@
 package presentacion.pantallas;
 
+import BO.accesoMaestroBO.AccesoMaestroBO;
+import BO.accesoMaestroBO.IAccesoMaestroBO;
 import DTOS.evento.EventoConsultableDTO;
 import DTOS.maestro.MaestroEditableDTO;
+import conexion.IConexionDAO;
 import excepciones.NegocioException;
 import java.awt.Color;
 import java.awt.Image;
@@ -9,15 +12,10 @@ import java.io.File;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import subsistemas.accesoMaestro.IAccesoMaestro;
-import subsistemas.accesoMaestro.FachadaEditarMaestro;
-import subsistemas.recuperarMaestro.IRecuperarMaestro;
-import subsistemas.recuperarMaestro.FachadaRecuperarMaestro;
+import subsistemas.accesoMaestro.EditarMaestro;
 import javax.swing.ImageIcon;
 
 /**
@@ -35,20 +33,24 @@ public class PrincipalMaestro extends javax.swing.JFrame {
      * Permite el acceso a editar la informacion del maestro
      */
     private IAccesoMaestro accesoM;
+    
+    private final IConexionDAO conexion;
 
     /**
      * Creates new form PrincipalMaestro
      *
      * @param maestro
+     * @param conexion
      */
-    public PrincipalMaestro(MaestroEditableDTO maestro) {
+    public PrincipalMaestro(MaestroEditableDTO maestro, IConexionDAO conexion) {
         initComponents();
         this.maestro = maestro;
+        this.conexion=conexion;
         cargarMaestro();
         cargarIconos();
         this.setVisible(true);
         this.setSize(800, 600);
-
+        
     }
 
     /**
@@ -74,7 +76,24 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         this.txtCubiculo.setText(maestro.getCubiculo());
         this.txaDescripcion.setText(maestro.getDescripcion());
         this.lblNombreMaestro.setText(maestro.getNombre());
-        this.lblFotoMaestro.setIcon(maestro.getFoto());
+        this.lblFotoMaestro.setIcon(cargarIconoDesdeArchivo(maestro.getFoto()));
+    }
+    
+    public ImageIcon cargarIconoDesdeArchivo(String nombreArchivo) {
+        // Obtener la ruta del directorio del proyecto
+        String directorioProyecto = System.getProperty("user.dir");
+        String rutaImagen = directorioProyecto + File.separator + nombreArchivo;
+
+        // Verificar si el archivo de imagen existe
+        File archivoImagen = new File(rutaImagen);
+        if (!archivoImagen.exists()) {
+            System.out.println("El archivo de imagen '" + nombreArchivo + "' no existe en la carpeta del proyecto.");
+            return null;
+        }
+
+        // Cargar la imagen y convertirla en un ImageIcon
+        ImageIcon icono = new ImageIcon(rutaImagen);
+        return icono;
     }
 
     /**
@@ -84,18 +103,15 @@ public class PrincipalMaestro extends javax.swing.JFrame {
     private void editarInformacion() {
         String descripcion = this.txaDescripcion.getText();
         String cubiculo = this.txtCubiculo.getText();
-        Icon foto = this.lblFotoMaestro.getIcon();
+        String foto = "fotoMaestro.png"; //TODO: Hardcodeado
 
-        accesoM = new FachadaEditarMaestro();
-        //List<EventoConsultableDTO> calendarioAuxiliar = maestro.getCalendario();
+        IAccesoMaestroBO accesoMaestroBO=new AccesoMaestroBO(conexion);
+
+        List<EventoConsultableDTO> calendarioAuxiliar = maestro.getCalendario();
 
         MaestroEditableDTO maestroAuxiliar = new MaestroEditableDTO(maestro.getId(), maestro.getNombre(), cubiculo, descripcion, foto);
-        try {
-            maestro = accesoM.editarMaestro(maestroAuxiliar);
-            //maestro.setCalendario(calendarioAuxiliar);
-        } catch (NegocioException ex) {
-            Logger.getLogger(PrincipalMaestro.class.getName()).log(Level.SEVERE, "No se pudo actualizar la informacion en la base de datos", ex);
-        }
+        accesoMaestroBO.editarMaestro(maestroAuxiliar);
+        maestro.setCalendario(calendarioAuxiliar);
         JOptionPane.showMessageDialog(null, "Se actualizo su informacion", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
 
     }
@@ -123,7 +139,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
      * PrincipalCalendario y ocultarse este frame
      */
     private void abrirCalendario() {
-        new PrincipalCalendario(this, maestro).setVisible(true);
+        new PrincipalCalendario(this, maestro,conexion).setVisible(true);
         this.setVisible(false);
     }
 

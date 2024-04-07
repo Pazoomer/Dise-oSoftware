@@ -11,5 +11,5 @@ import excepciones.NegocioException;
 public interface IAccesoMaestro {
 
     //MaestroEditableDTO agregarEventoCalendario(MaestroEditableDTO maestro) throws NegocioException;
-    MaestroEditableDTO editarMaestro(MaestroEditableDTO maestro) throws NegocioException;
+    boolean editarMaestro(MaestroEditableDTO maestro) throws NegocioException;
 }

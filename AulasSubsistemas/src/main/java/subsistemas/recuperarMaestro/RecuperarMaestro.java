@@ -2,20 +2,22 @@
 package subsistemas.recuperarMaestro;
 
 import DTOS.maestro.MaestroEditableDTO;
+import conexion.IConexionDAO;
 import excepciones.NegocioException;
 
 /**
  *
  * @author t1pas
  */
-public class FachadaRecuperarMaestro implements IRecuperarMaestro {
-
-    private final ControlRecuperarMaestro maestros;
-
-    public FachadaRecuperarMaestro() {
-        this.maestros = new ControlRecuperarMaestro();
-    }
+public class RecuperarMaestro implements IRecuperarMaestro {
     
+    private final IConexionDAO conexion;
+     private final Maestros maestros;
+
+    public RecuperarMaestro(IConexionDAO conexion) {
+        this.conexion = conexion;
+        this.maestros = new Maestros(conexion);
+    }
     //TODO
     //Solo soy una fachada
     @Override

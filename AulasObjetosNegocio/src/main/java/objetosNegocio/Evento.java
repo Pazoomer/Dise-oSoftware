@@ -1,13 +1,13 @@
 
 package objetosNegocio;
 
+import DTOS.evento.TipoEventoEnumDTO;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +31,8 @@ public class Evento implements Serializable {
     private Long id;
     
     @Column(name="tipo",nullable=true)
-    private TipoEventoEnum tipo;
+    @Enumerated(EnumType.STRING)
+    private TipoEventoEnumDTO tipo;
     
     @Column(name="nombre",nullable=true,length=100)
     private String nombre;
@@ -39,11 +40,14 @@ public class Evento implements Serializable {
     @Column(name="descripcion",nullable=true,length=200)
     private String descripcion;
     
-    @Column(name="dias_semana")
+    @Column(name="diasSemana",nullable=true,length=8)
     private String diasSemana;
     
     @Column(name="ubicacion",nullable=true,length=100)
     private String ubicacion;
+    
+    @Column(name="color",nullable=true,length=100)
+    private String color;
     
     @Temporal(TemporalType.DATE)
     @Column(name="fechaInicio",nullable=true)
@@ -73,9 +77,41 @@ public class Evento implements Serializable {
     }
     
      public Evento() {
+
     }
 
-    public Evento(TipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, String ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento, Maestro maestro) {
+    public Evento(TipoEventoEnumDTO tipo, String nombre, String descripcion, String diasSemana, String ubicacion, String color, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento, Maestro maestro) {
+        this.tipo = tipo;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.diasSemana = diasSemana;
+        this.ubicacion = ubicacion;
+        this.color = color;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.horaInicio = horaInicio;
+        this.horasDuracionEvento = horasDuracionEvento;
+        this.maestro = maestro;
+    }
+     
+     
+
+    public Evento(TipoEventoEnumDTO tipo, String nombre, String descripcion, String diasSemana, String ubicacion, String color, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento) {
+        this.tipo = tipo;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.diasSemana = diasSemana;
+        this.ubicacion = ubicacion;
+        this.color = color;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.horaInicio = horaInicio;
+        this.horasDuracionEvento = horasDuracionEvento;
+    }
+     
+     
+
+    public Evento(TipoEventoEnumDTO tipo, String nombre, String descripcion, String diasSemana, String ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento, Maestro maestro) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -93,6 +129,7 @@ public class Evento implements Serializable {
     /**
      * Constructor para eventos que van a durar mas de un dia. Aplica para eventos de 
      * tipo semanal o unico de varios dias
+     * @param color
      * @param tipo
      * @param nombre
      * @param descripcion
@@ -103,8 +140,9 @@ public class Evento implements Serializable {
      * @param horaInicio
      * @param horasDuracionEvento 
      */
-    public Evento(TipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, 
+    public Evento(String color, TipoEventoEnumDTO tipo, String nombre, String descripcion,String diasSemana, 
             String ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento) {
+        this.color=color;
         this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -119,6 +157,7 @@ public class Evento implements Serializable {
     /**
      * Constructor para eventos de un solo dia.Calcula la fecha fin del evento tomando la fecha inicio
  como base y a esta se le suman las horas que dura el evento
+     * @param color
      * @param nombre
      * @param descripcion
      * @param fechaInicio
@@ -126,9 +165,10 @@ public class Evento implements Serializable {
      * @param horaInicio
      * @param horasDuracionEvento 
      */
-    public Evento(String nombre, String descripcion, Calendar fechaInicio, String ubicacion,
+    public Evento(String color, String nombre, String descripcion, Calendar fechaInicio, String ubicacion,
             Calendar horaInicio, float horasDuracionEvento) {
-        this.tipo = TipoEventoEnum.UNICO_UN_DIA;
+        this.color=color;
+        this.tipo = TipoEventoEnumDTO.UNICO_UN_DIA;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fechaInicio = fechaInicio;
@@ -145,7 +185,7 @@ public class Evento implements Serializable {
         this.fechaFin=fechaCopia;
     }
 
-    public TipoEventoEnum getTipo() {
+    public TipoEventoEnumDTO getTipo() {
         return tipo;
     }
 
@@ -205,6 +245,14 @@ public class Evento implements Serializable {
         this.maestro = maestro;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -215,6 +263,7 @@ public class Evento implements Serializable {
         sb.append(", descripcion=").append(descripcion);
         sb.append(", diasSemana=").append(diasSemana);
         sb.append(", ubicacion=").append(ubicacion);
+        sb.append(", color=").append(color);
         sb.append(", fechaInicio=").append(fechaInicio);
         sb.append(", fechaFin=").append(fechaFin);
         sb.append(", horaInicio=").append(horaInicio);
@@ -223,6 +272,10 @@ public class Evento implements Serializable {
         sb.append('}');
         return sb.toString();
     }
+    
+    
+
+    
     
 
     

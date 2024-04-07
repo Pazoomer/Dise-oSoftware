@@ -1,6 +1,7 @@
 
 package objetosNegocio;
 
+import DTOS.evento.TipoEventoEnumDTO;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -11,7 +12,7 @@ import java.util.List;
  * @author luiis
  */
 public class EventoA {
-    private TipoEventoEnum tipo;
+    private TipoEventoEnumDTO tipo;
     private String nombre;
     private String descripcion;
     private List<Integer> diasSemana;
@@ -38,7 +39,7 @@ public class EventoA {
      * @param horaInicio
      * @param horasDuracionEvento 
      */
-    public EventoA(TipoEventoEnum tipo, String nombre, String descripcion, List<Integer> diasSemana, 
+    public EventoA(TipoEventoEnumDTO tipo, String nombre, String descripcion, List<Integer> diasSemana, 
             String ubicacion, Calendar fechaInicio, Calendar fechaFin, LocalTime horaInicio, float horasDuracionEvento) {
         this.tipo = tipo;
         this.nombre = nombre;
@@ -65,7 +66,7 @@ public class EventoA {
      */
     public EventoA(String nombre, String descripcion, Calendar fechaInicio, String ubicacion,
             LocalTime horaInicio, float horasDuracionEvento) {
-        this.tipo = TipoEventoEnum.UNICO_UN_DIA;
+        this.tipo = TipoEventoEnumDTO.UNICO_UN_DIA;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fechaInicio = fechaInicio;
@@ -84,7 +85,7 @@ public class EventoA {
         this.fechaFin=fechaCopia;
     }
 
-    public TipoEventoEnum getTipo() {
+    public TipoEventoEnumDTO getTipo() {
         return tipo;
     }
 

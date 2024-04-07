@@ -1,10 +1,7 @@
 package DTOS.evento;
 
-import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
-import java.util.Objects;
 
 /**
  *
@@ -15,7 +12,7 @@ public class EventoConsultableDTO {
     private TipoEventoEnumDTO tipo;
     private final String nombre;
     private final String descripcion;
-    private final Color color;
+    private final String color;
     private String diasSemana;
     private final String ubicacion;
     private Calendar fechaInicio;
@@ -36,7 +33,7 @@ public class EventoConsultableDTO {
      * @param horaInicio
      * @param horasDuracionEvento
      */
-    public EventoConsultableDTO(String nombre, String descripcion, Color color,
+    public EventoConsultableDTO(String nombre, String descripcion, String color,
             String ubicacion, Calendar fechaInicio, Calendar horaInicio, float horasDuracionEvento) {
         this.tipo = TipoEventoEnumDTO.UNICO_UN_DIA;
         this.nombre = nombre;
@@ -44,7 +41,7 @@ public class EventoConsultableDTO {
         this.color = color;
         this.ubicacion = ubicacion;
         this.fechaInicio = fechaInicio;
-        this.fechaInicio.set(Calendar.HOUR_OF_DAY, horaInicio.get(Calendar.HOUR_OF_DAY));
+        this.fechaInicio.set(Calendar.HOUR_OF_DAY, horaInicio.get(Calendar.HOUR));
         this.fechaInicio.set(Calendar.MINUTE, horaInicio.get(Calendar.MINUTE));
         this.horaInicio = horaInicio;
         //las horas se almacenan en un float para que permita guardar eventos
@@ -79,7 +76,7 @@ public class EventoConsultableDTO {
      * @param horaInicio
      * @param horasDuracionEvento
      */
-    public EventoConsultableDTO(TipoEventoEnumDTO tipo, String nombre, String descripcion, Color color, String diasSemanaa,
+    public EventoConsultableDTO(TipoEventoEnumDTO tipo, String nombre, String descripcion, String color,String diasSemanaa,
             String ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento) {
         this.fechaInicio = fechaInicio;
         this.fechaFin = Calendar.getInstance();
@@ -144,7 +141,7 @@ public class EventoConsultableDTO {
         return descripcion;
     }
 
-    public Color getColor() {
+    public String getColor() {
         return color;
     }
 

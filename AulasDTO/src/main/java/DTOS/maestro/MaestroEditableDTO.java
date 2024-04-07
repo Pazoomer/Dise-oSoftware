@@ -3,22 +3,22 @@ package DTOS.maestro;
 
 import DTOS.evento.EventoConsultableDTO;
 import java.util.List;
-import javax.swing.Icon;
 
 /**
  *
  * @author t1pas
  */
 public class MaestroEditableDTO {
-    private Long id;
-    private String nombre;
-    private String cubiculo;
-    private String descripcion;
-    private Icon foto;
+    private Long idBD;
+    private final Long id;
+    private final String nombre;
+    private final String cubiculo;
+    private final String descripcion;
+    private final String foto;
     private List<EventoConsultableDTO> calendario;   
 
-    public MaestroEditableDTO() {
-    }
+    //public MaestroEditableDTO() {
+    //}
 
     
     /**
@@ -30,7 +30,7 @@ public class MaestroEditableDTO {
      * @param foto
      * @param calendario 
      */
-    public MaestroEditableDTO(Long id, String nombre, String cubiculo, String descripcion, Icon foto, List<EventoConsultableDTO> calendario) {
+    public MaestroEditableDTO(Long id, String nombre, String cubiculo, String descripcion, String foto, List<EventoConsultableDTO> calendario) {
         this.id = id;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
@@ -47,7 +47,7 @@ public class MaestroEditableDTO {
      * @param foto
      * @param calendario 
      */
-    public MaestroEditableDTO(String nombre, String cubiculo, String descripcion, Icon foto, List<EventoConsultableDTO> calendario) {
+    public MaestroEditableDTO(String nombre, String cubiculo, String descripcion, String foto, List<EventoConsultableDTO> calendario) {
         this.nombre = nombre;
         this.cubiculo = cubiculo;
         this.descripcion = descripcion;
@@ -65,7 +65,7 @@ public class MaestroEditableDTO {
      * @param descripcion
      * @param foto 
      */
-    public MaestroEditableDTO(Long id, String nombre, String cubiculo, String descripcion, Icon foto) {
+    public MaestroEditableDTO(Long id, String nombre, String cubiculo, String descripcion, String foto) {
         this.id = id;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
@@ -73,7 +73,7 @@ public class MaestroEditableDTO {
         this.foto = foto;
         this.calendario=null;
     }
-
+/* 
     public void setId(Long id) {
         this.id = id;
     }
@@ -88,7 +88,7 @@ public class MaestroEditableDTO {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
+    }*/
 
     public void setFoto(Icon foto) {
         this.foto = foto;
@@ -112,7 +112,7 @@ public class MaestroEditableDTO {
         return descripcion;
     }
 
-    public Icon getFoto() {
+    public String getFoto() {
         return foto;
     }
 
@@ -123,5 +123,15 @@ public class MaestroEditableDTO {
     public void setCalendario(List<EventoConsultableDTO> calendario) {
         this.calendario = calendario;
     }
+
+    public Long getIdBD() {
+        return idBD;
+    }
+
+    public void setIdBD(Long idBD) {
+        this.idBD = idBD;
+    }
+    
+    
 
 }

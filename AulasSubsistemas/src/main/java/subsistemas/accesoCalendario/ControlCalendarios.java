@@ -16,50 +16,69 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import objetosNegocio.TipoEventoEnum;
+import conexion.IConexionDAO;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.EntityManager;
+import objetosNegocio.Evento;
+import objetosNegocio.Maestro;
 
 /**
  *
  * @author t1pas, luisa morales
  */
 class ControlCalendarios {
-    private ControlDesplegarCalendario desplegarCal;
     
-    
-    protected List<EventoConsultableDTO> editarCalendario(List<EventoConsultableDTO> calendario, EventoConsultableDTO evento,
-            String tipoOperacion) throws NegocioException {
-        List<EventoConsultableDTO> calendarioEditado=null;
-        switch(tipoOperacion){
-            case "agregar" -> {
-                try{
-                    calendarioEditado=agregarEvento(calendario, evento);
-                }catch(NegocioException e){
-                    throw new NegocioException(e.getMessage());
-                }
-            }
-            case "editar" -> {
-                try{
-                    calendarioEditado=editarEvento(calendario, evento);
-                }catch(NegocioException e){
-                    throw new NegocioException(e.getMessage());
-                }
-            }
-            case "eliminar" -> {
-                try{
-                    calendarioEditado=eliminarEvento(calendario, evento);
-                }catch(NegocioException e){
-                    throw new NegocioException(e.getMessage());
-                }
-            }
-        }
-        return calendarioEditado;
+    private final IConexionDAO conexion;
+
+    public ControlCalendarios(IConexionDAO conexion) {
+        this.conexion = conexion;
     }
+    
+    public boolean editarCalendario(List<EventoConsultableDTO> calendario) {
+        EntityManager entityManager=conexion.crearConexion();
+        try {
+            entityManager.getTransaction().begin();
+
+            // Obtener el primer maestro de la base de datos
+            Maestro maestro = entityManager.createQuery("SELECT m FROM Maestro m", Maestro.class)
+                    .setMaxResults(1)
+                    .getSingleResult();
+
+            // Asociar la lista de eventos al maestro
+            List<Evento> eventos = new ArrayList<>();
+            for (EventoConsultableDTO eventoDTO : calendario) {
+                Evento evento = new Evento(eventoDTO.getTipo(), eventoDTO.getNombre(), eventoDTO.getDescripcion(), eventoDTO.getDiasSemana(), eventoDTO.getUbicacion(), eventoDTO.getFechaInicio(), eventoDTO.getFechaFin(), eventoDTO.getHoraInicio(), eventoDTO.getHorasDuracionEvento(),maestro);
+
+                // Configurar el evento con los datos del DTO (o como sea necesario)
+                eventos.add(evento);
+            }
+            maestro.setCalendario(eventos);
+
+            // Completar la transacción
+            entityManager.getTransaction().commit();
+            
+            return true;
+        } catch (Exception e) {
+            // Manejar cualquier excepción y hacer rollback en caso de error
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
+            e.printStackTrace();
+            return false;
+        }
+        //return calendarioEditado;
+    }
+
     /**
      * crea un eventoDTO a partir de los atributos del evento y el color dados por los parametros
      * @param evento
      * @param color
      * @return 
      */
-    private EventoConsultableDTO toDTO(Evento evento,Color color){
+
+     /*
+      *  private EventoConsultableDTO toDTO(Evento evento,Color color){
         EventoConsultableDTO eventoConvertido = null;
         switch (evento.getTipo()) {
             case UNICO_UN_DIA ->
@@ -101,11 +120,16 @@ class ControlCalendarios {
         }
         return eventoConvertido;
     }
+      */
+   
     /**
      * crea un evento BO a partir de los atributos del eventoDTO dado en el parametro
      * @param evento
      * @return 
      */
+    /*
+     * 
+     
     private Evento toBO(EventoConsultableDTO evento){
         Evento eventoConvertido = null;
         switch (evento.getTipo()) {
@@ -455,4 +479,5 @@ class ControlCalendarios {
             return true; // Permitir edición de celdas
         }
     }
+    */
 }
