@@ -6,9 +6,6 @@ import BO.recuperarMaestroBO.RecuperarMaestroBO;
 import DTOS.maestro.MaestroEditableDTO;
 import conexion.ConexionDAO;
 import conexion.IConexionDAO;
-import excepciones.NegocioException;
-import subsistemas.recuperarMaestro.IRecuperarMaestro;
-import subsistemas.recuperarMaestro.RecuperarMaestro;
 
 
 

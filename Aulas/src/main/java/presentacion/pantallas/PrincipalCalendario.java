@@ -14,7 +14,6 @@ import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 import presentacion.CDEvento;
 import presentacion.ModeloTablaHorario;
 
@@ -28,7 +27,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     /**
      * Es el maestro al que le pertenece el calendario
      */
-    private MaestroEditableDTO maestro;
+    private final MaestroEditableDTO maestro;
     PrincipalMaestro prinMaestro;
     List<EventoConsultableDTO> calendarioMes;
     List<EventoConsultableDTO> calendarioMaestroTemporal;
@@ -58,8 +57,6 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         cargarEventos();
         this.setVisible(true);
         this.setSize(800, 630);
-        
-        
         cargarIconos();
     }
     private void cargarIconos() {
@@ -96,9 +93,9 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         Calendar fecha=calEsquinaSuperior.getCalendar();
         int semana=fecha.get(Calendar.WEEK_OF_MONTH);
         List<EventoConsultableDTO> eventos=cargarEventosSemana(semana);
-        if(eventos.isEmpty()){
-            JOptionPane.showMessageDialog(this, "No hay eventos de la semana");
-        }
+//        if(eventos.isEmpty()){
+//            JOptionPane.showMessageDialog(this, "No hay eventos de la semana");
+//        }
         eventos.forEach(e->{
             String diasEvento=e.getDiasSemana();
             //System.out.println("evento de la semana dentro de foreach: "+e);

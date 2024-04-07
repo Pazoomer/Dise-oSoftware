@@ -4,6 +4,8 @@ package BO.accesoCalendarioBO;
 import DTOS.evento.EventoConsultableDTO;
 import conexion.IConexionDAO;
 import java.util.List;
+import subsistemas.accesoCalendario.EditarCalendario;
+import subsistemas.accesoCalendario.IAccesoCalendario;
 
 /**
  *
@@ -19,7 +21,8 @@ public class AccesoCalendarioBO implements IAccesoCalendarioBO{
 
     @Override
     public boolean editarCalendario(List<EventoConsultableDTO> calendario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+      IAccesoCalendario accesoCalendario=new EditarCalendario(conexion);
+      return accesoCalendario.editarCalendario(calendario);
     }
     
 }

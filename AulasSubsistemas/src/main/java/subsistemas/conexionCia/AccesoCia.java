@@ -2,6 +2,7 @@
 package subsistemas.conexionCia;
 
 import DTOS.evento.EventoConsultableDTO;
+import static DTOS.evento.TipoEventoEnumDTO.SEMANAL;
 import static DTOS.evento.TipoEventoEnumDTO.UNICO_UN_DIA;
 import DTOS.maestro.MaestroEditableDTO;
 import conexion.IConexionDAO;
@@ -48,32 +49,32 @@ public class AccesoCia {
             
             Calendar calendar1d=Calendar.getInstance();
             calendar1d.set(Calendar.MONTH, 4);
-            calendar1d.set(Calendar.DATE, 10);
+            calendar1d.set(Calendar.DATE, 7);
             
             Calendar calendar1h=Calendar.getInstance();
             calendar1h.set(Calendar.HOUR, 9);
             
             Calendar calendar2d=Calendar.getInstance();
             calendar1d.set(Calendar.MONTH, 4);
-            calendar1d.set(Calendar.DATE, 8);
+            calendar1d.set(Calendar.DATE, 7);
             
             Calendar calendar2h=Calendar.getInstance();
             calendar2h.set(Calendar.HOUR, 7);
             
             Calendar calendar3d=Calendar.getInstance();
             calendar3d.set(Calendar.MONTH, 4);
-            calendar3d.set(Calendar.DATE, 12);
+            calendar3d.set(Calendar.DATE, 7);
             
             Calendar calendar3h=Calendar.getInstance();
             calendar3h.set(Calendar.HOUR, 12);
             
-            Evento evento1 = new Evento(UNICO_UN_DIA, "Examen 4", "Ultimo examen del semestre, no faltar", null, "RED", "AV0100", calendar1d, null, calendar1h, 1.5f,maestro);
+            Evento evento1 = new Evento(SEMANAL, "Examen 4", "Ultimo examen del semestre, no faltar", "1111111", "AV0100", "RED", calendar1d, null, calendar1h, 1.5f,maestro);
             eventos.add(evento1);
             
-            Evento evento2 = new Evento(UNICO_UN_DIA, "Clases de repaso", "Repaso para el ultimo examen", null, "RED", "AV0100", calendar2d, null, calendar2h, 1.0f,maestro);
+            Evento evento2 = new Evento(SEMANAL, "Clases de repaso", "Repaso para el ultimo examen", "1110000", "AV0100", "RED", calendar2d, null, calendar2h, 1.0f,maestro);
             eventos.add(evento2);
             
-            Evento evento3 = new Evento(UNICO_UN_DIA, "Fiesta de salida", "Para todos, incluso reprobados", null, "RED", "AV0100", calendar3d, null, calendar3h, 2.0f,maestro);
+            Evento evento3 = new Evento(SEMANAL, "Fiesta de salida", "Para todos, incluso reprobados", "0001111", "AV0100", "RED", calendar3d, null, calendar3h, 2.0f,maestro);
             eventos.add(evento3);
 
             // Asociar la lista de eventos al maestro
