@@ -44,12 +44,27 @@ class ControlCalendarios {
             Maestro maestro = entityManager.createQuery("SELECT m FROM Maestro m", Maestro.class)
                     .setMaxResults(1)
                     .getSingleResult();
-
+            
             // Asociar la lista de eventos al maestro
             List<Evento> eventos = new ArrayList<>();
             for (EventoConsultableDTO eventoDTO : calendario) {
-                Evento evento = new Evento(eventoDTO.getTipo(), eventoDTO.getNombre(), eventoDTO.getDescripcion(), eventoDTO.getDiasSemana(), eventoDTO.getUbicacion(), eventoDTO.getFechaInicio(), eventoDTO.getFechaFin(), eventoDTO.getHoraInicio(), eventoDTO.getHorasDuracionEvento(),maestro);
-
+                Evento evento=new Evento(
+                        TipoEventoEnum.UNICO_UN_DIA,
+                        eventoDTO.getNombre(),
+                        eventoDTO.getDescripcion(),
+                        eventoDTO.getDiasSemana(),
+                        eventoDTO.getUbicacion(),
+                        eventoDTO.getFechaInicio(),
+                        eventoDTO.getFechaFin(),
+                        eventoDTO.getHoraInicio(),
+                        eventoDTO.getHorasDuracionEvento(),
+                        maestro
+                );
+                if(eventoDTO.getTipo().equals(TipoEventoEnumDTO.SEMANAL)){
+                    evento.setTipoEvento(TipoEventoEnum.SEMANAL);
+                }else if(eventoDTO.getTipo().equals(TipoEventoEnumDTO.UNICO_VARIOS_DIAS))
+                    evento.setTipoEvento(TipoEventoEnum.UNICO_VARIOS_DIAS);
+                
                 // Configurar el evento con los datos del DTO (o como sea necesario)
                 eventos.add(evento);
             }

@@ -139,7 +139,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
      * PrincipalCalendario y ocultarse este frame
      */
     private void abrirCalendario() {
-        new PrincipalCalendario(this, maestro,conexion).setVisible(true);
+        new PrincipalCalendario(this,this, maestro,conexion).setVisible(true);
         this.setVisible(false);
     }
 

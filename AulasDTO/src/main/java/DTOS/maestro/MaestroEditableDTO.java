@@ -90,10 +90,10 @@ public class MaestroEditableDTO {
         this.descripcion = descripcion;
     }*/
 
-    public void setFoto(Icon foto) {
-        this.foto = foto;
-    }
-    
+//    public void setFoto(String foto) {
+//        this.foto = foto;
+//    }
+//    
     
     
     public Long getId() {

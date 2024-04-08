@@ -17,16 +17,22 @@ import subsistemas.recuperarMaestro.RecuperarMaestro;
  */
 public class RecuperarMaestroBO implements IRecuperarMaestroBO{
     
-    private final IConexionDAO conexion;
+    //private final IConexionDAO conexion;
+    private IConexionDAO conexion;
 
     public RecuperarMaestroBO(IConexionDAO conexion) {
         this.conexion = conexion;
+    }
+    
+    public RecuperarMaestroBO(){
+        
     }
 
     @Override
     public MaestroEditableDTO recuperarMaestro() {
         MaestroEditableDTO maestroEditable;
-        IRecuperarMaestro recuperarMaestroDAO = new RecuperarMaestro(conexion);
+        //IRecuperarMaestro recuperarMaestroDAO = new RecuperarMaestro(conexion);
+        IRecuperarMaestro recuperarMaestroDAO = new RecuperarMaestro();
         try {
             maestroEditable = recuperarMaestroDAO.recuperarMaestro();
 

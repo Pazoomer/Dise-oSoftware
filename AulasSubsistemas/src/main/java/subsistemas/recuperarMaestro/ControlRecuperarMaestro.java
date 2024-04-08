@@ -38,18 +38,18 @@ public class ControlRecuperarMaestro {
                 maestro.getNombre(),
                 maestro.getCubiculo(), 
                 maestro.getDescripcion(), 
+                maestro.getFoto(),
                 eventosBO
         );
         return maestroConvertido;
     }
     
-    private MaestroEditableDTO toMaestroDTO(Maestro maestro, List<Color> colores, Icon foto){
+    private MaestroEditableDTO toMaestroDTO(Maestro maestro){
         List<Evento> eventos=maestro.getCalendario();
         List<EventoConsultableDTO> eventosDTO=new ArrayList<>();
         if(!eventos.isEmpty()){
             for(Evento ec:eventos){
-                eventosDTO.add(toEventoDTO(ec,
-                        colores.get(eventos.indexOf(ec)))
+                eventosDTO.add(toEventoDTO(ec)
                 );
             }
         }
@@ -57,7 +57,7 @@ public class ControlRecuperarMaestro {
                 maestro.getNombre(),
                 maestro.getCubiculo(),
                 maestro.getDescripcion(), 
-                foto, 
+                maestro.getFoto(), 
                 eventosDTO
         );
         return maestroDTO;
@@ -67,7 +67,7 @@ public class ControlRecuperarMaestro {
         Evento eventoConvertido = null;
         switch (evento.getTipo()) {
             case UNICO_UN_DIA ->
-                eventoConvertido = new Evento(
+                eventoConvertido = new Evento(evento.getColor(),
                         evento.getNombre(),
                         evento.getDescripcion(),
                         evento.getFechaInicio(),
@@ -77,6 +77,7 @@ public class ControlRecuperarMaestro {
                 );
             case UNICO_VARIOS_DIAS ->
                 eventoConvertido = new Evento(
+                        evento.getColor(),
                         TipoEventoEnum.UNICO_VARIOS_DIAS,
                         evento.getNombre(),
                         evento.getDescripcion(),
@@ -89,6 +90,7 @@ public class ControlRecuperarMaestro {
                 );
             case SEMANAL ->
                 eventoConvertido = new Evento(
+                        evento.getColor(),
                         TipoEventoEnum.SEMANAL,
                         evento.getNombre(),
                         evento.getDescripcion(),
@@ -103,14 +105,14 @@ public class ControlRecuperarMaestro {
         return eventoConvertido;
     }
     
-    private EventoConsultableDTO toEventoDTO(Evento evento,Color color){
+    private EventoConsultableDTO toEventoDTO(Evento evento){
         EventoConsultableDTO eventoConvertido = null;
         switch (evento.getTipo()) {
             case UNICO_UN_DIA ->
                 eventoConvertido = new EventoConsultableDTO(
                         evento.getNombre(),
                         evento.getDescripcion(),
-                        color,
+                        evento.getColor(),
                         evento.getUbicacion(),
                         evento.getFechaInicio(),
                         evento.getHoraInicio(),
@@ -121,7 +123,7 @@ public class ControlRecuperarMaestro {
                         TipoEventoEnumDTO.UNICO_VARIOS_DIAS,
                         evento.getNombre(),
                         evento.getDescripcion(),
-                        color,
+                        evento.getColor(),
                         evento.getDiasSemana(),
                         evento.getUbicacion(),
                         evento.getFechaInicio(),
@@ -134,7 +136,7 @@ public class ControlRecuperarMaestro {
                         TipoEventoEnumDTO.SEMANAL,
                         evento.getNombre(),
                         evento.getDescripcion(),
-                        color,
+                        evento.getColor(),
                         evento.getDiasSemana(),
                         evento.getUbicacion(),
                         evento.getFechaInicio(),
@@ -149,13 +151,13 @@ public class ControlRecuperarMaestro {
    
     protected MaestroEditableDTO recuperarMaestro2(MaestroEditableDTO maestro)
             throws NegocioException{
-        List<Color> colores=new ArrayList<>();
+        List<String> colores=new ArrayList<>();
         for(EventoConsultableDTO ec: maestro.getCalendario()){
             colores.add(ec.getColor());
         }
         Maestro maestroBO=toMaestroBO(maestro);
         maestroBO=maestroBO.obtenerMaestro(maestroBO);
-        MaestroEditableDTO maestroDTO=toMaestroDTO(maestroBO, colores, maestro.getFoto());
+        MaestroEditableDTO maestroDTO=toMaestroDTO(maestroBO);
         return maestroDTO;
     }
     
@@ -172,21 +174,21 @@ public class ControlRecuperarMaestro {
         Calendar fecha2=Calendar.getInstance();
         fecha2.set(2024, 2, 20);
         
-        String diasSemana = "LuMiVi";
+        String diasSemana = "0101010";
         Calendar horaInicio = Calendar.getInstance();
         horaInicio.set(Calendar.HOUR_OF_DAY, 10);
         horaInicio.set(Calendar.MINUTE, 30);
-        EventoConsultableDTO ev1 = new EventoConsultableDTO(TipoEventoEnumDTO.SEMANAL, "diseño de software", "clase de diseño", Color.yellow,
+        EventoConsultableDTO ev1 = new EventoConsultableDTO(TipoEventoEnumDTO.SEMANAL, "diseño de software", "clase de diseño","amarillo",
                 diasSemana, "1826", fecha2,fecha2, horaInicio, 2.5f);
         calendario.add(ev1);
         
-        String rutaRealtiva = "fotoMaestro.png";
+        String rutaRelativa = "fotoMaestro.png";
 
-        ImageIcon icon = new ImageIcon(rutaRealtiva);
+        ImageIcon icon = new ImageIcon(rutaRelativa);
 
         ImageIcon scaledIcon = new ImageIcon(icon.getImage().getScaledInstance(120, 100, Image.SCALE_SMOOTH));
 
-        MaestroEditableDTO maestro = new MaestroEditableDTO(1L, "Gibran Duran", "AV0900", "Doy asesorias de 9 a 11 de bases de datos los sabados y domingos", scaledIcon, calendario);
+        MaestroEditableDTO maestro = new MaestroEditableDTO(1L, "Gibran Duran", "AV0900", "Doy asesorias de 9 a 11 de bases de datos los sabados y domingos", rutaRelativa, calendario);
 
         return maestro;
     }

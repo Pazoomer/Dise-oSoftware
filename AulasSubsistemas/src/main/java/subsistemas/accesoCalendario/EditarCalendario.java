@@ -20,7 +20,11 @@ public class EditarCalendario implements IAccesoCalendario{
         this.calendarios = new ControlCalendarios(conexion);
     }
     
-//    @Override
+    @Override
+    public boolean editarCalendario(List<EventoConsultableDTO> calendario) {
+       return calendarios.editarCalendario(calendario);
+    }
+//@Override
 //    public List<EventoConsultableDTO> editarCalendario(List<EventoConsultableDTO> calendario, EventoConsultableDTO evento,
 //            String tipoOperacion) throws NegocioException {
 //        List<EventoConsultableDTO> calendarioEditado=null;
@@ -60,9 +64,16 @@ public class EditarCalendario implements IAccesoCalendario{
 //            throw new NegocioException(e.getMessage());
 //        }
 //    }
+//
+//    @Override
+//    public EventoConsultableDTO inicializarCalendario(List<EventoConsultableDTO> calendario, JCalendar jcalendar, JTable tabla){
+//        return calendarios.inicializarCalendario(jcalendar, calendario, tabla);
+//    }
+//
+//    @Override
+//    public EventoConsultableDTO refreshCalendario(List<EventoConsultableDTO> calendario, JCalendar jCalendar, JTable tabla) {
+//        return calendarios.refrescarCalendario(jCalendar, calendario, tabla);
+//    }
 
-    @Override
-    public boolean editarCalendario(List<EventoConsultableDTO> calendario) {
-       return calendarios.editarCalendario(calendario);
-    }
+
 }

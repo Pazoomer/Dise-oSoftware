@@ -11,12 +11,12 @@ import excepciones.NegocioException;
  */
 public class RecuperarMaestro implements IRecuperarMaestro {
     
-    private final IConexionDAO conexion;
-     private final Maestros maestros;
+   // private final IConexionDAO conexion;
+     private final ControlRecuperarMaestro maestros;
 
-    public RecuperarMaestro(IConexionDAO conexion) {
-        this.conexion = conexion;
-        this.maestros = new Maestros(conexion);
+    public RecuperarMaestro() {
+        //this.conexion = conexion;
+        this.maestros = new ControlRecuperarMaestro();
     }
     //TODO
     //Solo soy una fachada

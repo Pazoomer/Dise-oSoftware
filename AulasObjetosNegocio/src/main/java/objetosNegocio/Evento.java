@@ -1,7 +1,6 @@
 
 package objetosNegocio;
 
-import DTOS.evento.TipoEventoEnumDTO;
 import java.io.Serializable;
 import java.util.Calendar;
 import javax.persistence.Column;
@@ -32,7 +31,7 @@ public class Evento implements Serializable {
     
     @Column(name="tipo",nullable=true)
     @Enumerated(EnumType.STRING)
-    private TipoEventoEnumDTO tipo;
+    private TipoEventoEnum tipo;
     
     @Column(name="nombre",nullable=true,length=100)
     private String nombre;
@@ -80,7 +79,7 @@ public class Evento implements Serializable {
 
     }
 
-    public Evento(TipoEventoEnumDTO tipo, String nombre, String descripcion, String diasSemana, String ubicacion, String color, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento, Maestro maestro) {
+    public Evento(TipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, String ubicacion, String color, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento, Maestro maestro) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -96,7 +95,7 @@ public class Evento implements Serializable {
      
      
 
-    public Evento(TipoEventoEnumDTO tipo, String nombre, String descripcion, String diasSemana, String ubicacion, String color, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento) {
+    public Evento(TipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, String ubicacion, String color, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -111,7 +110,7 @@ public class Evento implements Serializable {
      
      
 
-    public Evento(TipoEventoEnumDTO tipo, String nombre, String descripcion, String diasSemana, String ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento, Maestro maestro) {
+    public Evento(TipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, String ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento, Maestro maestro) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -140,7 +139,7 @@ public class Evento implements Serializable {
      * @param horaInicio
      * @param horasDuracionEvento 
      */
-    public Evento(String color, TipoEventoEnumDTO tipo, String nombre, String descripcion,String diasSemana, 
+    public Evento(String color, TipoEventoEnum tipo, String nombre, String descripcion,String diasSemana, 
             String ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento) {
         this.color=color;
         this.tipo = tipo;
@@ -168,7 +167,7 @@ public class Evento implements Serializable {
     public Evento(String color, String nombre, String descripcion, Calendar fechaInicio, String ubicacion,
             Calendar horaInicio, float horasDuracionEvento) {
         this.color=color;
-        this.tipo = TipoEventoEnumDTO.UNICO_UN_DIA;
+        this.tipo = TipoEventoEnum.UNICO_UN_DIA;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fechaInicio = fechaInicio;
@@ -185,7 +184,7 @@ public class Evento implements Serializable {
         this.fechaFin=fechaCopia;
     }
 
-    public TipoEventoEnumDTO getTipo() {
+    public TipoEventoEnum getTipo() {
         return tipo;
     }
 
@@ -251,6 +250,10 @@ public class Evento implements Serializable {
 
     public void setColor(String color) {
         this.color = color;
+    }
+    
+    public void setTipoEvento(TipoEventoEnum tipo){
+        this.tipo=tipo;
     }
 
     @Override

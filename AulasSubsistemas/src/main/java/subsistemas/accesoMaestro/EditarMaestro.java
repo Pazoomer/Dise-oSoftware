@@ -19,17 +19,6 @@ public class EditarMaestro implements IAccesoMaestro {
         this.maestros = new ControlMaestro(conexion);
         
     }
-   /*
-    @Override
-    public MaestroEditableDTO agregarEventoCalendario(MaestroEditableDTO maestro) throws NegocioException {
-        //TODO
-        //Solo soy una fachada
-        try {
-            return maestros.agregarEventoCalendario(maestro);
-        } catch (NegocioException e) {
-            throw new NegocioException(e.getMessage());
-        }
-    }*/
 
     @Override
     public boolean editarMaestro(MaestroEditableDTO maestro) throws NegocioException {

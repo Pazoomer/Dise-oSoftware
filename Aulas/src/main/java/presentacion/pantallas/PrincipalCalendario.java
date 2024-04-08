@@ -9,15 +9,16 @@ import DTOS.maestro.MaestroEditableDTO;
 import excepciones.NegocioException;
 import conexion.IConexionDAO;
 import java.awt.Color;
+import java.awt.Frame;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import presentacion.CDEvento;
 import presentacion.ModeloTablaHorario;
-import subsistemas.accesoCalendario.FachadaAccederCalendario;
 import subsistemas.accesoCalendario.IAccesoCalendario;
 
 
@@ -33,25 +34,29 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     private final MaestroEditableDTO maestro;
     PrincipalMaestro prinMaestro;
     IAccesoCalendario accesoCalendario;
-//    static List<EventoConsultableDTO> calendarioMes;
+    Frame parent;
+    static List<EventoConsultableDTO> calendarioMes;
     static List<EventoConsultableDTO> calendarioMaestro;
-//    static ModeloTablaHorario modelo;
+    public static List<EventoConsultableDTO> calendarioMaestroTemporal;
+    static ModeloTablaHorario modelo;
     private CDEvento cdEvento;
-//    public static boolean isDisplayed=false;
+    public static boolean isDisplayed=false;
     public static EventoConsultableDTO eventoSeleccionado;
-     private final IConexionDAO conexion;
+    private final IConexionDAO conexion;
     
     
     /**
      * Creates new form PrincipalCalendario
+     * @param parent
      * @param prinMaestro
      * @param maestro
      * @param conexion
      */
-    public PrincipalCalendario(PrincipalMaestro prinMaestro, MaestroEditableDTO maestro, IConexionDAO conexion) {
+    public PrincipalCalendario(Frame parent, PrincipalMaestro prinMaestro, MaestroEditableDTO maestro, IConexionDAO conexion) {
         setUndecorated(true);
         this.setResizable(false);
         initComponents();
+        this.parent=parent;
         this.maestro=maestro;
         this.prinMaestro=prinMaestro;
         this.conexion=conexion;
@@ -73,23 +78,22 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     }
     
     private List<EventoConsultableDTO> cargarEventosSemana(int semana){
-        return null;
-//        List<EventoConsultableDTO> eventosDeSemana=new ArrayList<>();
-//        cargarCalendario();
-//        for(EventoConsultableDTO evento:calendarioMes){
-//             if (evento.getFechaInicio().get(Calendar.WEEK_OF_MONTH) == semana
-//                     || evento.getTipo().equals(TipoEventoEnumDTO.SEMANAL)) {
-//                eventosDeSemana.add(evento);
-//                //System.out.println("metodo eventos de la semana: "+evento.getNombre());
-//            }//else
-//                //System.out.println("no hay");
-//        }
-//        return eventosDeSemana;
+        List<EventoConsultableDTO> eventosDeSemana=new ArrayList<>();
+        cargarCalendario();
+        for(EventoConsultableDTO evento:calendarioMes){
+             if (evento.getFechaInicio().get(Calendar.WEEK_OF_MONTH) == semana
+                     || evento.getTipo().equals(TipoEventoEnumDTO.SEMANAL)) {
+                eventosDeSemana.add(evento);
+                //System.out.println("metodo eventos de la semana: "+evento.getNombre());
+            }//else
+                //System.out.println("no hay");
+        }
+        return eventosDeSemana;
     }
     
     private void agregarEventoASemana(EventoConsultableDTO evento, int semana){
-//        List<EventoConsultableDTO> eventos=cargarEventosSemana(semana);
-//        eventos.add(evento);
+        List<EventoConsultableDTO> eventos=cargarEventosSemana(semana);
+        eventos.add(evento);
     }
     
     private void cargarEventos(){
@@ -103,23 +107,23 @@ public class PrincipalCalendario extends javax.swing.JFrame {
 //        }
         eventos.forEach(e->{
             String diasEvento=e.getDiasSemana();
-            //System.out.println("evento de la semana dentro de foreach: "+e);
+            System.out.println("evento de la semana dentro de foreach: "+e);
             Calendar horaInicio = e.getHoraInicio();
             int hora = horaInicio.get(Calendar.HOUR);
             int minutos = horaInicio.get(Calendar.MINUTE);
             float duracion = e.getHorasDuracionEvento();
-            //System.out.println("duracion evento:"+duracion);
+            System.out.println("duracion evento:"+duracion);
             if (e.getTipo().equals(TipoEventoEnumDTO.SEMANAL)) {
                 for (int i = 0; i < 7; i++) {
                     if (diasEvento.charAt(i) == '1') {
-                        setEvento(hora, minutos, duracion, i, e);
+                        setEvento(hora, minutos, duracion, i+1, e);
                     }
 
                 }
 
             } else {
                 int diaEv=e.getFechaInicio().get(Calendar.DAY_OF_WEEK);
-                //System.out.println("dia ev dentro d foreachh:"+diaEv);
+                System.out.println("dia ev dentro d foreachh:"+diaEv);
                 setEvento(hora, minutos, duracion,
                          diaEv, e);
             }
@@ -132,45 +136,45 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     
     private void setEvento(int horaEvento,int minutoEvento, 
             float duracionEvento,int diaEvento,EventoConsultableDTO evento){
-//        int rows=modelo.getRowCount();
-//        //System.out.println("rows: "+rows);
-//        
-//        int index=0;
-//        boolean encontrada=false;
-//        
-//        for (int i = 0; i < rows; i++) {
-//           String horaCelda=(String)modelo.getValueAt(i, 0);
-//           horaCelda=horaCelda.substring(0, 5);
-//           //System.out.println("hora celda: "+horaCelda);
-//           //System.out.println("hora evento: "+horaEvento);
-//           int semana=calEsquinaSuperior.getCalendar().get(Calendar.WEEK_OF_MONTH);
-//           if(!encontrada){
-//               if (minutoEvento > 0) {
-//                   //System.out.println("hora evento: " + horaEvento + ":" + minutoEvento);
-//                   //System.out.println("columna dia evento: " + diaEvento);
-//                   if (horaCelda.equals(horaEvento + ":" + minutoEvento) ||
-//                           horaCelda.equals("0"+horaEvento + ":" + minutoEvento)) {
-//                       //System.out.println("se encontro la celda: " + horaCelda);
-//                       modelo.setValueAt(evento.getNombre(), i, diaEvento);
-//                       agregarEventoASemana(evento, semana);
-//                       encontrada = true;
-//                       index=i;
-//                       break;
-//                   }
-//               } else if (horaCelda.equals(horaEvento + ":" + "00") || 
-//                       horaCelda.equals("0"+horaEvento+":"+"00")) {
-//                   //System.out.println("se encontro la celda: " + horaCelda);
-//                   modelo.setValueAt(evento.getNombre(), i, diaEvento);
-//                   agregarEventoASemana(evento, semana);
-//                   encontrada = true;
-//                   index=i;
-//                   break;
-//               }
-//           } 
-//        }
-//        if(encontrada){
-//            llenarRestoCeldasEvento( index, diaEvento, duracionEvento, evento);
-//    }
+        int rows=modelo.getRowCount();
+        System.out.println("rows: "+rows);
+        
+        int index=0;
+        boolean encontrada=false;
+        
+        for (int i = 0; i < rows; i++) {
+           String horaCelda=(String)modelo.getValueAt(i, 0);
+           horaCelda=horaCelda.substring(0, 5);
+           System.out.println("hora celda: "+horaCelda);
+           System.out.println("hora evento: "+horaEvento);
+           int semana=calEsquinaSuperior.getCalendar().get(Calendar.WEEK_OF_MONTH);
+           if(!encontrada){
+               if (minutoEvento > 0) {
+                   //System.out.println("hora evento: " + horaEvento + ":" + minutoEvento);
+                   //System.out.println("columna dia evento: " + diaEvento);
+                   if (horaCelda.equals(horaEvento + ":" + minutoEvento) ||
+                           horaCelda.equals("0"+horaEvento + ":" + minutoEvento)) {
+                       System.out.println("se encontro la celda: " + horaCelda);
+                       modelo.setValueAt(evento.getNombre(), i, diaEvento);
+                       agregarEventoASemana(evento, semana);
+                       encontrada = true;
+                       index=i;
+                       break;
+                   }
+               } else if (horaCelda.equals(horaEvento + ":" + "00") || 
+                       horaCelda.equals("0"+horaEvento+":"+"00")) {
+                   System.out.println("se encontro la celda: " + horaCelda);
+                   modelo.setValueAt(evento.getNombre(), i, diaEvento);
+                   agregarEventoASemana(evento, semana);
+                   encontrada = true;
+                   index=i;
+                   break;
+               }
+           } 
+        }
+        if(encontrada){
+            llenarRestoCeldasEvento( index, diaEvento, duracionEvento, evento);
+    }
     }
     
     private void llenarRestoCeldasEvento(int index,int columnIndex,
@@ -197,51 +201,52 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     }
     
     private void getEventoSeleccionado(){
-//        tablaEventos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-//            @Override
-//            public void valueChanged(ListSelectionEvent event) {
-//                //System.out.println("cambio el valor: "+event.toString());
-//                // Verificar si la selección está cambiando
-//                if (!event.getValueIsAdjusting()) {
-//                    // Obtener la fila y columna seleccionadas
-//                    int selectedRow = tablaEventos.getSelectedRow();
-//                    int selectedColumn = tablaEventos.getSelectedColumn();
-//                    if(selectedRow>0 && selectedColumn>0){
-//                        System.out.println("celda seelccionada: "+selectedRow+", "+selectedColumn);
-//                        String nombreEvento = (String) modelo.getValueAt(selectedRow, selectedColumn);
-//                        if (nombreEvento != null) {
-//                            if(!isDisplayed){
-//                                isDisplayed=true;
-//                                System.out.println("nombre evento: " + nombreEvento);
-//                                List<EventoConsultableDTO> evSem = cargarEventosSemana(
-//                                        calEsquinaSuperior.getCalendar().get(Calendar.WEEK_OF_MONTH));
-//                                for (EventoConsultableDTO e : evSem) {
-//                                    if (e.getNombre().equals(nombreEvento)) {
-//                                        eventoSeleccionado=e;
-//                                        break;
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        });
+        tablaEventos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent event) {
+                //System.out.println("cambio el valor: "+event.toString());
+                // Verificar si la selección está cambiando
+                if (!event.getValueIsAdjusting()) {
+                    // Obtener la fila y columna seleccionadas
+                    int selectedRow = tablaEventos.getSelectedRow();
+                    int selectedColumn = tablaEventos.getSelectedColumn();
+                    if(selectedRow>0 && selectedColumn>0){
+                        System.out.println("celda seelccionada: "+selectedRow+", "+selectedColumn);
+                        String nombreEvento = (String) modelo.getValueAt(selectedRow, selectedColumn);
+                        System.out.println(nombreEvento);
+                        if (nombreEvento != null) {
+                            if(!isDisplayed){
+                                isDisplayed=true;
+                                System.out.println("nombre evento: " + nombreEvento);
+                                List<EventoConsultableDTO> evSem = cargarEventosSemana(
+                                        calEsquinaSuperior.getCalendar().get(Calendar.WEEK_OF_MONTH));
+                                for (EventoConsultableDTO e : evSem) {
+                                    if (e.getNombre().equals(nombreEvento)) {
+                                        eventoSeleccionado=e;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
     }
     
     //inicializa el calendario con los eventos del mes seleccionado
     private void cargarCalendario(){
-//       Calendar fecha=calEsquinaSuperior.getCalendar();
-//       int mes=fecha.get(Calendar.MONTH);
-//       calendarioMes=new ArrayList<>();
-//        
-//        for (EventoConsultableDTO evento : calendarioMaestroTemporal) {
-//            //System.out.println("evento desde metodo cargar Calendario: "+ evento);
-//            if (evento.getFechaInicio().get(Calendar.MONTH) == mes || evento.getTipo().equals(TipoEventoEnumDTO.SEMANAL)) {
-//                calendarioMes.add(evento);
-//                //System.out.println("evento del maestro: "+evento.getNombre());
-//            }
-//        }
+       Calendar fecha=calEsquinaSuperior.getCalendar();
+       int mes=fecha.get(Calendar.MONTH);
+       calendarioMes=new ArrayList<>();
+        
+        for (EventoConsultableDTO evento : calendarioMaestroTemporal) {
+            //System.out.println("evento desde metodo cargar Calendario: "+ evento);
+            if (evento.getFechaInicio().get(Calendar.MONTH) == mes || evento.getTipo().equals(TipoEventoEnumDTO.SEMANAL)) {
+                calendarioMes.add(evento);
+                //System.out.println("evento del maestro: "+evento.getNombre());
+            }
+        }
     }
     /**
      * Al hacer clic en guardar calendario debe actualizar el calendario del maestro y guardar al maestro en la base de datos
@@ -260,14 +265,16 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     }
 
     public void añadirEvento(EventoConsultableDTO evento) {
-
         calendarioMaestroTemporal.add(evento);
-
         IAccesoCalendarioBO accesoCalendarioBO = new AccesoCalendarioBO(conexion);
 
-        accesoCalendarioBO.editarCalendario(calendarioMaestroTemporal);
-
-        cargarCalendario();
+        if(accesoCalendarioBO.editarCalendario(calendarioMaestroTemporal)){
+            System.out.println("se actualizo");
+            eventoSeleccionado=evento;
+        }
+        else 
+            System.out.println("no se actualizo");
+        //cargarCalendario();
         cargarEventos();
     }
 
@@ -276,24 +283,28 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         cdEvento.setVisible(true);
     }
     
-    private void editarEvento(){
-        if(eventoSeleccionado!=null){
-            cdEvento = new CDEvento(this, this, eventoSeleccionado, true,"editar",conexion);
-            cdEvento.desplegarEventoEditable();
-            cdEvento.setVisible(true);
-            //eventoSeleccionado=cdEvento.editarEvento();
+    public void editarEvento(EventoConsultableDTO eventoEditado){
+        IAccesoCalendarioBO accesoCalendarioBO = new AccesoCalendarioBO(conexion);
+        calendarioMaestroTemporal.set(calendarioMaestroTemporal.indexOf(eventoSeleccionado), eventoEditado);
+        String msj;
+        if(accesoCalendarioBO.editarCalendario(calendarioMaestroTemporal)){
+            msj="Evento editado correctamente";
+        }else{
+            msj="Hubo un error al editar el evento";
         }
+        JOptionPane.showMessageDialog(this, msj,
+                    "Status de la operacion",JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void desplegarCDEvento(String operacion) {
         switch (operacion) {
-            case "agregar" -> cdEvento = new CDEvento(this, true,operacion);
+            case "agregar" -> cdEvento = new CDEvento(parent,this, true,operacion, conexion);
             case "editar" -> {
-                cdEvento = new CDEvento( this, eventoSeleccionado, true,"editar");
+                cdEvento = new CDEvento( parent,this, eventoSeleccionado, true,"editar",conexion);
                 cdEvento.desplegarEventoEditable();
             }
             case "desplegar" -> {
-                cdEvento = new CDEvento(this, eventoSeleccionado, true,"desplegar");
+                cdEvento = new CDEvento(parent,this, eventoSeleccionado, true,"desplegar",conexion);
                 cdEvento.desplegarEvento();
             }
             default -> {
@@ -328,17 +339,20 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         }else System.out.println("es null");
     }
 
-    public void editarEvento(EventoConsultableDTO eventoEditado){
+    public boolean editarEventso(EventoConsultableDTO eventoEditado){
         //List<EventoConsultableDTO> calendarioEditado;
-        try{
-            //calendarioEditado=accesoCalendario.editarCalendario(calendarioMaestro, eventoEditado, "editar");
-            accesoCalendario.editarCalendario(calendarioMaestro, eventoEditado, "editar");
-            eventoSeleccionado=accesoCalendario.refreshCalendario(calendarioMaestro, calEsquinaSuperior, tablaEventos);
-            //calendarioMaestro=calendarioEditado;
-        }catch(NegocioException e){
-            JOptionPane.showMessageDialog(this, e.getMessage(),
-                    "Operacion no exitosa",JOptionPane.ERROR_MESSAGE);
-        }
+        IAccesoCalendarioBO accesoCalendarioBO = new AccesoCalendarioBO(conexion);
+        return accesoCalendarioBO.editarCalendario(calendarioMaestroTemporal);
+//        try{
+//            
+//            //calendarioEditado=accesoCalendario.editarCalendario(calendarioMaestro, eventoEditado, "editar");
+//            //accesoCalendarioBO.editarCalendario(calendarioMaestro, eventoEditado, "editar");
+//            //eventoSeleccionado=accesoCalendario.refreshCalendario(calendarioMaestro, calEsquinaSuperior, tablaEventos);
+//            //calendarioMaestro=calendarioEditado;
+//        }catch(NegocioException e){
+//            JOptionPane.showMessageDialog(this, e.getMessage(),
+//                    "Operacion no exitosa",JOptionPane.ERROR_MESSAGE);
+//        }
     }
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -611,16 +625,18 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void calEsquinaSuperiorPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_calEsquinaSuperiorPropertyChange
-        if(accesoCalendario!=null){
-            accesoCalendario.refreshCalendario(calendarioMaestro, calEsquinaSuperior, tablaEventos);
-        }
+//        if(accesoCalendario!=null){
+//            accesoCalendario.refreshCalendario(calendarioMaestro, calEsquinaSuperior, tablaEventos);
+//        }
+        if(calendarioMes!=null)
+            cargarEventos();
     }//GEN-LAST:event_calEsquinaSuperiorPropertyChange
 
     private void btnEditarEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarEventoActionPerformed
-//        EventoConsultableDTO ev=eventoSeleccionado;
+        EventoConsultableDTO ev=eventoSeleccionado;
         //System.out.println("evento antes de editar: "+ev);
         desplegarCDEvento("editar");
-        //editarEvento(eventoSeleccionado);
+        
 //        int index=0;
 //        for (EventoConsultableDTO e : calendarioMaestroTemporal) {
 //            if (e.getNombre().equals(ev.getNombre())) {
@@ -629,8 +645,8 @@ public class PrincipalCalendario extends javax.swing.JFrame {
 //            }
 //        }
 //        calendarioMaestroTemporal.set(index, eventoSeleccionado);
-//        //System.out.println("evento editado: "+eventoSeleccionado);
-//        cargarEventos();
+        //System.out.println("evento editado: "+eventoSeleccionado);
+        cargarEventos();
     }//GEN-LAST:event_btnEditarEventoActionPerformed
 
     private void btnAñadirEventoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAñadirEventoMouseEntered

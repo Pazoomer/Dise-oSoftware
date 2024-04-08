@@ -8,7 +8,6 @@ import excepciones.NegocioException;
 import java.util.ArrayList;
 import java.util.List;
 import subsistemas.recuperarMaestro.IRecuperarMaestro;
-import subsistemas.recuperarMaestro.FachadaRecuperarMaestro;
 import conexion.ConexionDAO;
 import conexion.IConexionDAO;
 
