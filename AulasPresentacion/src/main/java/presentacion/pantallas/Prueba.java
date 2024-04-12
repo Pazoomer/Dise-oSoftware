@@ -4,18 +4,12 @@ package presentacion.pantallas;
 import BO.recuperarMaestroBO.IRecuperarMaestroBO;
 import BO.recuperarMaestroBO.RecuperarMaestroBO;
 import DTOS.maestro.MaestroEditableDTO;
-import excepciones.NegocioException;
-import java.util.ArrayList;
-import java.util.List;
-import subsistemas.recuperarMaestro.IRecuperarMaestro;
 import conexion.ConexionDAO;
 import conexion.IConexionDAO;
 
-
-
 /**
  *
- * @author luiis
+ * @author 
  */
 public class Prueba {
 

@@ -11,8 +11,6 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 import javax.swing.ImageIcon;
 import presentacion.CDEvento;
-import subsistemas.recuperarUbicaciones.RecuperarUbicaciones;
-import subsistemas.recuperarUbicaciones.IRecuperarUbicaciones;
 
 /**
  *
@@ -379,7 +377,7 @@ public class MapaCalendario extends javax.swing.JFrame {
         if (campus.equals("Obregon Nainari")) {
             img = new ImageIcon(getClass().getResource("/imagenes/campus-nainari.jpg")).getImage();
             icon = new ImageIcon(zoom(h, w, img));
-        } else if (campus.equals("Obregon Centro")) {
+        } else {
             img = new ImageIcon(getClass().getResource("/imagenes/campus-centro.jpg")).getImage();
             icon = new ImageIcon(zoom(h, w, img));
         }

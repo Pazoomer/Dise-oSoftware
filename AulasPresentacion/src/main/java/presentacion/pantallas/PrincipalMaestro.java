@@ -5,17 +5,13 @@ import BO.accesoMaestroBO.IAccesoMaestroBO;
 import DTOS.evento.EventoConsultableDTO;
 import DTOS.maestro.MaestroEditableDTO;
 import conexion.IConexionDAO;
-import excepciones.NegocioException;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import subsistemas.accesoMaestro.IAccesoMaestro;
-import subsistemas.accesoMaestro.EditarMaestro;
 import javax.swing.ImageIcon;
 
 /**
