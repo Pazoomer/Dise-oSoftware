@@ -8,9 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import subsistemas.conexionGoogleMaps.FachadaAccesoGoogleMaps;
-import subsistemas.conexionGoogleMaps.IAccesoGoogleMaps;
-import subsistemas.recuperarUbicaciones.Ubicaciones;
 
 /**
  *
@@ -26,28 +23,28 @@ public class ControlUbicaciones {
     }
 
     protected List<String> recuperarEdificios() {
-        IAccesoGoogleMaps dao = new FachadaAccesoGoogleMaps(conexion);
+        //IAccesoGoogleMaps dao = new FachadaAccesoGoogleMaps(conexion);
 
         try {
-            return dao.accesoEdificiosGoogleMaps();
+            return this.accesoEdificiosGoogleMaps();
         } catch (NegocioException ex) {
-            Logger.getLogger(Ubicaciones.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControlUbicaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     protected List<String> recuperarEdificiosPorCampus(String campus) {
-        IAccesoGoogleMaps dao=new FachadaAccesoGoogleMaps(conexion);
+        //IAccesoGoogleMaps dao=new FachadaAccesoGoogleMaps(conexion);
         
         try {
-            return dao.accesoEdificiosPorCampusGoogleMaps(campus);
+            return this.accesoEdificiosPorCampusGoogleMaps(campus);
         } catch (NegocioException ex) {
-            Logger.getLogger(Ubicaciones.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControlUbicaciones.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
     
-    protected List<String> accesoEdificiosGoogleMaps() throws NegocioException {
+    private List<String> accesoEdificiosGoogleMaps() throws NegocioException {
         EntityManager entityManager = conexion.crearConexion();
         List<String> nombresCampus;
 
@@ -65,7 +62,7 @@ public class ControlUbicaciones {
         return nombresCampus;
     }
 
-    protected List<String> accesoEdificiosPorCampusGoogleMaps(String campus) throws NegocioException {
+    private List<String> accesoEdificiosPorCampusGoogleMaps(String campus) throws NegocioException {
 
         EntityManager entityManager = conexion.crearConexion();
         List<String> nombresEdificios;

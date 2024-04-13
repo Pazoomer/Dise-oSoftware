@@ -1,7 +1,6 @@
 
 package accesoUbicaciones;
 
-import excepciones.NegocioException;
 import java.util.List;
 
 /**
@@ -9,11 +8,16 @@ import java.util.List;
  * @author t1pas
  */
 public interface IAccesoUbicaciones {
+    /**
+     * Recupera los campus
+     * @return 
+     */
     public List<String> recuperarEdificios();
     
+    /**
+     * Recupera los edificios de un campus
+     * @param campus
+     * @return 
+     */
     public List<String> recuperarEdificiosPorCampus(String campus);
-    
-    List<String> accesoEdificiosGoogleMaps();
-    
-    List<String> accesoEdificiosPorCampusGoogleMaps(String campus);
 }

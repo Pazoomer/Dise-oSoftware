@@ -22,13 +22,10 @@ public interface IAccesoMaestro {
      * @param maestro
      * @return
      */
-    MaestroEditableDTO recuperarMaestro2(MaestroEditableDTO maestro);
+    MaestroEditableDTO recuperarMaestroPorDTO(MaestroEditableDTO maestro);
     
-    /**
-     * Recupera el maestro harcodeado
-     * @return
-     */
-    MaestroEditableDTO accesoCia();
+    //Hace lo mismo que recuperar maestro pero mal
+    //MaestroEditableDTO accesoCia();
     
     /**
      * Edita el maestro en la base de datos

@@ -12,11 +12,11 @@ import java.util.logging.Logger;
  * @author t1pas
  */
 public class FachadaAccesoUbicaciones implements IAccesoUbicaciones {
-    
+
     private final ControlUbicaciones ubicaciones;
 
     public FachadaAccesoUbicaciones(IConexionDAO conexion) {
-         this.ubicaciones = new ControlUbicaciones(conexion);
+        this.ubicaciones = new ControlUbicaciones(conexion);
     }
 
     @Override
@@ -28,25 +28,5 @@ public class FachadaAccesoUbicaciones implements IAccesoUbicaciones {
     public List<String> recuperarEdificiosPorCampus(String campus) {
         return ubicaciones.recuperarEdificiosPorCampus(campus);
     }
-    
-     @Override
-    public List<String> accesoEdificiosGoogleMaps(){
-        try {
-            return ubicaciones.accesoEdificiosGoogleMaps();
-        } catch (NegocioException ex) {
-            Logger.getLogger(FachadaAccesoUbicaciones.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
 
-    @Override
-    public List<String> accesoEdificiosPorCampusGoogleMaps(String campus){
-        try {
-            return ubicaciones.accesoEdificiosPorCampusGoogleMaps(campus);
-        } catch (NegocioException ex) {
-            Logger.getLogger(FachadaAccesoUbicaciones.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-    
 }

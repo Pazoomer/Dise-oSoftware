@@ -40,17 +40,6 @@ public class FachadaAccesoMaestro implements IAccesoMaestro{
         return false;
     }
     
-    //Solo soy una fachada
-    @Override
-    public MaestroEditableDTO accesoCia(){
-        try {
-            return maestros.AccesoCia();
-        } catch (NegocioException ex) {
-            Logger.getLogger(FachadaAccesoMaestro.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-    
     @Override
     public MaestroEditableDTO recuperarMaestro(){
         try {
@@ -62,12 +51,24 @@ public class FachadaAccesoMaestro implements IAccesoMaestro{
     }
 
     @Override
-    public MaestroEditableDTO recuperarMaestro2(MaestroEditableDTO maestro){
+    public MaestroEditableDTO recuperarMaestroPorDTO(MaestroEditableDTO maestro){
         try {
-            return maestros.recuperarMaestro2(maestro);
+            return maestros.recuperarMaestroPorDTO(maestro);
         } catch (NegocioException ex) {
             Logger.getLogger(FachadaAccesoMaestro.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
+    
+        //Solo soy una fachada
+    /*
+    @Override
+    public MaestroEditableDTO accesoCia(){
+        try {
+            return maestros.AccesoCia();
+        } catch (NegocioException ex) {
+            Logger.getLogger(FachadaAccesoMaestro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }*/
 }
