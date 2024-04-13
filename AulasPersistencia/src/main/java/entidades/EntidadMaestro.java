@@ -1,18 +1,26 @@
 
 package entidades;
 
+import conexion.ClaseConexion;
 import entidades.EntidadEvento;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -45,11 +53,15 @@ public class EntidadMaestro implements Serializable {
     @OneToMany(mappedBy = "Maestro", cascade = CascadeType.ALL)
     private List<EntidadEvento> calendario;
     
+    private final OperacionesPersistencia operacionesPers;
+    
     public EntidadMaestro() {
+        this.operacionesPers = new OperacionesPersistencia();
         this.calendario=new ArrayList<>();
     }
-
+    
     public EntidadMaestro(Long idMaestro, String nombre, String cubiculo, String descripcion, String foto, List<EntidadEvento> calendario) {
+        this.operacionesPers = new OperacionesPersistencia();
         this.idMaestro = idMaestro;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
@@ -59,14 +71,13 @@ public class EntidadMaestro implements Serializable {
     }
 
     public EntidadMaestro(Long idMaestro, String nombre, String cubiculo, String descripcion, String foto) {
+        this.operacionesPers = new OperacionesPersistencia();
         this.idMaestro = idMaestro;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
         this.descripcion = descripcion;
         this.foto = foto;
     }
-
-   
 
     public Long getIdBd() {
         return idBd;
@@ -113,11 +124,11 @@ public class EntidadMaestro implements Serializable {
     }
 
     public EntidadMaestro obtenerMaestro(EntidadMaestro maestro){
-        return maestro;
+        return operacionesPers.obtenerMaestro(maestro);
     }
     
     public EntidadMaestro editarMaestro(EntidadMaestro maestroEditado){
-        return maestroEditado;
+        return operacionesPers.editarMaestro(maestroEditado);
     }
     
     public void setCalendario(List<EntidadEvento> calendario) {
@@ -146,11 +157,50 @@ public class EntidadMaestro implements Serializable {
         sb.append('}');
         return sb.toString();
     }
-    
-    
-
-    
-    
-  
-    
+ 
+    private class OperacionesPersistencia{
+        private EntityManager em;
+        private CriteriaBuilder cb;
+        private final static Logger LOG = Logger.getLogger(OperacionesPersistencia.class.getName());
+        
+        OperacionesPersistencia(){
+            em=ClaseConexion.getEntityManager();
+            cb=em.getCriteriaBuilder();
+        }
+        
+        EntidadMaestro obtenerMaestro(EntidadMaestro maestro){
+            CriteriaQuery<EntidadMaestro> criteria=cb.createQuery(EntidadMaestro.class);
+            Root<EntidadMaestro> root=criteria.from(EntidadMaestro.class);
+            
+            criteria.select(root).
+                    where(cb.equal(root.get("idMaestro"),maestro.getIdMaestro()));
+            
+            TypedQuery<EntidadMaestro> query=em.createQuery(criteria);
+            EntidadMaestro maestroEncontrado;
+            try{
+                maestroEncontrado=query.getSingleResult();
+                return maestroEncontrado;
+            }catch(Exception e){
+                LOG.log(Level.SEVERE, e.getMessage(), e);
+                return null;
+            }
+        }
+        
+        EntidadMaestro editarMaestro(EntidadMaestro maestro){
+            EntidadMaestro maestroEditado;
+            if(em.find(EntidadMaestro.class, maestro.getIdBd())!=null){
+                try{
+                    em.getTransaction().begin();
+                    maestroEditado=em.merge(maestro);
+                    em.getTransaction().commit();
+                    return maestroEditado;
+                }catch(Exception e){
+                    em.getTransaction().rollback();
+                    LOG.log(Level.SEVERE, e.getMessage(), e);
+                }
+            }
+            return null;
+        }
+        
+    }
 }
