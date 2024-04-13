@@ -1,6 +1,7 @@
 
-package objetosNegocio;
+package entidades;
 
+import entidades.EntidadEvento;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "maestro")
-public class Maestro implements Serializable {
+public class EntidadMaestro implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,13 +43,13 @@ public class Maestro implements Serializable {
     private String foto;
     
     @OneToMany(mappedBy = "Maestro", cascade = CascadeType.ALL)
-    private List<Evento> calendario;
+    private List<EntidadEvento> calendario;
     
-    public Maestro() {
+    public EntidadMaestro() {
         this.calendario=new ArrayList<>();
     }
 
-    public Maestro(Long idMaestro, String nombre, String cubiculo, String descripcion, String foto, List<Evento> calendario) {
+    public EntidadMaestro(Long idMaestro, String nombre, String cubiculo, String descripcion, String foto, List<EntidadEvento> calendario) {
         this.idMaestro = idMaestro;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
@@ -57,7 +58,7 @@ public class Maestro implements Serializable {
         this.calendario = calendario;
     }
 
-    public Maestro(Long idMaestro, String nombre, String cubiculo, String descripcion, String foto) {
+    public EntidadMaestro(Long idMaestro, String nombre, String cubiculo, String descripcion, String foto) {
         this.idMaestro = idMaestro;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
@@ -107,19 +108,19 @@ public class Maestro implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public List<Evento> getCalendario() {
+    public List<EntidadEvento> getCalendario() {
         return calendario;
     }
 
-    public Maestro obtenerMaestro(Maestro maestro){
+    public EntidadMaestro obtenerMaestro(EntidadMaestro maestro){
         return maestro;
     }
     
-    public Maestro editarMaestro(Maestro maestroEditado){
+    public EntidadMaestro editarMaestro(EntidadMaestro maestroEditado){
         return maestroEditado;
     }
     
-    public void setCalendario(List<Evento> calendario) {
+    public void setCalendario(List<EntidadEvento> calendario) {
         this.calendario = calendario;
     }
 

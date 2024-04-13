@@ -1,5 +1,5 @@
 
-package objetosNegocio;
+package entidades;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -22,7 +22,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "evento")
-public class Evento implements Serializable {
+public class EntidadEvento implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class Evento implements Serializable {
     
     @Column(name="tipo",nullable=true)
     @Enumerated(EnumType.STRING)
-    private TipoEventoEnum tipo;
+    private EntidadTipoEventoEnum tipo;
     
     @Column(name="nombre",nullable=true,length=100)
     private String nombre;
@@ -65,7 +65,7 @@ public class Evento implements Serializable {
     
     @ManyToOne
     @JoinColumn(name = "id_maestro_bd", nullable = false)
-    private Maestro maestro;
+    private EntidadMaestro maestro;
 
     public Long getId() {
         return id;
@@ -75,11 +75,13 @@ public class Evento implements Serializable {
         this.id = id;
     }
     
-     public Evento() {
+     public EntidadEvento() {
 
     }
 
-    public Evento(TipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, String ubicacion, String color, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento, Maestro maestro) {
+    public EntidadEvento(EntidadTipoEventoEnum tipo, String nombre, String descripcion,
+            String diasSemana, String ubicacion, String color, Calendar fechaInicio, 
+            Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento, EntidadMaestro maestro) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -95,7 +97,9 @@ public class Evento implements Serializable {
      
      
 
-    public Evento(TipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, String ubicacion, String color, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento) {
+    public EntidadEvento(EntidadTipoEventoEnum tipo, String nombre, String descripcion, 
+            String diasSemana, String ubicacion, String color, Calendar fechaInicio, 
+            Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -110,7 +114,9 @@ public class Evento implements Serializable {
      
      
 
-    public Evento(TipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, String ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento, Maestro maestro) {
+    public EntidadEvento(EntidadTipoEventoEnum tipo, String nombre, String descripcion, 
+            String diasSemana, String ubicacion, Calendar fechaInicio, 
+            Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento, EntidadMaestro maestro) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -139,7 +145,7 @@ public class Evento implements Serializable {
      * @param horaInicio
      * @param horasDuracionEvento 
      */
-    public Evento(String color, TipoEventoEnum tipo, String nombre, String descripcion,String diasSemana, 
+    public EntidadEvento(String color, EntidadTipoEventoEnum tipo, String nombre, String descripcion,String diasSemana, 
             String ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento) {
         this.color=color;
         this.tipo = tipo;
@@ -164,10 +170,10 @@ public class Evento implements Serializable {
      * @param horaInicio
      * @param horasDuracionEvento 
      */
-    public Evento(String color, String nombre, String descripcion, Calendar fechaInicio, String ubicacion,
+    public EntidadEvento(String color, String nombre, String descripcion, Calendar fechaInicio, String ubicacion,
             Calendar horaInicio, float horasDuracionEvento) {
         this.color=color;
-        this.tipo = TipoEventoEnum.UNICO_UN_DIA;
+        this.tipo = EntidadTipoEventoEnum.UNICO_UN_DIA;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fechaInicio = fechaInicio;
@@ -184,7 +190,7 @@ public class Evento implements Serializable {
         this.fechaFin=fechaCopia;
     }
 
-    public TipoEventoEnum getTipo() {
+    public EntidadTipoEventoEnum getTipo() {
         return tipo;
     }
 
@@ -220,27 +226,27 @@ public class Evento implements Serializable {
         return horasDuracionEvento;
     }
 
-    public Evento editarEvento(Evento evento){
+    public EntidadEvento editarEvento(EntidadEvento evento){
         return evento;
     }
     
-    public boolean agregarEvento(Evento evento){
+    public boolean agregarEvento(EntidadEvento evento){
         return true;
     }
     
-    public Evento obtenerEvento(Evento evento){
+    public EntidadEvento obtenerEvento(EntidadEvento evento){
         return evento;
     }
     
-    public boolean eliminarEvento(Evento evento){
+    public boolean eliminarEvento(EntidadEvento evento){
         return true;
     }
 
-    public Maestro getMaestro() {
+    public EntidadMaestro getMaestro() {
         return maestro;
     }
 
-    public void setMaestro(Maestro maestro) {
+    public void setMaestro(EntidadMaestro maestro) {
         this.maestro = maestro;
     }
 
@@ -252,7 +258,7 @@ public class Evento implements Serializable {
         this.color = color;
     }
     
-    public void setTipoEvento(TipoEventoEnum tipo){
+    public void setTipoEvento(EntidadTipoEventoEnum tipo){
         this.tipo=tipo;
     }
 

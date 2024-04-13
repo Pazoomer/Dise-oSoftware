@@ -7,8 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import objetosNegocio.Evento;
-import objetosNegocio.Maestro;
+import entidades.EntidadEvento;
+import entidades.EntidadMaestro;
 
 /**
  *
@@ -23,7 +23,7 @@ public class EventoDAO implements IEventoDAO{
     }
 
     @Override
-    public Evento guardarEvento(Evento evento) {
+    public EntidadEvento guardarEvento(EntidadEvento evento) {
         EntityManager entityManager = conexion.crearConexion();
         entityManager.getTransaction().begin();
         entityManager.persist(evento);
@@ -33,10 +33,10 @@ public class EventoDAO implements IEventoDAO{
     }
 
     @Override
-    public Evento actualizarEvento(Evento evento) {
+    public EntidadEvento actualizarEvento(EntidadEvento evento) {
         EntityManager entityManager = conexion.crearConexion();
         entityManager.getTransaction().begin();
-        Evento eventoActualizado =entityManager.merge(evento);
+        EntidadEvento eventoActualizado =entityManager.merge(evento);
         entityManager.getTransaction().commit();
         entityManager.close();
         return eventoActualizado;
@@ -46,7 +46,7 @@ public class EventoDAO implements IEventoDAO{
     public boolean eliminarEvento(long eventoId) {
         EntityManager entityManager = conexion.crearConexion();
         entityManager.getTransaction().begin();
-        Evento evento = entityManager.find(Evento.class, eventoId);
+        EntidadEvento evento = entityManager.find(EntidadEvento.class, eventoId);
         entityManager.remove(evento);
         entityManager.getTransaction().commit();
         entityManager.close();
@@ -54,19 +54,19 @@ public class EventoDAO implements IEventoDAO{
     }
 
     @Override
-    public Evento obtenerEventoPorId(long eventoId) {
+    public EntidadEvento obtenerEventoPorId(long eventoId) {
         EntityManager entityManager = conexion.crearConexion();
-        Evento eventoConsultado=entityManager.find(Evento.class, eventoId);
+        EntidadEvento eventoConsultado=entityManager.find(EntidadEvento.class, eventoId);
         entityManager.close();
         return eventoConsultado;
     }
 
     @Override
-    public List<Evento> obtenerTodosLosEventosPorMaestro(Maestro maestro) {
+    public List<EntidadEvento> obtenerTodosLosEventosPorMaestro(EntidadMaestro maestro) {
         EntityManager entityManager = conexion.crearConexion();
         Query query = entityManager.createQuery("SELECT e FROM Evento e WHERE e.maestro = :maestro");
         query.setParameter("maestro", maestro);
-        List<Evento> eventos=query.getResultList();
+        List<EntidadEvento> eventos=query.getResultList();
         entityManager.close();
         return eventos;
     }

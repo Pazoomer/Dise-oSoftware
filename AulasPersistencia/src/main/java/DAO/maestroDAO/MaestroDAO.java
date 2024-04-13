@@ -5,7 +5,7 @@ import conexion.IConexionDAO;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import objetosNegocio.Maestro;
+import entidades.EntidadMaestro;
 
 /**
  *
@@ -19,7 +19,7 @@ public class MaestroDAO implements IMaestroDAO{
     }
 
     @Override
-    public Maestro guardarMaestro(Maestro maestro) {
+    public EntidadMaestro guardarMaestro(EntidadMaestro maestro) {
         EntityManager entityManager = conexion.crearConexion();
         entityManager.getTransaction().begin();
         entityManager.persist(maestro);
@@ -29,10 +29,10 @@ public class MaestroDAO implements IMaestroDAO{
     }
 
     @Override
-    public Maestro actualizarMaestro(Maestro maestro) {
+    public EntidadMaestro actualizarMaestro(EntidadMaestro maestro) {
         EntityManager entityManager = conexion.crearConexion();
         entityManager.getTransaction().begin();
-        Maestro maestroActualizado = entityManager.merge(maestro);
+        EntidadMaestro maestroActualizado = entityManager.merge(maestro);
         entityManager.getTransaction().commit();
         entityManager.close();
         return maestroActualizado;
@@ -42,7 +42,7 @@ public class MaestroDAO implements IMaestroDAO{
     public boolean eliminarMaestro(long maestroId) {
         EntityManager entityManager = conexion.crearConexion();
         entityManager.getTransaction().begin();
-        Maestro maestro = entityManager.find(Maestro.class, maestroId);
+        EntidadMaestro maestro = entityManager.find(EntidadMaestro.class, maestroId);
         entityManager.remove(maestro);
         entityManager.getTransaction().commit();
         entityManager.close();
@@ -50,18 +50,18 @@ public class MaestroDAO implements IMaestroDAO{
     }
 
     @Override
-    public Maestro obtenerMaestroPorId(long maestroId) {
+    public EntidadMaestro obtenerMaestroPorId(long maestroId) {
         EntityManager entityManager = conexion.crearConexion();
-        Maestro maestroConsultado = entityManager.find(Maestro.class, maestroId);
+        EntidadMaestro maestroConsultado = entityManager.find(EntidadMaestro.class, maestroId);
         entityManager.close();
         return maestroConsultado;
     }
 
     @Override
-    public List<Maestro> obtenerTodosLosMaestros() {
+    public List<EntidadMaestro> obtenerTodosLosMaestros() {
         EntityManager entityManager = conexion.crearConexion();
         Query query = entityManager.createQuery("SELECT m FROM Maestro m");
-        List<Maestro> maestros = query.getResultList();
+        List<EntidadMaestro> maestros = query.getResultList();
         entityManager.close();
         return maestros;
     }
