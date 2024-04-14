@@ -1,12 +1,11 @@
 
 package presentacion.pantallas;
 
-import BO.accesoCalendarioBO.AccesoCalendarioBO;
-import BO.accesoCalendarioBO.IAccesoCalendarioBO;
 import DTOS.evento.EventoConsultableDTO;
 import DTOS.evento.TipoEventoEnumDTO;
 import DTOS.maestro.MaestroEditableDTO;
-import excepciones.NegocioException;
+import accesoMaestro.FachadaAccesoMaestro;
+import accesoMaestro.IAccesoMaestro;
 import conexion.IConexionDAO;
 import java.awt.Color;
 import java.awt.Frame;
@@ -19,7 +18,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import presentacion.CDEvento;
 import presentacion.ModeloTablaHorario;
-import subsistemas.accesoCalendario.IAccesoCalendario;
 
 
 /**
@@ -33,7 +31,6 @@ public class PrincipalCalendario extends javax.swing.JFrame {
      */
     private final MaestroEditableDTO maestro;
     PrincipalMaestro prinMaestro;
-    IAccesoCalendario accesoCalendario;
     Frame parent;
     static List<EventoConsultableDTO> calendarioMes;
     static List<EventoConsultableDTO> calendarioMaestro;
@@ -266,9 +263,10 @@ public class PrincipalCalendario extends javax.swing.JFrame {
 
     public void añadirEvento(EventoConsultableDTO evento) {
         calendarioMaestroTemporal.add(evento);
-        IAccesoCalendarioBO accesoCalendarioBO = new AccesoCalendarioBO(conexion);
+        //IAccesoCalendarioBO accesoCalendarioBO = new AccesoCalendarioBO(conexion);
+        IAccesoMaestro accesoCalendario=new FachadaAccesoMaestro(conexion);
 
-        if(accesoCalendarioBO.editarCalendario(calendarioMaestroTemporal)){
+        if(accesoCalendario.editarCalendario(calendarioMaestroTemporal)){
             System.out.println("se actualizo");
             eventoSeleccionado=evento;
         }
@@ -284,10 +282,11 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     }
     
     public void editarEvento(EventoConsultableDTO eventoEditado){
-        IAccesoCalendarioBO accesoCalendarioBO = new AccesoCalendarioBO(conexion);
+        IAccesoMaestro accesoCalendario=new FachadaAccesoMaestro(conexion);
+        //IAccesoCalendarioBO accesoCalendarioBO = new AccesoCalendarioBO(conexion);
         calendarioMaestroTemporal.set(calendarioMaestroTemporal.indexOf(eventoSeleccionado), eventoEditado);
         String msj;
-        if(accesoCalendarioBO.editarCalendario(calendarioMaestroTemporal)){
+        if(accesoCalendario.editarCalendario(calendarioMaestroTemporal)){
             msj="Evento editado correctamente";
         }else{
             msj="Hubo un error al editar el evento";
@@ -341,8 +340,9 @@ public class PrincipalCalendario extends javax.swing.JFrame {
 
     public boolean editarEventso(EventoConsultableDTO eventoEditado){
         //List<EventoConsultableDTO> calendarioEditado;
-        IAccesoCalendarioBO accesoCalendarioBO = new AccesoCalendarioBO(conexion);
-        return accesoCalendarioBO.editarCalendario(calendarioMaestroTemporal);
+        IAccesoMaestro accesoCalendario=new FachadaAccesoMaestro(conexion);
+        //IAccesoCalendarioBO accesoCalendarioBO = new AccesoCalendarioBO(conexion);
+        return accesoCalendario.editarCalendario(calendarioMaestroTemporal);
 //        try{
 //            
 //            //calendarioEditado=accesoCalendario.editarCalendario(calendarioMaestro, eventoEditado, "editar");

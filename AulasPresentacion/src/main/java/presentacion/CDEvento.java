@@ -1,14 +1,11 @@
 
 package presentacion;
 
-import BO.accesoCalendarioBO.AccesoCalendarioBO;
-import BO.accesoCalendarioBO.IAccesoCalendarioBO;
 import DTOS.evento.*;
+import accesoMaestro.FachadaAccesoMaestro;
+import accesoMaestro.IAccesoMaestro;
 import conexion.IConexionDAO;
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 import java.util.Calendar;
 import javax.swing.JCheckBox;
 import javax.swing.ImageIcon;
@@ -27,7 +24,7 @@ public class CDEvento extends javax.swing.JDialog {
     public final PrincipalCalendario calendario;
     private final java.awt.Frame parent;
     private EventoConsultableDTO eventoEditable;
-    private IAccesoCalendarioBO accesoCalendario; 
+    private IAccesoMaestro accesoCalendario; 
     private String tipoOperacion;
     private final IConexionDAO conexion;
     static boolean seEdito;
@@ -260,7 +257,7 @@ public class CDEvento extends javax.swing.JDialog {
     }
     
     public void editarEvento(){
-        accesoCalendario=new AccesoCalendarioBO(conexion);
+        accesoCalendario=new FachadaAccesoMaestro(conexion);
         EventoConsultableDTO eventoEditado=crearEvento();
         calendario.editarEvento(eventoEditado);
     }

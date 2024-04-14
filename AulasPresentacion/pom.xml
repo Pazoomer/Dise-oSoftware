@@ -42,6 +42,16 @@
             <artifactId>AulasSubsistemas</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.DriveWise</groupId>
+            <artifactId>SubAccesoMaestro</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.DriveWise</groupId>
+            <artifactId>SubAccesoUbicaciones</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

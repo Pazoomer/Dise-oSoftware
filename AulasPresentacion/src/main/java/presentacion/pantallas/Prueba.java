@@ -1,9 +1,9 @@
 
 package presentacion.pantallas;
 
-import BO.recuperarMaestroBO.IRecuperarMaestroBO;
-import BO.recuperarMaestroBO.RecuperarMaestroBO;
 import DTOS.maestro.MaestroEditableDTO;
+import accesoMaestro.FachadaAccesoMaestro;
+import accesoMaestro.IAccesoMaestro;
 import conexion.ConexionDAO;
 import conexion.IConexionDAO;
 
@@ -20,8 +20,11 @@ public class Prueba {
 
         IConexionDAO conexion = new ConexionDAO();
 
-        IRecuperarMaestroBO recuperarMaestroBo = new RecuperarMaestroBO(conexion);
-        MaestroEditableDTO maestroEditable = recuperarMaestroBo.recuperarMaestro();
+        IAccesoMaestro accesoMaestro=new FachadaAccesoMaestro(conexion);
+        MaestroEditableDTO maestroEditable = accesoMaestro.recuperarMaestro();
+        
+        //IRecuperarMaestroBO recuperarMaestroBo = new RecuperarMaestroBO(conexion);
+        //MaestroEditableDTO maestroEditable = recuperarMaestroBo.recuperarMaestro();
 
         if (maestroEditable != null) {
             new PrincipalMaestro(maestroEditable, conexion).setVisible(true);

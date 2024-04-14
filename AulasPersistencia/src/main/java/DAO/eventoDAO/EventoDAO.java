@@ -4,17 +4,16 @@ package DAO.eventoDAO;
 import conexion.IConexionDAO;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import entidades.EntidadEvento;
 import entidades.EntidadMaestro;
 
 /**
- *
+ * ESTA CLASE YA NO ES NECESARIA
  * @author pauli
  */
-public class EventoDAO implements IEventoDAO{
+public class EventoDAO //implements IEventoDAO
+{
     
     private final IConexionDAO conexion;
 
@@ -22,7 +21,7 @@ public class EventoDAO implements IEventoDAO{
         this.conexion=conexion;
     }
 
-    @Override
+   // @Override
     public EntidadEvento guardarEvento(EntidadEvento evento) {
         EntityManager entityManager = conexion.crearConexion();
         entityManager.getTransaction().begin();
@@ -32,7 +31,7 @@ public class EventoDAO implements IEventoDAO{
         return evento;
     }
 
-    @Override
+    //@Override
     public EntidadEvento actualizarEvento(EntidadEvento evento) {
         EntityManager entityManager = conexion.crearConexion();
         entityManager.getTransaction().begin();
@@ -42,7 +41,7 @@ public class EventoDAO implements IEventoDAO{
         return eventoActualizado;
     }
 
-    @Override
+    //@Override
     public boolean eliminarEvento(long eventoId) {
         EntityManager entityManager = conexion.crearConexion();
         entityManager.getTransaction().begin();
@@ -53,7 +52,7 @@ public class EventoDAO implements IEventoDAO{
         return true;
     }
 
-    @Override
+    //@Override
     public EntidadEvento obtenerEventoPorId(long eventoId) {
         EntityManager entityManager = conexion.crearConexion();
         EntidadEvento eventoConsultado=entityManager.find(EntidadEvento.class, eventoId);
@@ -61,7 +60,7 @@ public class EventoDAO implements IEventoDAO{
         return eventoConsultado;
     }
 
-    @Override
+  //  @Override
     public List<EntidadEvento> obtenerTodosLosEventosPorMaestro(EntidadMaestro maestro) {
         EntityManager entityManager = conexion.crearConexion();
         Query query = entityManager.createQuery("SELECT e FROM Evento e WHERE e.maestro = :maestro");
@@ -70,4 +69,5 @@ public class EventoDAO implements IEventoDAO{
         entityManager.close();
         return eventos;
     }
+
 }

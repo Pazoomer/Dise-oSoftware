@@ -1,9 +1,9 @@
 package presentacion.pantallas;
 
-import BO.accesoMaestroBO.AccesoMaestroBO;
-import BO.accesoMaestroBO.IAccesoMaestroBO;
 import DTOS.evento.EventoConsultableDTO;
 import DTOS.maestro.MaestroEditableDTO;
+import accesoMaestro.FachadaAccesoMaestro;
+import accesoMaestro.IAccesoMaestro;
 import conexion.IConexionDAO;
 import java.awt.Color;
 import java.awt.Image;
@@ -11,7 +11,6 @@ import java.io.File;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import subsistemas.accesoMaestro.IAccesoMaestro;
 import javax.swing.ImageIcon;
 
 /**
@@ -101,12 +100,13 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         String cubiculo = this.txtCubiculo.getText();
         String foto = "fotoMaestro.png"; //TODO: Hardcodeado
 
-        IAccesoMaestroBO accesoMaestroBO=new AccesoMaestroBO(conexion);
+        IAccesoMaestro accesoMaestro=new FachadaAccesoMaestro(conexion);
+        //IAccesoMaestroBO accesoMaestroBO=new AccesoMaestroBO(conexion);
 
         List<EventoConsultableDTO> calendarioAuxiliar = maestro.getCalendario();
 
         MaestroEditableDTO maestroAuxiliar = new MaestroEditableDTO(maestro.getId(), maestro.getNombre(), cubiculo, descripcion, foto);
-        accesoMaestroBO.editarMaestro(maestroAuxiliar);
+        accesoMaestro.editarMaestro(maestroAuxiliar);
         maestro.setCalendario(calendarioAuxiliar);
         JOptionPane.showMessageDialog(null, "Se actualizo su informacion", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
 
