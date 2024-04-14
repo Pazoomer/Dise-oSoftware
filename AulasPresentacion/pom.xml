@@ -38,11 +38,6 @@
             <version>2.12.7</version>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>AulasSubsistemas</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>com.DriveWise</groupId>
             <artifactId>SubAccesoMaestro</artifactId>
             <version>1.0</version>
