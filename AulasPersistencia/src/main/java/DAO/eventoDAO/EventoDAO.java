@@ -4,8 +4,6 @@ package DAO.eventoDAO;
 import conexion.IConexionDAO;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import entidades.EntidadEvento;
 import entidades.EntidadMaestro;
@@ -13,10 +11,11 @@ import objetosNegocio.Evento;
 import objetosNegocio.Maestro;
 
 /**
- *
+ * ESTA CLASE YA NO ES NECESARIA
  * @author pauli
  */
-public class EventoDAO implements IEventoDAO{
+public class EventoDAO //implements IEventoDAO
+{
     
     private final IConexionDAO conexion;
 
@@ -94,7 +93,12 @@ public class EventoDAO implements IEventoDAO{
     }
 
     @Override
-    public Evento obtenerEventoPorId(long l) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<EntidadEvento> obtenerTodosLosEventosPorMaestro(EntidadMaestro maestro) {
+        EntityManager entityManager = conexion.crearConexion();
+        Query query = entityManager.createQuery("SELECT e FROM Evento e WHERE e.maestro = :maestro");
+        query.setParameter("maestro", maestro);
+        List<EntidadEvento> eventos=query.getResultList();
+        entityManager.close();
+        return eventos;
     }
 }

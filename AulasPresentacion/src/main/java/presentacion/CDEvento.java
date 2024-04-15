@@ -8,9 +8,6 @@ import accesoMaestro.FachadaAccesoMaestro;
 import accesoMaestro.IAccesoMaestro;
 //import conexion.IConexionDAO;
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 import java.util.Calendar;
 import javax.swing.JCheckBox;
 import javax.swing.ImageIcon;
@@ -138,17 +135,17 @@ public class CDEvento extends javax.swing.JDialog {
         //System.out.println("hora inicio evento desde cdEvento: "+hora+":"+minutos);
 
         EventoConsultableDTO eventoN;
-
+        /*
         if (tipo.equals(TipoEventoEnumDTO.UNICO_UN_DIA)) {
             eventoN = new EventoConsultableDTO(nombre, descripcion, "", ubicacion, fecha, horaInicio, horasDuracion);
         } else {
             eventoN = new EventoConsultableDTO(tipo, nombre, descripcion, "",
                     diasSemana, ubicacion, fecha, fecha, horaInicio, horasDuracion);
-        }
+        }*/
 
         //JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
         //calendario.añadirEvento(eventoN);
-        return eventoN;
+        return null;
 
     }
     //TODO
