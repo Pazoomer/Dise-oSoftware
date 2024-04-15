@@ -1,17 +1,24 @@
 package presentacion.pantallas;
 
-import BO.accesoMaestroBO.AccesoMaestroBO;
-import BO.accesoMaestroBO.IAccesoMaestroBO;
+//import BO.accesoMaestroBO.AccesoMaestroBO;
+//import BO.accesoMaestroBO.IAccesoMaestroBO;
+import DTOS.campus.UbicacionDTO;
 import DTOS.evento.EventoConsultableDTO;
 import DTOS.maestro.MaestroEditableDTO;
-import conexion.IConexionDAO;
+import accesoMaestro.FachadaAccesoMaestro;
+import accesoMaestro.IAccesoMaestro;
+import accesoUbicaciones.FachadaAccesoUbicaciones;
+import accesoUbicaciones.IAccesoUbicaciones;
+import excepciones.NegocioException;
+//import conexion.IConexionDAO;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import subsistemas.accesoMaestro.IAccesoMaestro;
+//import subsistemas.accesoMaestro.IAccesoMaestro;
 import javax.swing.ImageIcon;
 
 /**
@@ -23,32 +30,70 @@ public class PrincipalMaestro extends javax.swing.JFrame {
     /**
      * Es el maestro con el que iniciaste sesion
      */
-    private MaestroEditableDTO maestro;
-
+    private MaestroEditableDTO maestroDTO;
+    private IAccesoMaestro accesoMaestro;
+    private IAccesoUbicaciones accesoUbicaciones;
+    private DefaultComboBoxModel cmbBoxModel;
+    private List<UbicacionDTO> edificiosCubiculos;
     /**
      * Permite el acceso a editar la informacion del maestro
      */
-    private IAccesoMaestro accesoM;
-    
-    private final IConexionDAO conexion;
+//    private IAccesoMaestro accesoM;
+//    
+//    private IConexionDAO conexion;
 
     /**
      * Creates new form PrincipalMaestro
      *
      * @param maestro
-     * @param conexion
      */
-    public PrincipalMaestro(MaestroEditableDTO maestro, IConexionDAO conexion) {
+//    public PrincipalMaestro(MaestroEditableDTO maestro, IConexionDAO conexion) {
+//        initComponents();
+//        this.maestro = maestro;
+//        this.conexion=conexion;
+//        cargarMaestro();
+//        cargarIconos();
+//        this.setVisible(true);
+//        this.setSize(800, 600);
+//        
+//    }
+    public PrincipalMaestro(MaestroEditableDTO maestro) {
         initComponents();
-        this.maestro = maestro;
-        this.conexion=conexion;
+        this.maestroDTO = maestro;
+        this.accesoMaestro=new FachadaAccesoMaestro();
+        this.accesoUbicaciones=new FachadaAccesoUbicaciones();
         cargarMaestro();
         cargarIconos();
         this.setVisible(true);
         this.setSize(800, 600);
-        
+        cargarComboBox();
     }
 
+    private void cargarComboBox(){
+        cmbBoxModel=new DefaultComboBoxModel();
+        try{
+            edificiosCubiculos=accesoUbicaciones.recuperarEdificios();
+            for(UbicacionDTO u: edificiosCubiculos){
+                cmbBoxModel.addElement(u.getIdentificador());
+            }
+            cmbBoxCubiculos.setModel(cmbBoxModel);
+            setCubiculoCmbBox();
+        }catch(NegocioException e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }
+    
+    private void setCubiculoCmbBox(){
+        if(edificiosCubiculos!=null && !edificiosCubiculos.isEmpty()){
+            for (UbicacionDTO u : edificiosCubiculos) {
+                if (u.getIdentificador().equals(maestroDTO.getCubiculo().getIdentificador())) {
+                    cmbBoxCubiculos.setSelectedItem(u.getIdentificador());
+                    break;
+                }
+            }
+        }
+        
+    }
     /**
      * Carga los iconos en los botones de la interfaz.
      */
@@ -69,10 +114,11 @@ public class PrincipalMaestro extends javax.swing.JFrame {
      * Coloca los valores del maestro en los campos de texto y foto de perfil
      */
     private void cargarMaestro() {
-        this.txtCubiculo.setText(maestro.getCubiculo());
-        this.txaDescripcion.setText(maestro.getDescripcion());
-        this.lblNombreMaestro.setText(maestro.getNombre());
-        this.lblFotoMaestro.setIcon(cargarIconoDesdeArchivo(maestro.getFoto()));
+        //this.txtCubiculo.setText(maestroDTO.getCubiculo().getIdentificador());
+        this.txaDescripcion.setText(maestroDTO.getDescripcion());
+        this.lblNombreMaestro.setText(maestroDTO.getNombre());
+        this.lblFotoMaestro.setIcon(cargarIconoDesdeArchivo(maestroDTO.getFoto()));
+        setCubiculoCmbBox();
     }
     
     public ImageIcon cargarIconoDesdeArchivo(String nombreArchivo) {
@@ -98,17 +144,24 @@ public class PrincipalMaestro extends javax.swing.JFrame {
      */
     private void editarInformacion() {
         String descripcion = this.txaDescripcion.getText();
-        String cubiculo = this.txtCubiculo.getText();
-        String foto = "fotoMaestro.png"; //TODO: Hardcodeado
-
-        IAccesoMaestroBO accesoMaestroBO=new AccesoMaestroBO(conexion);
-
-        List<EventoConsultableDTO> calendarioAuxiliar = maestro.getCalendario();
-
-        MaestroEditableDTO maestroAuxiliar = new MaestroEditableDTO(maestro.getId(), maestro.getNombre(), cubiculo, descripcion, foto);
-        accesoMaestroBO.editarMaestro(maestroAuxiliar);
-        maestro.setCalendario(calendarioAuxiliar);
-        JOptionPane.showMessageDialog(null, "Se actualizo su informacion", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
+        //String cubiculo = this.txtCubiculo.getText();
+        String edificioCubiculo=cmbBoxCubiculos.getSelectedItem().toString();
+        UbicacionDTO ubicacionCubiculo;
+        MaestroEditableDTO maestroAuxiliar;
+        //List<EventoConsultableDTO> calendarioAuxiliar = maestroDTO.getCalendario();
+        try{
+            ubicacionCubiculo=accesoUbicaciones.recuperarEdificio(new UbicacionDTO((edificioCubiculo)));
+            maestroAuxiliar = new MaestroEditableDTO(maestroDTO.getId(), maestroDTO.getNombre(),
+                    ubicacionCubiculo, descripcion, "fotoMaestro.png");
+            maestroAuxiliar.setIdBD(maestroDTO.getIdBD());
+            if(accesoMaestro.editarMaestro(maestroAuxiliar)){
+                maestroDTO=maestroAuxiliar;
+                JOptionPane.showMessageDialog(null, "Se actualizo su informacion", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
+                cargarMaestro();
+            }
+        }catch(NegocioException e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
 
     }
 
@@ -135,7 +188,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
      * PrincipalCalendario y ocultarse este frame
      */
     private void abrirCalendario() {
-        new PrincipalCalendario(this,this, maestro,conexion).setVisible(true);
+        new PrincipalCalendario(this,this, maestroDTO).setVisible(true);
         this.setVisible(false);
     }
 
@@ -144,6 +197,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
      */
     private void cerrar() {
         this.dispose();
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -157,12 +211,12 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         txaDescripcion = new javax.swing.JTextArea();
         lblDescripcionEstatico = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        txtCubiculo = new javax.swing.JTextField();
         lblCubiculoEstatico = new javax.swing.JLabel();
         lblNombreMaestro = new javax.swing.JLabel();
         lblBienvenido = new javax.swing.JLabel();
         lblFotoMaestro = new javax.swing.JLabel();
         lblInfoFotoEstatico = new javax.swing.JLabel();
+        cmbBoxCubiculos = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -171,7 +225,6 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(null);
 
-        btnAtras.setBackground(new java.awt.Color(255, 255, 255));
         btnAtras.setForeground(new java.awt.Color(255, 255, 255));
         btnAtras.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 0));
         btnAtras.setBorderPainted(false);
@@ -196,7 +249,6 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         jPanel2.add(btnAtras);
         btnAtras.setBounds(70, 370, 70, 50);
 
-        btnCalendario.setBackground(new java.awt.Color(255, 255, 255));
         btnCalendario.setBorder(null);
         btnCalendario.setBorderPainted(false);
         btnCalendario.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -215,7 +267,6 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         jPanel2.add(btnCalendario);
         btnCalendario.setBounds(363, 348, 80, 70);
 
-        btnActualizar.setBackground(new java.awt.Color(255, 255, 255));
         btnActualizar.setBorder(null);
         btnActualizar.setBorderPainted(false);
         btnActualizar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -279,22 +330,21 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(lblInfoFotoEstatico))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(lblFotoMaestro, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(55, 55, 55)
+                .addComponent(lblFotoMaestro, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblBienvenido, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNombreMaestro, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtCubiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCubiculoEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblCubiculoEstatico, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbBoxCubiculos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(67, 67, 67))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(lblInfoFotoEstatico)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -303,12 +353,14 @@ public class PrincipalMaestro extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblBienvenido, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblCubiculoEstatico))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtCubiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNombreMaestro))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblBienvenido)
+                                .addGap(14, 14, 14)
+                                .addComponent(lblNombreMaestro))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblCubiculoEstatico)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmbBoxCubiculos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(26, 26, 26))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
@@ -379,6 +431,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnCalendario;
+    private javax.swing.JComboBox<String> cmbBoxCubiculos;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -389,6 +442,5 @@ public class PrincipalMaestro extends javax.swing.JFrame {
     private javax.swing.JLabel lblInfoFotoEstatico;
     private javax.swing.JLabel lblNombreMaestro;
     private javax.swing.JTextArea txaDescripcion;
-    private javax.swing.JTextField txtCubiculo;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,8 +1,10 @@
 package presentacion.pantallas;
 
-import BO.recuperarUbicacionesBO.IRecuperarUbicacionesBO;
-import BO.recuperarUbicacionesBO.RecuperarUbicacionesBO;
-import conexion.IConexionDAO;
+//import BO.recuperarUbicacionesBO.IRecuperarUbicacionesBO;
+//import BO.recuperarUbicacionesBO.RecuperarUbicacionesBO;
+//import conexion.IConexionDAO;
+import accesoUbicaciones.FachadaAccesoUbicaciones;
+import accesoUbicaciones.IAccesoUbicaciones;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -23,7 +25,7 @@ public class MapaCalendario extends javax.swing.JFrame {
     private int h = 0;
     private Image img = null;
     private String ubicacion;
-    private final IConexionDAO conexion;
+//    private final IConexionDAO conexion;
 
     /**
      * Creates new form MapaCalendario
@@ -31,13 +33,12 @@ public class MapaCalendario extends javax.swing.JFrame {
      * @param cdEvento
      * @param conexion
      */
-    public MapaCalendario(CDEvento cdEvento,IConexionDAO conexion) {
+    public MapaCalendario(CDEvento cdEvento) {
         setUndecorated(true);
         setAlwaysOnTop(true);
         this.setResizable(false);
         initComponents();
         this.cdEvento = cdEvento;
-        this.conexion = conexion;
         setMapa("Obregon Nainari");
         this.setSize(800, 600);
         cargarIconos();
@@ -82,7 +83,7 @@ public class MapaCalendario extends javax.swing.JFrame {
      * Accede al subsistema de recupera ubicaciones por los campus
      */
     private void recuperarUbicaciones() {
-        IRecuperarUbicacionesBO recuperarUbicacionesBO=new RecuperarUbicacionesBO(conexion);
+        IAccesoUbicaciones recuperarUbicacionesBO=new FachadaAccesoUbicaciones();
         List<String> campusUbicaciones=recuperarUbicacionesBO.recuperarCampus();
 
         for (String campusItem : campusUbicaciones) {

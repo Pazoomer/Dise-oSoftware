@@ -1,13 +1,14 @@
 
 package presentacion.pantallas;
 
-import BO.accesoCalendarioBO.AccesoCalendarioBO;
-import BO.accesoCalendarioBO.IAccesoCalendarioBO;
+//import BO.accesoCalendarioBO.AccesoCalendarioBO;
+//import BO.accesoCalendarioBO.IAccesoCalendarioBO;
 import DTOS.evento.EventoConsultableDTO;
 import DTOS.evento.TipoEventoEnumDTO;
 import DTOS.maestro.MaestroEditableDTO;
-import excepciones.NegocioException;
-import conexion.IConexionDAO;
+import accesoMaestro.FachadaAccesoMaestro;
+import accesoMaestro.IAccesoMaestro;
+import accesoUbicaciones.IAccesoUbicaciones;
 import java.awt.Color;
 import java.awt.Frame;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import presentacion.CDEvento;
 import presentacion.ModeloTablaHorario;
-import subsistemas.accesoCalendario.IAccesoCalendario;
+//import subsistemas.accesoCalendario.IAccesoCalendario;
 
 
 /**
@@ -33,7 +34,8 @@ public class PrincipalCalendario extends javax.swing.JFrame {
      */
     private final MaestroEditableDTO maestro;
     PrincipalMaestro prinMaestro;
-    IAccesoCalendario accesoCalendario;
+    IAccesoMaestro accesoMaestro;
+    IAccesoUbicaciones accesoUbicaciones;
     Frame parent;
     static List<EventoConsultableDTO> calendarioMes;
     static List<EventoConsultableDTO> calendarioMaestro;
@@ -42,7 +44,6 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     private CDEvento cdEvento;
     public static boolean isDisplayed=false;
     public static EventoConsultableDTO eventoSeleccionado;
-    private final IConexionDAO conexion;
     
     
     /**
@@ -52,14 +53,30 @@ public class PrincipalCalendario extends javax.swing.JFrame {
      * @param maestro
      * @param conexion
      */
-    public PrincipalCalendario(Frame parent, PrincipalMaestro prinMaestro, MaestroEditableDTO maestro, IConexionDAO conexion) {
+//    public PrincipalCalendario(Frame parent, PrincipalMaestro prinMaestro, MaestroEditableDTO maestro, IConexionDAO conexion) {
+//        setUndecorated(true);
+//        this.setResizable(false);
+//        initComponents();
+//        this.parent=parent;
+//        this.maestro=maestro;
+//        this.prinMaestro=prinMaestro;
+//        this.conexion=conexion;
+//        modelo=new ModeloTablaHorario();
+//        calendarioMaestroTemporal=maestro.getCalendario();
+//        cargarCalendario();
+//        cargarEventos();
+//        this.setVisible(true);
+//        this.setSize(800, 630);
+//        cargarIconos();
+//    }
+    public PrincipalCalendario(Frame parent, PrincipalMaestro prinMaestro, MaestroEditableDTO maestro) {
         setUndecorated(true);
         this.setResizable(false);
         initComponents();
         this.parent=parent;
         this.maestro=maestro;
         this.prinMaestro=prinMaestro;
-        this.conexion=conexion;
+        accesoMaestro=new FachadaAccesoMaestro();
         modelo=new ModeloTablaHorario();
         calendarioMaestroTemporal=maestro.getCalendario();
         cargarCalendario();
@@ -68,6 +85,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         this.setSize(800, 630);
         cargarIconos();
     }
+    
     private void cargarIconos() {
         // Carga el icono de retorno en el botón btnAtras
         ImageIcon iconoReturn = new ImageIcon(getClass().getResource("/imagenes/icons8-return-50.png"));
@@ -194,7 +212,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     
     private void desplegarInfoEvento(){
         if(eventoSeleccionado!=null){
-            CDEvento cdEv = new CDEvento(this, this, eventoSeleccionado, true,"desplegar",conexion);
+            CDEvento cdEv = new CDEvento(this, this, eventoSeleccionado, true,"desplegar");
             cdEv.desplegarEvento();
             cdEv.setVisible(true);
         }//else System.out.println("el evento es null");
@@ -266,7 +284,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
 
     public void añadirEvento(EventoConsultableDTO evento) {
         calendarioMaestroTemporal.add(evento);
-        IAccesoCalendarioBO accesoCalendarioBO = new AccesoCalendarioBO(conexion);
+        //IAccesoCalendarioBO accesoCalendarioBO = new AccesoCalendarioBO(conexion);
 
         if(accesoCalendarioBO.editarCalendario(calendarioMaestroTemporal)){
             System.out.println("se actualizo");
