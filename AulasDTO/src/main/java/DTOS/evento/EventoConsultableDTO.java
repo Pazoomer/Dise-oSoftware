@@ -1,26 +1,33 @@
 package DTOS.evento;
 
+import DTOS.campus.UbicacionDTO;
+import DTOS.maestro.MaestroEditableDTO;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Objects;
 
 /**
  *
  * @author t1pas, luisa
  */
 public class EventoConsultableDTO {
-
+    private Long id;
     private TipoEventoEnumDTO tipo;
-    private final String nombre;
-    private final String descripcion;
-    private final String color;
+    private String nombre;
+    private String descripcion;
+    private String color;
     private String diasSemana;
-    private final String ubicacion;
+    private UbicacionDTO ubicacion;
     private Calendar fechaInicio;
     private Calendar fechaFin;
-    private final Calendar horaInicio;
-    private final float horasDuracionEvento;
+    private Calendar horaInicio;
+    private float horasDuracionEvento;
+    private MaestroEditableDTO maestro;
 
+    public EventoConsultableDTO(String nombre) {
+        this.nombre=nombre;
+    }
+
+    
     /**
      * Constructor para eventos de un solo dia. Calcula la fecha fin del evento
      * tomando la fecha inicio como base y a esta se le suman las horas que dura
@@ -35,7 +42,7 @@ public class EventoConsultableDTO {
      * @param horasDuracionEvento
      */
     public EventoConsultableDTO(String nombre, String descripcion, String color,
-            String ubicacion, Calendar fechaInicio, Calendar horaInicio, float horasDuracionEvento) {
+            UbicacionDTO ubicacion, Calendar fechaInicio, Calendar horaInicio, float horasDuracionEvento) {
         this.tipo = TipoEventoEnumDTO.UNICO_UN_DIA;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -62,6 +69,7 @@ public class EventoConsultableDTO {
         this.fechaFin = fechaCopia;
     }
 
+
     /**
      * Constructor para eventos que van a durar mas de un dia.Aplica para
      * eventos de tipo semanal o unico de varios dias
@@ -78,7 +86,7 @@ public class EventoConsultableDTO {
      * @param horasDuracionEvento
      */
     public EventoConsultableDTO(TipoEventoEnumDTO tipo, String nombre, String descripcion, String color,String diasSemanaa,
-            String ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento) {
+            UbicacionDTO ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento) {
         this.fechaInicio = fechaInicio;
         this.fechaFin = Calendar.getInstance();
         this.horaInicio = horaInicio;
@@ -94,6 +102,22 @@ public class EventoConsultableDTO {
         this.color = color;
         this.ubicacion = ubicacion;
         this.diasSemana = diasSemanaa;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    public MaestroEditableDTO getMaestro() {
+        return maestro;
+    }
+
+    public void setMaestro(MaestroEditableDTO maestro) {
+        this.maestro = maestro;
     }
 //    public EventoConsultableDTO(TipoEventoEnumDTO tipo, String nombre, String descripcion, Color color, boolean[] diasSemanaaa, 
 //            String ubicacion, Calendar fechaInicio, Calendar fechaFin) {
@@ -146,7 +170,7 @@ public class EventoConsultableDTO {
         return color;
     }
 
-    public String getUbicacion() {
+    public UbicacionDTO getUbicacion() {
         return ubicacion;
     }
 
@@ -165,18 +189,18 @@ public class EventoConsultableDTO {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("EventoNuevoDTO{");
+        sb.append("EventoDTO{");
         sb.append("tipo=").append(tipo);
         sb.append(", nombre=").append(nombre);
         sb.append(", descripcion=").append(descripcion);
         sb.append(", color=").append(color);
-        sb.append(", ubicacion=").append(ubicacion);
+        sb.append(", ubicacion[").append(ubicacion.toStringReducido()).append(']');
         sb.append(", fechaInicio=").append(fechaToString(fechaInicio));
         sb.append(", fechaFin=").append(fechaToString(fechaFin));
         sb.append('}');
         return sb.toString();
     }
-
+    
     /**
      * metodo para convertir la fecha de tipo GregorianCalendar a un string con
      * formato yyyy-mm-dd
@@ -189,27 +213,4 @@ public class EventoConsultableDTO {
         return formatoFecha.format(fecha.getTime());
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 73 * hash + Objects.hashCode(this.nombre);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final EventoConsultableDTO other = (EventoConsultableDTO) obj;
-        return Objects.equals(this.nombre, other.nombre);
-    }
-    
-    
 }
