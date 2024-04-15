@@ -9,19 +9,17 @@ import javax.persistence.Persistence;
  *
  * @author t1pas
  */
-public class ClaseConexion implements IConexionDAO{
+public class ClaseConexion{
 
-    private static final EntityManagerFactory emf=Persistence.createEntityManagerFactory("conexionPU");
+    private static final EntityManagerFactory emf=Persistence.createEntityManagerFactory("PUAula");
     private static EntityManager em;
-    private static ClaseConexion conexion;
     
     private ClaseConexion(){
-        em=emf.createEntityManager();
     }
     
     public static synchronized EntityManager getEntityManager(){
         if(em==null){
-            conexion=new ClaseConexion();
+            em=emf.createEntityManager();
         }
         return em;
     }
@@ -37,18 +35,18 @@ public class ClaseConexion implements IConexionDAO{
         }
     }
     
-    /**
-     * Contraseña de la base de datos 1234a
-     *
-     * @return
-     */
-    @Override
-    public EntityManager crearConexion() {
-
-        EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("PUAula");
-
-        EntityManager entityManager = emFactory.createEntityManager();
-
-        return entityManager;
-    }
+//    /**
+//     * Contraseña de la base de datos 1234a
+//     *
+//     * @return
+//     */
+//    @Override
+//    public EntityManager crearConexion() {
+//
+//        EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("PUAula");
+//
+//        EntityManager entityManager = emFactory.createEntityManager();
+//
+//        return entityManager;
+//    }
 }
