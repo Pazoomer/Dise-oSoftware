@@ -97,7 +97,7 @@ public class MapaCalendario extends javax.swing.JFrame {
      * @param campus 
      */
     private void cambioCampus(String campus) {
-        IAccesoUbicaciones accesoUbicaciones=new FachadaAccesoUbicaciones(conexion);
+        IAccesoUbicaciones accesoUbicaciones=new FachadaAccesoUbicaciones();
         //IRecuperarUbicacionesBO recuperarUbicacionesBO=new RecuperarUbicacionesBO(conexion);
         List<String> ubicacionesCampus = accesoUbicaciones.recuperarEdificiosPorCampus(campus);
 

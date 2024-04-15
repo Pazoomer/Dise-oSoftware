@@ -302,7 +302,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     }
     
     public void editarEvento(EventoConsultableDTO eventoEditado){
-        IAccesoMaestro accesoCalendario=new FachadaAccesoMaestro(conexion);
+        IAccesoMaestro accesoCalendario=new FachadaAccesoMaestro();
         //IAccesoCalendarioBO accesoCalendarioBO = new AccesoCalendarioBO(conexion);
         calendarioMaestroTemporal.set(calendarioMaestroTemporal.indexOf(eventoSeleccionado), eventoEditado);
         String msj;
