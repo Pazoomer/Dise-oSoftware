@@ -5,8 +5,12 @@
 package objetosNegocio;
 
 import DTOS.evento.EventoConsultableDTO;
+import entidades.CrudEvento;
 import java.util.Calendar;
 import entidades.EntidadEvento;
+import excepciones.NegocioException;
+import excepcioness.PersistenciaExceptionn;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -17,19 +21,23 @@ public class Evento {
     private String nombre;
     private String descripcion;
     private String diasSemana;
-    private String ubicacion;
+    private Ubicacion ubicacion;
     private Calendar fechaInicio;
     private Calendar fechaFin;
     private Calendar horaInicio;
     private float horasDuracionEvento;
-    private EntidadEvento eventoPersistencia;
+    private CrudEvento crudEvento;
     private Conversiones convertidor;
 
     public Evento() {
+        this.convertidor=new Conversiones();
+        this.crudEvento=new CrudEvento();
     }
 
     public Evento(TipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, 
-            String ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento) {
+            Ubicacion ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento) {
+        this.convertidor=new Conversiones();
+        this.crudEvento=new CrudEvento();
         this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -43,8 +51,10 @@ public class Evento {
         this.horasDuracionEvento = horasDuracionEvento;
     }
 
-    public Evento(String nombre, String descripcion, String ubicacion, Calendar fechaInicio,
+    public Evento(String nombre, String descripcion, Ubicacion ubicacion, Calendar fechaInicio,
             Calendar horaInicio, float horasDuracionEvento) {
+        this.convertidor=new Conversiones();
+        this.crudEvento=new CrudEvento();
         this.tipo=TipoEventoEnum.UNICO_UN_DIA;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -64,26 +74,41 @@ public class Evento {
         this.fechaFin=fechaCopia;
     }
 
-    public boolean agregarEvento(EventoConsultableDTO evento){
+    public boolean agregarEvento(EventoConsultableDTO evento)throws NegocioException{
         EntidadEvento eventoNuevo=convertidor.toEventoBO(evento);
-        return eventoPersistencia.agregarEvento(eventoNuevo);
+        try{
+            return crudEvento.agregarEvento(eventoNuevo);
+        }catch(PersistenciaExceptionn e){
+            throw new NegocioException(e.getMessage());
+        }
     }
     
-    public EventoConsultableDTO editarEvento(EventoConsultableDTO evento){
+    public EventoConsultableDTO editarEvento(EventoConsultableDTO evento)throws NegocioException{
         EntidadEvento eventoAEditar=convertidor.toEventoBO(evento);
-        return convertidor.toEventoDTO(eventoPersistencia.editarEvento(eventoAEditar));
+        try{
+            return convertidor.toEventoDTO(crudEvento.editarEvento(eventoAEditar),null);
+        }catch(PersistenciaExceptionn e){
+            throw new NegocioException(e.getMessage());
+        }
     }
     
-    public boolean eliminarEvento(EventoConsultableDTO evento){
+    public boolean eliminarEvento(EventoConsultableDTO evento)throws NegocioException{
         EntidadEvento eventoEliminado=convertidor.toEventoBO(evento);
-        return eventoPersistencia.eliminarEvento(eventoEliminado);
+        try{
+            return crudEvento.eliminarEvento(eventoEliminado);
+        }catch(PersistenciaExceptionn e){
+            throw new NegocioException(e.getMessage());
+        }
     }
     
-    public EventoConsultableDTO obtenerEvento(EventoConsultableDTO evento){
+    public EventoConsultableDTO obtenerEvento(EventoConsultableDTO evento)throws NegocioException{
         EntidadEvento eventoBuscado=convertidor.toEventoBO(evento);
-        return convertidor.toEventoDTO(eventoPersistencia.obtenerEvento(eventoBuscado));
+        try{
+            return convertidor.toEventoDTO(crudEvento.obtenerEvento(eventoBuscado),null);
+        }catch(PersistenciaExceptionn e){
+            throw new NegocioException(e.getMessage());
+        }
     }
-    
     
     public TipoEventoEnum getTipo() {
         return tipo;
@@ -117,11 +142,11 @@ public class Evento {
         this.diasSemana = diasSemana;
     }
 
-    public String getUbicacion() {
+    public Ubicacion getUbicacion() {
         return ubicacion;
     }
 
-    public void setUbicacion(String ubicacion) {
+    public void setUbicacion(Ubicacion ubicacion) {
         this.ubicacion = ubicacion;
     }
 
@@ -160,19 +185,41 @@ public class Evento {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Evento{");
-        sb.append("tipo=").append(tipo);
+        sb.append("Eventos{");
+        sb.append("tipo=").append(tipo.toString());
         sb.append(", nombre=").append(nombre);
-        sb.append(", descripcion=").append(descripcion);
-        sb.append(", diasSemana=").append(diasSemana);
-        sb.append(", ubicacion=").append(ubicacion);
-        sb.append(", fechaInicio=").append(fechaInicio);
-        sb.append(", fechaFin=").append(fechaFin);
-        sb.append(", horaInicio=").append(horaInicio);
-        sb.append(", horasDuracionEvento=").append(horasDuracionEvento);
+        sb.append(", ubicacion[").append(ubicacion.toStringReducido()).append(']');
+        switch(tipo){
+            case UNICO_UN_DIA -> sb.append(", fecha inicio=").append(fechaToString(fechaInicio));
+            case UNICO_VARIOS_DIAS -> {
+                sb.append(", fecha inicio=").append(fechaToString(fechaInicio));
+                sb.append(", fecha fin=").append(fechaToString(fechaFin));
+            }
+            case SEMANAL -> sb.append(", dias semana=").append(diasSemana);
+        }
+        sb.append(", hora inicio=").append(fechaToString(horaInicio));
+        sb.append(", hrs duracion=").append(horasDuracionEvento);
         sb.append('}');
         return sb.toString();
     }
     
+    public String toStringReducido(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("nombre=").append(nombre);
+        switch(tipo){
+            case UNICO_UN_DIA -> sb.append(", fecha inicio=").append(fechaToString(fechaInicio));
+            case UNICO_VARIOS_DIAS -> {
+                sb.append(", fecha inicio=").append(fechaToString(fechaInicio));
+                sb.append(", fecha fin=").append(fechaToString(fechaFin));
+            }
+            case SEMANAL -> sb.append(", dias semana=").append(diasSemana);
+        }
+        sb.append(", hora inicio=").append(fechaToString(horaInicio));
+        return sb.toString();
+    }
     
+    public String fechaToString(Calendar fecha){
+        SimpleDateFormat formatoFecha=new SimpleDateFormat("yyyy-MM-dd");
+        return formatoFecha.format(fecha.getTime());
+    }
 }

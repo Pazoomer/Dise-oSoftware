@@ -5,7 +5,12 @@
 package objetosNegocio;
 
 import DTOS.maestro.MaestroEditableDTO;
+import entidades.CrudMaestro;
 import entidades.EntidadMaestro;
+import excepciones.NegocioException;
+import excepcioness.PersistenciaExceptionn;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -14,38 +19,53 @@ import entidades.EntidadMaestro;
 public class Maestro {
     private Long id;
     private String nombre;
-    private String cubiculo;
+    private Ubicacion cubiculo;
     private String descripcion;
     private Calendario calendario;
+    private List<Evento> calendarioEv;
     private Conversiones convertidor;
-    private EntidadMaestro maestroPersistencia;
+    private CrudMaestro crudMaestro;
 
     public Maestro() {
+        this.convertidor=new Conversiones();
+        this.crudMaestro=new CrudMaestro();
+        this.calendarioEv=new ArrayList<>();
     }
 
-    public Maestro(Long id, String nombre, String cubiculo, String descripcion, Calendario calendario) {
+    public Maestro(Long id, String nombre, Ubicacion cubiculo, String descripcion, List<Evento> calendarioEv) {
         this.id = id;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
         this.descripcion = descripcion;
-        this.calendario = calendario;
+        this.calendarioEv = calendarioEv;
+        this.convertidor=new Conversiones();
     }
 
-    public Maestro(Long id, String nombre, String cubiculo, String descripcion) {
+    public Maestro(Long id, String nombre, Ubicacion cubiculo, String descripcion) {
         this.id = id;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
         this.descripcion = descripcion;
+        this.convertidor=new Conversiones();
+        this.calendarioEv=new ArrayList<>();
     }
 
-    public MaestroEditableDTO editarMaestro(MaestroEditableDTO maestro){
+    public MaestroEditableDTO editarMaestro(MaestroEditableDTO maestro)throws NegocioException{
         EntidadMaestro maestroEditado= convertidor.toMaestroBO(maestro);
-        return convertidor.toMaestroDTO(maestroPersistencia.editarMaestro(maestroEditado));
+        try{
+            return convertidor.toMaestroDTO(crudMaestro.editarMaestro(maestroEditado));
+        }catch(PersistenciaExceptionn e){
+            throw new NegocioException(e.getMessage());
+        }
     }
     
-    public MaestroEditableDTO obtenerMaestro(MaestroEditableDTO maestro){
+    public MaestroEditableDTO obtenerMaestro(MaestroEditableDTO maestro)throws NegocioException{
         EntidadMaestro maestroBuscado=convertidor.toMaestroBO(maestro);
-        return convertidor.toMaestroDTO(maestroPersistencia.obtenerMaestro(maestroBuscado));
+        try{
+            return convertidor.toMaestroDTO(crudMaestro.obtenerMaestro(maestroBuscado));
+        }catch(PersistenciaExceptionn e){
+            throw new NegocioException(e.getMessage());
+        }
     }
     
     public Long getId() {
@@ -64,11 +84,11 @@ public class Maestro {
         this.nombre = nombre;
     }
 
-    public String getCubiculo() {
+    public Ubicacion getCubiculo() {
         return cubiculo;
     }
 
-    public void setCubiculo(String cubiculo) {
+    public void setCubiculo(Ubicacion cubiculo) {
         this.cubiculo = cubiculo;
     }
 
@@ -94,10 +114,20 @@ public class Maestro {
         sb.append("Maestro{");
         sb.append("id=").append(id);
         sb.append(", nombre=").append(nombre);
-        sb.append(", cubiculo=").append(cubiculo);
+        sb.append(", cubiculo[").append(cubiculo.toStringReducido()).append(']');
         sb.append(", descripcion=").append(descripcion);
-        sb.append(", calendario=").append(calendario);
+        sb.append(", calendario=").append(calendarioToString());
         sb.append('}');
+        return sb.toString();
+    }
+    
+    public String calendarioToString(){
+        StringBuilder sb=new StringBuilder();
+        sb.append("Eventos[");
+        for(Evento ev:calendarioEv){
+            sb.append('{').append(ev.toStringReducido()).append('}');
+        }
+        sb.append("]");
         return sb.toString();
     }
     
