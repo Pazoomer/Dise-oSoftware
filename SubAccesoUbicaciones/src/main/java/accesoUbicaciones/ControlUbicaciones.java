@@ -5,10 +5,6 @@ import DTOS.campus.CampusConsultableDTO;
 import DTOS.campus.UbicacionDTO;
 import excepciones.NegocioException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import objetosNegocio.Ubicacion;
 
 /**
@@ -17,7 +13,7 @@ import objetosNegocio.Ubicacion;
  */
 public class ControlUbicaciones {
     
-    private Ubicacion ubicacionBO;
+    private final Ubicacion ubicacionBO;
     
     public ControlUbicaciones() {
         this.ubicacionBO=new Ubicacion();

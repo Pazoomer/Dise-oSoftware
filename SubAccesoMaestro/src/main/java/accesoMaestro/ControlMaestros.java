@@ -2,21 +2,11 @@
 package accesoMaestro;
 
 import DTOS.evento.EventoConsultableDTO;
-import DTOS.evento.TipoEventoEnumDTO;
 import DTOS.maestro.MaestroEditableDTO;
 //import conexion.IConexionDAO;
 import excepciones.NegocioException;
-import java.awt.Image;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
-import javax.swing.ImageIcon;
-import objetosNegocio.Evento;
 import objetosNegocio.Maestro;
-import objetosNegocio.TipoEventoEnum;
 //import static objetosNegocio.TipoEventoEnum.SEMANAL;
 //import static objetosNegocio.TipoEventoEnum.UNICO_UN_DIA;
 //import static objetosNegocio.TipoEventoEnum.UNICO_VARIOS_DIAS;
@@ -25,7 +15,7 @@ import objetosNegocio.TipoEventoEnum;
  * @author t1pas
  */
 public class ControlMaestros {
-    private Maestro maestroBO;
+    private final Maestro maestroBO;
     //private IConexionDAO conexion;
 //
 //    public ControlMaestros(IConexionDAO conexion) {

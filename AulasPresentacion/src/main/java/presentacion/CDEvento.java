@@ -39,7 +39,6 @@ public class CDEvento extends javax.swing.JDialog {
      * @param calendario
      * @param modal
      * @param tipoOperacion
-     * @param conexion
      */
     public CDEvento(java.awt.Frame parent, PrincipalCalendario calendario, boolean modal, String tipoOperacion) {
         super(parent, modal);
