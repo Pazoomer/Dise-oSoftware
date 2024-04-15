@@ -1,10 +1,12 @@
 
 package presentacion;
 
-import BO.accesoCalendarioBO.AccesoCalendarioBO;
-import BO.accesoCalendarioBO.IAccesoCalendarioBO;
+//import BO.accesoCalendarioBO.AccesoCalendarioBO;
+//import BO.accesoCalendarioBO.IAccesoCalendarioBO;
 import DTOS.evento.*;
-import conexion.IConexionDAO;
+import accesoMaestro.FachadaAccesoMaestro;
+import accesoMaestro.IAccesoMaestro;
+//import conexion.IConexionDAO;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,9 +29,10 @@ public class CDEvento extends javax.swing.JDialog {
     public final PrincipalCalendario calendario;
     private final java.awt.Frame parent;
     private EventoConsultableDTO eventoEditable;
-    private IAccesoCalendarioBO accesoCalendario; 
+    private IAccesoMaestro accesoMaestro;
+//    private IAccesoCalendarioBO accesoCalendario; 
     private String tipoOperacion;
-    private final IConexionDAO conexion;
+//    private final IConexionDAO conexion;
     static boolean seEdito;
     /**
      * Creates new form CDEvento
@@ -39,26 +42,26 @@ public class CDEvento extends javax.swing.JDialog {
      * @param tipoOperacion
      * @param conexion
      */
-    public CDEvento(java.awt.Frame parent, PrincipalCalendario calendario, boolean modal, String tipoOperacion, IConexionDAO conexion) {
+    public CDEvento(java.awt.Frame parent, PrincipalCalendario calendario, boolean modal, String tipoOperacion) {
         super(parent, modal);
         initComponents();
         this.calendario = calendario;
         this.parent = parent;
-        this.conexion = conexion;
         this.tipoOperacion = tipoOperacion;
+        this.accesoMaestro=new FachadaAccesoMaestro();
         this.setSize(500, 620);
         actualizarPermisos();
         cargarIconos();
     }
 
-    public CDEvento(java.awt.Frame parent, PrincipalCalendario calendario, EventoConsultableDTO eventoEditable, boolean modal, String tipoOperacion, IConexionDAO conexion) {
+    public CDEvento(java.awt.Frame parent, PrincipalCalendario calendario, EventoConsultableDTO eventoEditable, boolean modal, String tipoOperacion) {
         super(parent, modal);
         initComponents();
         this.calendario = calendario;
         this.parent = parent;
-        this.conexion=conexion;
         this.eventoEditable = eventoEditable;
         this.tipoOperacion = tipoOperacion;
+        this.accesoMaestro=new FachadaAccesoMaestro();
         seEdito=false;
         cargarIconos();
         this.setSize(500, 620);
@@ -233,7 +236,7 @@ public class CDEvento extends javax.swing.JDialog {
      * Abre el frame MapaCalendario
      */
     private void abrirMapa(){
-        new MapaCalendario(this,conexion).setVisible(true);
+        new MapaCalendario(this).setVisible(true);
         calendario.setVisible(false);
         this.setVisible(false);
     }
@@ -260,7 +263,7 @@ public class CDEvento extends javax.swing.JDialog {
     }
     
     public void editarEvento(){
-        accesoCalendario=new AccesoCalendarioBO(conexion);
+        //accesoCalendario=new AccesoCalendarioBO(conexion);
         EventoConsultableDTO eventoEditado=crearEvento();
         calendario.editarEvento(eventoEditado);
     }
