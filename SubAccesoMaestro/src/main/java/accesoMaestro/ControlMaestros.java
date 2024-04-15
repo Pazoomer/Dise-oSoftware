@@ -37,7 +37,7 @@ public class ControlMaestros {
     }
     
     protected boolean editarCalendario(List<EventoConsultableDTO> calendario) throws NegocioException{
-        return false;
+        return true;
 //        EntityManager entityManager=conexion.crearConexion();
 //        try {
 //            entityManager.getTransaction().begin();
