@@ -1,6 +1,9 @@
 
 package accesoUbicaciones;
 
+import DTOS.campus.CampusConsultableDTO;
+import DTOS.campus.UbicacionDTO;
+import excepciones.NegocioException;
 import java.util.List;
 
 /**
@@ -10,14 +13,19 @@ import java.util.List;
 public interface IAccesoUbicaciones {
     /**
      * Recupera los campus
+     * @param ubicacion
      * @return 
+     * @throws excepciones.NegocioException 
      */
-    public List<String> recuperarEdificios();
+    public UbicacionDTO recuperarEdificio(UbicacionDTO ubicacion)throws NegocioException;
     
     /**
      * Recupera los edificios de un campus
      * @param campus
      * @return 
+     * @throws excepciones.NegocioException 
      */
-    public List<String> recuperarEdificiosPorCampus(String campus);
+    public List<UbicacionDTO> recuperarEdificiosPorCampus(CampusConsultableDTO campus)throws NegocioException;
+    
+    public List<UbicacionDTO> recuperarEdificios()throws NegocioException;
 }

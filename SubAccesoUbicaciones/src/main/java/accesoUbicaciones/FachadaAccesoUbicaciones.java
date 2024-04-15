@@ -1,7 +1,7 @@
 
 package accesoUbicaciones;
 
-import conexion.IConexionDAO;
+import DTOS.campus.*;
 import excepciones.NegocioException;
 import java.util.List;
 import java.util.logging.Level;
@@ -15,18 +15,23 @@ public class FachadaAccesoUbicaciones implements IAccesoUbicaciones {
 
     private final ControlUbicaciones ubicaciones;
 
-    public FachadaAccesoUbicaciones(IConexionDAO conexion) {
-        this.ubicaciones = new ControlUbicaciones(conexion);
+    public FachadaAccesoUbicaciones() {
+        this.ubicaciones = new ControlUbicaciones();
     }
 
     @Override
-    public List<String> recuperarEdificios() {
-        return ubicaciones.recuperarEdificios();
+    public UbicacionDTO recuperarEdificio(UbicacionDTO ubicacion)throws NegocioException {
+        return ubicaciones.recuperarEdificio(ubicacion);
     }
 
     @Override
-    public List<String> recuperarEdificiosPorCampus(String campus) {
+    public List<UbicacionDTO> recuperarEdificiosPorCampus(CampusConsultableDTO campus) throws NegocioException{
         return ubicaciones.recuperarEdificiosPorCampus(campus);
+    }
+
+    @Override
+    public List<UbicacionDTO> recuperarEdificios() throws NegocioException {
+        return ubicaciones.recuperarEdificios();
     }
 
 }
