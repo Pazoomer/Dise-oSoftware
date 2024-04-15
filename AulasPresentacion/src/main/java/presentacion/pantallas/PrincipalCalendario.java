@@ -9,6 +9,7 @@ import DTOS.maestro.MaestroEditableDTO;
 import accesoMaestro.FachadaAccesoMaestro;
 import accesoMaestro.IAccesoMaestro;
 import accesoUbicaciones.IAccesoUbicaciones;
+import excepciones.NegocioException;
 import java.awt.Color;
 import java.awt.Frame;
 import java.util.ArrayList;
@@ -285,19 +286,23 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     public void añadirEvento(EventoConsultableDTO evento) {
         calendarioMaestroTemporal.add(evento);
         //IAccesoCalendarioBO accesoCalendarioBO = new AccesoCalendarioBO(conexion);
-
-        if(accesoCalendario.editarCalendario(calendarioMaestroTemporal)){
-            System.out.println("se actualizo");
-            eventoSeleccionado=evento;
-        }
-        else 
+        try{
+            if (accesoMaestro.editarCalendario(calendarioMaestroTemporal)) {
+                System.out.println("se actualizo");
+                eventoSeleccionado = evento;
+                cargarEventos();
+            }else 
             System.out.println("no se actualizo");
+        }catch(NegocioException e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        
         //cargarCalendario();
-        cargarEventos();
+        
     }
 
     private void añadirEvento() {
-        cdEvento = new CDEvento(this,this, true,"agregar",conexion);
+        cdEvento = new CDEvento(this,this, true,"agregar");
         cdEvento.setVisible(true);
     }
     
@@ -306,24 +311,29 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         //IAccesoCalendarioBO accesoCalendarioBO = new AccesoCalendarioBO(conexion);
         calendarioMaestroTemporal.set(calendarioMaestroTemporal.indexOf(eventoSeleccionado), eventoEditado);
         String msj;
-        if(accesoCalendario.editarCalendario(calendarioMaestroTemporal)){
-            msj="Evento editado correctamente";
-        }else{
+        try{
+            if (accesoCalendario.editarCalendario(calendarioMaestroTemporal)) {
+                msj = "Evento editado correctamente";
+            } else {
+                msj = "No se edito el evento";
+            }
+        }catch(NegocioException e){
             msj="Hubo un error al editar el evento";
         }
+        
         JOptionPane.showMessageDialog(this, msj,
                     "Status de la operacion",JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void desplegarCDEvento(String operacion) {
         switch (operacion) {
-            case "agregar" -> cdEvento = new CDEvento(parent,this, true,operacion, conexion);
+            case "agregar" -> cdEvento = new CDEvento(parent,this, true,operacion);
             case "editar" -> {
-                cdEvento = new CDEvento( parent,this, eventoSeleccionado, true,"editar",conexion);
+                cdEvento = new CDEvento( parent,this, eventoSeleccionado, true,"editar");
                 cdEvento.desplegarEventoEditable();
             }
             case "desplegar" -> {
-                cdEvento = new CDEvento(parent,this, eventoSeleccionado, true,"desplegar",conexion);
+                cdEvento = new CDEvento(parent,this, eventoSeleccionado, true,"desplegar");
                 cdEvento.desplegarEvento();
             }
             default -> {
@@ -360,9 +370,14 @@ public class PrincipalCalendario extends javax.swing.JFrame {
 
     public boolean editarEventso(EventoConsultableDTO eventoEditado){
         //List<EventoConsultableDTO> calendarioEditado;
-        IAccesoMaestro accesoCalendario=new FachadaAccesoMaestro(conexion);
+        IAccesoMaestro accesoCalendario=new FachadaAccesoMaestro();
         //IAccesoCalendarioBO accesoCalendarioBO = new AccesoCalendarioBO(conexion);
-        return accesoCalendario.editarCalendario(calendarioMaestroTemporal);
+        try{
+            return accesoCalendario.editarCalendario(calendarioMaestroTemporal);
+        }catch(NegocioException e){
+            JOptionPane.showMessageDialog(this, e.getMessage());
+            return false;
+        }
 //        try{
 //            
 //            //calendarioEditado=accesoCalendario.editarCalendario(calendarioMaestro, eventoEditado, "editar");

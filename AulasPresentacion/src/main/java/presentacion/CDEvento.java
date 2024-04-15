@@ -3,6 +3,7 @@ package presentacion;
 
 //import BO.accesoCalendarioBO.AccesoCalendarioBO;
 //import BO.accesoCalendarioBO.IAccesoCalendarioBO;
+import DTOS.campus.UbicacionDTO;
 import DTOS.evento.*;
 import accesoMaestro.FachadaAccesoMaestro;
 import accesoMaestro.IAccesoMaestro;
@@ -27,6 +28,7 @@ public class CDEvento extends javax.swing.JDialog {
     private final java.awt.Frame parent;
     private EventoConsultableDTO eventoEditable;
     private IAccesoMaestro accesoMaestro;
+    private UbicacionDTO ubicacionDTO;
 //    private IAccesoCalendarioBO accesoCalendario; 
     private String tipoOperacion;
 //    private final IConexionDAO conexion;
@@ -103,7 +105,7 @@ public class CDEvento extends javax.swing.JDialog {
         
         String descripcion = this.txtDescripcion.getText();
         String nombre = this.txtNombre.getText();
-        String ubicacion = this.txtUbicacion.getText();
+        //String ubicacion = this.txtUbicacion.getText();
         Calendar fecha=Calendar.getInstance();
         if(tipo.equals(TipoEventoEnumDTO.UNICO_UN_DIA))
             fecha = this.dtcFecha.getCalendar();
@@ -135,17 +137,17 @@ public class CDEvento extends javax.swing.JDialog {
         //System.out.println("hora inicio evento desde cdEvento: "+hora+":"+minutos);
 
         EventoConsultableDTO eventoN;
-        /*
+        
         if (tipo.equals(TipoEventoEnumDTO.UNICO_UN_DIA)) {
-            eventoN = new EventoConsultableDTO(nombre, descripcion, "", ubicacion, fecha, horaInicio, horasDuracion);
+            eventoN = new EventoConsultableDTO(nombre, descripcion, "", ubicacionDTO, fecha, horaInicio, horasDuracion);
         } else {
             eventoN = new EventoConsultableDTO(tipo, nombre, descripcion, "",
-                    diasSemana, ubicacion, fecha, fecha, horaInicio, horasDuracion);
-        }*/
+                    diasSemana, ubicacionDTO, fecha, fecha, horaInicio, horasDuracion);
+        }
 
-        //JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
-        //calendario.añadirEvento(eventoN);
-        return null;
+        JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
+        calendario.añadirEvento(eventoN);
+        return eventoN;
 
     }
     //TODO
@@ -225,8 +227,9 @@ public class CDEvento extends javax.swing.JDialog {
 //
     }
 
-    public void guardarUbicacion(String ubicacion) {
+    public void guardarUbicacion(String ubicacion, UbicacionDTO ubicacionDTO) {
         this.txtUbicacion.setText(ubicacion);
+        this.ubicacionDTO=ubicacionDTO;
     }
     
     /**
@@ -274,7 +277,7 @@ public class CDEvento extends javax.swing.JDialog {
     private void desplegarInfo(){
         txtNombre.setText(this.eventoEditable.getNombre());
         txtDescripcion.setText(this.eventoEditable.getDescripcion());
-        txtUbicacion.setText(this.eventoEditable.getUbicacion());
+        txtUbicacion.setText(this.eventoEditable.getUbicacion().getIdentificador());
         String duracion = String.valueOf(eventoEditable.getHorasDuracionEvento());
 //        if(duracion.charAt(2)!=0)
         cmbDuracionEvento.setSelectedItem(duracion);
