@@ -3,72 +3,74 @@ package accesoMaestro;
 
 import DTOS.evento.EventoConsultableDTO;
 import DTOS.maestro.MaestroEditableDTO;
-import conexion.IConexionDAO;
+//import conexion.IConexionDAO;
 import excepciones.NegocioException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import objetosNegocio.IServicioConexion;
+import objetosNegocio.ServicioConexion;
 
 /**
  *
  * @author t1pas
  */
 public class FachadaAccesoMaestro implements IAccesoMaestro{
-    private final ControlMaestros maestros;
-    
-    public FachadaAccesoMaestro(IConexionDAO conexion) {
-        this.maestros = new ControlMaestros(conexion);
-    }
-    
-    @Override
-    public boolean editarCalendario(List<EventoConsultableDTO> calendario) {
-       return maestros.editarCalendario(calendario);
-    }
-    
-    @Override
-    public boolean editarMaestro(MaestroEditableDTO maestro){
+    private ControlMaestros maestros;
+    private IServicioConexion servicioConexion;
+//    public FachadaAccesoMaestro(IConexionDAO conexion) {
+//        this.maestros = new ControlMaestros(conexion);
+//    }
 
+    public FachadaAccesoMaestro() {
+        this.maestros =new ControlMaestros();
+        this.servicioConexion=new ServicioConexion();
+    }
+    
+    @Override
+    public boolean editarCalendario(List<EventoConsultableDTO> calendario)throws NegocioException {
+       try{
+           return maestros.editarCalendario(calendario);
+       }catch(NegocioException e){
+           throw e;
+       }
+    }
+    
+    @Override
+    public boolean editarMaestro(MaestroEditableDTO maestro)throws NegocioException{
         try {
             return maestros.editarMaestro(maestro);
         } catch (NegocioException e) {
-            try {
-                throw new NegocioException(e.getMessage());
-            } catch (NegocioException ex) {
-                Logger.getLogger(FachadaAccesoMaestro.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            throw e;
         }
-        return false;
     }
     
+//    @Override
+//    public MaestroEditableDTO recuperarMaestro()throws NegocioException{
+//        try {
+//            return maestros.recuperarMaestro();
+//        } catch (NegocioException ex) {
+//            Logger.getLogger(FachadaAccesoMaestro.class.getName()).log(Level.SEVERE, null, ex);
+//            throw ex;
+//        }
+//    }
+
     @Override
-    public MaestroEditableDTO recuperarMaestro(){
+    public MaestroEditableDTO recuperarMaestro(MaestroEditableDTO maestro)throws NegocioException{
         try {
-            return maestros.recuperarMaestro();
+            return maestros.recuperarMaestro(maestro);
         } catch (NegocioException ex) {
             Logger.getLogger(FachadaAccesoMaestro.class.getName()).log(Level.SEVERE, null, ex);
+            throw ex;
         }
-        return null;
     }
 
     @Override
-    public MaestroEditableDTO recuperarMaestroPorDTO(MaestroEditableDTO maestro){
-        try {
-            return maestros.recuperarMaestroPorDTO(maestro);
-        } catch (NegocioException ex) {
-            Logger.getLogger(FachadaAccesoMaestro.class.getName()).log(Level.SEVERE, null, ex);
+    public void cerrarConexiones() throws NegocioException {
+        try{
+            servicioConexion.cerrarConexion();
+        }catch(NegocioException e){
+            throw e;
         }
-        return null;
     }
-    
-        //Solo soy una fachada
-    /*
-    @Override
-    public MaestroEditableDTO accesoCia(){
-        try {
-            return maestros.AccesoCia();
-        } catch (NegocioException ex) {
-            Logger.getLogger(FachadaAccesoMaestro.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }*/
 }

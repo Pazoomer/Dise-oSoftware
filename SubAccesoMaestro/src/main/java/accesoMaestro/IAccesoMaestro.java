@@ -3,6 +3,7 @@ package accesoMaestro;
 
 import DTOS.evento.EventoConsultableDTO;
 import DTOS.maestro.MaestroEditableDTO;
+import excepciones.NegocioException;
 import java.util.List;
 
 /**
@@ -14,15 +15,17 @@ public interface IAccesoMaestro {
     /**
      * Recupera el maestro harcodeado
      * @return
+     * @throws excepciones.NegocioException
      */
-    MaestroEditableDTO recuperarMaestro();
+//    MaestroEditableDTO recuperarMaestro()throws NegocioException;
     
     /**
      * Recupera el maestro del parametro en la base de datos
      * @param maestro
      * @return
+     * @throws excepciones.NegocioException
      */
-    MaestroEditableDTO recuperarMaestroPorDTO(MaestroEditableDTO maestro);
+    MaestroEditableDTO recuperarMaestro(MaestroEditableDTO maestro)throws NegocioException;
     
     //Hace lo mismo que recuperar maestro pero mal
     //MaestroEditableDTO accesoCia();
@@ -31,13 +34,17 @@ public interface IAccesoMaestro {
      * Edita el maestro en la base de datos
      * @param maestro
      * @return
+     * @throws excepciones.NegocioException
      */
-    boolean editarMaestro(MaestroEditableDTO maestro);
+    boolean editarMaestro(MaestroEditableDTO maestro)throws NegocioException;
     
     /**
      * Edita el calendario en la base de datos
      * @param calendario
      * @return 
+     * @throws excepciones.NegocioException 
      */
-    boolean editarCalendario(List<EventoConsultableDTO> calendario);
+    boolean editarCalendario(List<EventoConsultableDTO> calendario)throws NegocioException;
+    
+    void cerrarConexiones()throws NegocioException;
 }

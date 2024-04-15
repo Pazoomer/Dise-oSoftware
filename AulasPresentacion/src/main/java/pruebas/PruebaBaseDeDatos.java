@@ -1,8 +1,8 @@
 
 package pruebas;
 
-import conexion.ConexionDAO;
-import conexion.IConexionDAO;
+//import conexion.ConexionDAO;
+//import conexion.IConexionDAO;
 
 /**
  *
@@ -11,8 +11,8 @@ import conexion.IConexionDAO;
 public class PruebaBaseDeDatos {
 
     public static void main(String[] args) {
-        IConexionDAO conexion = new ConexionDAO();
-        conexion.crearConexion();
+//        IConexionDAO conexion = new ConexionDAO();
+//        conexion.crearConexion();
     }
 
 }
