@@ -2,7 +2,7 @@
 package entidades;
 
 import conexion.ClaseConexion;
-import entidades.EntidadEvento;
+import excepciones.PersistenciaException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NoResultException;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TypedQuery;
@@ -50,7 +51,7 @@ public class EntidadMaestro implements Serializable {
     @Column(name = "foto", nullable = true, length = 300)
     private String foto;
     
-    @OneToMany(mappedBy = "Maestro", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "maestro", cascade = CascadeType.ALL)
     private List<EntidadEvento> calendario;
     
     private final OperacionesPersistencia operacionesPers;
@@ -123,12 +124,20 @@ public class EntidadMaestro implements Serializable {
         return calendario;
     }
 
-    public EntidadMaestro obtenerMaestro(EntidadMaestro maestro){
-        return operacionesPers.obtenerMaestro(maestro);
+    public EntidadMaestro obtenerMaestro(EntidadMaestro maestro)throws PersistenciaException{
+        try{
+            return operacionesPers.obtenerMaestro(maestro);
+        }catch(PersistenciaException e){
+            throw e;
+        }
     }
     
-    public EntidadMaestro editarMaestro(EntidadMaestro maestroEditado){
-        return operacionesPers.editarMaestro(maestroEditado);
+    public EntidadMaestro editarMaestro(EntidadMaestro maestroEditado)throws PersistenciaException{
+        try{
+            return operacionesPers.editarMaestro(maestroEditado);
+        }catch(PersistenciaException e){
+            throw e;
+        }
     }
     
     public void setCalendario(List<EntidadEvento> calendario) {
@@ -158,7 +167,7 @@ public class EntidadMaestro implements Serializable {
         return sb.toString();
     }
  
-    private class OperacionesPersistencia{
+    static class OperacionesPersistencia implements Serializable{
         private EntityManager em;
         private CriteriaBuilder cb;
         private final static Logger LOG = Logger.getLogger(OperacionesPersistencia.class.getName());
@@ -168,7 +177,7 @@ public class EntidadMaestro implements Serializable {
             cb=em.getCriteriaBuilder();
         }
         
-        EntidadMaestro obtenerMaestro(EntidadMaestro maestro){
+        EntidadMaestro obtenerMaestro(EntidadMaestro maestro)throws PersistenciaException{
             CriteriaQuery<EntidadMaestro> criteria=cb.createQuery(EntidadMaestro.class);
             Root<EntidadMaestro> root=criteria.from(EntidadMaestro.class);
             
@@ -180,13 +189,17 @@ public class EntidadMaestro implements Serializable {
             try{
                 maestroEncontrado=query.getSingleResult();
                 return maestroEncontrado;
-            }catch(Exception e){
+            }catch(NoResultException nre){
+                LOG.log(Level.SEVERE, nre.getMessage(), nre);
+                throw new PersistenciaException("no se encontro el maestro con el id especificado");
+            }
+            catch(Exception e){
                 LOG.log(Level.SEVERE, e.getMessage(), e);
-                return null;
+                throw new PersistenciaException("hubo un error al obtener el maestro");
             }
         }
         
-        EntidadMaestro editarMaestro(EntidadMaestro maestro){
+        EntidadMaestro editarMaestro(EntidadMaestro maestro)throws PersistenciaException{
             EntidadMaestro maestroEditado;
             if(em.find(EntidadMaestro.class, maestro.getIdBd())!=null){
                 try{
@@ -197,6 +210,7 @@ public class EntidadMaestro implements Serializable {
                 }catch(Exception e){
                     em.getTransaction().rollback();
                     LOG.log(Level.SEVERE, e.getMessage(), e);
+                    throw new PersistenciaException("hubo un error al editar el maestro");
                 }
             }
             return null;

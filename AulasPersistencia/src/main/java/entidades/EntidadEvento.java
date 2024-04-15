@@ -2,6 +2,7 @@
 package entidades;
 
 import conexion.ClaseConexion;
+import excepciones.PersistenciaException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -242,20 +243,36 @@ public class EntidadEvento implements Serializable {
         return horasDuracionEvento;
     }
 
-    public EntidadEvento editarEvento(EntidadEvento evento){
-        return operacionesPers.editarEvento(evento);
+    public EntidadEvento editarEvento(EntidadEvento evento)throws PersistenciaException{
+        try{
+            return operacionesPers.editarEvento(evento);
+        }catch(PersistenciaException e){
+            throw e;
+        }
     }
     
-    public boolean agregarEvento(EntidadEvento evento){
-        return operacionesPers.agregarEvento(evento);
+    public boolean agregarEvento(EntidadEvento evento)throws PersistenciaException{
+        try{
+            return operacionesPers.agregarEvento(evento);
+        }catch(PersistenciaException e){
+            throw e;
+        }
     }
     
-    public EntidadEvento obtenerEvento(EntidadEvento evento){
-        return operacionesPers.obtenerEvento(evento);
+    public EntidadEvento obtenerEvento(EntidadEvento evento)throws PersistenciaException{
+        try{
+            return operacionesPers.obtenerEvento(evento);
+        }catch(PersistenciaException e){
+            throw e;
+        }
     }
     
-    public boolean eliminarEvento(EntidadEvento evento){
-        return operacionesPers.eliminarEvento(evento);
+    public boolean eliminarEvento(EntidadEvento evento)throws PersistenciaException{
+        try{
+            return operacionesPers.eliminarEvento(evento);
+        }catch(PersistenciaException e){
+            throw e;
+        }
     }
 
     public EntidadMaestro getMaestro() {
@@ -303,7 +320,7 @@ public class EntidadEvento implements Serializable {
         return formatoFecha.format(fecha.getTime());
     }
     
-    private class OperacionesPersistencia{
+    static class OperacionesPersistencia implements Serializable{
         private EntityManager em;
         private CriteriaBuilder cb;
         private final static Logger LOG = Logger.getLogger(OperacionesPersistencia.class.getName());
@@ -312,7 +329,7 @@ public class EntidadEvento implements Serializable {
             em=ClaseConexion.getEntityManager();
             cb=em.getCriteriaBuilder();
         }
-        boolean agregarEvento(EntidadEvento evento){
+        boolean agregarEvento(EntidadEvento evento)throws PersistenciaException{
             EntidadMaestro maestro=em.find(EntidadMaestro.class, evento.getMaestro().getIdBd());
             if(maestro!=null){
                 try{
@@ -323,12 +340,13 @@ public class EntidadEvento implements Serializable {
                 }catch(Exception e){
                     em.getTransaction().rollback();
                     LOG.log(Level.SEVERE, e.getMessage(), e);
+                    throw new PersistenciaException("hubo un error al agregar el evento");
                 }
             }
             return false;
         }
         
-        EntidadEvento editarEvento(EntidadEvento evento){
+        EntidadEvento editarEvento(EntidadEvento evento)throws PersistenciaException{
             EntidadEvento eventoEditado;
             if(em.find(EntidadEvento.class, evento.getId())!=null){
                 try{
@@ -339,12 +357,13 @@ public class EntidadEvento implements Serializable {
                 }catch(Exception e){
                     em.getTransaction().rollback();
                     LOG.log(Level.SEVERE, e.getMessage(), e);
+                    throw new PersistenciaException("hubo un error al editar el evento");
                 }
             }
             return null;
         }
         
-        boolean eliminarEvento(EntidadEvento evento){
+        boolean eliminarEvento(EntidadEvento evento)throws PersistenciaException{
             EntidadEvento eventoEliminado=em.find(EntidadEvento.class, evento.getId());
             if(eventoEliminado!=null){
                 try{
@@ -355,12 +374,13 @@ public class EntidadEvento implements Serializable {
                 }catch(Exception e){
                     em.getTransaction().rollback();
                     LOG.log(Level.SEVERE, e.getMessage(), e);
+                    throw new PersistenciaException("hubo un error al eliminar el evento");
                 }
             }
             return false;
         }
         
-        EntidadEvento obtenerEvento(EntidadEvento evento){
+        EntidadEvento obtenerEvento(EntidadEvento evento)throws PersistenciaException{
             CriteriaQuery<EntidadEvento> criteria=cb.createQuery(EntidadEvento.class);
             Root<EntidadEvento> root=criteria.from(EntidadEvento.class);
             
@@ -374,7 +394,7 @@ public class EntidadEvento implements Serializable {
                 return eventoEncontrado;
             }catch(Exception e){
                 LOG.log(Level.SEVERE, e.getMessage(), e);
-                return null;
+                throw new PersistenciaException("hubo un error al obtener el evento");
             }
         }
     }
