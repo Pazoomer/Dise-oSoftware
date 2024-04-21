@@ -27,6 +27,7 @@ public class EntidadUbicacion implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_ubicacion")
     private Long id;
 
     @Column(name = "descripcion",nullable=false)

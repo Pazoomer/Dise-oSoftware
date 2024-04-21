@@ -25,6 +25,7 @@ public class EntidadCampus implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_campus")
     private Long id;
     
     @Column(name = "nombre",nullable = false)

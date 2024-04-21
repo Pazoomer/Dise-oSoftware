@@ -42,14 +42,10 @@
             <version>2.2.3</version>
         </dependency>
         <dependency>
-            <groupId>com.myCompany</groupId>
-            <artifactId>AulasDTO</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.myCompany</groupId>
-            <artifactId>AulasSubsistemas</artifactId>
-            <version>1.0</version>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
+            <version>2.7.10</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.mysql</groupId>
@@ -61,7 +57,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <exec.mainClass>bda.aulasobjetosnegocio.AulasObjetosNegocio</exec.mainClass>
+        <exec.mainClass>bda.aulaspersistencia2.AulasPersistencia2</exec.mainClass>
     </properties>
     <name>AulasPersistencia</name>
 </project>

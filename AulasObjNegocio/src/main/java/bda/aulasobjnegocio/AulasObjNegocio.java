@@ -1,17 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
+
 
 package bda.aulasobjnegocio;
 
 import DTOS.campus.UbicacionDTO;
-import DTOS.evento.EventoConsultableDTO;
-import DTOS.evento.TipoEventoEnumDTO;
-import DTOS.maestro.MaestroEditableDTO;
 import entidades.ClaseConexion;
 import excepciones.NegocioException;
 import excepcioness.PersistenciaExceptionn;
-import java.util.Calendar;
 import java.util.List;
 import objetosNegocio.Evento;
 import objetosNegocio.Maestro;
