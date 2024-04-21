@@ -8,7 +8,7 @@ create procedure sp_insertar_ubicaciones()
 begin
 	declare registrosCampus int;
     
-    select count(id) into registrosCampus from campus;
+    select count(id_campus) into registrosCampus from campus;
     
     if registrosCampus=0 then
 		insert into campus(nombre) values ("Obregon Nainari"), ("Centro");
@@ -112,6 +112,6 @@ end $$
 delimiter ;
 
 
--- set @id_edificio=(select id from ubicaciones where identificador="AV0900");
--- insert into maestros (edificio_cubiculo, descripcion,foto, id_maestro, nombre) 
--- values (@id_edificio,"Doy asesorias de 9 a 11 de bases de datos los sabados y domingos","fotoMaestro.png",1,"Gibran Duran");
+set @id_edificio=(select id_ubicacion from ubicaciones where identificador="AV0900");
+insert into maestros (edificio_cubiculo, descripcion,foto, id_maestro, nombre) 
+values (@id_edificio,"Doy asesorias de 9 a 11 de bases de datos los sabados y domingos","fotoMaestro.png",1,"Gibran Duran");
