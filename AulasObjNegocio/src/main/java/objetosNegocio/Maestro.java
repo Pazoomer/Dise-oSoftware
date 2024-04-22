@@ -47,10 +47,11 @@ public class Maestro {
         this.calendarioEv=new ArrayList<>();
     }
 
-    public MaestroEditableDTO editarMaestro(MaestroEditableDTO maestro)throws NegocioException{
+    public boolean editarMaestro(MaestroEditableDTO maestro)throws NegocioException{
         EntidadMaestro maestroEditado= convertidor.toMaestroBO(maestro);
         try{
-            return convertidor.toMaestroDTO(crudMaestro.editarMaestro(maestroEditado));
+             convertidor.toMaestroDTO(crudMaestro.editarMaestro(maestroEditado));
+             return true;
         }catch(PersistenciaExceptionn e){
             throw new NegocioException(e.getMessage());
         }
@@ -58,11 +59,7 @@ public class Maestro {
     
     public MaestroEditableDTO obtenerMaestro(MaestroEditableDTO maestro)throws NegocioException{
         EntidadMaestro maestroBuscado=convertidor.toMaestroBO(maestro);
-        try{
-            return convertidor.toMaestroDTO(crudMaestro.obtenerMaestro(maestroBuscado));
-        }catch(PersistenciaExceptionn e){
-            throw new NegocioException(e.getMessage());
-        }
+        return convertidor.toMaestroDTO(crudMaestro.obtenerMaestro(maestroBuscado));
     }
     
     public Long getId() {

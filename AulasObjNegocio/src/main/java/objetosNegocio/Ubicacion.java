@@ -65,11 +65,7 @@ public class Ubicacion {
 
     public UbicacionDTO obtenerUbicacion(UbicacionDTO ubicacion)throws NegocioException{
         EntidadUbicacion ubi=conversiones.toUbicacionBO(ubicacion);
-        try{
-            return conversiones.toUbicacionDTO(crudUbicacion.obtenerUbicacion(ubi));
-        }catch(PersistenciaExceptionn e){
-            throw new NegocioException(e.getMessage());
-        }
+        return conversiones.toUbicacionDTO(crudUbicacion.obtenerUbicacion(ubi));
     }
     
     public List<UbicacionDTO> obtenerUbicacionesPorCampus(CampusConsultableDTO campus)throws NegocioException{

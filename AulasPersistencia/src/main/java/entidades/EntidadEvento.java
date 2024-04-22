@@ -1,80 +1,42 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entidades;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import org.bson.codecs.pojo.annotations.BsonId;
+import org.bson.types.ObjectId;
 
-/**
- *
- * @author luisa
- */
-@Entity
-@Table (name = "eventos")
 public class EntidadEvento implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "evento_id")
-    private Long id;
+    @BsonId
+    private ObjectId id;
 
-    @Column(name = "tipo", nullable = true)
-    @Enumerated(EnumType.STRING)
     private EntidadTipoEventoEnum tipo;
 
-    @Column(name = "nombre", nullable = true, length = 100)
     private String nombre;
 
-    @Column(name = "descripcion", nullable = true, length = 200)
     private String descripcion;
 
-    @Column(name = "diasSemana", nullable = true, length = 8)
     private String diasSemana;
 
-    @ManyToOne
-    @JoinColumn(name = "id_ubicacion")
     private EntidadUbicacion ubicacion;
 
-    @Column(name = "color", nullable = true, length = 100)
     private String color;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "fechaInicio", nullable = true)
     private Calendar fechaInicio;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "fechaFin", nullable = true)
     private Calendar fechaFin;
 
-    @Column(name = "horaInicio", nullable = true)
-    @Temporal(TemporalType.TIME)
     private Calendar horaInicio;
 
-    @Column(name = "horasDuracionEvento", nullable = true)
-    private float horasDuracionEvento;
+    private Double horasDuracionEvento;
 
-    @ManyToOne
-    @JoinColumn(name = "id_maestro_bd", nullable = false)
     private EntidadMaestro maestro;
 
     public EntidadEvento() {
     }
 
-    public EntidadEvento( EntidadTipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, EntidadUbicacion ubicacion, String color, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento, EntidadMaestro maestro) {
+
+    public EntidadEvento(EntidadTipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, EntidadUbicacion ubicacion, String color, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, Double horasDuracionEvento, EntidadMaestro maestro) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -88,7 +50,7 @@ public class EntidadEvento implements Serializable {
         this.maestro = maestro;
     }
 
-    public EntidadEvento(String nombre, String descripcion, EntidadUbicacion ubicacion, String color, Calendar fechaInicio, Calendar horaInicio, float horasDuracionEvento, EntidadMaestro maestro) {
+    public EntidadEvento(String nombre, String descripcion, EntidadUbicacion ubicacion, String color, Calendar fechaInicio, Calendar horaInicio, Double horasDuracionEvento, EntidadMaestro maestro) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.ubicacion = ubicacion;
@@ -99,11 +61,11 @@ public class EntidadEvento implements Serializable {
         this.maestro = maestro;
     }
 
-    public Long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -179,11 +141,11 @@ public class EntidadEvento implements Serializable {
         this.horaInicio = horaInicio;
     }
 
-    public float getHorasDuracionEvento() {
+    public Double getHorasDuracionEvento() {
         return horasDuracionEvento;
     }
 
-    public void setHorasDuracionEvento(float horasDuracionEvento) {
+    public void setHorasDuracionEvento(Double horasDuracionEvento) {
         this.horasDuracionEvento = horasDuracionEvento;
     }
 
@@ -221,5 +183,4 @@ public class EntidadEvento implements Serializable {
         SimpleDateFormat formatoFecha=new SimpleDateFormat("yyyy-MM-dd");
         return formatoFecha.format(fecha.getTime());
     }
-    
 }

@@ -59,10 +59,6 @@ public class AulasObjNegocio {
         }catch(NegocioException e){
             System.out.println(e.getMessage());
         }
-        try{
-            ClaseConexion.cerrarConexion();
-        }catch(PersistenciaExceptionn e){
-            System.out.println(e.getMessage());
-        }
+        ClaseConexion.cerrarConexion();
     }
 }

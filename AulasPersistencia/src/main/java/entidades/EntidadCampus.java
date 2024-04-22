@@ -1,37 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entidades;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import org.bson.codecs.pojo.annotations.BsonId;
+import org.bson.types.ObjectId;
 
-/**
- *
- * @author luiis
- */
-@Entity
-@Table(name="campus")
 public class EntidadCampus implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_campus")
-    private Long id;
+    @BsonId
+    private ObjectId id;
     
-    @Column(name = "nombre",nullable = false)
     private String nombre;
 
-    @OneToMany(mappedBy="campus")
     private List<EntidadUbicacion> ubicaciones;
 
     public EntidadCampus() {
@@ -62,11 +42,11 @@ public class EntidadCampus implements Serializable {
         this.nombre = nombre;
     }
 
-    public Long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 

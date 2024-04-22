@@ -23,7 +23,7 @@ public class AulasPersistencia2 {
         try{
             EntidadMaestro maestroOb=new EntidadMaestro();
             maestroOb.setIdMaestro(1L);
-            EntidadMaestro m=maestro.obtenerMaestro(maestroOb);
+            EntidadMaestro m=maestro.obtenerMaestro(maestroOb.getId());
             Calendar fecha=Calendar.getInstance();
             fecha.set(Calendar.MONTH, 4);
             fecha.set(Calendar.DAY_OF_MONTH, 10);

@@ -6,7 +6,6 @@ package objetosNegocio;
 
 import entidades.ClaseConexion;
 import excepciones.NegocioException;
-import excepcioness.PersistenciaExceptionn;
 
 /**
  *
@@ -16,11 +15,7 @@ public class ServicioConexion implements IServicioConexion{
 
     @Override
     public void cerrarConexion()throws NegocioException {
-        try{
-            ClaseConexion.cerrarConexion();
-        }catch(PersistenciaExceptionn e){
-            throw new NegocioException(e.getMessage());
-        }
+        ClaseConexion.cerrarConexion();
     }
     
 }
