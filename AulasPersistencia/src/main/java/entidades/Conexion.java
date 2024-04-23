@@ -10,7 +10,7 @@ import org.bson.Document;
  *
  * @author luiis
  */
-public class ClaseConexion {
+public class Conexion implements IConexion{
 
     String cadenaConexion = "mongodb://127.0.0.1:27017";
     String NombrebaseDatos = "Aulas";
@@ -19,20 +19,30 @@ public class ClaseConexion {
     private static MongoDatabase baseDatos;
     private static MongoCollection<Document> coleccion;
 
-    protected ClaseConexion() {
+    protected Conexion() {
         cliente = MongoClients.create(cadenaConexion);
+        System.out.println(cliente);
         baseDatos = cliente.getDatabase(NombrebaseDatos);
+        System.out.println(baseDatos);
     }
 
-    public static synchronized MongoCollection<Document> getColeccion(String nombreColeccion) {
+    @Override
+    public synchronized MongoCollection<Document> getColeccion(String nombreColeccion) { 
         if (coleccion == null) {
             coleccion = baseDatos.getCollection(nombreColeccion);
         }
         return coleccion;
     }
 
-    public static void cerrarConexion() {
-        cliente.close();
-    }  
-    
+    /**
+     *
+     */
+    @Override
+    public void cerrarConexion() {
+        if (cliente != null) {
+            cliente.close();
+        }
+
+    }
+
 }

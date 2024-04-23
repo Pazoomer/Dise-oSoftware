@@ -19,9 +19,11 @@ import org.bson.types.ObjectId;
 public class CrudUbicacion {
     private final MongoCollection<Document> coleccion;
     private final static Logger LOG = Logger.getLogger(CrudUbicacion.class.getName());
+    IConexion conexion;
 
     public CrudUbicacion() {
-        this.coleccion = ClaseConexion.getColeccion("Ubicaciones");
+        conexion=new Conexion();
+        this.coleccion = conexion.getColeccion("Ubicaciones");
     }
 
     /**
@@ -34,6 +36,7 @@ public class CrudUbicacion {
             Document doc = new Document("identificador", ubicacion.getIdentificador())
                 .append("descripcion", ubicacion.getDescripcion());
             coleccion.insertOne(doc);
+            conexion.cerrarConexion();
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
             throw new PersistenciaExceptionn("Hubo un error al crear la ubicación");
@@ -50,6 +53,7 @@ public class CrudUbicacion {
         try {
             Document doc = coleccion.find(eq("identificador", identificador)).first();
             if (doc != null) {  
+                conexion.cerrarConexion();
                 return documentToEntidadUbicacion(doc);
             } else {
                 throw new PersistenciaExceptionn("No se encontró la ubicación con el identificador especificado");
@@ -69,6 +73,7 @@ public class CrudUbicacion {
         try {
             coleccion.updateOne(eq("_id", ubicacion.getId()),
                     set("descripcion", ubicacion.getDescripcion()));
+            conexion.cerrarConexion();
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
             throw new PersistenciaExceptionn("Hubo un error al actualizar la ubicación");
@@ -84,6 +89,7 @@ public class CrudUbicacion {
     public void eliminarUbicacion(ObjectId id) throws PersistenciaExceptionn {
         try {
             coleccion.deleteOne(eq("_id", id));
+            conexion.cerrarConexion();
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
             throw new PersistenciaExceptionn("Hubo un error al eliminar la ubicación");
@@ -103,6 +109,7 @@ public class CrudUbicacion {
             LOG.log(Level.SEVERE, e.getMessage(), e);
             throw new PersistenciaExceptionn("Hubo un error al obtener las ubicaciones del campus " + campus.getNombre());
         }
+        conexion.cerrarConexion();
         return ubicacionesEncontradas;
     }
 
@@ -118,6 +125,7 @@ public class CrudUbicacion {
             LOG.log(Level.SEVERE, e.getMessage(), e);
             throw new PersistenciaExceptionn("Hubo un error al obtener las ubicaciones");
         }
+        conexion.cerrarConexion();
         return ubicacionesEncontradas;
     }
 

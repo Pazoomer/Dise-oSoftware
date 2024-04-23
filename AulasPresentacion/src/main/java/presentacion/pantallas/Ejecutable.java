@@ -13,20 +13,23 @@ import excepciones.NegocioException;
  *
  * @author 
  */
-public class Prueba {
+public class Ejecutable {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
 
-        IAccesoMaestro acceso=new FachadaAccesoMaestro();
+        IAccesoMaestro acceso = new FachadaAccesoMaestro();
         MaestroEditableDTO maestro;
-        try{
-            maestro=acceso.recuperarMaestro(new MaestroEditableDTO(1L));
-            System.out.println(maestro.toString());
-            new PrincipalMaestro(maestro).setVisible(true);
-        }catch(NegocioException e){
+        try {
+            maestro = acceso.recuperarMaestro(new MaestroEditableDTO(1L));
+            if (maestro != null) {
+                System.out.println(maestro.toString());
+                new PrincipalMaestro(maestro).setVisible(true);
+            }
+
+        } catch (NegocioException e) {
             System.out.println(e.getMessage());
         }
         

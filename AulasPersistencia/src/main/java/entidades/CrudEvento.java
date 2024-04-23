@@ -12,9 +12,11 @@ import java.util.Calendar;
 public class CrudEvento {
     private final static Logger LOG = Logger.getLogger(CrudEvento.class.getName());
     private final MongoCollection<Document> coleccion;
+    IConexion conexion;
 
     public CrudEvento() {
-        coleccion = ClaseConexion.getColeccion("Eventos");
+        conexion=new Conexion();
+        coleccion = conexion.getColeccion("Eventos");
     }
 
     public boolean agregarEvento(EntidadEvento evento) throws PersistenciaExceptionn {
@@ -34,6 +36,7 @@ public class CrudEvento {
                     .append("horasDuracionEvento", evento.getHorasDuracionEvento())
                     .append("maestro", evento.getMaestro().getId().toString());
             coleccion.insertOne(doc);
+            conexion.cerrarConexion();
             return true;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
@@ -58,6 +61,7 @@ public class CrudEvento {
                     .append("maestro", evento.getMaestro().getId().toString()));
             // Se actualiza el documento en MongoDB
             coleccion.updateOne(filter, update);
+            conexion.cerrarConexion();
             return evento;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
@@ -71,6 +75,7 @@ public class CrudEvento {
             Document filter = new Document("_id", new ObjectId(evento.getId().toString()));
             // Se elimina el documento en MongoDB
             coleccion.deleteOne(filter);
+            conexion.cerrarConexion();
             return true;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
@@ -85,8 +90,10 @@ public class CrudEvento {
             Document doc = coleccion.find(query).first();
             if (doc != null) {
                 // Convertir el documento a una instancia de EntidadEvento
+                conexion.cerrarConexion();
                 return documentToEntidadEvento(doc);
             } else {
+                conexion.cerrarConexion();
                 return null;
             }
         } catch (Exception e) {

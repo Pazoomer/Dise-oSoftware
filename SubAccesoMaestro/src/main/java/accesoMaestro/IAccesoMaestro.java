@@ -46,5 +46,4 @@ public interface IAccesoMaestro {
      */
     boolean editarCalendario(List<EventoConsultableDTO> calendario)throws NegocioException;
     
-    void cerrarConexiones()throws NegocioException;
 }

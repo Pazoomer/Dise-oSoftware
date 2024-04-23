@@ -16,9 +16,11 @@ public class CrudMaestro {
 
     private static MongoCollection<Document> coleccion;
     private final static Logger LOG = Logger.getLogger(CrudMaestro.class.getName());
+    IConexion conexion;
 
     public CrudMaestro() {
-        coleccion = ClaseConexion.getColeccion("Maestros");
+        conexion=new Conexion();
+        coleccion = conexion.getColeccion("Maestros");
     }
 
     public EntidadMaestro agregarMaestro(EntidadMaestro maestro) throws PersistenciaExceptionn {
@@ -32,6 +34,7 @@ public class CrudMaestro {
                .append("calendario", maestro.getCalendario());
 
             coleccion.insertOne(doc);
+            conexion.cerrarConexion();
             return maestro;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
@@ -48,7 +51,7 @@ public class CrudMaestro {
                                                           .append("foto", maestro.getFoto())
                                                           .append("calendario", maestro.getCalendario()));
             coleccion.updateOne(filtro, actualizacion);
-            
+            conexion.cerrarConexion();
             return maestro;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
@@ -59,6 +62,7 @@ public class CrudMaestro {
     public boolean eliminarMaestro(ObjectId idMaestro) throws PersistenciaExceptionn {
         try {
             coleccion.deleteOne(Filters.eq("_id", idMaestro));
+            conexion.cerrarConexion();
             return true;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
@@ -78,6 +82,7 @@ public class CrudMaestro {
                 maestro.setDescripcion(doc.getString("descripcion"));
                 maestro.setFoto(doc.getString("foto"));
                 maestro.setCalendario((List<EntidadEvento>) doc.get("calendario"));
+                conexion.cerrarConexion();
                 return maestro;
             }
             return null;
@@ -123,7 +128,6 @@ public class CrudMaestro {
                 // Agregar evento a la lista
                 eventos.add(evento);
             });
-
             return eventos;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);

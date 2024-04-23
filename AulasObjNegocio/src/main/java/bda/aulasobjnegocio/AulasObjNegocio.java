@@ -3,7 +3,8 @@
 package bda.aulasobjnegocio;
 
 import DTOS.campus.UbicacionDTO;
-import entidades.ClaseConexion;
+import entidades.Conexion;
+import entidades.IConexion;
 import excepciones.NegocioException;
 import excepcioness.PersistenciaExceptionn;
 import java.util.List;
@@ -59,6 +60,6 @@ public class AulasObjNegocio {
         }catch(NegocioException e){
             System.out.println(e.getMessage());
         }
-        ClaseConexion.cerrarConexion();
+        //ClaseConexion.cerrarConexion();
     }
 }

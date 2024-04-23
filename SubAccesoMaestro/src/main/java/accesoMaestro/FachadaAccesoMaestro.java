@@ -8,8 +8,6 @@ import excepciones.NegocioException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import objetosNegocio.IServicioConexion;
-import objetosNegocio.ServicioConexion;
 
 /**
  *
@@ -17,14 +15,12 @@ import objetosNegocio.ServicioConexion;
  */
 public class FachadaAccesoMaestro implements IAccesoMaestro{
     private ControlMaestros maestros;
-    private IServicioConexion servicioConexion;
 //    public FachadaAccesoMaestro(IConexionDAO conexion) {
 //        this.maestros = new ControlMaestros(conexion);
 //    }
 
     public FachadaAccesoMaestro() {
         this.maestros =new ControlMaestros();
-        this.servicioConexion=new ServicioConexion();
     }
     
     @Override
@@ -62,15 +58,6 @@ public class FachadaAccesoMaestro implements IAccesoMaestro{
         } catch (NegocioException ex) {
             Logger.getLogger(FachadaAccesoMaestro.class.getName()).log(Level.SEVERE, null, ex);
             throw ex;
-        }
-    }
-
-    @Override
-    public void cerrarConexiones() throws NegocioException {
-        try{
-            servicioConexion.cerrarConexion();
-        }catch(NegocioException e){
-            throw e;
         }
     }
 }

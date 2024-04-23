@@ -61,7 +61,11 @@ public class Maestro {
     public MaestroEditableDTO obtenerMaestro(MaestroEditableDTO maestro)throws NegocioException{
         EntidadMaestro maestroBuscado=convertidor.toMaestroBO(maestro);
         try {
-            return convertidor.toMaestroDTO(crudMaestro.obtenerMaestro(maestroBuscado.getId()));
+            EntidadMaestro maestroEncontrado=crudMaestro.obtenerMaestro(maestroBuscado.getId());
+            if (maestroEncontrado!=null) {
+                return convertidor.toMaestroDTO(maestroEncontrado);
+            }
+            return null;
         } catch (PersistenciaExceptionn ex) {
             Logger.getLogger(Maestro.class.getName()).log(Level.SEVERE, null, ex);
         }
