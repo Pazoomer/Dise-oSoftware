@@ -30,7 +30,7 @@ class Conversiones {
         }else{
             ubicacion=new EntidadUbicacion(ubicacionDTO.getIdentificador());
         }
-        ubicacion.setId(ubicacionDTO.getId());
+        ubicacion.setIdLong(ubicacionDTO.getId());
         return ubicacion;
     }
     
@@ -45,7 +45,7 @@ class Conversiones {
         }else{
             ubicacion=new UbicacionDTO(ubicacionBO.getIdentificador());
         }
-        ubicacion.setId(ubicacionBO.getId());
+        ubicacion.setId(ubicacionBO.getIdLong());
         return ubicacion;
     }
     
@@ -77,7 +77,7 @@ class Conversiones {
                     maestro.getFoto()
             );
         }
-        maestroBO.setIdBd(maestro.getIdBD());
+        maestroBO.setIdLong(maestro.getIdBD());
         return maestroBO;
     }
 
@@ -91,7 +91,7 @@ class Conversiones {
                 maestro.getDescripcion(),
                 maestro.getFoto()
         );
-        maestroDTO.setIdBD(maestro.getIdBd());
+        maestroDTO.setIdBD(maestro.getIdLong());
         if (eventos != null && !eventos.isEmpty()) {
             for (EntidadEvento ec : eventos) {
                 eventosDTO.add(toEventoDTO(ec,maestroDTO));
@@ -118,7 +118,7 @@ class Conversiones {
                         evento.getDescripcion(),
                         evento.getFechaInicio(),
                         evento.getHoraInicio(),
-                        evento.getHorasDuracionEvento(),
+                        (double) evento.getHorasDuracionEvento(),
                         maestroBO
                 );
             case UNICO_VARIOS_DIAS ->
@@ -132,7 +132,7 @@ class Conversiones {
                         evento.getFechaInicio(),
                         evento.getFechaFin(),
                         evento.getHoraInicio(),
-                        evento.getHorasDuracionEvento(),
+                        (double)evento.getHorasDuracionEvento(),
                         maestroBO
                 );
             case SEMANAL ->
@@ -146,11 +146,11 @@ class Conversiones {
                         evento.getFechaInicio(),
                         evento.getFechaFin(),
                         evento.getHoraInicio(),
-                        evento.getHorasDuracionEvento(),
+                        (double)evento.getHorasDuracionEvento(),
                         maestroBO
                 );
         }
-        if(eventoConvertido!=null)eventoConvertido.setId(evento.getId());
+        if(eventoConvertido!=null)eventoConvertido.setIdLong(evento.getId());
         return eventoConvertido;
     }
     
@@ -170,7 +170,7 @@ class Conversiones {
                         ubicacionDTO,
                         evento.getFechaInicio(),
                         evento.getHoraInicio(),
-                        evento.getHorasDuracionEvento()
+                        evento.getHorasDuracionEvento().floatValue()
                 );
             case UNICO_VARIOS_DIAS ->
                 eventoConvertido = new EventoConsultableDTO(
@@ -183,7 +183,7 @@ class Conversiones {
                         evento.getFechaInicio(),
                         evento.getFechaFin(),
                         evento.getHoraInicio(),
-                        evento.getHorasDuracionEvento()
+                        evento.getHorasDuracionEvento().floatValue()
                 );
             case SEMANAL ->
                 eventoConvertido = new EventoConsultableDTO(
@@ -196,11 +196,11 @@ class Conversiones {
                         evento.getFechaInicio(),
                         evento.getFechaFin(),
                         evento.getHoraInicio(),
-                        evento.getHorasDuracionEvento()
+                        evento.getHorasDuracionEvento().floatValue()
                 );
         }
         if(eventoConvertido!=null){
-            eventoConvertido.setId(evento.getId());
+            eventoConvertido.setId(evento.getIdLong());
             eventoConvertido.setMaestro(maestroDTO2);
         }
         return eventoConvertido;

@@ -8,6 +8,8 @@ import excepciones.NegocioException;
 import excepcioness.PersistenciaExceptionn;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -47,11 +49,10 @@ public class Maestro {
         this.calendarioEv=new ArrayList<>();
     }
 
-    public boolean editarMaestro(MaestroEditableDTO maestro)throws NegocioException{
+    public MaestroEditableDTO editarMaestro(MaestroEditableDTO maestro)throws NegocioException{
         EntidadMaestro maestroEditado= convertidor.toMaestroBO(maestro);
         try{
-             convertidor.toMaestroDTO(crudMaestro.editarMaestro(maestroEditado));
-             return true;
+            return convertidor.toMaestroDTO(crudMaestro.editarMaestro(maestroEditado));
         }catch(PersistenciaExceptionn e){
             throw new NegocioException(e.getMessage());
         }
@@ -59,7 +60,12 @@ public class Maestro {
     
     public MaestroEditableDTO obtenerMaestro(MaestroEditableDTO maestro)throws NegocioException{
         EntidadMaestro maestroBuscado=convertidor.toMaestroBO(maestro);
-        return convertidor.toMaestroDTO(crudMaestro.obtenerMaestro(maestroBuscado));
+        try {
+            return convertidor.toMaestroDTO(crudMaestro.obtenerMaestro(maestroBuscado.getId()));
+        } catch (PersistenciaExceptionn ex) {
+            Logger.getLogger(Maestro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
     public Long getId() {

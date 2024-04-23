@@ -21,7 +21,7 @@ public class CrudMaestro {
         coleccion = ClaseConexion.getColeccion("Maestros");
     }
 
-    public void agregarMaestro(EntidadMaestro maestro) throws PersistenciaExceptionn {
+    public EntidadMaestro agregarMaestro(EntidadMaestro maestro) throws PersistenciaExceptionn {
         try {
             Document doc = new Document();
             doc.append("idMaestro", maestro.getIdMaestro())
@@ -32,13 +32,14 @@ public class CrudMaestro {
                .append("calendario", maestro.getCalendario());
 
             coleccion.insertOne(doc);
+            return maestro;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
             throw new PersistenciaExceptionn("Hubo un error al agregar el maestro.");
         }
     }
 
-    public void editarMaestro(EntidadMaestro maestro) throws PersistenciaExceptionn {
+    public EntidadMaestro editarMaestro(EntidadMaestro maestro) throws PersistenciaExceptionn {
         try {
             Document filtro = new Document("_id", maestro.getId());
             Document actualizacion = new Document("$set", new Document("nombre", maestro.getNombre())
@@ -47,15 +48,18 @@ public class CrudMaestro {
                                                           .append("foto", maestro.getFoto())
                                                           .append("calendario", maestro.getCalendario()));
             coleccion.updateOne(filtro, actualizacion);
+            
+            return maestro;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
             throw new PersistenciaExceptionn("Hubo un error al editar el maestro.");
         }
     }
 
-    public void eliminarMaestro(ObjectId idMaestro) throws PersistenciaExceptionn {
+    public boolean eliminarMaestro(ObjectId idMaestro) throws PersistenciaExceptionn {
         try {
             coleccion.deleteOne(Filters.eq("_id", idMaestro));
+            return true;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
             throw new PersistenciaExceptionn("Hubo un error al eliminar el maestro.");

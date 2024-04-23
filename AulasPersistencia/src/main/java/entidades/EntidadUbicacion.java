@@ -78,6 +78,36 @@ public class EntidadUbicacion implements Serializable {
     public void setId(ObjectId id) {
         this.id = id;
     }
+    
+    
+    /**
+     * Obtienes el valor de ObjectId como long
+     * @return 
+     */
+    public Long getIdLong(){
+        // Obtener el valor hexadecimal del ObjectId
+        String valorHex = this.id.toHexString();
+        
+        // Convertir el valor hexadecimal a un número
+        return Long.valueOf(valorHex);
+    }
+
+    /**
+     * Recibe un long que convierta a ObjectId para colocarselo como atributo
+     * @param id 
+     */
+    public void setIdLong(Long id) {
+
+        // Convertir el valor long a su representación hexadecimal
+        String hexValue = Long.toHexString(id);
+
+        // Rellenar con ceros a la izquierda para asegurar que tenga 24 dígitos
+        while (hexValue.length() < 24) {
+            hexValue = "0" + hexValue;
+        }
+
+        this.id = new ObjectId(hexValue);
+    }
 
     @Override
     public String toString() {

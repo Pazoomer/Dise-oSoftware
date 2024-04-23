@@ -1,3 +1,5 @@
+package entidades;
+
 import com.mongodb.client.MongoCollection;
 import excepcioness.PersistenciaExceptionn;
 import org.bson.Document;
@@ -5,18 +7,14 @@ import org.bson.types.ObjectId;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import entidades.EntidadEvento;
-import entidades.EntidadMaestro;
-import entidades.EntidadTipoEventoEnum;
-import entidades.EntidadUbicacion;
 import java.util.Calendar;
 
 public class CrudEvento {
     private final static Logger LOG = Logger.getLogger(CrudEvento.class.getName());
-    private final MongoCollection<Document> collection;
+    private final MongoCollection<Document> coleccion;
 
-    public CrudEvento(MongoCollection<Document> collection) {
-        this.collection = collection;
+    public CrudEvento() {
+        coleccion = ClaseConexion.getColeccion("Eventos");
     }
 
     public boolean agregarEvento(EntidadEvento evento) throws PersistenciaExceptionn {
@@ -35,7 +33,7 @@ public class CrudEvento {
                     .append("horaInicio", evento.getHoraInicio().getTime())
                     .append("horasDuracionEvento", evento.getHorasDuracionEvento())
                     .append("maestro", evento.getMaestro().getId().toString());
-            collection.insertOne(doc);
+            coleccion.insertOne(doc);
             return true;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
@@ -59,7 +57,7 @@ public class CrudEvento {
                     .append("horasDuracionEvento", evento.getHorasDuracionEvento())
                     .append("maestro", evento.getMaestro().getId().toString()));
             // Se actualiza el documento en MongoDB
-            collection.updateOne(filter, update);
+            coleccion.updateOne(filter, update);
             return evento;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
@@ -72,7 +70,7 @@ public class CrudEvento {
             // Suponiendo que se puede buscar por el ID del evento en MongoDB
             Document filter = new Document("_id", new ObjectId(evento.getId().toString()));
             // Se elimina el documento en MongoDB
-            collection.deleteOne(filter);
+            coleccion.deleteOne(filter);
             return true;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
@@ -84,7 +82,7 @@ public class CrudEvento {
         try {
             // Suponiendo que se puede buscar por el nombre del evento en MongoDB
             Document query = new Document("nombre", evento.getNombre());
-            Document doc = collection.find(query).first();
+            Document doc = coleccion.find(query).first();
             if (doc != null) {
                 // Convertir el documento a una instancia de EntidadEvento
                 return documentToEntidadEvento(doc);

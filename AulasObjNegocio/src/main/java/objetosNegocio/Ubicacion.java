@@ -1,12 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package objetosNegocio;
 
 import DTOS.campus.CampusConsultableDTO;
 import DTOS.campus.UbicacionDTO;
-import entidades.CrudEvento;
 import entidades.CrudUbicacion;
 import entidades.EntidadCampus;
 import entidades.EntidadUbicacion;
@@ -14,6 +10,8 @@ import excepciones.NegocioException;
 import excepcioness.PersistenciaExceptionn;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -65,7 +63,12 @@ public class Ubicacion {
 
     public UbicacionDTO obtenerUbicacion(UbicacionDTO ubicacion)throws NegocioException{
         EntidadUbicacion ubi=conversiones.toUbicacionBO(ubicacion);
-        return conversiones.toUbicacionDTO(crudUbicacion.obtenerUbicacion(ubi));
+        try {
+            return conversiones.toUbicacionDTO(crudUbicacion.obtenerUbicacion(ubi.getIdentificador()));
+        } catch (PersistenciaExceptionn ex) {
+            Logger.getLogger(Ubicacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
     public List<UbicacionDTO> obtenerUbicacionesPorCampus(CampusConsultableDTO campus)throws NegocioException{
