@@ -114,6 +114,9 @@ public class EntidadMaestro implements Serializable {
      * @return 
      */
     public Long getIdLong(){
+        if (id==null) {
+            return null;
+        }
         // Obtener el valor hexadecimal del ObjectId
         String valorHex = this.id.toHexString();
         
@@ -127,6 +130,10 @@ public class EntidadMaestro implements Serializable {
      */
     public void setIdLong(Long id) {
 
+        if (id==null) {
+            return;
+        }
+        
         // Convertir el valor long a su representación hexadecimal
         String hexValue = Long.toHexString(id);
 
@@ -145,14 +152,10 @@ public class EntidadMaestro implements Serializable {
         sb.append("id=").append(id);
         sb.append(", idMaestro=").append(idMaestro);
         sb.append(", nombre=").append(nombre);
-        sb.append(", cubiculo[");
-        sb.append("edificio=").append(cubiculo.getIdentificador());
-        sb.append(", campus=").append(cubiculo.getCampus().getNombre()).append(']');
+        sb.append(", cubiculo=").append(cubiculo);
         sb.append(", descripcion=").append(descripcion);
         sb.append(", foto=").append(foto);
-        if (!calendario.isEmpty()) {
-            sb.append(", calendario=").append(calendarioToString());
-        }
+        sb.append(", calendario=").append(calendario);
         sb.append('}');
         return sb.toString();
     }

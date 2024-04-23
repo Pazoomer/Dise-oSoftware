@@ -115,12 +115,14 @@ public class EntidadUbicacion implements Serializable {
         sb.append("EntidadUbicacion{");
         sb.append("id=").append(id);
         sb.append(", descripcion=").append(descripcion);
-        sb.append(", campus=").append(campus.getNombre());
-        if(!eventos.isEmpty())
-            sb.append(eventosToString());
+        sb.append(", identificador=").append(identificador);
+        sb.append(", campus=").append(campus);
+        sb.append(", eventos=").append(eventos);
         sb.append('}');
         return sb.toString();
     }
+
+    
 
     public String eventosToString(){
         StringBuilder sb = new StringBuilder();

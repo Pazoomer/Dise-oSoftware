@@ -85,10 +85,12 @@ public class EntidadCampus implements Serializable {
         sb.append("EntidadCampus{");
         sb.append("id=").append(id);
         sb.append(", nombre=").append(nombre);
-        sb.append("edificios=").append(edificiosToString());
+        sb.append(", ubicaciones=").append(ubicaciones);
         sb.append('}');
         return sb.toString();
     }
+
+    
 
     private String edificiosToString(){
         StringBuilder sb=new StringBuilder();

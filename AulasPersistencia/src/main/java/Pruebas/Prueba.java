@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package bda.aulaspersistencia2;
+package Pruebas;
 
 import entidades.CrudMaestro;
 import entidades.EntidadEvento;
@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author luiis
  */
-public class AulasPersistencia2 {
+public class Prueba {
 
     public static void main(String[] args) {
         CrudMaestro maestro=new CrudMaestro();
@@ -23,7 +23,7 @@ public class AulasPersistencia2 {
         try{
             EntidadMaestro maestroOb=new EntidadMaestro();
             maestroOb.setIdMaestro(1L);
-            EntidadMaestro m=maestro.obtenerMaestro(maestroOb.getId());
+            EntidadMaestro m=maestro.obtenerMaestro(maestroOb);
             Calendar fecha=Calendar.getInstance();
             fecha.set(Calendar.MONTH, 4);
             fecha.set(Calendar.DAY_OF_MONTH, 10);

@@ -61,7 +61,7 @@ public class Maestro {
     public MaestroEditableDTO obtenerMaestro(MaestroEditableDTO maestro)throws NegocioException{
         EntidadMaestro maestroBuscado=convertidor.toMaestroBO(maestro);
         try {
-            EntidadMaestro maestroEncontrado=crudMaestro.obtenerMaestro(maestroBuscado.getId());
+            EntidadMaestro maestroEncontrado=crudMaestro.obtenerMaestro(maestroBuscado);
             if (maestroEncontrado!=null) {
                 return convertidor.toMaestroDTO(maestroEncontrado);
             }

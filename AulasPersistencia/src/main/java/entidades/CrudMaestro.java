@@ -59,9 +59,9 @@ public class CrudMaestro {
         }
     }
 
-    public boolean eliminarMaestro(ObjectId idMaestro) throws PersistenciaExceptionn {
+    public boolean eliminarMaestro(EntidadMaestro maestroParametro) throws PersistenciaExceptionn {
         try {
-            coleccion.deleteOne(Filters.eq("_id", idMaestro));
+            coleccion.deleteOne(Filters.eq("idMaestro", maestroParametro.getIdMaestro()));
             conexion.cerrarConexion();
             return true;
         } catch (Exception e) {
@@ -70,9 +70,10 @@ public class CrudMaestro {
         }
     }
 
-    public EntidadMaestro obtenerMaestro(ObjectId idMaestro) throws PersistenciaExceptionn {
+    public EntidadMaestro obtenerMaestro(EntidadMaestro maestroParametro) throws PersistenciaExceptionn {
+        
         try {
-            Document doc = coleccion.find(Filters.eq("_id", idMaestro)).first();
+            Document doc = coleccion.find(Filters.eq("idMaestro", maestroParametro.getIdMaestro())).first();
             if (doc != null) {
                 EntidadMaestro maestro = new EntidadMaestro();
                 maestro.setId((ObjectId) doc.get("_id"));

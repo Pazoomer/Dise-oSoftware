@@ -77,7 +77,7 @@ class Conversiones {
                     maestro.getFoto()
             );
         }
-        maestroBO.setIdMaestro(maestro.getIdBD());
+        maestroBO.setIdLong(maestro.getIdBD());
         return maestroBO;
     }
 

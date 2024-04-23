@@ -195,18 +195,18 @@ public class EntidadEvento implements Serializable {
         sb.append(", nombre=").append(nombre);
         sb.append(", descripcion=").append(descripcion);
         sb.append(", diasSemana=").append(diasSemana);
-        sb.append(", ubicacion[");
-        sb.append("edificio=").append(ubicacion.getIdentificador());
-        sb.append(", campus=").append(ubicacion.getCampus().getNombre()).append(']');
+        sb.append(", ubicacion=").append(ubicacion);
         sb.append(", color=").append(color);
-        sb.append(", fechaInicio=").append(fechaToString(fechaInicio));
-        sb.append(", fechaFin=").append(fechaToString(fechaFin));
-        sb.append(", horaInicio=").append(fechaToString(horaInicio));
+        sb.append(", fechaInicio=").append(fechaInicio);
+        sb.append(", fechaFin=").append(fechaFin);
+        sb.append(", horaInicio=").append(horaInicio);
         sb.append(", horasDuracionEvento=").append(horasDuracionEvento);
-        sb.append(", maestro=").append(maestro.getNombre());
+        sb.append(", maestro=").append(maestro);
         sb.append('}');
         return sb.toString();
     }
+
+ 
     
     public String fechaToString(Calendar fecha){
         SimpleDateFormat formatoFecha=new SimpleDateFormat("yyyy-MM-dd");

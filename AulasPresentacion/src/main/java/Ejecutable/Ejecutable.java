@@ -1,5 +1,5 @@
 
-package presentacion.pantallas;
+package Ejecutable;
 
 //import BO.recuperarMaestroBO.IRecuperarMaestroBO;
 //import BO.recuperarMaestroBO.RecuperarMaestroBO;
@@ -9,6 +9,7 @@ import accesoMaestro.FachadaAccesoMaestro;
 //import conexion.IConexionDAO;
 import accesoMaestro.IAccesoMaestro;
 import excepciones.NegocioException;
+import presentacion.pantallas.PrincipalMaestro;
 /**
  *
  * @author 
