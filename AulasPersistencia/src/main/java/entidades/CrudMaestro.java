@@ -46,10 +46,10 @@ public class CrudMaestro {
         try {
             Document filtro = new Document("_id", maestro.getId());
             Document actualizacion = new Document("$set", new Document("nombre", maestro.getNombre())
-                                                          .append("cubiculo", maestro.getCubiculo().getIdentificador())
-                                                          .append("descripcion", maestro.getDescripcion())
-                                                          .append("foto", maestro.getFoto())
-                                                          .append("calendario", maestro.getCalendario()));
+                    .append("cubiculo", maestro.getCubiculo().getIdentificador())
+                    .append("descripcion", maestro.getDescripcion())
+                    .append("foto", maestro.getFoto())
+                    .append("calendario", maestro.getCalendario()));
             coleccion.updateOne(filtro, actualizacion);
             conexion.cerrarConexion();
             return maestro;
@@ -71,18 +71,12 @@ public class CrudMaestro {
     }
 
     public EntidadMaestro obtenerMaestro(EntidadMaestro maestroParametro) throws PersistenciaExceptionn {
-        
+
         try {
             Document doc = coleccion.find(Filters.eq("idMaestro", maestroParametro.getIdMaestro())).first();
+
             if (doc != null) {
-                EntidadMaestro maestro = new EntidadMaestro();
-                maestro.setId((ObjectId) doc.get("_id"));
-                maestro.setIdMaestro(doc.getLong("idMaestro"));
-                maestro.setNombre(doc.getString("nombre"));
-                maestro.setCubiculo(new EntidadUbicacion(doc.getString("cubiculo")));
-                maestro.setDescripcion(doc.getString("descripcion"));
-                maestro.setFoto(doc.getString("foto"));
-                maestro.setCalendario((List<EntidadEvento>) doc.get("calendario"));
+                EntidadMaestro maestro = ConversionesDocument.DocumentMaestroAEntidad(doc);
                 conexion.cerrarConexion();
                 return maestro;
             }
@@ -140,4 +134,6 @@ public class CrudMaestro {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
         return formatoFecha.format(fecha.getTime());
     }
+    
+    
 }
