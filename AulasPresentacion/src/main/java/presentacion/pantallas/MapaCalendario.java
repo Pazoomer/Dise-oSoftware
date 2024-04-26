@@ -1,8 +1,5 @@
 package presentacion.pantallas;
 
-//import BO.recuperarUbicacionesBO.IRecuperarUbicacionesBO;
-//import BO.recuperarUbicacionesBO.RecuperarUbicacionesBO;
-//import conexion.IConexionDAO;
 import DTOS.campus.CampusConsultableDTO;
 import DTOS.campus.UbicacionDTO;
 import accesoUbicaciones.FachadaAccesoUbicaciones;
@@ -31,17 +28,14 @@ public class MapaCalendario extends javax.swing.JFrame {
     private int h = 0;
     private Image img = null;
     private String ubicacion;
-    private UbicacionDTO ubicacionDTO;
     private List<UbicacionDTO> ubicacionesCampus;
     private DefaultComboBoxModel cmbBoxModelEdificios;
-    private IAccesoUbicaciones accesoUbicaciones;
-//    private final IConexionDAO conexion;
+    private final IAccesoUbicaciones accesoUbicaciones;
 
     /**
      * Creates new form MapaCalendario
      *
      * @param cdEvento
-     * @param conexion
      */
     public MapaCalendario(CDEvento cdEvento) {
         setUndecorated(true);
@@ -108,40 +102,7 @@ public class MapaCalendario extends javax.swing.JFrame {
         }catch(NegocioException e){
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-//
-//        
-//        List<String> campusUbicaciones=accesoUbicaciones.recuperarEdificiosPorCampus(campus);
-//
-//        for (String campusItem : campusUbicaciones) {
-//            this.cmbCampus.addItem(campusItem);
-//        }
-//        cambioCampus(campusUbicaciones.get(0));
     }
-
-    /**
-     * Cambia el comboBox de ubicaciones segun el campus
-     * @param campus 
-     */
-//    private void cambioCampus(String campus) {
-//        cmbBoxModelCampus=new DefaultComboBoxModel();
-//        //IRecuperarUbicacionesBO recuperarUbicacionesBO=new RecuperarUbicacionesBO(conexion);
-//        try{
-//            List<UbicacionDTO> ubicacionesCampus = accesoUbicaciones.recuperarEdificiosPorCampus(new CampusConsultableDTO(campus));
-//            if(!ubicacionesCampus.isEmpty()){
-//                for(UbicacionDTO u: ubicacionesCampus){
-//                    cmbBoxModelCampus.addElement(u.getCampus().getNombre());
-//                }
-//                cmbCampus.setModel(cmbBoxModelCampus);
-//            }
-//        }catch(NegocioException e){
-//            JOptionPane.showMessageDialog(this, e.getMessage());
-//        }
-//
-//        this.cmbMapa.removeAllItems();
-//        for (String ubicacionCampus : ubicacionesCampus) {
-//            this.cmbMapa.addItem(ubicacionCampus);
-//        }
-//    }
 
     private UbicacionDTO setUbicacionDTOSeleccionado(){
         String ubicacionTxt=txtUbicacionDinamica.getText();
@@ -152,8 +113,7 @@ public class MapaCalendario extends javax.swing.JFrame {
         }
         return null;
     }
-    //TODO
-    //Guarda la ubicacion seleccionada
+    
     private void guardar() {
         ubicacion = this.txtUbicacionDinamica.getText();
         cdEvento.guardarUbicacion(ubicacion,setUbicacionDTOSeleccionado());
@@ -165,7 +125,31 @@ public class MapaCalendario extends javax.swing.JFrame {
         //cdEvento.calendario.setVisible(true);
         cdEvento.setVisible(true);
     }
+    
+    private void setMapa(String campus) {
 
+        ImageIcon icon = null;
+        w = jScrollPane1.getHeight();
+        h = jScrollPane1.getWidth();
+        if (campus.equals("Obregon Nainari")) {
+            img = new ImageIcon(getClass().getResource("/imagenes/campus-nainari.jpg")).getImage();
+            icon = new ImageIcon(zoom(h, w, img));
+        } else {
+            img = new ImageIcon(getClass().getResource("/imagenes/campus-centro.jpg")).getImage();
+            icon = new ImageIcon(zoom(h, w, img));
+        }
+        lblImageMap.setIcon(icon);
+
+    }
+    
+    private Image zoom(int H, int W, Image img) {
+        BufferedImage buf = new BufferedImage(H, W, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = buf.createGraphics();
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2d.drawImage(img, 0, 0, W, H, null);
+        g2d.dispose();
+        return buf;
+    }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -415,21 +399,6 @@ public class MapaCalendario extends javax.swing.JFrame {
         setUbicaciones(campusUbi);
     }//GEN-LAST:event_cmbCampusItemStateChanged
 
-    private void setMapa(String campus) {
-
-        ImageIcon icon = null;
-        w = jScrollPane1.getHeight();
-        h = jScrollPane1.getWidth();
-        if (campus.equals("Obregon Nainari")) {
-            img = new ImageIcon(getClass().getResource("/imagenes/campus-nainari.jpg")).getImage();
-            icon = new ImageIcon(zoom(h, w, img));
-        } else {
-            img = new ImageIcon(getClass().getResource("/imagenes/campus-centro.jpg")).getImage();
-            icon = new ImageIcon(zoom(h, w, img));
-        }
-        lblImageMap.setIcon(icon);
-
-    }
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         cerrar();
     }//GEN-LAST:event_formWindowClosed
@@ -501,14 +470,7 @@ public class MapaCalendario extends javax.swing.JFrame {
         // TODO add your handling code here:
         btnZoomOut.setBackground(Color.WHITE);
     }//GEN-LAST:event_btnZoomOutMouseExited
-    private Image zoom(int H, int W, Image img) {
-        BufferedImage buf = new BufferedImage(H, W, BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2d = buf.createGraphics();
-        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        g2d.drawImage(img, 0, 0, W, H, null);
-        g2d.dispose();
-        return buf;
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;

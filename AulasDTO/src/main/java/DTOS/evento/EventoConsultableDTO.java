@@ -20,7 +20,7 @@ public class EventoConsultableDTO {
     private Calendar fechaInicio;
     private Calendar fechaFin;
     private Calendar horaInicio;
-    private float horasDuracionEvento;
+    private Double horasDuracionEvento;
     private MaestroEditableDTO maestro;
 
     public EventoConsultableDTO(String nombre) {
@@ -42,7 +42,7 @@ public class EventoConsultableDTO {
      * @param horasDuracionEvento
      */
     public EventoConsultableDTO(String nombre, String descripcion, String color,
-            UbicacionDTO ubicacion, Calendar fechaInicio, Calendar horaInicio, float horasDuracionEvento) {
+            UbicacionDTO ubicacion, Calendar fechaInicio, Calendar horaInicio, Double horasDuracionEvento) {
         this.tipo = TipoEventoEnumDTO.UNICO_UN_DIA;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -60,7 +60,7 @@ public class EventoConsultableDTO {
         //Por ejemplo si horasDuracionEvento guarda 2.5 (2 horas y media),
         //horas guarda el 2 y minutos guarda 30, para agregarlos por separado a la fecha
         Calendar fechaCopia = fechaInicio;
-        int horas = (int) horasDuracionEvento;
+        int horas = horasDuracionEvento.intValue();
         double copiaHoras = horasDuracionEvento;
         double decimal = copiaHoras - horas;
         int minutos = (int) (decimal * 100);
@@ -86,7 +86,7 @@ public class EventoConsultableDTO {
      * @param horasDuracionEvento
      */
     public EventoConsultableDTO(TipoEventoEnumDTO tipo, String nombre, String descripcion, String color,String diasSemanaa,
-            UbicacionDTO ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento) {
+            UbicacionDTO ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, Double horasDuracionEvento) {
         this.fechaInicio = fechaInicio;
         this.fechaFin = Calendar.getInstance();
         this.horaInicio = horaInicio;
@@ -150,7 +150,7 @@ public class EventoConsultableDTO {
         return horaInicio;
     }
 
-    public float getHorasDuracionEvento() {
+    public Double getHorasDuracionEvento() {
         return horasDuracionEvento;
     }
 

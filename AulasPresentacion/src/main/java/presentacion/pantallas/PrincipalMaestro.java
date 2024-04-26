@@ -144,21 +144,24 @@ public class PrincipalMaestro extends javax.swing.JFrame {
      */
     private void editarInformacion() {
         String descripcion = this.txaDescripcion.getText();
-        //String cubiculo = this.txtCubiculo.getText();
         String edificioCubiculo=cmbBoxCubiculos.getSelectedItem().toString();
         UbicacionDTO ubicacionCubiculo;
         MaestroEditableDTO maestroAuxiliar;
-        //List<EventoConsultableDTO> calendarioAuxiliar = maestroDTO.getCalendario();
+        
         try{
             ubicacionCubiculo=accesoUbicaciones.recuperarEdificio(new UbicacionDTO((edificioCubiculo)));
+            
             maestroAuxiliar = new MaestroEditableDTO(maestroDTO.getId(), maestroDTO.getNombre(),
-                    ubicacionCubiculo, descripcion, "fotoMaestro.png");
+                    ubicacionCubiculo, descripcion, maestroDTO.getFoto(),maestroDTO.getCalendario());
+            
             maestroAuxiliar.setIdBD(maestroDTO.getIdBD());
+            
             if(accesoMaestro.editarMaestro(maestroAuxiliar)){
                 maestroDTO=maestroAuxiliar;
                 JOptionPane.showMessageDialog(null, "Se actualizo su informacion", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
                 cargarMaestro();
             }
+            
         }catch(NegocioException e){
             JOptionPane.showMessageDialog(this, e.getMessage());
         }

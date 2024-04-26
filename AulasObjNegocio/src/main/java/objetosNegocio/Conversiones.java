@@ -5,6 +5,9 @@ import DTOS.campus.CampusConsultableDTO;
 import DTOS.campus.UbicacionDTO;
 import DTOS.evento.EventoConsultableDTO;
 import DTOS.evento.TipoEventoEnumDTO;
+import static DTOS.evento.TipoEventoEnumDTO.SEMANAL;
+import static DTOS.evento.TipoEventoEnumDTO.UNICO_UN_DIA;
+import static DTOS.evento.TipoEventoEnumDTO.UNICO_VARIOS_DIAS;
 import DTOS.maestro.MaestroEditableDTO;
 import entidades.EntidadCampus;
 import entidades.EntidadEvento;
@@ -19,21 +22,35 @@ import java.util.List;
  * @author luiis
  */
 class Conversiones {
-    
-    protected EntidadUbicacion toUbicacionBO(UbicacionDTO ubicacionDTO){
-        EntidadUbicacion ubicacion;
-        if(ubicacionDTO.getCampus()!=null){
-            ubicacion=new EntidadUbicacion(
-                ubicacionDTO.getIdentificador(),
-                new EntidadCampus(ubicacionDTO.getCampus().getNombre()),
-                ubicacionDTO.getDescripcion());
-        }else{
-            ubicacion=new EntidadUbicacion(ubicacionDTO.getIdentificador());
+
+    protected EntidadUbicacion toUbicacionBO(UbicacionDTO ubicacionDTO) {
+        EntidadUbicacion ubicacion = new EntidadUbicacion();
+
+        if (ubicacionDTO.getCampus() != null) {
+
+            ubicacion.setCampus(toCampusBO(ubicacionDTO.getCampus()));
+
         }
+
+        List<EntidadEvento> entidadEventos = new ArrayList<>();
+
+        if (ubicacionDTO.getEventos() != null) {
+
+            for (EventoConsultableDTO evento : ubicacionDTO.getEventos()) {
+
+                EntidadEvento eventoAux = toEventoBO(evento);
+
+                entidadEventos.add(eventoAux);
+            }
+        }
+        ubicacion.setEventos(entidadEventos);
+        ubicacion.setDescripcion(ubicacionDTO.getDescripcion());
+        ubicacion.setIdentificador(ubicacionDTO.getIdentificador());
         ubicacion.setIdLong(ubicacionDTO.getId());
+        
         return ubicacion;
     }
-    
+
     protected UbicacionDTO toUbicacionDTO(EntidadUbicacion ubicacionBO){
         UbicacionDTO ubicacion;
         if(ubicacionBO.getCampus()!=null){
@@ -54,9 +71,12 @@ class Conversiones {
         List<EntidadEvento> eventosBO = new ArrayList<>();
         EntidadUbicacion ubicacionBO=null;
         EntidadMaestro maestroBO;
+        
         if(maestro.getCubiculo()!=null)
             ubicacionBO=toUbicacionBO(maestro.getCubiculo());
+        
         if (eventos != null && !eventos.isEmpty()) {
+            
             for (EventoConsultableDTO ec : eventos) {
                 eventosBO.add(toEventoBO(ec));
             }
@@ -101,12 +121,13 @@ class Conversiones {
         return maestroDTO;
     }
     
-    
     protected EntidadEvento toEventoBO(EventoConsultableDTO evento) {
         EntidadEvento eventoConvertido=null;
         EntidadUbicacion ubi=null;
         EntidadMaestro maestroBO=null;
+        
         if(evento.getMaestro()!=null) maestroBO=toMaestroBO(evento.getMaestro());
+        
         if(evento.getUbicacion()!=null)
             ubi=toUbicacionBO(evento.getUbicacion());
         switch (evento.getTipo()) {
@@ -158,8 +179,11 @@ class Conversiones {
         EventoConsultableDTO eventoConvertido = null;
         UbicacionDTO ubicacionDTO=null;
         MaestroEditableDTO maestroDTO2=null;
+        
         if(evento.getUbicacion()!=null) ubicacionDTO=toUbicacionDTO(evento.getUbicacion());
+        
         if(maestroDTO!=null)maestroDTO2=maestroDTO;
+        
         else if(evento.getMaestro()!=null)maestroDTO2=toMaestroDTO(evento.getMaestro());
         switch (evento.getTipo()) {
             case UNICO_UN_DIA ->
@@ -170,7 +194,7 @@ class Conversiones {
                         ubicacionDTO,
                         evento.getFechaInicio(),
                         evento.getHoraInicio(),
-                        evento.getHorasDuracionEvento().floatValue()
+                        evento.getHorasDuracionEvento()
                 );
             case UNICO_VARIOS_DIAS ->
                 eventoConvertido = new EventoConsultableDTO(
@@ -183,7 +207,7 @@ class Conversiones {
                         evento.getFechaInicio(),
                         evento.getFechaFin(),
                         evento.getHoraInicio(),
-                        evento.getHorasDuracionEvento().floatValue()
+                        evento.getHorasDuracionEvento()
                 );
             case SEMANAL ->
                 eventoConvertido = new EventoConsultableDTO(
@@ -196,7 +220,7 @@ class Conversiones {
                         evento.getFechaInicio(),
                         evento.getFechaFin(),
                         evento.getHoraInicio(),
-                        evento.getHorasDuracionEvento().floatValue()
+                        evento.getHorasDuracionEvento()
                 );
         }
         if(eventoConvertido!=null){
@@ -204,6 +228,51 @@ class Conversiones {
             eventoConvertido.setMaestro(maestroDTO2);
         }
         return eventoConvertido;
+    }
+    
+    protected EntidadCampus toCampusBO(CampusConsultableDTO campusDTO) {
+
+        EntidadCampus entidadCampus = new EntidadCampus();
+        List<EntidadUbicacion> entidadUbicaciones = new ArrayList<>();
+
+        if (campusDTO.getUbicaciones() != null) {
+
+            for (UbicacionDTO ubicacion : campusDTO.getUbicaciones()) {
+
+                EntidadUbicacion ubicacionAux = toUbicacionBO(ubicacion);
+
+                ubicacionAux.setCampus(entidadCampus);
+
+                entidadUbicaciones.add(ubicacionAux);
+            }
+            entidadCampus.setUbicaciones(entidadUbicaciones);
+        }
+
+        entidadCampus.setNombre(campusDTO.getNombre());
+        entidadCampus.setIdLong(campusDTO.getId());
+        return entidadCampus;
+    }
+
+    protected CampusConsultableDTO toCampusDTO(EntidadCampus entidadCampus){
+        CampusConsultableDTO campusDTO=new CampusConsultableDTO(entidadCampus.getNombre());
+        campusDTO.setId(entidadCampus.getIdLong());
+        
+        if (entidadCampus.getUbicaciones()!=null) {
+            
+            List<UbicacionDTO> ubicaciones=new ArrayList<>();
+            
+            for (EntidadUbicacion ubicacion: entidadCampus.getUbicaciones()){
+                
+                UbicacionDTO ubicacionBO=this.toUbicacionDTO(ubicacion);
+                
+                ubicacionBO.setCampus(campusDTO);
+                
+                ubicaciones.add(ubicacionBO);
+            }
+            campusDTO.setUbicaciones(ubicaciones);
+            
+        }
+        return campusDTO;
     }
     
 }

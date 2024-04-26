@@ -1,12 +1,8 @@
 
 package objetosNegocio;
 
-import DTOS.evento.EventoConsultableDTO;
 import entidades.CrudEvento;
 import java.util.Calendar;
-import entidades.EntidadEvento;
-import excepciones.NegocioException;
-import excepcioness.PersistenciaExceptionn;
 import java.text.SimpleDateFormat;
 
 /**
@@ -71,41 +67,41 @@ public class Evento {
         this.fechaFin=fechaCopia;
     }
 
-    public boolean agregarEvento(EventoConsultableDTO evento)throws NegocioException{
-        EntidadEvento eventoNuevo=convertidor.toEventoBO(evento);
-        try{
-            return crudEvento.agregarEvento(eventoNuevo);
-        }catch(PersistenciaExceptionn e){
-            throw new NegocioException(e.getMessage());
-        }
-    }
-    
-    public EventoConsultableDTO editarEvento(EventoConsultableDTO evento)throws NegocioException{
-        EntidadEvento eventoAEditar=convertidor.toEventoBO(evento);
-        try{
-            return convertidor.toEventoDTO(crudEvento.editarEvento(eventoAEditar),null);
-        }catch(PersistenciaExceptionn e){
-            throw new NegocioException(e.getMessage());
-        }
-    }
-    
-    public boolean eliminarEvento(EventoConsultableDTO evento)throws NegocioException{
-        EntidadEvento eventoEliminado=convertidor.toEventoBO(evento);
-        try{
-            return crudEvento.eliminarEvento(eventoEliminado);
-        }catch(PersistenciaExceptionn e){
-            throw new NegocioException(e.getMessage());
-        }
-    }
-    
-    public EventoConsultableDTO obtenerEvento(EventoConsultableDTO evento)throws NegocioException{
-        EntidadEvento eventoBuscado=convertidor.toEventoBO(evento);
-        try{
-            return convertidor.toEventoDTO(crudEvento.obtenerEvento(eventoBuscado),null);
-        }catch(PersistenciaExceptionn e){
-            throw new NegocioException(e.getMessage());
-        }
-    }
+//    public boolean agregarEvento(EventoConsultableDTO evento)throws NegocioException{
+//        EntidadEvento eventoNuevo=convertidor.toEventoBO(evento);
+//        try{
+//            return crudEvento.agregarEvento(eventoNuevo);
+//        }catch(PersistenciaExceptionn e){
+//            throw new NegocioException(e.getMessage());
+//        }
+//    }
+//    
+//    public EventoConsultableDTO editarEvento(EventoConsultableDTO evento)throws NegocioException{
+//        EntidadEvento eventoAEditar=convertidor.toEventoBO(evento);
+//        try{
+//            return convertidor.toEventoDTO(crudEvento.editarEvento(eventoAEditar),null);
+//        }catch(PersistenciaExceptionn e){
+//            throw new NegocioException(e.getMessage());
+//        }
+//    }
+//    
+//    public boolean eliminarEvento(EventoConsultableDTO evento)throws NegocioException{
+//        EntidadEvento eventoEliminado=convertidor.toEventoBO(evento);
+//        try{
+//            return crudEvento.eliminarEvento(eventoEliminado);
+//        }catch(PersistenciaExceptionn e){
+//            throw new NegocioException(e.getMessage());
+//        }
+//    }
+//    
+//    public EventoConsultableDTO obtenerEvento(EventoConsultableDTO evento)throws NegocioException{
+//        EntidadEvento eventoBuscado=convertidor.toEventoBO(evento);
+//        try{
+//            return convertidor.toEventoDTO(crudEvento.obtenerEvento(eventoBuscado),null);
+//        }catch(PersistenciaExceptionn e){
+//            throw new NegocioException(e.getMessage());
+//        }
+//    }
     
     public TipoEventoEnum getTipo() {
         return tipo;

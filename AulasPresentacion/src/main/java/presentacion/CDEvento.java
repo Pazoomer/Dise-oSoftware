@@ -1,13 +1,9 @@
 
 package presentacion;
 
-//import BO.accesoCalendarioBO.AccesoCalendarioBO;
-//import BO.accesoCalendarioBO.IAccesoCalendarioBO;
 import DTOS.campus.UbicacionDTO;
 import DTOS.evento.*;
 import accesoMaestro.FachadaAccesoMaestro;
-import accesoMaestro.IAccesoMaestro;
-//import conexion.IConexionDAO;
 import java.awt.Color;
 import java.util.Calendar;
 import javax.swing.JCheckBox;
@@ -15,8 +11,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import presentacion.pantallas.MapaCalendario;
 import presentacion.pantallas.PrincipalCalendario;
-//import subsistemas.accesoCalendario.EditarCalendario;
-//import subsistemas.accesoCalendario.IAccesoCalendario;
 
 /**
  *
@@ -25,14 +19,10 @@ import presentacion.pantallas.PrincipalCalendario;
 public class CDEvento extends javax.swing.JDialog {
 
     public final PrincipalCalendario calendario;
-    private final java.awt.Frame parent;
     private EventoConsultableDTO eventoEditable;
-    private IAccesoMaestro accesoMaestro;
     private UbicacionDTO ubicacionDTO;
-//    private IAccesoCalendarioBO accesoCalendario; 
     private String tipoOperacion;
-//    private final IConexionDAO conexion;
-    static boolean seEdito;
+    
     /**
      * Creates new form CDEvento
      * @param parent
@@ -44,9 +34,8 @@ public class CDEvento extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.calendario = calendario;
-        this.parent = parent;
         this.tipoOperacion = tipoOperacion;
-        this.accesoMaestro=new FachadaAccesoMaestro();
+        new FachadaAccesoMaestro();
         this.setSize(500, 620);
         actualizarPermisos();
         cargarIconos();
@@ -56,11 +45,9 @@ public class CDEvento extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.calendario = calendario;
-        this.parent = parent;
         this.eventoEditable = eventoEditable;
         this.tipoOperacion = tipoOperacion;
-        this.accesoMaestro=new FachadaAccesoMaestro();
-        seEdito=false;
+        new FachadaAccesoMaestro();
         cargarIconos();
         this.setSize(500, 620);
     }
@@ -149,82 +136,6 @@ public class CDEvento extends javax.swing.JDialog {
         return eventoN;
 
     }
-    //TODO
-        //Al hacer clic sobre el boton deberia intentar añadir el evento al calendario.
-        //primero se asegura que no haya eventos a la misma hora
-    private void añadirEvento() {
-//        String tipo=(String) this.cmbTipo.getSelectedItem();
-//        String descripcion = this.txtDescripcion.getText();
-//        String nombre = this.txtNombre.getText();
-//        String ubicacion = this.txtUbicacion.getText();
-//        Date fecha = this.dtcFecha.getDate();
-//        Color color = this.lblEjemploEstatico.getForeground();
-//        Calendar calendar=null;
-//        boolean[] diasSemana=new boolean[7];
-//        diasSemana[0]=this.chbLunes.isSelected();
-//        diasSemana[1]=this.chbMartes.isSelected();
-//        diasSemana[2]=this.chbMiercoles.isSelected();
-//        diasSemana[3]=this.chbJueves.isSelected();
-//        diasSemana[4]=this.chbViernes.isSelected();
-//        diasSemana[5]=this.chbSabado.isSelected();
-//        diasSemana[6]=this.chbDomingo.isSelected();
-//        String AMPM=(String)this.cmbAMPM.getSelectedItem();
-//        String hora=(String)this.cmbHora.getSelectedItem();
-//        if (hora.equals("-1")) {
-//            hora="7:00";
-//        }
-//        int[] horaNumerica = convertirHora(hora);
-//
-//        if (tipo.equalsIgnoreCase("semanal")) {
-//
-//            int dias = 0;
-//            for (int i = 0; i < 7; i++) {
-//                if (diasSemana[i] == true) {
-//                    dias++;
-//                }
-//            }
-//            if (dias == 0) {
-//                JOptionPane.showMessageDialog(null, "Debes seleccionar al menos un dia de la semana para los eventos semanales", "Mensaje de error", JOptionPane.INFORMATION_MESSAGE);
-//                return;
-//            }
-//        }
-//        if (fecha == null && tipo.equalsIgnoreCase("unico")) {
-//            JOptionPane.showMessageDialog(null, "Debes colocar una fecha para los eventos unicos", "Mensaje de error", JOptionPane.INFORMATION_MESSAGE);
-//            return;
-//        } else if (fecha == null && tipo.equalsIgnoreCase("semanal")) {
-//            fecha = new Date();
-//        }
-//
-//        if (AMPM.equalsIgnoreCase("PM")) {
-//            horaNumerica[0] = horaNumerica[0] + 12;
-//        }
-//
-//        if (horaNumerica[0] == 12) {
-//            horaNumerica[0] = 0;
-//        } else if (horaNumerica[0] < 7 || horaNumerica[0] > 19) {
-//            JOptionPane.showMessageDialog(null, "No se pueden hacer eventos fuera del horario escolar (7:00 AM - 7:30 PM)", "Mensaje de error", JOptionPane.INFORMATION_MESSAGE);
-//            return;
-//        }
-//        
-//        try {
-//            calendar = Calendar.getInstance();
-//            calendar.setTime(fecha);
-//            calendar.set(Calendar.HOUR_OF_DAY,horaNumerica[0] );
-//            calendar.set(Calendar.MINUTE,horaNumerica[1] );
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, "La fecha no es valida", "Mensaje de error", JOptionPane.INFORMATION_MESSAGE);
-//            return;
-//        }
-//        if (calendar==null) {
-//            JOptionPane.showMessageDialog(null, "La fecha no es valida", "Mensaje de error", JOptionPane.INFORMATION_MESSAGE);
-//            return;
-//        }
-////        EventoConsultableDTO evento = new EventoConsultableDTO(tipo, nombre, descripcion, color, diasSemana, ubicacion, calendar,null);
-////        JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
-////        System.out.println(evento);
-////        calendario.añadirEvento(evento);
-//
-    }
 
     public void guardarUbicacion(String ubicacion, UbicacionDTO ubicacionDTO) {
         this.txtUbicacion.setText(ubicacion);
@@ -252,15 +163,6 @@ public class CDEvento extends javax.swing.JDialog {
     /**
      * Abre un seleccionador de fecha y se le asigna al evento
      */
-    private void abrirSeleccionFecha(){
-        CuadroDialogoCalendario calendarioFecha = new CuadroDialogoCalendario(calendario);
-        calendarioFecha.setVisible(true);
-        if (calendarioFecha.getDate()!=null) {
-            this.dtcFecha.setDate(calendarioFecha.getDate());  
-        }
-        
-    }
-    
     public void editarEvento(){
         //accesoCalendario=new AccesoCalendarioBO(conexion);
         EventoConsultableDTO eventoEditado=crearEvento();
@@ -327,6 +229,7 @@ public class CDEvento extends javax.swing.JDialog {
             }
         }
     }
+    
     public void desplegarEvento(){
         desplegarInfo();
         txtNombre.setEditable(false);
@@ -365,7 +268,39 @@ public class CDEvento extends javax.swing.JDialog {
         actualizarPermisos();
     }
     
-    @SuppressWarnings("unchecked")
+     private void actualizarPermisos(){
+      if (this.cmbTipo.getSelectedItem().equals("Unico")) {
+            this.chbLunes.setSelected(false);
+            this.chbMartes.setSelected(false);
+            this.chbMiercoles.setSelected(false);
+            this.chbJueves.setSelected(false);
+            this.chbViernes.setSelected(false);
+            this.chbSabado.setSelected(false);
+            this.chbDomingo.setSelected(false);
+            
+            this.chbLunes.setEnabled(false);
+            this.chbMartes.setEnabled(false);
+            this.chbMiercoles.setEnabled(false);
+            this.chbJueves.setEnabled(false);
+            this.chbViernes.setEnabled(false);
+            this.chbSabado.setEnabled(false);
+            this.chbDomingo.setEnabled(false);
+            
+            this.dtcFecha.setEnabled(true);
+        }else if (this.cmbTipo.getSelectedItem().equals("Semanal")) {
+            this.chbLunes.setEnabled(true);
+            this.chbMartes.setEnabled(true);
+            this.chbMiercoles.setEnabled(true);
+            this.chbJueves.setEnabled(true);
+            this.chbViernes.setEnabled(true);
+            this.chbSabado.setEnabled(true);
+            this.chbDomingo.setEnabled(true);
+            
+            this.dtcFecha.setEnabled(false);
+            this.dtcFecha.setDate(null);
+        }  
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -735,39 +670,6 @@ public class CDEvento extends javax.swing.JDialog {
         // TODO add your handling code here:
         //PrincipalCalendario.isDisplayed=false;
     }//GEN-LAST:event_formWindowClosing
-
-    private void actualizarPermisos(){
-      if (this.cmbTipo.getSelectedItem().equals("Unico")) {
-            this.chbLunes.setSelected(false);
-            this.chbMartes.setSelected(false);
-            this.chbMiercoles.setSelected(false);
-            this.chbJueves.setSelected(false);
-            this.chbViernes.setSelected(false);
-            this.chbSabado.setSelected(false);
-            this.chbDomingo.setSelected(false);
-            
-            this.chbLunes.setEnabled(false);
-            this.chbMartes.setEnabled(false);
-            this.chbMiercoles.setEnabled(false);
-            this.chbJueves.setEnabled(false);
-            this.chbViernes.setEnabled(false);
-            this.chbSabado.setEnabled(false);
-            this.chbDomingo.setEnabled(false);
-            
-            this.dtcFecha.setEnabled(true);
-        }else if (this.cmbTipo.getSelectedItem().equals("Semanal")) {
-            this.chbLunes.setEnabled(true);
-            this.chbMartes.setEnabled(true);
-            this.chbMiercoles.setEnabled(true);
-            this.chbJueves.setEnabled(true);
-            this.chbViernes.setEnabled(true);
-            this.chbSabado.setEnabled(true);
-            this.chbDomingo.setEnabled(true);
-            
-            this.dtcFecha.setEnabled(false);
-            this.dtcFecha.setDate(null);
-        }  
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;

@@ -1,17 +1,7 @@
 
 package objetosNegocio;
 
-import DTOS.campus.CampusConsultableDTO;
-import DTOS.campus.UbicacionDTO;
 import entidades.CrudUbicacion;
-import entidades.EntidadCampus;
-import entidades.EntidadUbicacion;
-import excepciones.NegocioException;
-import excepcioness.PersistenciaExceptionn;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -61,47 +51,47 @@ public class Ubicacion {
         this.campus = campus;
     }
 
-    public UbicacionDTO obtenerUbicacion(UbicacionDTO ubicacion)throws NegocioException{
-        EntidadUbicacion ubi=conversiones.toUbicacionBO(ubicacion);
-        try {
-            return conversiones.toUbicacionDTO(crudUbicacion.obtenerUbicacion(ubi.getIdentificador()));
-        } catch (PersistenciaExceptionn ex) {
-            Logger.getLogger(Ubicacion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-    
-    public List<UbicacionDTO> obtenerUbicacionesPorCampus(CampusConsultableDTO campus)throws NegocioException{
-        List<UbicacionDTO> ubicacionesDTO=new ArrayList<>();
-        EntidadCampus campusBO=new EntidadCampus(campus.getNombre());
-        try{
-            List<EntidadUbicacion> ubicaciones=crudUbicacion.obtenerUbicacionesPorCampus(campusBO);
-            if(ubicaciones!=null && !ubicaciones.isEmpty()){
-                for(EntidadUbicacion u:ubicaciones){
-                    ubicacionesDTO.add(conversiones.toUbicacionDTO(u));
-                }
-                return ubicacionesDTO;
-            }
-            return null;
-        }catch(PersistenciaExceptionn e){
-            throw new NegocioException(e.getMessage());
-        }
-    }
-    public List<UbicacionDTO> obtenerUbicaciones()throws NegocioException{
-        List<UbicacionDTO> ubicacionesDTO=new ArrayList<>();
-        try{
-            List<EntidadUbicacion> ubicaciones=crudUbicacion.obtenerUbicaciones();
-            if(ubicaciones!=null && !ubicaciones.isEmpty()){
-                for(EntidadUbicacion u:ubicaciones){
-                    ubicacionesDTO.add(conversiones.toUbicacionDTO(u));
-                }
-                return ubicacionesDTO;
-            }
-            return null;
-        }catch(PersistenciaExceptionn e){
-            throw new NegocioException(e.getMessage());
-        }
-    }
+//    public UbicacionDTO obtenerUbicacion(UbicacionDTO ubicacion)throws NegocioException{
+//        EntidadUbicacion ubi=conversiones.toUbicacionBO(ubicacion);
+//        try {
+//            return conversiones.toUbicacionDTO(crudUbicacion.obtenerUbicacion(ubi.getIdentificador()));
+//        } catch (PersistenciaExceptionn ex) {
+//            Logger.getLogger(Ubicacion.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return null;
+//    }
+//    
+//    public List<UbicacionDTO> obtenerUbicacionesPorCampus(CampusConsultableDTO campus)throws NegocioException{
+//        List<UbicacionDTO> ubicacionesDTO=new ArrayList<>();
+//        EntidadCampus campusBO=new EntidadCampus(campus.getNombre());
+//        try{
+//            List<EntidadUbicacion> ubicaciones=crudUbicacion.obtenerUbicacionesPorCampus(campusBO);
+//            if(ubicaciones!=null && !ubicaciones.isEmpty()){
+//                for(EntidadUbicacion u:ubicaciones){
+//                    ubicacionesDTO.add(conversiones.toUbicacionDTO(u));
+//                }
+//                return ubicacionesDTO;
+//            }
+//            return null;
+//        }catch(PersistenciaExceptionn e){
+//            throw new NegocioException(e.getMessage());
+//        }
+//    }
+//    public List<UbicacionDTO> obtenerUbicaciones()throws NegocioException{
+//        List<UbicacionDTO> ubicacionesDTO=new ArrayList<>();
+//        try{
+//            List<EntidadUbicacion> ubicaciones=crudUbicacion.obtenerUbicaciones();
+//            if(ubicaciones!=null && !ubicaciones.isEmpty()){
+//                for(EntidadUbicacion u:ubicaciones){
+//                    ubicacionesDTO.add(conversiones.toUbicacionDTO(u));
+//                }
+//                return ubicacionesDTO;
+//            }
+//            return null;
+//        }catch(PersistenciaExceptionn e){
+//            throw new NegocioException(e.getMessage());
+//        }
+//    }
     
     @Override
     public String toString() {

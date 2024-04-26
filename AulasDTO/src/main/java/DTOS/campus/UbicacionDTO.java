@@ -1,8 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package DTOS.campus;
+
+import DTOS.evento.EventoConsultableDTO;
+import java.util.List;
 
 /**
  *
@@ -13,6 +13,7 @@ public class UbicacionDTO {
     private String identificador;
     private String descripcion;
     private CampusConsultableDTO campus;
+    private List<EventoConsultableDTO> eventos;
 
     public UbicacionDTO() {
     }
@@ -27,6 +28,14 @@ public class UbicacionDTO {
         this.campus = campus;
     }
 
+    public List<EventoConsultableDTO> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(List<EventoConsultableDTO> eventos) {
+        this.eventos = eventos;
+    }
+    
     public Long getId() {
         return id;
     }
@@ -63,12 +72,16 @@ public class UbicacionDTO {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("UbicacionDTO{");
-        sb.append("identificador=").append(identificador);
+        sb.append("id=").append(id);
+        sb.append(", identificador=").append(identificador);
         sb.append(", descripcion=").append(descripcion);
-        sb.append(", campus=").append(campus.getNombre());
+        sb.append(", campus=").append(campus);
+        sb.append(", eventos=").append(eventos);
         sb.append('}');
         return sb.toString();
     }
+
+    
     
     public String toStringReducido(){
         StringBuilder sb = new StringBuilder();

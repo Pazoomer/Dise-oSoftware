@@ -9,6 +9,7 @@ import java.util.List;
  * @author t1pas
  */
 public class CampusConsultableDTO {
+    private Long id;
     private String nombre;
     private List<UbicacionDTO> ubicaciones;
 
@@ -20,6 +21,14 @@ public class CampusConsultableDTO {
     public CampusConsultableDTO(String nombre, List<UbicacionDTO> ubicaciones) {
         this.nombre = nombre;
         this.ubicaciones = ubicaciones;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -41,8 +50,9 @@ public class CampusConsultableDTO {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("CampusDTO{");
-        sb.append("nombre=").append(nombre);
+        sb.append("CampusConsultableDTO{");
+        sb.append("id=").append(id);
+        sb.append(", nombre=").append(nombre);
         sb.append(", ubicaciones=").append(ubicaciones);
         sb.append('}');
         return sb.toString();

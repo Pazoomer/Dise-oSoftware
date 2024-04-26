@@ -16,18 +16,18 @@ import objetosNegocio.Ubicacion;
 public class AulasObjNegocio {
 
     public static void main(String[] args) {
-        Maestro m=new Maestro();
-        Evento ev=new Evento();
-        Ubicacion ubi=new Ubicacion();
-        try{
-            List<UbicacionDTO> ubicaciones=ubi.obtenerUbicaciones();
-            if(ubicaciones!=null && !ubicaciones.isEmpty()){
-                for(UbicacionDTO u: ubicaciones){
-                    System.out.println(u.getIdentificador());
-                }
-            }System.out.println("no se obtuvieron");
-//            MaestroEditableDTO maestro=m.obtenerMaestro(new MaestroEditableDTO(1L));
-//            System.out.println(maestro.toString());
+//        Maestro m=new Maestro();
+//        Evento ev=new Evento();
+//        //Ubicacion ubi=new Ubicacion();
+//        try{
+//            List<UbicacionDTO> ubicaciones=ubi.obtenerUbicaciones();
+//            if(ubicaciones!=null && !ubicaciones.isEmpty()){
+//                for(UbicacionDTO u: ubicaciones){
+//                    System.out.println(u.getIdentificador());
+//                }
+//            }System.out.println("no se obtuvieron");
+////            MaestroEditableDTO maestro=m.obtenerMaestro(new MaestroEditableDTO(1L));
+////            System.out.println(maestro.toString());
 //////            maestro.setDescripcion("Doy asesorias de 9 a 11 de bases de datos los sabados y domingos");
 //////            MaestroEditableDTO maestroEditado=m.editarMaestro(maestro);
 //            EventoConsultableDTO evento=new EventoConsultableDTO("clase de diseño");
@@ -54,9 +54,9 @@ public class AulasObjNegocio {
 //            EventoConsultableDTO eventoObtenido=ev.obtenerEvento(evento);
 //            System.out.println(eventoObtenido.toString());
 //            System.out.println(maestroEditado.toString());
-        }catch(NegocioException e){
-            System.out.println(e.getMessage());
-        }
+//        }catch(NegocioException e){
+//            System.out.println(e.getMessage());
+//        }
         //ClaseConexion.cerrarConexion();
     }
 }

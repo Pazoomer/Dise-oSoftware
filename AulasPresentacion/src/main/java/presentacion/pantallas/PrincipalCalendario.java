@@ -1,14 +1,11 @@
 
 package presentacion.pantallas;
 
-//import BO.accesoCalendarioBO.AccesoCalendarioBO;
-//import BO.accesoCalendarioBO.IAccesoCalendarioBO;
 import DTOS.evento.EventoConsultableDTO;
 import DTOS.evento.TipoEventoEnumDTO;
 import DTOS.maestro.MaestroEditableDTO;
 import accesoMaestro.FachadaAccesoMaestro;
 import accesoMaestro.IAccesoMaestro;
-import accesoUbicaciones.IAccesoUbicaciones;
 import excepciones.NegocioException;
 import java.awt.Color;
 import java.awt.Frame;
@@ -21,8 +18,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import presentacion.CDEvento;
 import presentacion.ModeloTablaHorario;
-//import subsistemas.accesoCalendario.IAccesoCalendario;
-
 
 /**
  *
@@ -36,7 +31,6 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     private final MaestroEditableDTO maestro;
     PrincipalMaestro prinMaestro;
     IAccesoMaestro accesoMaestro;
-    IAccesoUbicaciones accesoUbicaciones;
     Frame parent;
     static List<EventoConsultableDTO> calendarioMes;
     static List<EventoConsultableDTO> calendarioMaestro;
@@ -46,30 +40,12 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     public static boolean isDisplayed=false;
     public static EventoConsultableDTO eventoSeleccionado;
     
-    
     /**
      * Creates new form PrincipalCalendario
      * @param parent
      * @param prinMaestro
      * @param maestro
-     * @param conexion
      */
-//    public PrincipalCalendario(Frame parent, PrincipalMaestro prinMaestro, MaestroEditableDTO maestro, IConexionDAO conexion) {
-//        setUndecorated(true);
-//        this.setResizable(false);
-//        initComponents();
-//        this.parent=parent;
-//        this.maestro=maestro;
-//        this.prinMaestro=prinMaestro;
-//        this.conexion=conexion;
-//        modelo=new ModeloTablaHorario();
-//        calendarioMaestroTemporal=maestro.getCalendario();
-//        cargarCalendario();
-//        cargarEventos();
-//        this.setVisible(true);
-//        this.setSize(800, 630);
-//        cargarIconos();
-//    }
     public PrincipalCalendario(Frame parent, PrincipalMaestro prinMaestro, MaestroEditableDTO maestro) {
         setUndecorated(true);
         this.setResizable(false);
@@ -152,7 +128,6 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         //System.out.println("evento seleccionado actual: "+eventoSeleccionado);
     }
     
-    
     private void setEvento(int horaEvento,int minutoEvento, 
             float duracionEvento,int diaEvento,EventoConsultableDTO evento){
         int rows=modelo.getRowCount();
@@ -186,14 +161,14 @@ public class PrincipalCalendario extends javax.swing.JFrame {
                    modelo.setValueAt(evento.getNombre(), i, diaEvento);
                    agregarEventoASemana(evento, semana);
                    encontrada = true;
-                   index=i;
-                   break;
-               }
-           } 
+                    index = i;
+                    break;
+                }
+            }
         }
-        if(encontrada){
-            llenarRestoCeldasEvento( index, diaEvento, duracionEvento, evento);
-    }
+        if (encontrada) {
+            llenarRestoCeldasEvento(index, diaEvento, duracionEvento, evento);
+        }
     }
     
     private void llenarRestoCeldasEvento(int index,int columnIndex,
@@ -210,15 +185,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             modelo.setValueAt(evento.getNombre(), index+i, columnIndex);
         }
     }
-    
-    private void desplegarInfoEvento(){
-        if(eventoSeleccionado!=null){
-            CDEvento cdEv = new CDEvento(this, this, eventoSeleccionado, true,"desplegar");
-            cdEv.desplegarEvento();
-            cdEv.setVisible(true);
-        }//else System.out.println("el evento es null");
-    }
-    
+        
     private void getEventoSeleccionado(){
         tablaEventos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -267,10 +234,19 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             }
         }
     }
+    
     /**
-     * Al hacer clic en guardar calendario debe actualizar el calendario del maestro y guardar al maestro en la base de datos
+     * Al hacer clic en guardar calendario debe actualizar el calendario del
+     * maestro y guardar al maestro en la base de datos
      */
     private void guardarCalendario() {
+        maestro.setCalendario(calendarioMaestroTemporal);
+        try {
+            accesoMaestro.editarMaestro(maestro);
+
+        } catch (NegocioException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
         this.prinMaestro.setVisible(true);
         this.dispose();
     }
@@ -285,25 +261,15 @@ public class PrincipalCalendario extends javax.swing.JFrame {
 
     public void añadirEvento(EventoConsultableDTO evento) {
         calendarioMaestroTemporal.add(evento);
-        //IAccesoCalendarioBO accesoCalendarioBO = new AccesoCalendarioBO(conexion);
+        maestro.setCalendario(calendarioMaestroTemporal);
         try{
-            if (accesoMaestro.editarCalendario(calendarioMaestroTemporal)) {
-                System.out.println("se actualizo");
+            if (accesoMaestro.editarMaestro(maestro)) {
                 eventoSeleccionado = evento;
                 cargarEventos();
-            }else 
-            System.out.println("no se actualizo");
+            }
         }catch(NegocioException e){
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-        
-        //cargarCalendario();
-        
-    }
-
-    private void añadirEvento() {
-        cdEvento = new CDEvento(this,this, true,"agregar");
-        cdEvento.setVisible(true);
     }
     
     public void editarEvento(EventoConsultableDTO eventoEditado){
@@ -352,19 +318,6 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             }
             else
                 System.out.println("no lo contiene");
-            
-//            calendarioMaestroTemporal.remove(calendarioMaestroTemporal.indexOf(eventoSeleccionado));
-//            if (calendarioMaestroTemporal.contains(eventoSeleccionado)) {
-//                System.out.println("aun lo contiene");
-//            
-//            } else {
-//                System.out.println("se borro del calendario temporal");
-//                tablaEventos.clearSelection();
-//                eventoSeleccionado=null;
-//                cargarEventos();
-//                
-//            }
-            //cargarCalendario();
         }else System.out.println("es null");
     }
 
@@ -378,16 +331,6 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, e.getMessage());
             return false;
         }
-//        try{
-//            
-//            //calendarioEditado=accesoCalendario.editarCalendario(calendarioMaestro, eventoEditado, "editar");
-//            //accesoCalendarioBO.editarCalendario(calendarioMaestro, eventoEditado, "editar");
-//            //eventoSeleccionado=accesoCalendario.refreshCalendario(calendarioMaestro, calEsquinaSuperior, tablaEventos);
-//            //calendarioMaestro=calendarioEditado;
-//        }catch(NegocioException e){
-//            JOptionPane.showMessageDialog(this, e.getMessage(),
-//                    "Operacion no exitosa",JOptionPane.ERROR_MESSAGE);
-//        }
     }
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -660,27 +603,13 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void calEsquinaSuperiorPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_calEsquinaSuperiorPropertyChange
-//        if(accesoCalendario!=null){
-//            accesoCalendario.refreshCalendario(calendarioMaestro, calEsquinaSuperior, tablaEventos);
-//        }
         if(calendarioMes!=null)
             cargarEventos();
     }//GEN-LAST:event_calEsquinaSuperiorPropertyChange
 
     private void btnEditarEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarEventoActionPerformed
         EventoConsultableDTO ev=eventoSeleccionado;
-        //System.out.println("evento antes de editar: "+ev);
         desplegarCDEvento("editar");
-        
-//        int index=0;
-//        for (EventoConsultableDTO e : calendarioMaestroTemporal) {
-//            if (e.getNombre().equals(ev.getNombre())) {
-//                index=calendarioMaestroTemporal.indexOf(e);
-//                break;
-//            }
-//        }
-//        calendarioMaestroTemporal.set(index, eventoSeleccionado);
-        //System.out.println("evento editado: "+eventoSeleccionado);
         cargarEventos();
     }//GEN-LAST:event_btnEditarEventoActionPerformed
 
