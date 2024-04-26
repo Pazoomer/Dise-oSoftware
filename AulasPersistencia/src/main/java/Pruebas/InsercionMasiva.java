@@ -1,8 +1,6 @@
 package Pruebas;
 
-import entidades.CrudEvento;
 import entidades.CrudMaestro;
-import entidades.CrudUbicacion;
 import entidades.EntidadCampus;
 import entidades.EntidadEvento;
 import entidades.EntidadMaestro;
@@ -23,8 +21,6 @@ public class InsercionMasiva {
     public static void main(String[] args) throws PersistenciaExceptionn {
 
         CrudMaestro CRUDmaestro=new CrudMaestro();
-        CrudUbicacion CRUDubicacion=new CrudUbicacion();
-        CrudEvento CRUDevento=new CrudEvento();
 
         // Crear instancias de las entidades
         EntidadMaestro maestro = new EntidadMaestro(1L, "Juan Pérez", new EntidadUbicacion("Cubículo 101"), "Profesor de Matemáticas", "foto_maestro.jpg");
@@ -46,7 +42,6 @@ public class InsercionMasiva {
         
         CRUDmaestro.agregarMaestro(maestro);
         
-        CRUDubicacion.crearUbicacion(ubicacion);
     }
 
 }

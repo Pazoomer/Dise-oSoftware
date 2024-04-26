@@ -1,7 +1,7 @@
 package entidades;
 
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.model.Filters;
+import static com.mongodb.client.model.Filters.eq;
 import excepcioness.PersistenciaExceptionn;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,31 +9,21 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.bson.Document;
-import org.bson.types.ObjectId;
 
 public class CrudMaestro {
 
-    private static MongoCollection<Document> coleccion;
+    private static MongoCollection<EntidadMaestro> coleccion;
     private final static Logger LOG = Logger.getLogger(CrudMaestro.class.getName());
     IConexion conexion;
 
     public CrudMaestro() {
         conexion=new Conexion();
-        coleccion = conexion.getColeccion("Maestros");
+        coleccion = conexion.ConversionDocumentMaestro();
     }
 
     public EntidadMaestro agregarMaestro(EntidadMaestro maestro) throws PersistenciaExceptionn {
         try {
-            Document doc = new Document();
-            doc.append("idMaestro", maestro.getIdMaestro())
-               .append("nombre", maestro.getNombre())
-               .append("cubiculo", maestro.getCubiculo().getIdentificador())
-               .append("descripcion", maestro.getDescripcion())
-               .append("foto", maestro.getFoto())
-               .append("calendario", maestro.getCalendario());
-
-            coleccion.insertOne(doc);
+            coleccion.insertOne(maestro);
             conexion.cerrarConexion();
             return maestro;
         } catch (Exception e) {
@@ -41,27 +31,21 @@ public class CrudMaestro {
             throw new PersistenciaExceptionn("Hubo un error al agregar el maestro.");
         }
     }
-
+    
     public EntidadMaestro editarMaestro(EntidadMaestro maestro) throws PersistenciaExceptionn {
-        try {
-            Document filtro = new Document("_id", maestro.getId());
-            Document actualizacion = new Document("$set", new Document("nombre", maestro.getNombre())
-                    .append("cubiculo", maestro.getCubiculo().getIdentificador())
-                    .append("descripcion", maestro.getDescripcion())
-                    .append("foto", maestro.getFoto())
-                    .append("calendario", maestro.getCalendario()));
-            coleccion.updateOne(filtro, actualizacion);
-            conexion.cerrarConexion();
-            return maestro;
-        } catch (Exception e) {
-            LOG.log(Level.SEVERE, e.getMessage(), e);
-            throw new PersistenciaExceptionn("Hubo un error al editar el maestro.");
-        }
+    try {
+        coleccion.replaceOne(eq("idMaestro", maestro.getId()), maestro);
+        conexion.cerrarConexion();
+        return maestro;
+    } catch (Exception e) {
+        LOG.log(Level.SEVERE, e.getMessage(), e);
+        throw new PersistenciaExceptionn("Hubo un error al actualizar el maestro.");
     }
+}
 
     public boolean eliminarMaestro(EntidadMaestro maestroParametro) throws PersistenciaExceptionn {
         try {
-            coleccion.deleteOne(Filters.eq("idMaestro", maestroParametro.getIdMaestro()));
+            coleccion.deleteOne(eq("idMaestro", maestroParametro.getIdMaestro()));
             conexion.cerrarConexion();
             return true;
         } catch (Exception e) {
@@ -71,16 +55,10 @@ public class CrudMaestro {
     }
 
     public EntidadMaestro obtenerMaestro(EntidadMaestro maestroParametro) throws PersistenciaExceptionn {
-
         try {
-            Document doc = coleccion.find(Filters.eq("idMaestro", maestroParametro.getIdMaestro())).first();
-
-            if (doc != null) {
-                EntidadMaestro maestro = ConversionesDocument.DocumentMaestroAEntidad(doc);
-                conexion.cerrarConexion();
-                return maestro;
-            }
-            return null;
+            EntidadMaestro maestroEncontrado = coleccion.find(eq("idMaestro", maestroParametro.getIdMaestro())).first();
+            conexion.cerrarConexion();
+            return maestroEncontrado;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
             throw new PersistenciaExceptionn("Hubo un error al obtener el maestro.");
@@ -88,6 +66,7 @@ public class CrudMaestro {
     }
 
     public List<EntidadEvento> obtenerEventosMes(EntidadMaestro maestro, Calendar fecha, String filtro) throws PersistenciaExceptionn {
+         
         try {
             List<EntidadEvento> eventos = new ArrayList<>();
             Calendar fechaInicio = (Calendar) fecha.clone();
@@ -104,27 +83,23 @@ public class CrudMaestro {
                 fechaFin.add(Calendar.DATE, 6);
             }
 
-            Document docFiltro = new Document("maestro", maestro.getId())
-                    .append("$or",
-                            List.of(
-                                    new Document("fechaInicio", new Document("$gte", fechaInicio).append("$lte", fechaFin)),
-                                    new Document("tipo", "SEMANAL")
-                            ));
+            EntidadMaestro maestroEntidad = obtenerMaestro(maestro);
 
-            coleccion.find(docFiltro).forEach(doc -> {
-                // Mapear el documento a la entidad EntidadEvento
-                EntidadEvento evento = new EntidadEvento();
-                evento.setNombre(doc.getString("nombre"));
-                evento.setDescripcion(doc.getString("descripcion"));
-                evento.setUbicacion((EntidadUbicacion) doc.get("ubicacion"));
-                evento.setFechaInicio((Calendar) doc.get("fechaInicio"));
-                evento.setHoraInicio((Calendar) doc.get("horaInicio"));
-                evento.setHorasDuracionEvento(doc.getDouble("horasDuracionEvento"));
-                // Agregar evento a la lista
-                eventos.add(evento);
-            });
+            if (maestroEntidad != null) {
+
+                if (maestroEntidad.getCalendario() != null) {
+                    for (EntidadEvento evento : maestroEntidad.getCalendario()) {
+                        if (evento.getFechaInicio().before(fechaInicio) && evento.getFechaFin().after(fechaFin)) {
+                            eventos.add(evento);
+                        }
+
+                    }
+                }
+            } else {
+                throw new PersistenciaExceptionn("No se encontro al maestro");
+            }
             return eventos;
-        } catch (Exception e) {
+        } catch (PersistenciaExceptionn e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
             throw new PersistenciaExceptionn("Hubo un error al obtener los eventos del mes");
         }

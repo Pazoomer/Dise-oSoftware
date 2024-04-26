@@ -3,10 +3,7 @@
 package bda.aulasobjnegocio;
 
 import DTOS.campus.UbicacionDTO;
-import entidades.Conexion;
-import entidades.IConexion;
 import excepciones.NegocioException;
-import excepcioness.PersistenciaExceptionn;
 import java.util.List;
 import objetosNegocio.Evento;
 import objetosNegocio.Maestro;
