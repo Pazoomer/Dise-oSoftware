@@ -17,7 +17,7 @@ public interface IAccesoUbicaciones {
      * @return 
      * @throws excepciones.NegocioException 
      */
-    public UbicacionDTO recuperarEdificio(UbicacionDTO ubicacion)throws NegocioException;
+    public UbicacionDTO recuperarCampus(UbicacionDTO ubicacion)throws NegocioException;
     
     /**
      * Recupera los edificios de un campus
@@ -26,6 +26,4 @@ public interface IAccesoUbicaciones {
      * @throws excepciones.NegocioException 
      */
     public List<UbicacionDTO> recuperarEdificiosPorCampus(CampusConsultableDTO campus)throws NegocioException;
-    
-    public List<UbicacionDTO> recuperarEdificios()throws NegocioException;
 }

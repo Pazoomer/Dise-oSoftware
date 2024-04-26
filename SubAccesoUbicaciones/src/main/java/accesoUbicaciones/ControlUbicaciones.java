@@ -5,6 +5,7 @@ import DTOS.campus.CampusConsultableDTO;
 import DTOS.campus.UbicacionDTO;
 import excepciones.NegocioException;
 import java.util.List;
+import objetosNegocio.Campus;
 import objetosNegocio.Ubicacion;
 
 /**
@@ -13,21 +14,21 @@ import objetosNegocio.Ubicacion;
  */
 public class ControlUbicaciones {
     
-    private final Ubicacion ubicacionBO;
+    private final Campus campusBO;
     
     public ControlUbicaciones() {
-        this.ubicacionBO=new Ubicacion();
+        this.campusBO=new Campus();
     }
 
-    protected List<UbicacionDTO> recuperarEdificios()throws NegocioException{
+    protected List<UbicacionDTO> recuperarCampus()throws NegocioException{
         try{
-            return ubicacionBO.obtenerUbicaciones();
+            return campusBO.;
         }catch(NegocioException e){
             throw e;
         }
     }
     
-    protected UbicacionDTO recuperarEdificio(UbicacionDTO ubicacion)throws NegocioException {
+    protected UbicacionDTO recuperarEdificiosPorCampus(UbicacionDTO ubicacion)throws NegocioException {
         try{
             return ubicacionBO.obtenerUbicacion(ubicacion);
         }catch(NegocioException e){

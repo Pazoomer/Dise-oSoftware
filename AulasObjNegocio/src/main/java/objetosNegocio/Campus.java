@@ -1,10 +1,16 @@
 package objetosNegocio;
 
 import DTOS.campus.CampusConsultableDTO;
+import DTOS.campus.UbicacionDTO;
 import entidades.CrudCampus;
 import entidades.EntidadCampus;
+import entidades.EntidadUbicacion;
 import excepciones.NegocioException;
+import excepcioness.PersistenciaExceptionn;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -62,10 +68,11 @@ public class Campus {
         this.crudCampus = crudCampus;
     }
 
-    public CampusConsultableDTO obtenerCampus(CampusConsultableDTO campus)throws NegocioException{
-        EntidadCampus ubi=conversiones.toCampusBO(campus);
+    public CampusConsultableDTO obtenerCampus()throws NegocioException{
+        EntidadCampus campusAux=conversiones.toCampusBO(campus);
+        
         try {
-            return conversiones.toUbicacionDTO(crudUbicacion.obtenerUbicacion(ubi.getIdentificador()));
+            return conversiones.toCampusDTO(crudCampus.obtenerCampus(campusAux));
         } catch (PersistenciaExceptionn ex) {
             Logger.getLogger(Ubicacion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -75,10 +82,12 @@ public class Campus {
     public List<UbicacionDTO> obtenerUbicacionesPorCampus(CampusConsultableDTO campus)throws NegocioException{
         List<UbicacionDTO> ubicacionesDTO=new ArrayList<>();
         EntidadCampus campusBO=new EntidadCampus(campus.getNombre());
+        
         try{
-            List<EntidadUbicacion> ubicaciones=crudUbicacion.obtenerUbicacionesPorCampus(campusBO);
-            if(ubicaciones!=null && !ubicaciones.isEmpty()){
-                for(EntidadUbicacion u:ubicaciones){
+            List<EntidadUbicacion> ubicacionesAux=crudCampus.obtenerUbicacionesPorCampus(campusBO);
+            
+            if(ubicacionesAux!=null && !ubicacionesAux.isEmpty()){
+                for(EntidadUbicacion u:ubicacionesAux){
                     ubicacionesDTO.add(conversiones.toUbicacionDTO(u));
                 }
                 return ubicacionesDTO;
@@ -88,21 +97,6 @@ public class Campus {
             throw new NegocioException(e.getMessage());
         }
     }
-    public List<UbicacionDTO> obtenerUbicaciones()throws NegocioException{
-        List<UbicacionDTO> ubicacionesDTO=new ArrayList<>();
-        try{
-            List<EntidadUbicacion> ubicaciones=crudUbicacion.obtenerUbicaciones();
-            if(ubicaciones!=null && !ubicaciones.isEmpty()){
-                for(EntidadUbicacion u:ubicaciones){
-                    ubicacionesDTO.add(conversiones.toUbicacionDTO(u));
-                }
-                return ubicacionesDTO;
-            }
-            return null;
-        }catch(PersistenciaExceptionn e){
-            throw new NegocioException(e.getMessage());
-        }
-    } 
     
     @Override
     public String toString(){

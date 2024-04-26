@@ -2,16 +2,14 @@
 package entidades;
 
 import com.mongodb.MongoException;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 import static com.mongodb.client.model.Filters.eq;
 import excepcioness.PersistenciaExceptionn;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.bson.Document;
-import org.bson.types.ObjectId;
 
 /**
  *
@@ -84,6 +82,24 @@ public class CrudCampus {
         } catch (MongoException e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
             throw new PersistenciaExceptionn("Hubo un error al obtener las ubicaciones del campus " + campus.getNombre());
+        }
+    }
+
+    public List<EntidadCampus> obtenerTodosLosCampus() throws PersistenciaExceptionn {
+        List<EntidadCampus> campus = new ArrayList<>();
+        try {
+            FindIterable<EntidadCampus> resultados = coleccion.find();
+            if (campus != null) {
+                for (EntidadCampus entidad : resultados) {
+                    campus.add(entidad);
+                }
+            } else {
+                throw new PersistenciaExceptionn("No se encontro ningun campus");
+            }
+            return campus;
+        } catch (MongoException e) {
+            LOG.log(Level.SEVERE, e.getMessage(), e);
+            throw new PersistenciaExceptionn("Hubo un error al obtener todos los campus");
         }
     }
 

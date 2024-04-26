@@ -4,8 +4,6 @@ package accesoUbicaciones;
 import DTOS.campus.*;
 import excepciones.NegocioException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -20,18 +18,13 @@ public class FachadaAccesoUbicaciones implements IAccesoUbicaciones {
     }
 
     @Override
-    public UbicacionDTO recuperarEdificio(UbicacionDTO ubicacion)throws NegocioException {
+    public UbicacionDTO recuperarCampus(UbicacionDTO ubicacion)throws NegocioException {
         return ubicaciones.recuperarEdificio(ubicacion);
     }
 
     @Override
     public List<UbicacionDTO> recuperarEdificiosPorCampus(CampusConsultableDTO campus) throws NegocioException{
         return ubicaciones.recuperarEdificiosPorCampus(campus);
-    }
-
-    @Override
-    public List<UbicacionDTO> recuperarEdificios() throws NegocioException {
-        return ubicaciones.recuperarEdificios();
     }
 
 }

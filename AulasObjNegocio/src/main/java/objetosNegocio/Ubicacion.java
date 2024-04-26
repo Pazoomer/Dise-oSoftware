@@ -1,7 +1,7 @@
 
 package objetosNegocio;
 
-import entidades.CrudUbicacion;
+import entidades.CrudCampus;
 
 /**
  *
@@ -11,11 +11,11 @@ public class Ubicacion {
     private String identificador;
     private String descripcion;
     private String campus;
-    private CrudUbicacion crudUbicacion;
+    private CrudCampus crudCampus;
     private Conversiones conversiones;
     
     public Ubicacion() {
-        this.crudUbicacion=new CrudUbicacion();
+        this.crudCampus=new CrudCampus();
         this.conversiones=new Conversiones();
     }
 
@@ -23,7 +23,7 @@ public class Ubicacion {
         this.identificador = identificador;
         this.descripcion = descripcion;
         this.campus = campus;
-        this.crudUbicacion=new CrudUbicacion();
+        this.crudCampus=new CrudCampus();
         this.conversiones=new Conversiones();
     }
 
