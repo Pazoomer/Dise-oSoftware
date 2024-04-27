@@ -106,7 +106,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             Calendar horaInicio = e.getHoraInicio();
             int hora = horaInicio.get(Calendar.HOUR);
             int minutos = horaInicio.get(Calendar.MINUTE);
-            float duracion = e.getHorasDuracionEvento();
+            Double duracion = e.getHorasDuracionEvento();
             System.out.println("duracion evento:"+duracion);
             if (e.getTipo().equals(TipoEventoEnumDTO.SEMANAL)) {
                 for (int i = 0; i < 7; i++) {
@@ -129,7 +129,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     }
     
     private void setEvento(int horaEvento,int minutoEvento, 
-            float duracionEvento,int diaEvento,EventoConsultableDTO evento){
+            Double duracionEvento,int diaEvento,EventoConsultableDTO evento){
         int rows=modelo.getRowCount();
         System.out.println("rows: "+rows);
         
@@ -172,8 +172,8 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     }
     
     private void llenarRestoCeldasEvento(int index,int columnIndex,
-            float duracionEvento, EventoConsultableDTO evento){
-        int horas=(int)duracionEvento;
+            Double duracionEvento, EventoConsultableDTO evento){
+        int horas=duracionEvento.intValue();
         double copiaHoras=duracionEvento;
         double decimal=copiaHoras-horas;
         int minutos=(int)(decimal*100);
@@ -278,7 +278,8 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         calendarioMaestroTemporal.set(calendarioMaestroTemporal.indexOf(eventoSeleccionado), eventoEditado);
         String msj;
         try{
-            if (accesoCalendario.editarCalendario(calendarioMaestroTemporal)) {
+            maestro.setCalendario(calendarioMaestroTemporal);
+            if (accesoCalendario.editarMaestro(maestro)) {
                 msj = "Evento editado correctamente";
             } else {
                 msj = "No se edito el evento";
@@ -323,11 +324,12 @@ public class PrincipalCalendario extends javax.swing.JFrame {
 
     public boolean editarEventso(EventoConsultableDTO eventoEditado){
         //List<EventoConsultableDTO> calendarioEditado;
-        IAccesoMaestro accesoCalendario=new FachadaAccesoMaestro();
+        IAccesoMaestro accesoCalendario = new FachadaAccesoMaestro();
         //IAccesoCalendarioBO accesoCalendarioBO = new AccesoCalendarioBO(conexion);
-        try{
-            return accesoCalendario.editarCalendario(calendarioMaestroTemporal);
-        }catch(NegocioException e){
+        try {
+            maestro.setCalendario(calendarioMaestroTemporal);
+            return accesoCalendario.editarMaestro(maestro);
+        } catch (NegocioException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
             return false;
         }

@@ -44,4 +44,13 @@ public class ControlUbicaciones {
 
     }
     
+     protected UbicacionDTO recuperarUbicacion(UbicacionDTO ubicacion)throws NegocioException {
+        try{
+            return campusBO.obtenerUbicacion(ubicacion);
+        }catch(NegocioException e){
+            throw e;
+        }
+
+    }
+    
 }

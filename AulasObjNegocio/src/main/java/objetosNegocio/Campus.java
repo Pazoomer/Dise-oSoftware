@@ -108,9 +108,20 @@ public class Campus {
                 return ubicacionesDTO;
             }
             return null;
-        }catch(PersistenciaExceptionn e){
+        } catch (PersistenciaExceptionn e) {
             throw new NegocioException(e.getMessage());
         }
+    }
+
+    public UbicacionDTO obtenerUbicacion(UbicacionDTO ubicacion) throws NegocioException {
+
+        try {
+            return conversiones.toUbicacionDTO(crudCampus.obtenerUbicacion(conversiones.toUbicacionBO(ubicacion)));
+
+        } catch (PersistenciaExceptionn ex) {
+            Logger.getLogger(Ubicacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
     @Override

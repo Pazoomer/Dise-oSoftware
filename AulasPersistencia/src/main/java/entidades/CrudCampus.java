@@ -103,4 +103,26 @@ public class CrudCampus {
         }
     }
 
+    public EntidadUbicacion obtenerUbicacion(EntidadUbicacion entidadUbicacion) throws PersistenciaExceptionn {
+        try {
+            EntidadCampus campusEncontrado = coleccion.find(eq("nombre", entidadUbicacion.getCampus().getNombre())).first();
+            conexion.cerrarConexion();
+            if (campusEncontrado != null) {
+
+                if (campusEncontrado.getUbicaciones() != null) {
+                    for (EntidadUbicacion ubicacion : campusEncontrado.getUbicaciones()) {
+                        if (ubicacion.equals(entidadUbicacion)) {
+                            return ubicacion;
+                        }
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, e.getMessage(), e);
+            throw new PersistenciaExceptionn("Hubo un error al obtener el campus.");
+        }
+        return null;
+    }
+
 }

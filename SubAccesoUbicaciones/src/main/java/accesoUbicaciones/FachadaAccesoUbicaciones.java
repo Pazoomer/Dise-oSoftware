@@ -32,4 +32,9 @@ public class FachadaAccesoUbicaciones implements IAccesoUbicaciones {
         return ubicaciones.recuperarTodosLosCampus();
     }
 
+    @Override
+    public UbicacionDTO recuperarUbicacion(UbicacionDTO ubicacion) throws NegocioException {
+       return ubicaciones.recuperarUbicacion(ubicacion);
+    }
+
 }

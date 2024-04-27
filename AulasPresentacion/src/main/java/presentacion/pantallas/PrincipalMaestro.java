@@ -1,16 +1,13 @@
 package presentacion.pantallas;
 
-//import BO.accesoMaestroBO.AccesoMaestroBO;
-//import BO.accesoMaestroBO.IAccesoMaestroBO;
+import DTOS.campus.CampusConsultableDTO;
 import DTOS.campus.UbicacionDTO;
-import DTOS.evento.EventoConsultableDTO;
 import DTOS.maestro.MaestroEditableDTO;
 import accesoMaestro.FachadaAccesoMaestro;
 import accesoMaestro.IAccesoMaestro;
 import accesoUbicaciones.FachadaAccesoUbicaciones;
 import accesoUbicaciones.IAccesoUbicaciones;
 import excepciones.NegocioException;
-//import conexion.IConexionDAO;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
@@ -18,7 +15,6 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-//import subsistemas.accesoMaestro.IAccesoMaestro;
 import javax.swing.ImageIcon;
 
 /**
@@ -31,32 +27,17 @@ public class PrincipalMaestro extends javax.swing.JFrame {
      * Es el maestro con el que iniciaste sesion
      */
     private MaestroEditableDTO maestroDTO;
-    private IAccesoMaestro accesoMaestro;
-    private IAccesoUbicaciones accesoUbicaciones;
+    private final IAccesoMaestro accesoMaestro;
+    private final IAccesoUbicaciones accesoUbicaciones;
     private DefaultComboBoxModel cmbBoxModel;
     private List<UbicacionDTO> edificiosCubiculos;
-    /**
-     * Permite el acceso a editar la informacion del maestro
-     */
-//    private IAccesoMaestro accesoM;
-//    
-//    private IConexionDAO conexion;
+
 
     /**
      * Creates new form PrincipalMaestro
      *
      * @param maestro
      */
-//    public PrincipalMaestro(MaestroEditableDTO maestro, IConexionDAO conexion) {
-//        initComponents();
-//        this.maestro = maestro;
-//        this.conexion=conexion;
-//        cargarMaestro();
-//        cargarIconos();
-//        this.setVisible(true);
-//        this.setSize(800, 600);
-//        
-//    }
     public PrincipalMaestro(MaestroEditableDTO maestro) {
         initComponents();
         this.maestroDTO = maestro;
@@ -69,18 +50,31 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         cargarComboBox();
     }
 
-    private void cargarComboBox(){
-        cmbBoxModel=new DefaultComboBoxModel();
-        try{
-            edificiosCubiculos=accesoUbicaciones.recuperarEdificios();
-            for(UbicacionDTO u: edificiosCubiculos){
-                cmbBoxModel.addElement(u.getIdentificador());
+    private void cargarEdificios() {
+        try {
+            List<CampusConsultableDTO> listaCampus = accesoUbicaciones.recuperarTodosLosCampus();
+            for (CampusConsultableDTO campus : listaCampus) {
+                if (campus.getUbicaciones() != null) {
+                    for (UbicacionDTO u : campus.getUbicaciones()) {
+                        edificiosCubiculos.add(u);
+                    }
+                }
             }
-            cmbBoxCubiculos.setModel(cmbBoxModel);
-            setCubiculoCmbBox();
-        }catch(NegocioException e){
-            JOptionPane.showMessageDialog(this, e.getMessage());
+        } catch (NegocioException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
+    }
+
+    private void cargarComboBox() {
+        cmbBoxModel = new DefaultComboBoxModel();
+        cargarEdificios();
+
+        for (UbicacionDTO u : edificiosCubiculos) {
+            cmbBoxModel.addElement(u.getIdentificador());
+        }
+        cmbBoxCubiculos.setModel(cmbBoxModel);
+        setCubiculoCmbBox();
+
     }
     
     private void setCubiculoCmbBox(){
@@ -149,7 +143,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         MaestroEditableDTO maestroAuxiliar;
         
         try{
-            ubicacionCubiculo=accesoUbicaciones.recuperarEdificio(new UbicacionDTO((edificioCubiculo)));
+            ubicacionCubiculo=accesoUbicaciones.recuperarUbicacion(new UbicacionDTO((edificioCubiculo)));
             
             maestroAuxiliar = new MaestroEditableDTO(maestroDTO.getId(), maestroDTO.getNombre(),
                     ubicacionCubiculo, descripcion, maestroDTO.getFoto(),maestroDTO.getCalendario());
