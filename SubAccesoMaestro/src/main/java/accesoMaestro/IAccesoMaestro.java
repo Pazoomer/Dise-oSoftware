@@ -38,12 +38,4 @@ public interface IAccesoMaestro {
      */
     boolean editarMaestro(MaestroEditableDTO maestro)throws NegocioException;
     
-    /**
-     * Edita el calendario en la base de datos
-     * @param calendario
-     * @return 
-     * @throws excepciones.NegocioException 
-     */
-    boolean editarCalendario(List<EventoConsultableDTO> calendario)throws NegocioException;
-    
 }

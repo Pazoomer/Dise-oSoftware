@@ -68,11 +68,26 @@ public class Campus {
         this.crudCampus = crudCampus;
     }
 
-    public CampusConsultableDTO obtenerCampus()throws NegocioException{
-        EntidadCampus campusAux=conversiones.toCampusBO(campus);
-        
+    public CampusConsultableDTO obtenerCampus(CampusConsultableDTO campusParametro) throws NegocioException {
+
         try {
-            return conversiones.toCampusDTO(crudCampus.obtenerCampus(campusAux));
+            return conversiones.toCampusDTO(crudCampus.obtenerCampus(conversiones.toCampusBO(campusParametro)));
+
+        } catch (PersistenciaExceptionn ex) {
+            Logger.getLogger(Ubicacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public List<CampusConsultableDTO> obtenerTodosLosCampus() throws NegocioException {
+
+        try {
+            List<CampusConsultableDTO> campus = new ArrayList<>();
+            List<EntidadCampus> entidadesCampus = crudCampus.obtenerTodosLosCampus();
+            for (EntidadCampus entidadCampus : entidadesCampus) {
+                campus.add(conversiones.toCampusDTO(entidadCampus));
+            }
+            return campus;
         } catch (PersistenciaExceptionn ex) {
             Logger.getLogger(Ubicacion.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -24,15 +24,6 @@ public class FachadaAccesoMaestro implements IAccesoMaestro{
     }
     
     @Override
-    public boolean editarCalendario(List<EventoConsultableDTO> calendario)throws NegocioException {
-       try{
-           return maestros.editarCalendario(calendario);
-       }catch(NegocioException e){
-           throw e;
-       }
-    }
-    
-    @Override
     public boolean editarMaestro(MaestroEditableDTO maestro)throws NegocioException{
         try {
             return maestros.editarMaestro(maestro);
@@ -40,16 +31,6 @@ public class FachadaAccesoMaestro implements IAccesoMaestro{
             throw e;
         }
     }
-    
-//    @Override
-//    public MaestroEditableDTO recuperarMaestro()throws NegocioException{
-//        try {
-//            return maestros.recuperarMaestro();
-//        } catch (NegocioException ex) {
-//            Logger.getLogger(FachadaAccesoMaestro.class.getName()).log(Level.SEVERE, null, ex);
-//            throw ex;
-//        }
-//    }
 
     @Override
     public MaestroEditableDTO recuperarMaestro(MaestroEditableDTO maestro)throws NegocioException{

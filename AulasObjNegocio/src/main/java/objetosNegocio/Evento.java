@@ -1,7 +1,7 @@
 
 package objetosNegocio;
 
-import entidades.CrudEvento;
+import entidades.CrudMaestro;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 
@@ -19,18 +19,12 @@ public class Evento {
     private Calendar fechaFin;
     private Calendar horaInicio;
     private float horasDuracionEvento;
-    private CrudEvento crudEvento;
-    private Conversiones convertidor;
 
     public Evento() {
-        this.convertidor=new Conversiones();
-        this.crudEvento=new CrudEvento();
     }
 
     public Evento(TipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, 
             Ubicacion ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, float horasDuracionEvento) {
-        this.convertidor=new Conversiones();
-        this.crudEvento=new CrudEvento();
         this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -46,8 +40,6 @@ public class Evento {
 
     public Evento(String nombre, String descripcion, Ubicacion ubicacion, Calendar fechaInicio,
             Calendar horaInicio, float horasDuracionEvento) {
-        this.convertidor=new Conversiones();
-        this.crudEvento=new CrudEvento();
         this.tipo=TipoEventoEnum.UNICO_UN_DIA;
         this.nombre = nombre;
         this.descripcion = descripcion;

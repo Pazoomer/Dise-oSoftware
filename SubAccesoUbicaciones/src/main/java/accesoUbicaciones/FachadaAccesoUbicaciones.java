@@ -18,13 +18,18 @@ public class FachadaAccesoUbicaciones implements IAccesoUbicaciones {
     }
 
     @Override
-    public UbicacionDTO recuperarCampus(UbicacionDTO ubicacion)throws NegocioException {
-        return ubicaciones.recuperarEdificio(ubicacion);
+    public CampusConsultableDTO recuperarCampus(CampusConsultableDTO campus)throws NegocioException {
+        return ubicaciones.recuperarCampus(campus);
     }
 
     @Override
     public List<UbicacionDTO> recuperarEdificiosPorCampus(CampusConsultableDTO campus) throws NegocioException{
         return ubicaciones.recuperarEdificiosPorCampus(campus);
+    }
+
+    @Override
+    public List<CampusConsultableDTO> recuperarTodosLosCampus() throws NegocioException {
+        return ubicaciones.recuperarTodosLosCampus();
     }
 
 }

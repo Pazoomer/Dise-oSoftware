@@ -12,12 +12,19 @@ import java.util.List;
  */
 public interface IAccesoUbicaciones {
     /**
-     * Recupera los campus
-     * @param ubicacion
+     * Recupera el campus del parametro
+     * @param campus
      * @return 
      * @throws excepciones.NegocioException 
      */
-    public UbicacionDTO recuperarCampus(UbicacionDTO ubicacion)throws NegocioException;
+    public CampusConsultableDTO recuperarCampus(CampusConsultableDTO campus)throws NegocioException;
+    
+    /**
+     * Recupera todos los campus
+     * @return 
+     * @throws excepciones.NegocioException 
+     */
+    public  List<CampusConsultableDTO> recuperarTodosLosCampus()throws NegocioException;
     
     /**
      * Recupera los edificios de un campus
