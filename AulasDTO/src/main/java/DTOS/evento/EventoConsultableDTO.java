@@ -10,7 +10,7 @@ import java.util.Calendar;
  * @author t1pas, luisa
  */
 public class EventoConsultableDTO {
-    private Long id;
+    private String id;
     private TipoEventoEnumDTO tipo;
     private String nombre;
     private String descripcion;
@@ -104,11 +104,11 @@ public class EventoConsultableDTO {
         this.diasSemana = diasSemanaa;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
     

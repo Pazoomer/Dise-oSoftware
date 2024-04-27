@@ -158,32 +158,25 @@ public class EntidadEvento implements Serializable {
     }
     
     /**
-     * Obtienes el valor de ObjectId como long
-     * @return 
+     * Obtienes el valor de ObjectId como string
+     *
+     * @return
      */
-    public Long getIdLong(){
+    public String getIdConversion() {
         // Obtener el valor hexadecimal del ObjectId
-        String valorHex = this.id.toHexString();
+        if (this.id == null) {
+            return null;
+        }
         
-        // Convertir el valor hexadecimal a un número
-        return Long.valueOf(valorHex);
+        return this.id.toString();
     }
 
     /**
-     * Recibe un long que convierta a ObjectId para colocarselo como atributo
+     * Recibe un String que convierta a ObjectId para colocarselo como atributo
      * @param id 
      */
-    public void setIdLong(Long id) {
-
-        // Convertir el valor long a su representación hexadecimal
-        String hexValue = Long.toHexString(id);
-
-        // Rellenar con ceros a la izquierda para asegurar que tenga 24 dígitos
-        while (hexValue.length() < 24) {
-            hexValue = "0" + hexValue;
-        }
-
-        this.id = new ObjectId(hexValue);
+    public void setIdConversion(String id) {
+        this.id = new ObjectId(id);
     }
 
     @Override

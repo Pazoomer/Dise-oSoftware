@@ -9,7 +9,7 @@ import java.util.List;
  * @author t1pas
  */
 public class CampusConsultableDTO {
-    private Long id;
+    private String id;
     private String nombre;
     private List<UbicacionDTO> ubicaciones;
 
@@ -23,11 +23,11 @@ public class CampusConsultableDTO {
         this.ubicaciones = ubicaciones;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

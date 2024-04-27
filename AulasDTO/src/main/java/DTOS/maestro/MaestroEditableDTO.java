@@ -11,7 +11,7 @@ import java.util.List;
  * @author t1pas
  */
 public class MaestroEditableDTO {
-    private Long idBD;
+    private String idBD;
     private Long id;
     private String nombre;
     private UbicacionDTO cubiculo;
@@ -126,11 +126,11 @@ public class MaestroEditableDTO {
         this.calendario = calendario;
     }
 
-    public Long getIdBD() {
+    public String getIdBD() {
         return idBD;
     }
 
-    public void setIdBD(Long idBD) {
+    public void setIdBD(String idBD) {
         this.idBD = idBD;
     }
 

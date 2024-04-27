@@ -1,7 +1,6 @@
 
 package objetosNegocio;
 
-import entidades.CrudMaestro;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 
