@@ -24,8 +24,6 @@ public class Conexion implements IConexion{
     private static MongoDatabase baseDatos;
 
     protected Conexion() {
-        //cliente = MongoClients.create(cadenaConexion);
-
         CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
                 fromProviders(PojoCodecProvider.builder().automatic(true).build()));
 
@@ -35,21 +33,10 @@ public class Conexion implements IConexion{
                 .build();
         
         cliente = MongoClients.create(settings);
-        System.out.println(cliente);
 
         baseDatos = cliente.getDatabase(NombrebaseDatos);
-        System.out.println(baseDatos);
 
     }
-    
-    /**
-    @Override
-    public synchronized MongoCollection<Document> getColeccion(String nombreColeccion) { 
-        if (coleccion == null) {
-            coleccion = baseDatos.getCollection(nombreColeccion);
-        }
-        return coleccion;
-    }*/
 
     /**
      *
@@ -61,7 +48,7 @@ public class Conexion implements IConexion{
         }
 
     }
-    
+
     /**
      * Obtiene todos los maestros de la coleccion Maestros
      * @return 

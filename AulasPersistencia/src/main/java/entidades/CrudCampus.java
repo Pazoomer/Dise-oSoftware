@@ -105,7 +105,7 @@ public class CrudCampus {
 
     public EntidadUbicacion obtenerUbicacion(EntidadUbicacion entidadUbicacion) throws PersistenciaExceptionn {
         try {
-            EntidadCampus campusEncontrado = coleccion.find(eq("nombre", entidadUbicacion.getCampus().getNombre())).first();
+            EntidadCampus campusEncontrado=obtenerCampus(new EntidadCampus(entidadUbicacion.getCampus()));
             conexion.cerrarConexion();
             if (campusEncontrado != null) {
 
@@ -118,7 +118,7 @@ public class CrudCampus {
                 }
             }
 
-        } catch (Exception e) {
+        } catch (PersistenciaExceptionn e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
             throw new PersistenciaExceptionn("Hubo un error al obtener el campus.");
         }

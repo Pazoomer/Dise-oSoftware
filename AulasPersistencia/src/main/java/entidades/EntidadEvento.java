@@ -18,7 +18,7 @@ public class EntidadEvento implements Serializable {
 
     private String diasSemana;
 
-    private EntidadUbicacion ubicacion;
+    private String ubicacion;
 
     private String color;
 
@@ -30,13 +30,13 @@ public class EntidadEvento implements Serializable {
 
     private Double horasDuracionEvento;
 
-    private EntidadMaestro maestro;
+    private String maestro;
 
     public EntidadEvento() {
     }
 
 
-    public EntidadEvento(EntidadTipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, EntidadUbicacion ubicacion, String color, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, Double horasDuracionEvento, EntidadMaestro maestro) {
+    public EntidadEvento(EntidadTipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, String ubicacion, String color, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, Double horasDuracionEvento, String maestro) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -47,10 +47,10 @@ public class EntidadEvento implements Serializable {
         this.fechaFin = fechaFin;
         this.horaInicio = horaInicio;
         this.horasDuracionEvento = horasDuracionEvento;
-        this.maestro = maestro;
+        //this.maestro = maestro;
     }
 
-    public EntidadEvento(String nombre, String descripcion, EntidadUbicacion ubicacion, String color, Calendar fechaInicio, Calendar horaInicio, Double horasDuracionEvento, EntidadMaestro maestro) {
+    public EntidadEvento(String nombre, String descripcion, String ubicacion, String color, Calendar fechaInicio, Calendar horaInicio, Double horasDuracionEvento, String maestro) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.ubicacion = ubicacion;
@@ -58,7 +58,7 @@ public class EntidadEvento implements Serializable {
         this.fechaInicio = fechaInicio;
         this.horaInicio = horaInicio;
         this.horasDuracionEvento = horasDuracionEvento;
-        this.maestro = maestro;
+        //this.maestro = maestro;
     }
 
     public ObjectId getId() {
@@ -101,11 +101,11 @@ public class EntidadEvento implements Serializable {
         this.diasSemana = diasSemana;
     }
 
-    public EntidadUbicacion getUbicacion() {
+    public String getUbicacion() {
         return ubicacion;
     }
 
-    public void setUbicacion(EntidadUbicacion ubicacion) {
+    public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
     }
 
@@ -149,11 +149,11 @@ public class EntidadEvento implements Serializable {
         this.horasDuracionEvento = horasDuracionEvento;
     }
 
-    public EntidadMaestro getMaestro() {
+    public String getMaestro() {
         return maestro;
     }
 
-    public void setMaestro(EntidadMaestro maestro) {
+    public void setMaestro(String maestro) {
         this.maestro = maestro;
     }
     
@@ -194,7 +194,7 @@ public class EntidadEvento implements Serializable {
         sb.append(", fechaFin=").append(fechaFin);
         sb.append(", horaInicio=").append(horaInicio);
         sb.append(", horasDuracionEvento=").append(horasDuracionEvento);
-        sb.append(", maestro=").append(maestro);
+        //sb.append(", maestro=").append(maestro);
         sb.append('}');
         return sb.toString();
     }

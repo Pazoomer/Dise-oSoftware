@@ -15,7 +15,7 @@ public class EntidadUbicacion implements Serializable {
     
     private String identificador;
     
-    private EntidadCampus campus;
+    private String campus;
 
     private List<EntidadEvento> eventos;
     
@@ -32,7 +32,7 @@ public class EntidadUbicacion implements Serializable {
         this.eventos=new ArrayList<>();
     }
 
-    public EntidadUbicacion(String identificador, EntidadCampus campus, String descripcion) {
+    public EntidadUbicacion(String identificador, String campus, String descripcion) {
         this.identificador = identificador;
         this.campus = campus;
         this.descripcion=descripcion;
@@ -63,11 +63,11 @@ public class EntidadUbicacion implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public EntidadCampus getCampus() {
+    public String getCampus() {
         return campus;
     }
 
-    public void setCampus(EntidadCampus campus) {
+    public void setCampus(String campus) {
         this.campus = campus;
     }
     

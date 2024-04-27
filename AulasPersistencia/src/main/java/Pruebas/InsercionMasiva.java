@@ -1,5 +1,6 @@
 package Pruebas;
 
+import entidades.Conexion;
 import entidades.CrudCampus;
 import entidades.CrudMaestro;
 import entidades.EntidadCampus;
@@ -7,6 +8,7 @@ import entidades.EntidadEvento;
 import entidades.EntidadMaestro;
 import static entidades.EntidadTipoEventoEnum.SEMANAL;
 import entidades.EntidadUbicacion;
+import entidades.IConexion;
 import excepcioness.PersistenciaExceptionn;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +28,8 @@ public class InsercionMasiva {
 
         // Crear instancias de las entidades
         EntidadMaestro maestro = new EntidadMaestro(1L, "Juan Pérez", new EntidadUbicacion("Cubículo 101"), "Profesor de Matemáticas", "foto_maestro.jpg");
-        EntidadEvento evento = new EntidadEvento(SEMANAL, "Clase de Cálculo", "Clase de repaso de cálculo", "Lunes", new EntidadUbicacion("Aula 201"), "Azul", null, null, null, 2.5, maestro);
-        EntidadUbicacion ubicacion = new EntidadUbicacion("Aula 201", new EntidadCampus("Campus Principal"), "Aula para clases regulares");
+        EntidadEvento evento = new EntidadEvento(SEMANAL, "Clase de Cálculo", "Clase de repaso de cálculo", "Lunes", "Aula 201", "Azul", null, null, null, 2.5, maestro.getIdConversion());
+        EntidadUbicacion ubicacion = new EntidadUbicacion("Aula 201", "Campus Principal", "Aula para clases regulares");
         EntidadCampus campus = new EntidadCampus("Campus Principal");
 
         List<EntidadUbicacion> ubicaciones=new ArrayList<>();
@@ -42,7 +44,7 @@ public class InsercionMasiva {
         // Agregar el evento al calendario del maestro
         maestro.setCalendario(calendario);
         
-        CRUDmaestro.agregarMaestro(maestro);
+        //CRUDmaestro.agregarMaestro(maestro);
         CRUDcampus.agregarCampus(campus);
     }
 
