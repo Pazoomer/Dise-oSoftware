@@ -20,8 +20,8 @@ public class Conexion implements IConexion{
     String cadenaConexion = "mongodb://127.0.0.1:27017";
     String NombrebaseDatos = "Aulas";
 
-    private static MongoClient cliente;
-    private static MongoDatabase baseDatos;
+    private final MongoClient cliente;
+    private final MongoDatabase baseDatos;
 
     protected Conexion() {
         CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),

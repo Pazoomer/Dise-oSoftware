@@ -44,7 +44,7 @@ public class InsercionMasiva {
         // Agregar el evento al calendario del maestro
         maestro.setCalendario(calendario);
         
-        //CRUDmaestro.agregarMaestro(maestro);
+        CRUDmaestro.agregarMaestro(maestro);
         CRUDcampus.agregarCampus(campus);
     }
 
