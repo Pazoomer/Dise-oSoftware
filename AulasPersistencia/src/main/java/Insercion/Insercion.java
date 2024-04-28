@@ -11,6 +11,7 @@ import excepcioness.PersistenciaExceptionn;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -46,7 +47,7 @@ public class Insercion {
             ubicacionesCentro.add(ubicacion);
             campusCentro.setUbicaciones(ubicacionesCentro);
             
-            Calendar fechaInicio1 = Calendar.getInstance();
+            Calendar fechaInicio1 = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
             fechaInicio1.set(Calendar.DAY_OF_MONTH, 2);
             fechaInicio1.set(Calendar.MONTH, 4);
             fechaInicio1.set(Calendar.HOUR_OF_DAY, 10);
