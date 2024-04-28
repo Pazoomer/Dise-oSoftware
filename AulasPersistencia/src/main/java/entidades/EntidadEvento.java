@@ -2,9 +2,11 @@ package entidades;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Date;
 import java.util.Objects;
+import java.util.TimeZone;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 
@@ -45,8 +47,16 @@ public class EntidadEvento implements Serializable {
         this.diasSemana = diasSemana;
         this.ubicacion = ubicacion;
         this.color = color;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
+        Calendar fechaInicioCalculada=Calendar.getInstance();
+       // fechaInicioCalculada.setTimeZone(TimeZone.getTimeZone("UTC"));
+        fechaInicioCalculada.setTime(fechaInicio);
+        fechaInicioCalculada.add(Calendar.MONTH, -1);
+        this.fechaInicio = fechaInicioCalculada.getTime();
+        Calendar fechaFinCalculada=Calendar.getInstance();
+       // fechaFinCalculada.setTimeZone(TimeZone.getTimeZone("UTC"));
+        fechaFinCalculada.setTime(fechaFin);
+        fechaFinCalculada.add(Calendar.MONTH, -1);
+        this.fechaFin = fechaFinCalculada.getTime();
         this.horaInicio = horaInicio;
         this.horasDuracionEvento = horasDuracionEvento;
         //this.maestro = maestro;
@@ -57,8 +67,16 @@ public class EntidadEvento implements Serializable {
         this.descripcion = descripcion;
         this.ubicacion = ubicacion;
         this.color = color;
-        this.fechaInicio = fechaInicio;
-        this.horaInicio = horaInicio;
+        Calendar fechaInicioCalculada=Calendar.getInstance();
+        //fechaInicioCalculada.setTimeZone(TimeZone.getTimeZone("UTC"));
+        fechaInicioCalculada.setTime(fechaInicio);
+        fechaInicioCalculada.add(Calendar.MONTH, -1);
+        this.fechaInicio = fechaInicioCalculada.getTime();
+        this.horaInicio = fechaInicioCalculada.getTime();
+        this.fechaFin=fechaInicioCalculada.getTime();
+        Calendar fechaFinCalculada=Calendar.getInstance();
+        fechaFinCalculada.setTime(this.horaInicio);
+        fechaFinCalculada.add(Calendar.HOUR, horasDuracionEvento.intValue());
         this.horasDuracionEvento = horasDuracionEvento;
         //this.maestro = maestro;
     }
@@ -124,7 +142,11 @@ public class EntidadEvento implements Serializable {
     }
 
     public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
+        Calendar fechaInicioCalculada=Calendar.getInstance();
+        //fechaInicioCalculada.setTimeZone(TimeZone.getTimeZone("UTC"));
+        fechaInicioCalculada.setTime(fechaInicio);
+        fechaInicioCalculada.add(Calendar.MONTH, -1);
+        this.fechaInicio = fechaInicioCalculada.getTime();
     }
 
     public Date getFechaFin() {
@@ -132,7 +154,11 @@ public class EntidadEvento implements Serializable {
     }
 
     public void setFechaFin(Date fechaFin) {
-        this.fechaFin = fechaFin;
+        Calendar fechaFinCalculada=Calendar.getInstance();
+        //fechaFinCalculada.setTimeZone(TimeZone.getTimeZone("UTC"));
+        fechaFinCalculada.setTime(fechaFin);
+        fechaFinCalculada.add(Calendar.MONTH, -1);
+        this.fechaFin = fechaFinCalculada.getTime();
     }
 
     public Date getHoraInicio() {
@@ -140,7 +166,11 @@ public class EntidadEvento implements Serializable {
     }
 
     public void setHoraInicio(Date horaInicio) {
-        this.horaInicio = horaInicio;
+        Calendar horaInicioCalculada=Calendar.getInstance();
+        //horaInicioCalculada.setTimeZone(TimeZone.getTimeZone("UTC"));
+        horaInicioCalculada.setTime(horaInicio);
+        horaInicioCalculada.add(Calendar.MONTH, -1);
+        this.horaInicio = horaInicioCalculada.getTime();
     }
 
     public Double getHorasDuracionEvento() {
@@ -194,9 +224,12 @@ public class EntidadEvento implements Serializable {
         sb.append(", diasSemana=").append(diasSemana);
         sb.append(", ubicacion=").append(ubicacion);
         sb.append(", color=").append(color);
-        sb.append(", fechaInicio=").append(fechaInicio);
-        sb.append(", fechaFin=").append(fechaFin);
-        sb.append(", horaInicio=").append(horaInicio);
+        sb.append(", fechaInicio=").append(fechaToString(fechaInicio));
+        sb.append(", fechaFin=").append(fechaToString(fechaFin));
+        Calendar hora=Calendar.getInstance();
+        hora.setTime(horaInicio);
+        hora.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
+        sb.append(", horaInicio=").append(hora.get(Calendar.HOUR_OF_DAY)+":"+hora.get(Calendar.MINUTE));
         sb.append(", horasDuracionEvento=").append(horasDuracionEvento);
         sb.append(", maestro=").append(maestro);
         sb.append('}');
@@ -207,7 +240,8 @@ public class EntidadEvento implements Serializable {
 
     public String fechaToString(Date fecha){
         SimpleDateFormat formatoFecha=new SimpleDateFormat("yyyy-MM-dd");
-        return formatoFecha.format(fecha.getTime());
+        formatoFecha.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
+        return formatoFecha.format(fecha);
     }
 
     @Override

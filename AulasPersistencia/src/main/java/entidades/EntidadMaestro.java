@@ -144,7 +144,7 @@ public class EntidadMaestro implements Serializable {
         sb.append(", cubiculo=").append(cubiculo);
         sb.append(", descripcion=").append(descripcion);
         sb.append(", foto=").append(foto);
-        sb.append(", calendario=").append(calendario);
+        sb.append(", calendario=").append(calendarioToString());
         sb.append('}');
         return sb.toString();
     }
@@ -157,8 +157,8 @@ public class EntidadMaestro implements Serializable {
         for (EntidadEvento ev : calendario) {
             sb.append("{nombre=").append(ev.getNombre());
             sb.append("ubicacion=").append(ev.getUbicacion());
-            sb.append("fecha inicio=").append(ev.getFechaInicio());
-            sb.append("hora inicio=").append(ev.getHoraInicio()).append("}");
+            sb.append("fecha inicio=").append(ev.fechaToString(ev.getFechaInicio()));
+            sb.append("hora inicio=").append(ev.fechaToString(ev.getHoraInicio())).append("}");
         }
         sb.append("]");
         return sb.toString();

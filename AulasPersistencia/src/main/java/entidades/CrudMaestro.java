@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bson.conversions.Bson;
@@ -59,6 +60,13 @@ public class CrudMaestro {
     public EntidadMaestro obtenerMaestro(EntidadMaestro maestroParametro) throws PersistenciaExceptionn {
         try {
             EntidadMaestro maestroEncontrado = coleccion.find(eq("idMaestro", maestroParametro.getIdMaestro())).first();
+//            EntidadEvento evento=maestroEncontrado.getCalendario().get(0);
+//            System.out.println(evento.toString());
+//            System.out.println("fecha inicio evento: " +evento.fechaToString(evento.getFechaInicio()));
+//            Calendar hora = Calendar.getInstance();
+//            hora.setTime(evento.getHoraInicio());
+//            hora.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
+//            System.out.println("hora inicio evento: " +hora.get(Calendar.HOUR_OF_DAY)+":"+hora.get(Calendar.MINUTE));
             return maestroEncontrado;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
