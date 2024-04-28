@@ -207,29 +207,29 @@ public class CDEvento extends javax.swing.JDialog {
             } else if (eventoEditable.getTipo().equals(TipoEventoEnumDTO.SEMANAL)) {
                 cmbTipo.setSelectedIndex(0);
                 String diasSemana = eventoEditable.getDiasSemana();
-                //String[] dias={"Do","Lu","Ma","Mi","Ju","Vi","Sa"};
-                String[] arrDiasS = diasSemana.split(",");
-                for (String arrDiasS1 : arrDiasS) {
-                    // char dia = diasSemana.charAt(i);
-                    switch (arrDiasS1) {
-                        // Sumamos 1 para que coincida con el índice de los días de la semana
-                        case "Do" ->
-                            chbDomingo.setSelected(true);
-                        case "Lu" ->
-                            chbLunes.setSelected(true);
-                        case "Ma" ->
-                            chbMartes.setSelected(true);
-                        case "Mi" ->
-                            chbMiercoles.setSelected(true);
-                        case "Ju" ->
-                            chbJueves.setSelected(true);
-                        case "Vi" ->
-                            chbViernes.setSelected(true);
-                        case "Sa" ->
-                            chbSabado.setSelected(true);
+            for (int i = 0; i < diasSemana.length(); i++) {
+                    char dia = diasSemana.charAt(i);
+                switch (i + 1) { // Sumamos 1 para que coincida con el índice de los días de la semana
+                        case 1 ->
+                        chbDomingo.setSelected(dia == '1');
+                    case 2 ->
+                        chbLunes.setSelected(dia == '1');
+                    case 3 ->
+                        chbMartes.setSelected(dia == '1');
+                    case 4 ->
+                        chbMiercoles.setSelected(dia == '1');
+                    case 5 ->
+                        chbJueves.setSelected(dia == '1');
+                    case 6 ->
+                        chbViernes.setSelected(dia == '1');
+                    case 7 ->
+                        chbSabado.setSelected(dia == '1');
                         default -> {
                         }
                     }
+                }
+ {
+                    
                     // Sumamos 1 para que coincida con el índice de los días de la semana
                     // Manejar cualquier otro caso si es necesario
                 }
