@@ -6,6 +6,7 @@ package Pruebas;
 
 import entidades.CrudCampus;
 import entidades.CrudMaestro;
+import entidades.EntidadCampus;
 import entidades.EntidadEvento;
 import entidades.EntidadMaestro;
 import entidades.EntidadUbicacion;
@@ -25,8 +26,11 @@ public class Prueba {
         EntidadMaestro m=new EntidadMaestro();
         m.setIdMaestro(1L);
        
-        EntidadUbicacion ubicacion=new EntidadUbicacion("Aula 201");
+        EntidadUbicacion ubicacion=new EntidadUbicacion("AV-1100");
         try{
+            List<EntidadCampus> ubicaciones=campus.obtenerTodosLosCampus();
+            if(!ubicaciones.isEmpty()) System.out.println(ubicaciones.getFirst());
+            else System.out.println("no hay campus");
             m=maestro.obtenerMaestro(m);
             System.out.println(m.toString());
             ubicacion=campus.obtenerUbi(ubicacion);
