@@ -2,6 +2,7 @@ package entidades;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 
@@ -69,7 +70,9 @@ public class EntidadCampus implements Serializable {
      * @param id 
      */
     public void setIdConversion(String id) {
-        this.id = new ObjectId(id);
+       if (id != null) {
+            this.id = new ObjectId(id);
+        }
     }
 
     @Override
@@ -85,6 +88,8 @@ public class EntidadCampus implements Serializable {
 
     
 
+    
+
     private String edificiosToString(){
         StringBuilder sb=new StringBuilder();
         sb.append("Ubicaciones[");
@@ -93,4 +98,27 @@ public class EntidadCampus implements Serializable {
         }
         return sb.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final EntidadCampus other = (EntidadCampus) obj;
+        return Objects.equals(this.id, other.id);
+    }
+    
 }

@@ -1,6 +1,6 @@
 
 
-package bda.aulasobjnegocio;
+package pruebas;
 
 import DTOS.campus.UbicacionDTO;
 import DTOS.maestro.MaestroEditableDTO;
@@ -49,11 +49,11 @@ public class AulasObjNegocio {
 //        System.out.println("hora inicio: "+horaInicio.get(Calendar.HOUR_OF_DAY)+":"+
 //                horaInicio.get(Calendar.MINUTE));
         Maestro m=new Maestro();
-        MaestroEditableDTO maestroDTO=new MaestroEditableDTO(1L);
+        MaestroEditableDTO maestroDTO=new MaestroEditableDTO("1");
         try{
             MaestroEditableDTO maestro=m.obtenerMaestro(maestroDTO);
-            System.out.println(maestro);
-            System.out.println(maestro.getCalendario().getFirst().getUbicacion().getCampus().getNombre());
+            System.out.println("Maestro: "+maestro);
+            System.out.println("Nombre del campus de la ubicacion del primer evento del maestro: "+maestro.getCalendario().get(0).getUbicacion().getCampus().getNombre());
         }catch(NegocioException e){
             System.out.println(e);
         }

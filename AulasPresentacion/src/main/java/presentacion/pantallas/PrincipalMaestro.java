@@ -141,11 +141,22 @@ public class PrincipalMaestro extends javax.swing.JFrame {
     private void editarInformacion() {
         String descripcion = this.txaDescripcion.getText();
         String edificioCubiculo=cmbBoxCubiculos.getSelectedItem().toString();
+        UbicacionDTO ubicacionReal=new UbicacionDTO();
+        
+        for (UbicacionDTO ubicacion: edificiosCubiculos) {
+            if (ubicacion.getIdentificador().equals(edificioCubiculo)) {
+                ubicacionReal=ubicacion;
+            }
+        }
+        
         UbicacionDTO ubicacionCubiculo;
         MaestroEditableDTO maestroAuxiliar;
         
         try{
-            ubicacionCubiculo=accesoUbicaciones.recuperarUbicacion(new UbicacionDTO((edificioCubiculo)));
+            if (ubicacionReal==null) {
+                throw new NegocioException("El cubiculo no pertenece a ninguna ubicacion");
+            }
+            ubicacionCubiculo=accesoUbicaciones.recuperarUbicacion(ubicacionReal);
             
             maestroAuxiliar = new MaestroEditableDTO(maestroDTO.getId(), maestroDTO.getNombre(),
                     ubicacionCubiculo, descripcion, maestroDTO.getFoto(),maestroDTO.getCalendario());

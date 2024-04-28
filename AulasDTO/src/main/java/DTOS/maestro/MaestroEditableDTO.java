@@ -15,14 +15,14 @@ import java.util.List;
  */
 public class MaestroEditableDTO {
     private String idBD;
-    private Long id;
+    private String id;
     private String nombre;
     private UbicacionDTO cubiculo;
     private String descripcion;
     private String foto;
     private List<EventoConsultableDTO> calendario;   
 
-    public MaestroEditableDTO(Long id) {
+    public MaestroEditableDTO(String id) {
         this.id=id;
         this.calendario=new ArrayList<>();
     }
@@ -37,7 +37,7 @@ public class MaestroEditableDTO {
      * @param foto
      * @param calendario 
      */
-    public MaestroEditableDTO(Long id, String nombre, UbicacionDTO cubiculo, String descripcion, String foto, List<EventoConsultableDTO> calendario) {
+    public MaestroEditableDTO(String id, String nombre, UbicacionDTO cubiculo, String descripcion, String foto, List<EventoConsultableDTO> calendario) {
         this.id = id;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
@@ -72,7 +72,7 @@ public class MaestroEditableDTO {
      * @param descripcion
      * @param foto 
      */
-    public MaestroEditableDTO(Long id, String nombre, UbicacionDTO cubiculo, String descripcion, String foto) {
+    public MaestroEditableDTO(String id, String nombre, UbicacionDTO cubiculo, String descripcion, String foto) {
         this.id = id;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
@@ -81,7 +81,7 @@ public class MaestroEditableDTO {
         this.calendario=new ArrayList<>();
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -101,7 +101,7 @@ public class MaestroEditableDTO {
         this.foto = foto;
     }
     
-    public Long getId() {
+    public String getId() {
         return id;
     }
     

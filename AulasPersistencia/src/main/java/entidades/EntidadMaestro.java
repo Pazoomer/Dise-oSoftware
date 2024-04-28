@@ -3,6 +3,7 @@ package entidades;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 
@@ -15,7 +16,7 @@ public class EntidadMaestro implements Serializable {
     @BsonId
     private ObjectId id;
 
-    private Long idMaestro; //Representa el identificador fuera de la base de datos
+    private String idMaestro; //Representa el identificador fuera de la base de datos
 
     private String nombre;
     
@@ -35,7 +36,7 @@ public class EntidadMaestro implements Serializable {
         this.id = id;
     }
 
-    public EntidadMaestro(Long idMaestro, String nombre, EntidadUbicacion cubiculo, String descripcion, String foto, List<EntidadEvento> calendario) {
+    public EntidadMaestro(String idMaestro, String nombre, EntidadUbicacion cubiculo, String descripcion, String foto, List<EntidadEvento> calendario) {
         this.idMaestro = idMaestro;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
@@ -44,7 +45,7 @@ public class EntidadMaestro implements Serializable {
         this.calendario = calendario;
     }
 
-    public EntidadMaestro(Long idMaestro, String nombre, EntidadUbicacion cubiculo, String descripcion, String foto) {
+    public EntidadMaestro(String idMaestro, String nombre, EntidadUbicacion cubiculo, String descripcion, String foto) {
         this.idMaestro = idMaestro;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
@@ -61,11 +62,11 @@ public class EntidadMaestro implements Serializable {
         this.id = id;
     }
 
-    public Long getIdMaestro() {
+    public String getIdMaestro() {
         return idMaestro;
     }
 
-    public void setIdMaestro(Long idMaestro) {
+    public void setIdMaestro(String idMaestro) {
         this.idMaestro = idMaestro;
     }
 
@@ -128,7 +129,9 @@ public class EntidadMaestro implements Serializable {
      * @param id 
      */
     public void setIdConversion(String id) {
-        this.id = new ObjectId(id);
+       if (id != null) {
+            this.id = new ObjectId(id);
+        }
     }
 
     @Override
@@ -146,6 +149,8 @@ public class EntidadMaestro implements Serializable {
         return sb.toString();
     }
 
+   
+
     public String calendarioToString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Eventos[");
@@ -158,4 +163,28 @@ public class EntidadMaestro implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final EntidadMaestro other = (EntidadMaestro) obj;
+        return Objects.equals(this.id, other.id);
+    }
+    
+    
 }

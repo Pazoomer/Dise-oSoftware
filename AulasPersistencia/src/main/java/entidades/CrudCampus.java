@@ -30,7 +30,6 @@ public class CrudCampus {
     public EntidadCampus agregarCampus(EntidadCampus campus) throws PersistenciaExceptionn {
         try {
             coleccion.insertOne(campus);
-            conexion.cerrarConexion();
             return campus;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
@@ -41,7 +40,6 @@ public class CrudCampus {
     public EntidadCampus editarCampus(EntidadCampus campus) throws PersistenciaExceptionn {
     try {
         coleccion.replaceOne(eq("nombre", campus.getNombre()), campus);
-        conexion.cerrarConexion();
         return campus;
     } catch (Exception e) {
         LOG.log(Level.SEVERE, e.getMessage(), e);
@@ -52,7 +50,6 @@ public class CrudCampus {
     public boolean eliminarCampus(EntidadCampus campusParametro) throws PersistenciaExceptionn {
         try {
             coleccion.deleteOne(eq("nombre", campusParametro.getNombre()));
-            conexion.cerrarConexion();
             return true;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
@@ -63,7 +60,6 @@ public class CrudCampus {
     public EntidadCampus obtenerCampus(EntidadCampus campusParametro) throws PersistenciaExceptionn {
         try {
             EntidadCampus campusEncontrado = coleccion.find(eq("nombre", campusParametro.getNombre())).first();
-            conexion.cerrarConexion();
             return campusEncontrado;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
@@ -107,8 +103,9 @@ public class CrudCampus {
 
     public EntidadUbicacion obtenerUbicacion(EntidadUbicacion entidadUbicacion) throws PersistenciaExceptionn {
         try {
+            System.out.println(entidadUbicacion);
             EntidadCampus campusEncontrado=obtenerCampus(new EntidadCampus(entidadUbicacion.getCampus()));
-            conexion.cerrarConexion();
+            System.out.println(campusEncontrado);
             if (campusEncontrado != null) {
 
                 if (campusEncontrado.getUbicaciones() != null) {
@@ -131,17 +128,21 @@ public class CrudCampus {
         try{
             Bson filter=Filters.eq("ubicaciones.identificador",ubicacion.getIdentificador());
             EntidadCampus registro=coleccion.find(filter).first();
-            conexion.cerrarConexion();
             List<EntidadUbicacion> ubi;
             if(registro!=null){
                 ubi=registro.getUbicaciones();
-                return ubi.getFirst();
+                return ubi.get(0);
             }
             return null;
         }catch(MongoException e){
             LOG.log(Level.SEVERE, e.getMessage(), e);
             throw new PersistenciaExceptionn("Hubo un error al obtener la ubicacion");
         }
+    }
+    
+    public boolean cerrarConexion(){
+        conexion.cerrarConexion();
+        return true;
     }
     
 }

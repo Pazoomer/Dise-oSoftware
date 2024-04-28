@@ -22,7 +22,7 @@ public class pruebaMain {
         // TODO code application logic here
         IAccesoMaestro accesoMaestro=new FachadaAccesoMaestro();
         try{
-            MaestroEditableDTO maestro=accesoMaestro.recuperarMaestro(new MaestroEditableDTO(1L));
+            MaestroEditableDTO maestro=accesoMaestro.recuperarMaestro(new MaestroEditableDTO("1"));
             System.out.println(maestro.toString());
         }catch(NegocioException e){
             System.out.println(e.getMessage());

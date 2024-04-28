@@ -21,20 +21,26 @@ import java.util.List;
 public class Prueba {
 
     public static void main(String[] args) {
-        CrudCampus campus=new CrudCampus(); 
-        CrudMaestro maestro=new CrudMaestro();
-        EntidadMaestro m=new EntidadMaestro();
-        m.setIdMaestro(1L);
+        CrudCampus crudCampus=new CrudCampus(); 
+        CrudMaestro crudMaestro=new CrudMaestro();
+        EntidadMaestro entidadMaestro=new EntidadMaestro();
+        entidadMaestro.setIdMaestro("1");
        
         EntidadUbicacion ubicacion=new EntidadUbicacion("AV-1100");
+        
         try{
-            List<EntidadCampus> ubicaciones=campus.obtenerTodosLosCampus();
-            if(!ubicaciones.isEmpty()) System.out.println(ubicaciones.getFirst());
-            else System.out.println("no hay campus");
-            m=maestro.obtenerMaestro(m);
-            System.out.println(m.toString());
-            ubicacion=campus.obtenerUbi(ubicacion);
+            
+            List<EntidadCampus> campuses=crudCampus.obtenerTodosLosCampus();
+            
+            if(!campuses.isEmpty()) System.out.println(campuses.get(0));
+            else System.out.println("No hay campuses");
+            
+            entidadMaestro=crudMaestro.obtenerMaestro(entidadMaestro);
+            System.out.println(entidadMaestro.toString());
+            
+            ubicacion=crudCampus.obtenerUbi(ubicacion);
             System.out.println(ubicacion.toString());
+            
         }catch(PersistenciaExceptionn e){
             System.out.println(e);
         }

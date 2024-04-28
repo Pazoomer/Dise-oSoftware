@@ -24,7 +24,7 @@ public class Ejecutable {
         IAccesoMaestro acceso = new FachadaAccesoMaestro();
         MaestroEditableDTO maestro;
         try {
-            maestro = acceso.recuperarMaestro(new MaestroEditableDTO(1L));
+            maestro = acceso.recuperarMaestro(new MaestroEditableDTO("1"));
             if (maestro != null) {
                 System.out.println(maestro.toString());
                 new PrincipalMaestro(maestro).setVisible(true);

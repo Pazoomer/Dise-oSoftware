@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Date;
+import java.util.Objects;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 
@@ -177,7 +178,9 @@ public class EntidadEvento implements Serializable {
      * @param id 
      */
     public void setIdConversion(String id) {
-        this.id = new ObjectId(id);
+       if (id != null) {
+            this.id = new ObjectId(id);
+        }
     }
 
     @Override
@@ -195,15 +198,39 @@ public class EntidadEvento implements Serializable {
         sb.append(", fechaFin=").append(fechaFin);
         sb.append(", horaInicio=").append(horaInicio);
         sb.append(", horasDuracionEvento=").append(horasDuracionEvento);
-        //sb.append(", maestro=").append(maestro);
+        sb.append(", maestro=").append(maestro);
         sb.append('}');
         return sb.toString();
     }
 
- 
     
+
     public String fechaToString(Date fecha){
         SimpleDateFormat formatoFecha=new SimpleDateFormat("yyyy-MM-dd");
         return formatoFecha.format(fecha.getTime());
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final EntidadEvento other = (EntidadEvento) obj;
+        return Objects.equals(this.id, other.id);
+    }
+    
+    
 }

@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  * @author luiis
  */
 public class Maestro {
-    private Long id;
+    private String id;
     private String nombre;
     private Ubicacion cubiculo;
     private String descripcion;
@@ -33,7 +33,7 @@ public class Maestro {
         this.calendarioEv=new ArrayList<>();
     }
 
-    public Maestro(Long id, String nombre, Ubicacion cubiculo, String descripcion, List<Evento> calendarioEv) {
+    public Maestro(String id, String nombre, Ubicacion cubiculo, String descripcion, List<Evento> calendarioEv) {
         this.id = id;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
@@ -42,7 +42,7 @@ public class Maestro {
         this.convertidor=new Conversiones();
     }
 
-    public Maestro(Long id, String nombre, Ubicacion cubiculo, String descripcion) {
+    public Maestro(String id, String nombre, Ubicacion cubiculo, String descripcion) {
         this.id = id;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
@@ -67,7 +67,7 @@ public class Maestro {
             if (maestroEncontrado!=null) {
                 return convertidor.toMaestroDTO(maestroEncontrado);
             }
-            return null;
+            throw new PersistenciaExceptionn("No se encontro el maestro");
         } catch (PersistenciaExceptionn ex) {
             Logger.getLogger(Maestro.class.getName()).log(Level.SEVERE, null, ex);
             throw new NegocioException(ex.getMessage());
@@ -85,11 +85,11 @@ public class Maestro {
         }
     }
     
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

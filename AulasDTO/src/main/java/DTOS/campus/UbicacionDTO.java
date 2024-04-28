@@ -75,7 +75,9 @@ public class UbicacionDTO {
         sb.append("id=").append(id);
         sb.append(", identificador=").append(identificador);
         sb.append(", descripcion=").append(descripcion);
-        sb.append(", campus=").append(campus);
+        if (campus!=null) {
+           sb.append(", campus=").append(campus.getNombre()); 
+        }
         sb.append(", eventos=").append(eventos);
         sb.append('}');
         return sb.toString();

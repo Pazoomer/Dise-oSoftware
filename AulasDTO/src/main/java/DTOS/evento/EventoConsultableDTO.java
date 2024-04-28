@@ -27,6 +27,21 @@ public class EventoConsultableDTO {
         this.nombre=nombre;
     }
 
+    public EventoConsultableDTO(TipoEventoEnumDTO tipo, String nombre, String descripcion, String color, String diasSemana, UbicacionDTO ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, Double horasDuracionEvento, MaestroEditableDTO maestro) {
+        this.tipo = tipo;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.color = color;
+        this.diasSemana = diasSemana;
+        this.ubicacion = ubicacion;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.horaInicio = horaInicio;
+        this.horasDuracionEvento = horasDuracionEvento;
+        this.maestro = maestro;
+    }
+
+    
     
     /**
      * Constructor para eventos de un solo dia. Calcula la fecha fin del evento
@@ -103,6 +118,36 @@ public class EventoConsultableDTO {
         this.ubicacion = ubicacion;
         this.diasSemana = diasSemanaa;
     }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setUbicacion(UbicacionDTO ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
+    public void setFechaInicio(Calendar fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public void setHoraInicio(Calendar horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public void setHorasDuracionEvento(Double horasDuracionEvento) {
+        this.horasDuracionEvento = horasDuracionEvento;
+    }
+    
+    
 
     public String getId() {
         return id;
@@ -189,17 +234,28 @@ public class EventoConsultableDTO {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("EventoDTO{");
-        sb.append("tipo=").append(tipo);
+        sb.append("EventoConsultableDTO{");
+        sb.append("id=").append(id);
+        sb.append(", tipo=").append(tipo);
         sb.append(", nombre=").append(nombre);
         sb.append(", descripcion=").append(descripcion);
         sb.append(", color=").append(color);
-        sb.append(", ubicacion[").append(ubicacion.toStringReducido()).append(']');
-        sb.append(", fechaInicio=").append(fechaToString(fechaInicio));
-        sb.append(", fechaFin=").append(fechaToString(fechaFin));
+        sb.append(", diasSemana=").append(diasSemana);
+        if (ubicacion != null) {
+            sb.append(", ubicacion=").append(ubicacion.getIdentificador());
+        }
+        sb.append(", fechaInicio=").append(fechaInicio);
+        sb.append(", fechaFin=").append(fechaFin);
+        sb.append(", horaInicio=").append(horaInicio);
+        sb.append(", horasDuracionEvento=").append(horasDuracionEvento);
+        if (maestro != null) {
+            sb.append(", maestro=").append(maestro.getNombre());
+        }
         sb.append('}');
         return sb.toString();
     }
+
+    
     
     /**
      * metodo para convertir la fecha de tipo GregorianCalendar a un string con

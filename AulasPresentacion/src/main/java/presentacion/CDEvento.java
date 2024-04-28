@@ -75,9 +75,9 @@ public class CDEvento extends javax.swing.JDialog {
     
     private void añadirEvento2(){
         EventoConsultableDTO eventoN=crearEvento();
-        
-        JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
         calendario.añadirEvento(eventoN);
+        JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
+        
         calendario.setVisible(true);
     }
     
@@ -175,6 +175,10 @@ public class CDEvento extends javax.swing.JDialog {
     }
     
     private void desplegarInfo(){
+        
+        if (eventoEditable!=null) {
+            
+       
         txtNombre.setText(this.eventoEditable.getNombre());
         txtDescripcion.setText(this.eventoEditable.getDescripcion());
         txtUbicacion.setText(this.eventoEditable.getUbicacion().getIdentificador());
@@ -185,53 +189,55 @@ public class CDEvento extends javax.swing.JDialog {
         int minutoIn =eventoEditable.getHoraInicio().get(Calendar.MINUTE);
         String horaInicio=horaIn+":"+minutoIn;
         if(horaIn>=12)
-            horaInicio=horaInicio+" PM";
-        else
-            horaInicio=horaInicio+" AM";
-        System.out.println("metodo desplegar info");
-        System.out.println("hora inicio: "+horaInicio);
-        for (int i = 0; i < cmbHora.getModel().getSize(); i++) {
-            if(horaInicio.equals(cmbHora.getModel().getElementAt(i))){
-                cmbHora.setSelectedIndex(i);
-                break;
-            }
-        }
-        
-        if(eventoEditable.getTipo().equals(TipoEventoEnumDTO.UNICO_UN_DIA)){
-            dtcFecha.setDate(this.eventoEditable.getFechaInicio().getTime());
-            cmbTipo.setSelectedIndex(1);
-        } else if (eventoEditable.getTipo().equals(TipoEventoEnumDTO.SEMANAL)) {
-            cmbTipo.setSelectedIndex(0);
-            String diasSemana = eventoEditable.getDiasSemana();
-            //String[] dias={"Do","Lu","Ma","Mi","Ju","Vi","Sa"};
-            String[] arrDiasS=diasSemana.split(",");
-            for (String arrDiasS1 : arrDiasS) {
-                // char dia = diasSemana.charAt(i);
-                switch (arrDiasS1) {
-                    // Sumamos 1 para que coincida con el índice de los días de la semana
-                    case "Do" ->
-                        chbDomingo.setSelected(true);
-                    case "Lu" ->
-                        chbLunes.setSelected(true);
-                    case "Ma" ->
-                        chbMartes.setSelected(true);
-                    case "Mi" ->
-                        chbMiercoles.setSelected(true);
-                    case "Ju" ->
-                        chbJueves.setSelected(true);
-                    case "Vi" ->
-                        chbViernes.setSelected(true);
-                    case "Sa" ->
-                        chbSabado.setSelected(true);
-                    default -> {
-                    }
+            horaInicio = horaInicio + " PM";
+            else
+                horaInicio = horaInicio + " AM";
+            System.out.println("metodo desplegar info");
+            System.out.println("hora inicio: " + horaInicio);
+            for (int i = 0; i < cmbHora.getModel().getSize(); i++) {
+                if (horaInicio.equals(cmbHora.getModel().getElementAt(i))) {
+                    cmbHora.setSelectedIndex(i);
+                    break;
                 }
-                // Sumamos 1 para que coincida con el índice de los días de la semana
-                // Manejar cualquier otro caso si es necesario
+            }
+
+            if (eventoEditable.getTipo().equals(TipoEventoEnumDTO.UNICO_UN_DIA)) {
+                dtcFecha.setDate(this.eventoEditable.getFechaInicio().getTime());
+                cmbTipo.setSelectedIndex(1);
+            } else if (eventoEditable.getTipo().equals(TipoEventoEnumDTO.SEMANAL)) {
+                cmbTipo.setSelectedIndex(0);
+                String diasSemana = eventoEditable.getDiasSemana();
+                //String[] dias={"Do","Lu","Ma","Mi","Ju","Vi","Sa"};
+                String[] arrDiasS = diasSemana.split(",");
+                for (String arrDiasS1 : arrDiasS) {
+                    // char dia = diasSemana.charAt(i);
+                    switch (arrDiasS1) {
+                        // Sumamos 1 para que coincida con el índice de los días de la semana
+                        case "Do" ->
+                            chbDomingo.setSelected(true);
+                        case "Lu" ->
+                            chbLunes.setSelected(true);
+                        case "Ma" ->
+                            chbMartes.setSelected(true);
+                        case "Mi" ->
+                            chbMiercoles.setSelected(true);
+                        case "Ju" ->
+                            chbJueves.setSelected(true);
+                        case "Vi" ->
+                            chbViernes.setSelected(true);
+                        case "Sa" ->
+                            chbSabado.setSelected(true);
+                        default -> {
+                        }
+                    }
+                    // Sumamos 1 para que coincida con el índice de los días de la semana
+                    // Manejar cualquier otro caso si es necesario
+                }
+
             }
         }
     }
-    
+
     public void desplegarEvento(){
         desplegarInfo();
         txtNombre.setEnabled(false);

@@ -28,7 +28,6 @@ public class CrudMaestro {
     public EntidadMaestro agregarMaestro(EntidadMaestro maestro) throws PersistenciaExceptionn {
         try {
             coleccion.insertOne(maestro);
-            conexion.cerrarConexion();
             return maestro;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
@@ -37,9 +36,9 @@ public class CrudMaestro {
     }
     
     public EntidadMaestro editarMaestro(EntidadMaestro maestro) throws PersistenciaExceptionn {
+        System.out.println(maestro);
     try {
-        coleccion.replaceOne(eq("idMaestro", maestro.getId()), maestro);
-        conexion.cerrarConexion();
+        coleccion.replaceOne(eq("idMaestro", maestro.getIdMaestro()), maestro);  
         return maestro;
     } catch (Exception e) {
         LOG.log(Level.SEVERE, e.getMessage(), e);
@@ -50,7 +49,6 @@ public class CrudMaestro {
     public boolean eliminarMaestro(EntidadMaestro maestroParametro) throws PersistenciaExceptionn {
         try {
             coleccion.deleteOne(eq("idMaestro", maestroParametro.getIdMaestro()));
-            conexion.cerrarConexion();
             return true;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
@@ -61,7 +59,6 @@ public class CrudMaestro {
     public EntidadMaestro obtenerMaestro(EntidadMaestro maestroParametro) throws PersistenciaExceptionn {
         try {
             EntidadMaestro maestroEncontrado = coleccion.find(eq("idMaestro", maestroParametro.getIdMaestro())).first();
-            conexion.cerrarConexion();
             return maestroEncontrado;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
@@ -120,5 +117,10 @@ public class CrudMaestro {
         
         UpdateResult result = coleccion.updateOne(filtro, updates);
         return (result.getModifiedCount() > 0) ;
+    }
+    
+    public boolean cerrarConexion(){
+        conexion.cerrarConexion();
+        return true;
     }
 }

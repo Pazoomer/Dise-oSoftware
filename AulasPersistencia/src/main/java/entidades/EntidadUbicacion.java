@@ -3,6 +3,7 @@ package entidades;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 
@@ -95,10 +96,14 @@ public class EntidadUbicacion implements Serializable {
 
     /**
      * Recibe un String que convierta a ObjectId para colocarselo como atributo
-     * @param id 
+     *
+     * @param id
      */
     public void setIdConversion(String id) {
-        this.id = new ObjectId(id);
+        if (id != null) {
+            this.id = new ObjectId(id);
+        }
+
     }
 
     @Override
@@ -113,8 +118,6 @@ public class EntidadUbicacion implements Serializable {
         sb.append('}');
         return sb.toString();
     }
-
-    
 
     public String eventosToString(){
         StringBuilder sb = new StringBuilder();
@@ -133,4 +136,28 @@ public class EntidadUbicacion implements Serializable {
         sb.append(']');
         return sb.toString();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final EntidadUbicacion other = (EntidadUbicacion) obj;
+        return Objects.equals(this.id, other.id);
+    }
+    
+    
 }
