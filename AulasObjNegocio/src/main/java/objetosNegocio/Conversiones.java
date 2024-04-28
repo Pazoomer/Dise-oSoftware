@@ -9,6 +9,8 @@ import static DTOS.evento.TipoEventoEnumDTO.SEMANAL;
 import static DTOS.evento.TipoEventoEnumDTO.UNICO_UN_DIA;
 import static DTOS.evento.TipoEventoEnumDTO.UNICO_VARIOS_DIAS;
 import DTOS.maestro.MaestroEditableDTO;
+import entidades.CrudCampus;
+import entidades.CrudMaestro;
 import entidades.EntidadCampus;
 import entidades.EntidadEvento;
 import entidades.EntidadMaestro;
@@ -57,7 +59,7 @@ class Conversiones {
             ubicacion=new UbicacionDTO(
                     ubicacionBO.getIdentificador(),
                     ubicacionBO.getDescripcion(),
-                    new CampusConsultableDTO(ubicacionBO.getCampus().getNombre())
+                    new CampusConsultableDTO(ubicacionBO.getCampus())
             );
         }else{
             ubicacion=new UbicacionDTO(ubicacionBO.getIdentificador());
@@ -175,16 +177,16 @@ class Conversiones {
         return eventoConvertido;
     }
     
-    protected EventoConsultableDTO toEventoDTO(EntidadEvento evento,MaestroEditableDTO maestroDTO) {
+    protected EventoConsultableDTO toEventoDTO(EntidadEvento evento,MaestroEditableDTO maestro) {
         EventoConsultableDTO eventoConvertido = null;
         UbicacionDTO ubicacionDTO=null;
-        MaestroEditableDTO maestroDTO2=null;
+        CrudCampus crudCampus=new CrudCampus();
         
+        EntidadUbicacion ubicacion=new EntidadUbicacion();
+        ubicacion.setCampus(campus);
+                crudCampus.obtenerUbicacion(new EntidadUbicacion());
         if(evento.getUbicacion()!=null) ubicacionDTO=toUbicacionDTO(evento.getUbicacion());
         
-        if(maestroDTO!=null)maestroDTO2=maestroDTO;
-        
-        else if(evento.getMaestro()!=null)maestroDTO2=toMaestroDTO(evento.getMaestro());
         switch (evento.getTipo()) {
             case UNICO_UN_DIA ->
                 eventoConvertido = new EventoConsultableDTO(
@@ -225,7 +227,7 @@ class Conversiones {
         }
         if(eventoConvertido!=null){
             eventoConvertido.setId(evento.getIdConversion());
-            eventoConvertido.setMaestro(maestroDTO2);
+            eventoConvertido.setMaestro(maestro);
         }
         return eventoConvertido;
     }
@@ -241,7 +243,7 @@ class Conversiones {
 
                 EntidadUbicacion ubicacionAux = toUbicacionBO(ubicacion);
 
-                ubicacionAux.setCampus(entidadCampus);
+                ubicacionAux.setCampus(entidadCampus.getNombre());
 
                 entidadUbicaciones.add(ubicacionAux);
             }
