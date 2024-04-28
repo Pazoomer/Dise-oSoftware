@@ -2,7 +2,8 @@ package entidades;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Date;
+import java.util.Date;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 
@@ -22,11 +23,11 @@ public class EntidadEvento implements Serializable {
 
     private String color;
 
-    private Calendar fechaInicio;
+    private Date fechaInicio;
 
-    private Calendar fechaFin;
+    private Date fechaFin;
 
-    private Calendar horaInicio;
+    private Date horaInicio;
 
     private Double horasDuracionEvento;
 
@@ -36,7 +37,7 @@ public class EntidadEvento implements Serializable {
     }
 
 
-    public EntidadEvento(EntidadTipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, String ubicacion, String color, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, Double horasDuracionEvento, String maestro) {
+    public EntidadEvento(EntidadTipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, String ubicacion, String color, Date fechaInicio, Date fechaFin, Date horaInicio, Double horasDuracionEvento, String maestro) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -50,7 +51,7 @@ public class EntidadEvento implements Serializable {
         //this.maestro = maestro;
     }
 
-    public EntidadEvento(String nombre, String descripcion, String ubicacion, String color, Calendar fechaInicio, Calendar horaInicio, Double horasDuracionEvento, String maestro) {
+    public EntidadEvento(String nombre, String descripcion, String ubicacion, String color, Date fechaInicio, Date horaInicio, Double horasDuracionEvento, String maestro) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.ubicacion = ubicacion;
@@ -117,27 +118,27 @@ public class EntidadEvento implements Serializable {
         this.color = color;
     }
 
-    public Calendar getFechaInicio() {
+    public Date getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Calendar fechaInicio) {
+    public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Calendar getFechaFin() {
+    public Date getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(Calendar fechaFin) {
+    public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }
 
-    public Calendar getHoraInicio() {
+    public Date getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(Calendar horaInicio) {
+    public void setHoraInicio(Date horaInicio) {
         this.horaInicio = horaInicio;
     }
 
@@ -201,7 +202,7 @@ public class EntidadEvento implements Serializable {
 
  
     
-    public String fechaToString(Calendar fecha){
+    public String fechaToString(Date fecha){
         SimpleDateFormat formatoFecha=new SimpleDateFormat("yyyy-MM-dd");
         return formatoFecha.format(fecha.getTime());
     }

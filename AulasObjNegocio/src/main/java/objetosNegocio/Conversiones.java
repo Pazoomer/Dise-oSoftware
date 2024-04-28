@@ -17,7 +17,10 @@ import entidades.EntidadMaestro;
 import entidades.EntidadTipoEventoEnum;
 import entidades.EntidadUbicacion;
 import excepcioness.PersistenciaExceptionn;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -140,8 +143,8 @@ class Conversiones {
                         evento.getColor(),
                         evento.getUbicacion().getIdentificador(),
                         evento.getDescripcion(),
-                        evento.getFechaInicio(),
-                        evento.getHoraInicio(),
+                        evento.getFechaInicio().getTime(),
+                        evento.getHoraInicio().getTime(),
                         (double) evento.getHorasDuracionEvento(),
                         evento.getMaestro().getNombre()
                 );
@@ -153,9 +156,9 @@ class Conversiones {
                         evento.getDiasSemana(),
                         evento.getUbicacion().getIdentificador(),
                         evento.getColor(),
-                        evento.getFechaInicio(),
-                        evento.getFechaFin(),
-                        evento.getHoraInicio(),
+                        evento.getFechaInicio().getTime(),
+                        evento.getFechaFin().getTime(),
+                        evento.getHoraInicio().getTime(),
                         (double)evento.getHorasDuracionEvento(),
                         evento.getMaestro().getNombre()
                 );
@@ -167,9 +170,9 @@ class Conversiones {
                         evento.getDiasSemana(),
                         evento.getUbicacion().getIdentificador(),
                         evento.getColor(),
-                        evento.getFechaInicio(),
-                        evento.getFechaFin(),
-                        evento.getHoraInicio(),
+                        evento.getFechaInicio().getTime(),
+                        evento.getFechaFin().getTime(),
+                        evento.getHoraInicio().getTime(),
                         (double)evento.getHorasDuracionEvento(),
                         evento.getMaestro().getNombre()
                 );
@@ -181,7 +184,22 @@ class Conversiones {
     protected EventoConsultableDTO toEventoDTO(EntidadEvento evento,MaestroEditableDTO maestro) {
         EventoConsultableDTO eventoConvertido = null;
         UbicacionDTO ubicacionDTO=null;
-        
+        Date date;
+        Calendar fechaInicio = Calendar.getInstance();
+        Calendar fechaFin = Calendar.getInstance();
+        Calendar horaInicio = Calendar.getInstance();
+        if(evento.getFechaInicio()!=null){
+            date = evento.getFechaInicio();
+            fechaInicio.setTime(date);
+        }
+        if(evento.getFechaFin()!=null){
+            date = evento.getFechaFin();
+            fechaFin.setTime(date);
+        }
+        if(evento.getHoraInicio()!=null){
+            date = evento.getHoraInicio();
+            horaInicio.setTime(date);
+        }
         if(evento.getUbicacion()!=null) {
             CrudCampus crudCampus = new CrudCampus();
 
@@ -198,17 +216,19 @@ class Conversiones {
         }
         
         switch (evento.getTipo()) {
-            case UNICO_UN_DIA ->
+            case UNICO_UN_DIA ->{
                 eventoConvertido = new EventoConsultableDTO(
                         evento.getNombre(),
                         evento.getDescripcion(),
                         evento.getColor(),
                         ubicacionDTO,
-                        evento.getFechaInicio(),
-                        evento.getHoraInicio(),
+                        fechaInicio,
+                        horaInicio,
                         evento.getHorasDuracionEvento()
                 );
-            case UNICO_VARIOS_DIAS ->
+            }
+                
+            case UNICO_VARIOS_DIAS ->{
                 eventoConvertido = new EventoConsultableDTO(
                         TipoEventoEnumDTO.UNICO_VARIOS_DIAS,
                         evento.getNombre(),
@@ -216,12 +236,14 @@ class Conversiones {
                         evento.getColor(),
                         evento.getDiasSemana(),
                         ubicacionDTO,
-                        evento.getFechaInicio(),
-                        evento.getFechaFin(),
-                        evento.getHoraInicio(),
+                        fechaInicio,
+                        fechaFin,
+                        horaInicio,
                         evento.getHorasDuracionEvento()
                 );
-            case SEMANAL ->
+            }
+                
+            case SEMANAL ->{
                 eventoConvertido = new EventoConsultableDTO(
                         TipoEventoEnumDTO.SEMANAL,
                         evento.getNombre(),
@@ -229,11 +251,13 @@ class Conversiones {
                         evento.getColor(),
                         evento.getDiasSemana(),
                         ubicacionDTO,
-                        evento.getFechaInicio(),
-                        evento.getFechaFin(),
-                        evento.getHoraInicio(),
+                        fechaInicio,
+                        fechaFin,
+                        horaInicio,
                         evento.getHorasDuracionEvento()
                 );
+            }
+               
         }
         if(eventoConvertido!=null){
             eventoConvertido.setId(evento.getIdConversion());
