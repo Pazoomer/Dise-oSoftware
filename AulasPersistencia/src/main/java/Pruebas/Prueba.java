@@ -13,6 +13,7 @@ import entidades.EntidadUbicacion;
 import excepcioness.PersistenciaExceptionn;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 /**
  *
@@ -21,25 +22,41 @@ import java.util.List;
 public class Prueba {
 
     public static void main(String[] args) {
-        CrudCampus crudCampus=new CrudCampus(); 
+//        Double horasDuracionEvento=2.5;
+//        Calendar horaInicio=Calendar.getInstance();
+//        horaInicio.set(Calendar.MONTH, 2);
+//        horaInicio.set(Calendar.DAY_OF_MONTH, 20);
+//        horaInicio.set(Calendar.HOUR_OF_DAY, 13);
+//        horaInicio.set(Calendar.MINUTE, 30);
+//        System.out.println("mes : "+horaInicio.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US));
+//        System.out.println("hora inicio: "+horaInicio.get(Calendar.HOUR_OF_DAY)+":"+horaInicio.get(Calendar.MINUTE));
+//        
+//        
+//        Calendar fechaFinCalculada=Calendar.getInstance();
+//        fechaFinCalculada.setTime(horaInicio.getTime());
+//        fechaFinCalculada.add(Calendar.HOUR, horasDuracionEvento.intValue());
+//        System.out.println("fecha fin calculada: "+fechaFinCalculada.get(Calendar.DAY_OF_MONTH)+"/"+fechaFinCalculada.get(Calendar.MONTH)
+//        +"/"+fechaFinCalculada.get(Calendar.YEAR)+" "+fechaFinCalculada.get(Calendar.HOUR_OF_DAY)+":"+fechaFinCalculada.get(Calendar.MINUTE));
+//        
+//        CrudCampus crudCampus=new CrudCampus(); 
         CrudMaestro crudMaestro=new CrudMaestro();
         EntidadMaestro entidadMaestro=new EntidadMaestro();
         entidadMaestro.setIdMaestro("1");
-       
-        EntidadUbicacion ubicacion=new EntidadUbicacion("AV-1100");
-        
+//       
+////        EntidadUbicacion ubicacion=new EntidadUbicacion("AV-1100");
+//        
         try{
             
-            List<EntidadCampus> campuses=crudCampus.obtenerTodosLosCampus();
-            
-            if(!campuses.isEmpty()) System.out.println(campuses.get(0));
-            else System.out.println("No hay campuses");
+//            List<EntidadCampus> campuses=crudCampus.obtenerTodosLosCampus();
+//            
+//            if(!campuses.isEmpty()) System.out.println(campuses.get(0));
+//            else System.out.println("No hay campuses");
             
             entidadMaestro=crudMaestro.obtenerMaestro(entidadMaestro);
-            System.out.println(entidadMaestro.toString());
+            //System.out.println(entidadMaestro.toString());
             
-            ubicacion=crudCampus.obtenerUbi(ubicacion);
-            System.out.println(ubicacion.toString());
+//            ubicacion=crudCampus.obtenerUbi(ubicacion);
+//            System.out.println(ubicacion.toString());
             
         }catch(PersistenciaExceptionn e){
             System.out.println(e);

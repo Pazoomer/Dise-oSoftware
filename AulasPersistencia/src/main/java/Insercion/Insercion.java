@@ -11,6 +11,7 @@ import excepcioness.PersistenciaExceptionn;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,8 +52,12 @@ public class Insercion {
             fechaInicio1.set(Calendar.DAY_OF_MONTH, 2);
             fechaInicio1.set(Calendar.MONTH, 4);
             fechaInicio1.set(Calendar.HOUR_OF_DAY, 10);
-            fechaInicio1.set(Calendar.MINUTE, 0);
+            fechaInicio1.set(Calendar.MINUTE, 30);
             EntidadEvento evento1 = new EntidadEvento("Asesoria de Algebra", "asesoria para examen de algebra", "AV-1100", "Rosa", fechaInicio1.getTime(), fechaInicio1.getTime(), 2.5, maestro.getIdConversion());
+            Calendar f=Calendar.getInstance();
+            f.setTime(evento1.getFechaInicio());
+            
+            System.out.println(f.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US));
             evento1.setTipo(EntidadTipoEventoEnum.SEMANAL);
             evento1.setDiasSemana("0011100");
             evento1.setMaestro(maestro.getNombre());
