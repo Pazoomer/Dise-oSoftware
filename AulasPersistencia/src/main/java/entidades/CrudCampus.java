@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bson.conversions.Bson;
+import com.mongodb.client.model.Filters;
 
 /**
  *
@@ -125,4 +127,21 @@ public class CrudCampus {
         return null;
     }
 
+    public EntidadUbicacion obtenerUbi(EntidadUbicacion ubicacion)throws PersistenciaExceptionn {
+        try{
+            Bson filter=Filters.eq("ubicaciones.identificador",ubicacion.getIdentificador());
+            EntidadCampus registro=coleccion.find(filter).first();
+            conexion.cerrarConexion();
+            List<EntidadUbicacion> ubi;
+            if(registro!=null){
+                ubi=registro.getUbicaciones();
+                return ubi.getFirst();
+            }
+            return null;
+        }catch(MongoException e){
+            LOG.log(Level.SEVERE, e.getMessage(), e);
+            throw new PersistenciaExceptionn("Hubo un error al obtener la ubicacion");
+        }
+    }
+    
 }
