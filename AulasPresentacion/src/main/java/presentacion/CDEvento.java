@@ -97,7 +97,7 @@ public class CDEvento extends javax.swing.JDialog {
             fecha = this.dtcFecha.getCalendar();
         //Color color = this.lblEjemploEstatico.getForeground();
         String duracionStr = (String) cmbDuracionEvento.getSelectedItem();
-        Double horasDuracion = Double.valueOf(String.valueOf(duracionStr.charAt(0)));
+        float horasDuracion = Float.parseFloat(String.valueOf(duracionStr.charAt(0)));
         if (duracionStr.length() > 1) {
             horasDuracion = horasDuracion + 0.5f;
         }
