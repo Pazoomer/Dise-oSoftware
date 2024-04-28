@@ -1,8 +1,10 @@
 
 package objetosNegocio;
 
+import DTOS.evento.EventoConsultableDTO;
 import DTOS.maestro.MaestroEditableDTO;
 import entidades.CrudMaestro;
+import entidades.EntidadEvento;
 import entidades.EntidadMaestro;
 import excepciones.NegocioException;
 import excepcioness.PersistenciaExceptionn;
@@ -68,8 +70,19 @@ public class Maestro {
             return null;
         } catch (PersistenciaExceptionn ex) {
             Logger.getLogger(Maestro.class.getName()).log(Level.SEVERE, null, ex);
+            throw new NegocioException(ex.getMessage());
         }
-        return null;
+    }
+    
+    public boolean agregarEventoCalendario(MaestroEditableDTO maestro, EventoConsultableDTO evento)throws NegocioException{
+        EntidadMaestro maestroBO=convertidor.toMaestroBO(maestro);
+        EntidadEvento eventoBO=convertidor.toEventoBO(evento);
+        try{
+            return crudMaestro.agregarEventoCalendario(maestroBO, eventoBO);
+        }catch(PersistenciaExceptionn e){
+            Logger.getLogger(Maestro.class.getName()).log(Level.SEVERE, null, e);
+            throw new NegocioException(e.getMessage());
+        }
     }
     
     public Long getId() {

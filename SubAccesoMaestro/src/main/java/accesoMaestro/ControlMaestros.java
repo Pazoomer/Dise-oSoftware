@@ -38,8 +38,17 @@ public class ControlMaestros {
 
     protected MaestroEditableDTO recuperarMaestro(MaestroEditableDTO maestro)
             throws NegocioException {
-        try{
+        try {
             return maestroBO.obtenerMaestro(maestro);
+        } catch (NegocioException e) {
+            throw e;
+        }
+    }
+    
+    protected boolean agregarEventoCalendario(MaestroEditableDTO maestro, EventoConsultableDTO evento)
+            throws NegocioException{
+        try{
+            return maestroBO.agregarEventoCalendario(maestro, evento);
         }catch(NegocioException e){
             throw e;
         }

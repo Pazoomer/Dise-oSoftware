@@ -1,7 +1,10 @@
 package entidades;
 
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
+import com.mongodb.client.model.Updates;
+import com.mongodb.client.result.UpdateResult;
 import excepcioness.PersistenciaExceptionn;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,6 +12,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bson.conversions.Bson;
 
 public class CrudMaestro {
 
@@ -89,7 +93,7 @@ public class CrudMaestro {
 
                 if (maestroEntidad.getCalendario() != null) {
                     for (EntidadEvento evento : maestroEntidad.getCalendario()) {
-                        if (evento.getFechaInicio().before(fechaInicio) && evento.getFechaFin().after(fechaFin)) {
+                        if (evento.getFechaInicio().before(fechaInicio.getTime()) && evento.getFechaFin().after(fechaFin.getTime())) {
                             eventos.add(evento);
                         }
 
@@ -110,5 +114,11 @@ public class CrudMaestro {
         return formatoFecha.format(fecha.getTime());
     }
     
-    
+    public boolean agregarEventoCalendario(EntidadMaestro maestro,EntidadEvento evento)throws PersistenciaExceptionn{
+        Bson filtro=Filters.eq("idMaestro", maestro.getIdMaestro());
+        Bson updates=Updates.push("calendario", evento);
+        
+        UpdateResult result = coleccion.updateOne(filtro, updates);
+        return (result.getModifiedCount() > 0) ;
+    }
 }

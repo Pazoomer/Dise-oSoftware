@@ -38,4 +38,5 @@ public interface IAccesoMaestro {
      */
     boolean editarMaestro(MaestroEditableDTO maestro)throws NegocioException;
     
+    boolean agregarEventoCalendario(MaestroEditableDTO maestro, EventoConsultableDTO evento)throws NegocioException;
 }

@@ -37,8 +37,17 @@ public class FachadaAccesoMaestro implements IAccesoMaestro{
         try {
             return maestros.recuperarMaestro(maestro);
         } catch (NegocioException ex) {
-            Logger.getLogger(FachadaAccesoMaestro.class.getName()).log(Level.SEVERE, null, ex);
+           // Logger.getLogger(FachadaAccesoMaestro.class.getName()).log(Level.SEVERE, null, ex);
             throw ex;
+        }
+    }
+
+    @Override
+    public boolean agregarEventoCalendario(MaestroEditableDTO maestro, EventoConsultableDTO evento) throws NegocioException {
+        try{
+            return maestros.agregarEventoCalendario(maestro, evento);
+        }catch(NegocioException e){
+            throw e;
         }
     }
 }
