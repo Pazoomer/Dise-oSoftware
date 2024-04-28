@@ -141,7 +141,7 @@ public class MaestroEditableDTO {
         sb.append("idBD=").append(idBD);
         sb.append(", id=").append(id);
         sb.append(", nombre=").append(nombre);
-        sb.append(", cubiculo[").append(cubiculo.toStringReducido()).append(']');
+        sb.append(", cubiculo=").append(cubiculo.getIdentificador());
         sb.append(", descripcion=").append(descripcion);
         sb.append(", foto=").append(foto);
         if(!calendario.isEmpty())
