@@ -3,7 +3,10 @@ package DTOS.maestro;
 
 import DTOS.campus.UbicacionDTO;
 import DTOS.evento.EventoConsultableDTO;
+import DTOS.evento.TipoEventoEnumDTO;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -156,11 +159,18 @@ public class MaestroEditableDTO {
         for(EventoConsultableDTO ev:calendario){
             sb.append("{nombre=").append(ev.getNombre());
             sb.append("ubicacion=").append(ev.getUbicacion());
-            sb.append("fecha inicio=").append(ev.getFechaInicio());
-            sb.append("hora inicio=").append(ev.getHoraInicio()).append("}");
+            sb.append("fecha inicio=").append(fechaToString(ev.getFechaInicio()));
+            sb.append("hora inicio=").append(fechaToString(ev.getHoraInicio()));
+            if(ev.getTipo().equals(TipoEventoEnumDTO.SEMANAL)){
+                sb.append(ev.getDiasSemana()).append("}");
+            }
         }
         sb.append("]");
         return sb.toString();
     }
     
+    public String fechaToString(Calendar fecha){
+        SimpleDateFormat formatoFecha=new SimpleDateFormat("yyyy-MM-dd");
+        return formatoFecha.format(fecha.getTime());
+    }
 }
