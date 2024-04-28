@@ -131,10 +131,9 @@ public class CDEvento extends javax.swing.JDialog {
                     diasSemana, ubicacionDTO, fecha, fecha, horaInicio, horasDuracion);
         }
 
-        JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
-        calendario.añadirEvento(eventoN);
+        //JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
+        //calendario.añadirEvento(eventoN);
         return eventoN;
-
     }
 
     public void guardarUbicacion(String ubicacion, UbicacionDTO ubicacionDTO) {
@@ -204,23 +203,26 @@ public class CDEvento extends javax.swing.JDialog {
         } else if (eventoEditable.getTipo().equals(TipoEventoEnumDTO.SEMANAL)) {
             cmbTipo.setSelectedIndex(0);
             String diasSemana = eventoEditable.getDiasSemana();
-            for (int i = 0; i < diasSemana.length(); i++) {
-                char dia = diasSemana.charAt(i);
-                switch (i + 1) { // Sumamos 1 para que coincida con el índice de los días de la semana
-                    case 1 ->
-                        chbDomingo.setSelected(dia == '1');
-                    case 2 ->
-                        chbLunes.setSelected(dia == '1');
-                    case 3 ->
-                        chbMartes.setSelected(dia == '1');
-                    case 4 ->
-                        chbMiercoles.setSelected(dia == '1');
-                    case 5 ->
-                        chbJueves.setSelected(dia == '1');
-                    case 6 ->
-                        chbViernes.setSelected(dia == '1');
-                    case 7 ->
-                        chbSabado.setSelected(dia == '1');
+            //String[] dias={"Do","Lu","Ma","Mi","Ju","Vi","Sa"};
+            String[] arrDiasS=diasSemana.split(",");
+            for (String arrDiasS1 : arrDiasS) {
+                // char dia = diasSemana.charAt(i);
+                switch (arrDiasS1) {
+                    // Sumamos 1 para que coincida con el índice de los días de la semana
+                    case "Do" ->
+                        chbDomingo.setSelected(true);
+                    case "Lu" ->
+                        chbLunes.setSelected(true);
+                    case "Ma" ->
+                        chbMartes.setSelected(true);
+                    case "Mi" ->
+                        chbMiercoles.setSelected(true);
+                    case "Ju" ->
+                        chbJueves.setSelected(true);
+                    case "Vi" ->
+                        chbViernes.setSelected(true);
+                    case "Sa" ->
+                        chbSabado.setSelected(true);
                     default -> {
                     }
                 }
@@ -232,9 +234,9 @@ public class CDEvento extends javax.swing.JDialog {
     
     public void desplegarEvento(){
         desplegarInfo();
-        txtNombre.setEditable(false);
-        txtDescripcion.setEditable(false);
-        txtUbicacion.setEditable(false);
+        txtNombre.setEnabled(false);
+        txtDescripcion.setEnabled(false);
+        txtUbicacion.setEnabled(false);
         cmbHora.setEnabled(false);
         cmbTipo.setEnabled(false);
         cmbDuracionEvento.setEnabled(false);

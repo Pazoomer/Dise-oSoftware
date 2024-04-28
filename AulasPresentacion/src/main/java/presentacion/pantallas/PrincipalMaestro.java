@@ -11,6 +11,7 @@ import excepciones.NegocioException;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
@@ -51,6 +52,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
     }
 
     private void cargarEdificios() {
+        edificiosCubiculos=new ArrayList<>();
         try {
             List<CampusConsultableDTO> listaCampus = accesoUbicaciones.recuperarTodosLosCampus();
             for (CampusConsultableDTO campus : listaCampus) {
