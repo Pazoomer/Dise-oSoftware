@@ -16,6 +16,7 @@ import entidades.EntidadEvento;
 import entidades.EntidadMaestro;
 import entidades.EntidadTipoEventoEnum;
 import entidades.EntidadUbicacion;
+import excepcioness.PersistenciaExceptionn;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,7 @@ class Conversiones {
 
         if (ubicacionDTO.getCampus() != null) {
 
-            ubicacion.setCampus(toCampusBO(ubicacionDTO.getCampus()));
+            ubicacion.setCampus(ubicacionDTO.getCampus().getNombre());
 
         }
 
@@ -99,7 +100,7 @@ class Conversiones {
                     maestro.getFoto()
             );
         }
-        maestroBO.setIdConversion(maestro.getIdBD());
+        if(maestro.getIdBD()!=null)maestroBO.setIdConversion(maestro.getIdBD());
         return maestroBO;
     }
 
@@ -125,24 +126,24 @@ class Conversiones {
     
     protected EntidadEvento toEventoBO(EventoConsultableDTO evento) {
         EntidadEvento eventoConvertido=null;
-        EntidadUbicacion ubi=null;
-        EntidadMaestro maestroBO=null;
+        //EntidadUbicacion ubi=null;
+//        EntidadMaestro maestroBO=null;
+//        
+//        if(evento.getMaestro()!=null) maestroBO=toMaestroBO(evento.getMaestro());
         
-        if(evento.getMaestro()!=null) maestroBO=toMaestroBO(evento.getMaestro());
-        
-        if(evento.getUbicacion()!=null)
-            ubi=toUbicacionBO(evento.getUbicacion());
+//        if(evento.getUbicacion()!=null)
+//            ubi=toUbicacionBO(evento.getUbicacion());
         switch (evento.getTipo()) {
             case UNICO_UN_DIA ->
                 eventoConvertido = new EntidadEvento(
                         evento.getNombre(),
                         evento.getColor(),
-                        ubi,
+                        evento.getUbicacion().getIdentificador(),
                         evento.getDescripcion(),
                         evento.getFechaInicio(),
                         evento.getHoraInicio(),
                         (double) evento.getHorasDuracionEvento(),
-                        maestroBO
+                        evento.getMaestro().getNombre()
                 );
             case UNICO_VARIOS_DIAS ->
                 eventoConvertido = new EntidadEvento(
@@ -150,13 +151,13 @@ class Conversiones {
                         evento.getNombre(),
                         evento.getDescripcion(),
                         evento.getDiasSemana(),
-                        ubi,
+                        evento.getUbicacion().getIdentificador(),
                         evento.getColor(),
                         evento.getFechaInicio(),
                         evento.getFechaFin(),
                         evento.getHoraInicio(),
                         (double)evento.getHorasDuracionEvento(),
-                        maestroBO
+                        evento.getMaestro().getNombre()
                 );
             case SEMANAL ->
                 eventoConvertido = new EntidadEvento(
@@ -164,13 +165,13 @@ class Conversiones {
                         evento.getNombre(),
                         evento.getDescripcion(),
                         evento.getDiasSemana(),
-                        ubi,
+                        evento.getUbicacion().getIdentificador(),
                         evento.getColor(),
                         evento.getFechaInicio(),
                         evento.getFechaFin(),
                         evento.getHoraInicio(),
                         (double)evento.getHorasDuracionEvento(),
-                        maestroBO
+                        evento.getMaestro().getNombre()
                 );
         }
         if(eventoConvertido!=null)eventoConvertido.setIdConversion(evento.getId());
@@ -180,12 +181,21 @@ class Conversiones {
     protected EventoConsultableDTO toEventoDTO(EntidadEvento evento,MaestroEditableDTO maestro) {
         EventoConsultableDTO eventoConvertido = null;
         UbicacionDTO ubicacionDTO=null;
-        CrudCampus crudCampus=new CrudCampus();
         
-        EntidadUbicacion ubicacion=new EntidadUbicacion();
-        ubicacion.setCampus(campus);
-                crudCampus.obtenerUbicacion(new EntidadUbicacion());
-        if(evento.getUbicacion()!=null) ubicacionDTO=toUbicacionDTO(evento.getUbicacion());
+        if(evento.getUbicacion()!=null) {
+            CrudCampus crudCampus = new CrudCampus();
+
+            EntidadUbicacion ubicacion = new EntidadUbicacion();
+            ubicacion.setIdentificador(evento.getUbicacion());
+            try {
+                ubicacion = crudCampus.obtenerUbi(ubicacion);
+                if(ubicacion!=null)ubicacionDTO=toUbicacionDTO(ubicacion);
+                else
+                    System.out.println("ubicacion null");
+            } catch (PersistenciaExceptionn e) {
+                System.out.println(e);
+            }
+        }
         
         switch (evento.getTipo()) {
             case UNICO_UN_DIA ->
