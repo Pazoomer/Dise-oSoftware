@@ -136,17 +136,27 @@ class Conversiones {
         
 //        if(evento.getUbicacion()!=null)
 //            ubi=toUbicacionBO(evento.getUbicacion());
+        String identificadorUbicacion = null;
+        if (evento.getUbicacion() != null) {
+            identificadorUbicacion = evento.getUbicacion().getIdentificador();
+        }
+        
+        String nombreMaestro = null;
+        if (evento.getMaestro() != null) {
+            nombreMaestro = evento.getMaestro().getNombre();
+        }
+
         switch (evento.getTipo()) {
             case UNICO_UN_DIA ->
                 eventoConvertido = new EntidadEvento(
                         evento.getNombre(),
                         evento.getColor(),
-                        evento.getUbicacion().getIdentificador(),
+                        identificadorUbicacion,
                         evento.getDescripcion(),
                         evento.getFechaInicio().getTime(),
                         evento.getHoraInicio().getTime(),
                         (double) evento.getHorasDuracionEvento(),
-                        evento.getMaestro().getNombre()
+                        nombreMaestro
                 );
             case UNICO_VARIOS_DIAS ->
                 eventoConvertido = new EntidadEvento(
@@ -154,13 +164,13 @@ class Conversiones {
                         evento.getNombre(),
                         evento.getDescripcion(),
                         evento.getDiasSemana(),
-                        evento.getUbicacion().getIdentificador(),
+                        identificadorUbicacion,
                         evento.getColor(),
                         evento.getFechaInicio().getTime(),
                         evento.getFechaFin().getTime(),
                         evento.getHoraInicio().getTime(),
                         (double)evento.getHorasDuracionEvento(),
-                        evento.getMaestro().getNombre()
+                        nombreMaestro
                 );
             case SEMANAL ->
                 eventoConvertido = new EntidadEvento(
@@ -168,13 +178,13 @@ class Conversiones {
                         evento.getNombre(),
                         evento.getDescripcion(),
                         evento.getDiasSemana(),
-                        evento.getUbicacion().getIdentificador(),
+                        identificadorUbicacion,
                         evento.getColor(),
                         evento.getFechaInicio().getTime(),
                         evento.getFechaFin().getTime(),
                         evento.getHoraInicio().getTime(),
                         (double)evento.getHorasDuracionEvento(),
-                        evento.getMaestro().getNombre()
+                        nombreMaestro
                 );
         }
         if(eventoConvertido!=null)eventoConvertido.setIdConversion(evento.getId());

@@ -33,7 +33,6 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     IAccesoMaestro accesoMaestro;
     Frame parent;
     static List<EventoConsultableDTO> calendarioMes;
-    static List<EventoConsultableDTO> calendarioMaestro;
     public static List<EventoConsultableDTO> calendarioMaestroTemporal;
     static ModeloTablaHorario modelo;
     private CDEvento cdEvento;
@@ -51,7 +50,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         this.setResizable(false);
         initComponents();
         this.parent=parent;
-        this.maestro=maestro;
+        this.maestro=maestro.clone();
         this.prinMaestro=prinMaestro;
         accesoMaestro=new FachadaAccesoMaestro();
         modelo=new ModeloTablaHorario();
@@ -266,34 +265,26 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     public void añadirEvento(EventoConsultableDTO evento) {
         calendarioMaestroTemporal.add(evento);
         maestro.setCalendario(calendarioMaestroTemporal);
-        try{
+        try {
             if (accesoMaestro.agregarEventoCalendario(maestro, evento)) {
                 eventoSeleccionado = evento;
                 cargarEventos();
             }
-        }catch(NegocioException e){
+        } catch (NegocioException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
-    
-    public void editarEvento(EventoConsultableDTO eventoEditado){
-        IAccesoMaestro accesoCalendario=new FachadaAccesoMaestro();
-        //IAccesoCalendarioBO accesoCalendarioBO = new AccesoCalendarioBO(conexion);
-        calendarioMaestroTemporal.set(calendarioMaestroTemporal.indexOf(eventoSeleccionado), eventoEditado);
-        String msj;
-        try{
-            maestro.setCalendario(calendarioMaestroTemporal);
-            if (accesoCalendario.editarMaestro(maestro)) {
-                msj = "Evento editado correctamente";
-            } else {
-                msj = "No se edito el evento";
-            }
-        }catch(NegocioException e){
-            msj="Hubo un error al editar el evento";
-        }
-        
-        JOptionPane.showMessageDialog(this, msj,
-                    "Status de la operacion",JOptionPane.INFORMATION_MESSAGE);
+
+    public void editarEvento(EventoConsultableDTO eventoEditado) {
+
+        int index = calendarioMaestroTemporal.indexOf(eventoSeleccionado);
+        calendarioMaestroTemporal.set(index, eventoEditado);
+        maestro.setCalendario(calendarioMaestroTemporal);
+
+        JOptionPane.showMessageDialog(this, "Evento editado correctamente",
+                "Status de la operacion", JOptionPane.INFORMATION_MESSAGE);
+        cargarCalendario();
+        cargarEventos();
     }
 
     private void desplegarCDEvento(String operacion) {
@@ -313,17 +304,16 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         cdEvento.setVisible(true);
     }
     
-    private void eliminarEvento(){
-        if(eventoSeleccionado!=null){
-            System.out.println("nombre evento seleccionado "+eventoSeleccionado.getNombre());
-            if(calendarioMaestro.contains(eventoSeleccionado))
-            {
-                System.out.println("si lo contiene");
-                System.out.println("index: "+calendarioMaestro.indexOf(eventoSeleccionado));
+    private void eliminarEvento() {
+        if (eventoSeleccionado != null && calendarioMaestroTemporal != null) {
+
+            if (calendarioMaestroTemporal.contains(eventoSeleccionado)) {
+
+                calendarioMaestroTemporal.remove(eventoSeleccionado);
+                cargarCalendario();
+                cargarEventos();
             }
-            else
-                System.out.println("no lo contiene");
-        }else System.out.println("es null");
+        }
     }
 
     public boolean editarEventso(EventoConsultableDTO eventoEditado){

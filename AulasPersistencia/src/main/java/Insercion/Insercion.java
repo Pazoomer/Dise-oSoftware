@@ -33,19 +33,24 @@ public class Insercion {
             CrudMaestro CRUDmaestro = new CrudMaestro();
             CrudCampus CRUDcampus = new CrudCampus();
 
-            EntidadUbicacion ubicacion = new EntidadUbicacion("AV-1100", "Campus Principal", "Aula para clases regulares");
+            EntidadUbicacion ubicacionNainari1 = new EntidadUbicacion("AV-1100", "Campus Principal", "Aula para clases regulares");
+            EntidadUbicacion ubicacionNainari2 = new EntidadUbicacion("AV-1200", "Campus Principal", "Aula para clases regulares");
+            EntidadUbicacion ubicacionObregon1 = new EntidadUbicacion("LV-100", "Campus Principal", "Aula para clases regulares");
+            EntidadUbicacion ubicacionObregon2 = new EntidadUbicacion("LV-200", "Campus Principal", "Aula para clases regulares");
             
-            EntidadMaestro maestro = new EntidadMaestro("1", "Juan Pérez", ubicacion, "Profesor de Matemáticas", "fotoMaestroG.jpg");
+            EntidadMaestro maestro = new EntidadMaestro("1", "Juan Pérez", ubicacionNainari1, "Profesor de Matemáticas", "fotoMaestroG.png");
 
             EntidadCampus campusNainari = new EntidadCampus("Obregon Nainari");
             EntidadCampus campusCentro = new EntidadCampus("Centro");
 
             List<EntidadUbicacion> ubicacionesNainari = new ArrayList<>();
-            ubicacionesNainari.add(ubicacion);
+            ubicacionesNainari.add(ubicacionNainari1);
+            ubicacionesNainari.add(ubicacionNainari2);
             campusNainari.setUbicaciones(ubicacionesNainari);
             
             List<EntidadUbicacion> ubicacionesCentro = new ArrayList<>();
-            ubicacionesCentro.add(ubicacion);
+            ubicacionesCentro.add(ubicacionObregon1);
+            ubicacionesCentro.add(ubicacionObregon2);
             campusCentro.setUbicaciones(ubicacionesCentro);
             
             Calendar fechaInicio1 = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
@@ -69,7 +74,7 @@ public class Insercion {
             System.out.println(maestro);
             System.out.println(evento1);
             System.out.println(campusNainari);
-            System.out.println(ubicacion);
+            System.out.println(ubicacionNainari1);
             
             if (CRUDcampus.agregarCampus(campusNainari) != null) {
                 System.out.println("Se agrego el campus");

@@ -81,21 +81,23 @@ public class CDEvento extends javax.swing.JDialog {
         calendario.setVisible(true);
     }
     
-    private EventoConsultableDTO crearEvento(){
-        String tipoStr=(String) this.cmbTipo.getSelectedItem();
+    private EventoConsultableDTO crearEvento() {
+        String tipoStr = (String) this.cmbTipo.getSelectedItem();
         TipoEventoEnumDTO tipo;
-        if(tipoStr.equals("Unico"))
-            tipo=TipoEventoEnumDTO.UNICO_UN_DIA;
-        else
-            tipo=TipoEventoEnumDTO.SEMANAL;
-        
+        if (tipoStr.equals("Unico")) {
+            tipo = TipoEventoEnumDTO.UNICO_UN_DIA;
+        } else {
+            tipo = TipoEventoEnumDTO.SEMANAL;
+        }
+
         String descripcion = this.txtDescripcion.getText();
         String nombre = this.txtNombre.getText();
         //String ubicacion = this.txtUbicacion.getText();
-        Calendar fecha=Calendar.getInstance();
-        if(tipo.equals(TipoEventoEnumDTO.UNICO_UN_DIA))
+        Calendar fecha = Calendar.getInstance();
+        if (tipo.equals(TipoEventoEnumDTO.UNICO_UN_DIA)) {
             fecha = this.dtcFecha.getCalendar();
-        //Color color = this.lblEjemploEstatico.getForeground();
+        }
+        String color = this.lblEjemploEstatico.getForeground().toString();
         String duracionStr = (String) cmbDuracionEvento.getSelectedItem();
         double horasDuracion = Double.parseDouble(String.valueOf(duracionStr.charAt(0)));
         if (duracionStr.length() > 1) {
@@ -125,14 +127,15 @@ public class CDEvento extends javax.swing.JDialog {
         EventoConsultableDTO eventoN;
         
         if (tipo.equals(TipoEventoEnumDTO.UNICO_UN_DIA)) {
-            eventoN = new EventoConsultableDTO(nombre, descripcion, "", ubicacionDTO, fecha, horaInicio, horasDuracion);
+            eventoN = new EventoConsultableDTO(nombre, descripcion, color, ubicacionDTO, fecha, horaInicio, horasDuracion);
         } else {
-            eventoN = new EventoConsultableDTO(tipo, nombre, descripcion, "",
+            eventoN = new EventoConsultableDTO(tipo, nombre, descripcion, color,
                     diasSemana, ubicacionDTO, fecha, fecha, horaInicio, horasDuracion);
         }
 
-        //JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
-        //calendario.añadirEvento(eventoN);
+        JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
+
+//calendario.añadirEvento(eventoN);
         return eventoN;
     }
 
@@ -174,21 +177,24 @@ public class CDEvento extends javax.swing.JDialog {
         btnLimpiar.setVisible(false);
     }
     
-    private void desplegarInfo(){
-        
-        if (eventoEditable!=null) {
-            
-       
-        txtNombre.setText(this.eventoEditable.getNombre());
-        txtDescripcion.setText(this.eventoEditable.getDescripcion());
-        txtUbicacion.setText(this.eventoEditable.getUbicacion().getIdentificador());
-        String duracion = String.valueOf(eventoEditable.getHorasDuracionEvento());
+    private void desplegarInfo() {
+
+        if (eventoEditable != null) {
+
+            txtNombre.setText(this.eventoEditable.getNombre());
+            txtDescripcion.setText(this.eventoEditable.getDescripcion());
+
+            if (this.eventoEditable.getUbicacion() != null) {
+                txtUbicacion.setText(this.eventoEditable.getUbicacion().getIdentificador());
+            }
+
+            String duracion = String.valueOf(eventoEditable.getHorasDuracionEvento());
 //        if(duracion.charAt(2)!=0)
-        cmbDuracionEvento.setSelectedItem(duracion);
-        int horaIn = eventoEditable.getHoraInicio().get(Calendar.HOUR);
-        int minutoIn =eventoEditable.getHoraInicio().get(Calendar.MINUTE);
-        String horaInicio=horaIn+":"+minutoIn;
-        if(horaIn>=12)
+            cmbDuracionEvento.setSelectedItem(duracion);
+            int horaIn = eventoEditable.getHoraInicio().get(Calendar.HOUR);
+            int minutoIn = eventoEditable.getHoraInicio().get(Calendar.MINUTE);
+            String horaInicio = horaIn + ":" + minutoIn;
+            if (horaIn >= 12)
             horaInicio = horaInicio + " PM";
             else
                 horaInicio = horaInicio + " AM";

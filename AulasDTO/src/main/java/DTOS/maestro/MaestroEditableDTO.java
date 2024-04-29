@@ -173,4 +173,11 @@ public class MaestroEditableDTO {
         SimpleDateFormat formatoFecha=new SimpleDateFormat("yyyy-MM-dd");
         return formatoFecha.format(fecha.getTime());
     }
+    
+    @Override
+    public MaestroEditableDTO clone(){
+        MaestroEditableDTO maestro=new MaestroEditableDTO(id,nombre,cubiculo,descripcion,foto,calendario);
+        maestro.setIdBD(idBD);
+        return maestro;
+    }
 }
