@@ -17,55 +17,12 @@ import java.util.logging.Logger;
  * @author t1pas
  */
 public class Campus {
-    private String id;
-    private String nombre;
-    private List<Ubicacion> ubicaciones;
-    private CrudCampus crudCampus;
-    private Conversiones conversiones;
+    private final CrudCampus crudCampus;
+    private final Conversiones conversiones;
     
     public Campus() {
         this.crudCampus=new CrudCampus();
         this.conversiones=new Conversiones();
-    }
-
-    public Campus(String id, String nombre, List<Ubicacion> ubicaciones) {
-        this.id = id;
-        this.nombre = nombre;
-        this.ubicaciones = ubicaciones;
-        this.crudCampus=new CrudCampus();
-        this.conversiones=new Conversiones();
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public List<Ubicacion> getUbicaciones() {
-        return ubicaciones;
-    }
-
-    public void setUbicaciones(List<Ubicacion> ubicaciones) {
-        this.ubicaciones = ubicaciones;
-    }
-
-    public CrudCampus getCrudCampus() {
-        return crudCampus;
-    }
-
-    public void setCrudCampus(CrudCampus crudCampus) {
-        this.crudCampus = crudCampus;
     }
 
     public CampusConsultableDTO obtenerCampus(CampusConsultableDTO campusParametro) throws NegocioException {
@@ -78,7 +35,7 @@ public class Campus {
             throw new PersistenciaExceptionn("No se encontro el campus");
 
         } catch (PersistenciaExceptionn ex) {
-            Logger.getLogger(Ubicacion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Campus.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -93,7 +50,7 @@ public class Campus {
             }
             return campus;
         } catch (PersistenciaExceptionn ex) {
-            Logger.getLogger(Ubicacion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Campus.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -127,28 +84,9 @@ public class Campus {
             throw new PersistenciaExceptionn("No se encontro la ubicacion");
 
         } catch (PersistenciaExceptionn ex) {
-            Logger.getLogger(Ubicacion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Campus.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-    
-    @Override
-    public String toString(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("Campus{");
-        sb.append("id=").append(id);
-        sb.append(", nombre=").append(nombre);
-        sb.append(", ubicaciones=").append(ubicaciones);
-        sb.append(", crudCampus=").append(crudCampus);
-        sb.append(", conversiones=").append(conversiones);
-        sb.append('}');
-        return sb.toString();
-    }
 
-    public String toStringReducido() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("id_campus=").append(id);
-        sb.append("nombre=").append(nombre);
-        return sb.toString();
-    }
 }

@@ -3,24 +3,14 @@ package accesoMaestro;
 
 import DTOS.evento.EventoConsultableDTO;
 import DTOS.maestro.MaestroEditableDTO;
-//import conexion.IConexionDAO;
 import excepciones.NegocioException;
-import java.util.List;
 import objetosNegocio.Maestro;
-//import static objetosNegocio.TipoEventoEnum.SEMANAL;
-//import static objetosNegocio.TipoEventoEnum.UNICO_UN_DIA;
-//import static objetosNegocio.TipoEventoEnum.UNICO_VARIOS_DIAS;
 /**
  *
  * @author t1pas
  */
 public class ControlMaestros {
     private final Maestro maestroBO;
-    //private IConexionDAO conexion;
-//
-//    public ControlMaestros(IConexionDAO conexion) {
-//        this.conexion = conexion;
-//    }
 
     public ControlMaestros() {
         maestroBO=new Maestro();

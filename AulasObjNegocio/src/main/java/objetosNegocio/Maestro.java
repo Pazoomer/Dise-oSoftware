@@ -8,8 +8,6 @@ import entidades.EntidadEvento;
 import entidades.EntidadMaestro;
 import excepciones.NegocioException;
 import excepcioness.PersistenciaExceptionn;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,37 +16,12 @@ import java.util.logging.Logger;
  * @author luiis
  */
 public class Maestro {
-    private String id;
-    private String nombre;
-    private Ubicacion cubiculo;
-    private String descripcion;
-    private Calendario calendario;
-    private List<Evento> calendarioEv;
-    private Conversiones convertidor;
-    private CrudMaestro crudMaestro;
+    private final Conversiones convertidor;
+    private final CrudMaestro crudMaestro;
 
     public Maestro() {
         this.convertidor=new Conversiones();
         this.crudMaestro=new CrudMaestro();
-        this.calendarioEv=new ArrayList<>();
-    }
-
-    public Maestro(String id, String nombre, Ubicacion cubiculo, String descripcion, List<Evento> calendarioEv) {
-        this.id = id;
-        this.nombre = nombre;
-        this.cubiculo = cubiculo;
-        this.descripcion = descripcion;
-        this.calendarioEv = calendarioEv;
-        this.convertidor=new Conversiones();
-    }
-
-    public Maestro(String id, String nombre, Ubicacion cubiculo, String descripcion) {
-        this.id = id;
-        this.nombre = nombre;
-        this.cubiculo = cubiculo;
-        this.descripcion = descripcion;
-        this.convertidor=new Conversiones();
-        this.calendarioEv=new ArrayList<>();
     }
 
     public MaestroEditableDTO editarMaestro(MaestroEditableDTO maestro)throws NegocioException{
@@ -83,69 +56,6 @@ public class Maestro {
             Logger.getLogger(Maestro.class.getName()).log(Level.SEVERE, null, e);
             throw new NegocioException(e.getMessage());
         }
-    }
-    
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Ubicacion getCubiculo() {
-        return cubiculo;
-    }
-
-    public void setCubiculo(Ubicacion cubiculo) {
-        this.cubiculo = cubiculo;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public Calendario getCalendario() {
-        return calendario;
-    }
-
-    public void setCalendario(Calendario calendario) {
-        this.calendario = calendario;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Maestro{");
-        sb.append("id=").append(id);
-        sb.append(", nombre=").append(nombre);
-        sb.append(", cubiculo[").append(cubiculo.toStringReducido()).append(']');
-        sb.append(", descripcion=").append(descripcion);
-        sb.append(", calendario=").append(calendarioToString());
-        sb.append('}');
-        return sb.toString();
-    }
-    
-    public String calendarioToString(){
-        StringBuilder sb=new StringBuilder();
-        sb.append("Eventos[");
-        for(Evento ev:calendarioEv){
-            sb.append('{').append(ev.toStringReducido()).append('}');
-        }
-        sb.append("]");
-        return sb.toString();
     }
     
 }

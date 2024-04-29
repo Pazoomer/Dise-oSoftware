@@ -2,15 +2,9 @@
 
 package pruebas;
 
-import DTOS.campus.UbicacionDTO;
 import DTOS.maestro.MaestroEditableDTO;
 import excepciones.NegocioException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import objetosNegocio.Evento;
 import objetosNegocio.Maestro;
-import objetosNegocio.Ubicacion;
 
 /**
  *
