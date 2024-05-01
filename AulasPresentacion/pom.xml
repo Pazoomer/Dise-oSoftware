@@ -32,12 +32,12 @@
         </dependency>
         <dependency>
             <groupId>com.DriveWise</groupId>
-            <artifactId>SubAccesoMaestro</artifactId>
+            <artifactId>SubAccesoUbicaciones</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>com.DriveWise</groupId>
-            <artifactId>SubAccesoUbicaciones</artifactId>
+            <artifactId>SubAccesoMaestro</artifactId>
             <version>1.0</version>
         </dependency>
     </dependencies>
