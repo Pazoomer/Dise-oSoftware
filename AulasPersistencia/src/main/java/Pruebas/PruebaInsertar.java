@@ -25,7 +25,7 @@ public class PruebaInsertar {
         CrudCampus CRUDcampus=new CrudCampus();
 //
 //        // Crear instancias de las entidades
-        EntidadMaestro maestro = new EntidadMaestro("1", "Juan Pérez", new EntidadUbicacion("Cubículo 101"), "Profesor de Matemáticas", "foto_maestro.jpg");
+        EntidadMaestro maestro = new EntidadMaestro(true,"1", "Juan Pérez", new EntidadUbicacion("Cubículo 101"), "Profesor de Matemáticas", "foto_maestro.jpg");
 //        EntidadEvento evento = new EntidadEvento(SEMANAL, "Clase de Cálculo", "Clase de repaso de cálculo", "Lu", "Aula 201", "Azul", null, null, null, 2.5, maestro.getIdConversion());
 
         EntidadCampus campus = new EntidadCampus("Campus Principal");

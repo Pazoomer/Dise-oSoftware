@@ -39,6 +39,51 @@ public class Campus {
         }
         return null;
     }
+    
+    public CampusConsultableDTO agregarCampus(CampusConsultableDTO campusParametro) throws NegocioException {
+
+        try {
+            EntidadCampus entidadCampus=crudCampus.agregarCampus(conversiones.toCampusBO(campusParametro));
+            if (entidadCampus!=null) {
+                 return conversiones.toCampusDTO(entidadCampus);
+            }
+            throw new PersistenciaExceptionn("Hubo un error al agregar el campus");
+
+        } catch (PersistenciaExceptionn ex) {
+            Logger.getLogger(Campus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public Boolean eliminarCampus(CampusConsultableDTO campusParametro) throws NegocioException {
+
+        try {
+            Boolean eliminado=crudCampus.eliminarCampus(conversiones.toCampusBO(campusParametro));
+            if (eliminado==true) {
+                 return eliminado;
+            }
+            throw new PersistenciaExceptionn("Hubo un error al eliminar el campus");
+
+        } catch (PersistenciaExceptionn ex) {
+            Logger.getLogger(Campus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public CampusConsultableDTO editarCampus(CampusConsultableDTO campusParametro) throws NegocioException {
+
+        try {
+            EntidadCampus entidadCampus=crudCampus.editarCampus(conversiones.toCampusBO(campusParametro));
+            if (entidadCampus!=null) {
+                 return conversiones.toCampusDTO(entidadCampus);
+            }
+            throw new PersistenciaExceptionn("Hubo un error al editar el campus");
+
+        } catch (PersistenciaExceptionn ex) {
+            Logger.getLogger(Campus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     public List<CampusConsultableDTO> obtenerTodosLosCampus() throws NegocioException {
 
@@ -82,6 +127,51 @@ public class Campus {
                 return conversiones.toUbicacionDTO(entidadUbicacion);
             }
             throw new PersistenciaExceptionn("No se encontro la ubicacion");
+
+        } catch (PersistenciaExceptionn ex) {
+            Logger.getLogger(Campus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public UbicacionDTO agregarUbicacion(UbicacionDTO ubicacionParametro) throws NegocioException {
+
+        try {
+            EntidadUbicacion entidadUbicacion=crudCampus.agregarUbicacion(conversiones.toUbicacionBO(ubicacionParametro));
+            if (entidadUbicacion!=null) {
+                 return conversiones.toUbicacionDTO(entidadUbicacion);
+            }
+            throw new PersistenciaExceptionn("Hubo un error al agregar la ubicacion");
+
+        } catch (PersistenciaExceptionn ex) {
+            Logger.getLogger(Campus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public Boolean eliminarUbicacion(UbicacionDTO ubicacionParametro) throws NegocioException {
+
+        try {
+            Boolean eliminado=crudCampus.eliminarUbicacion(conversiones.toUbicacionBO(ubicacionParametro));
+            if (eliminado==true) {
+                 return eliminado;
+            }
+            throw new PersistenciaExceptionn("Hubo un error al eliminar la ubicacion");
+
+        } catch (PersistenciaExceptionn ex) {
+            Logger.getLogger(Campus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public UbicacionDTO editarUbicacion(UbicacionDTO ubicacionParametro) throws NegocioException {
+
+        try {
+            EntidadUbicacion entidadUbicacion=crudCampus.editarUbicacion(conversiones.toUbicacionBO(ubicacionParametro));
+            if (entidadUbicacion!=null) {
+                 return conversiones.toUbicacionDTO(entidadUbicacion);
+            }
+            throw new PersistenciaExceptionn("Hubo un error al editar la ubicacion");
 
         } catch (PersistenciaExceptionn ex) {
             Logger.getLogger(Campus.class.getName()).log(Level.SEVERE, null, ex);

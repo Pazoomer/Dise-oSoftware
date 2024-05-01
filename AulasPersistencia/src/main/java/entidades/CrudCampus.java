@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bson.conversions.Bson;
 import com.mongodb.client.model.Filters;
+import java.util.Iterator;
 
 /**
  *
@@ -103,9 +104,9 @@ public class CrudCampus {
 
     public EntidadUbicacion obtenerUbicacion(EntidadUbicacion entidadUbicacion) throws PersistenciaExceptionn {
         try {
-            System.out.println(entidadUbicacion);
-            EntidadCampus campusEncontrado=obtenerCampus(new EntidadCampus(entidadUbicacion.getCampus()));
-            System.out.println(campusEncontrado);
+
+            EntidadCampus campusEncontrado = obtenerCampus(new EntidadCampus(entidadUbicacion.getCampus()));
+
             if (campusEncontrado != null) {
 
                 if (campusEncontrado.getUbicaciones() != null) {
@@ -124,19 +125,88 @@ public class CrudCampus {
         return null;
     }
 
-    public EntidadUbicacion obtenerUbi(EntidadUbicacion ubicacion)throws PersistenciaExceptionn {
-        try{
-            Bson filter=Filters.eq("ubicaciones.identificador",ubicacion.getIdentificador());
-            EntidadCampus registro=coleccion.find(filter).first();
+    public EntidadUbicacion obtenerUbi(EntidadUbicacion ubicacion) throws PersistenciaExceptionn {
+        try {
+            Bson filter = Filters.eq("ubicaciones.identificador", ubicacion.getIdentificador());
+            EntidadCampus registro = coleccion.find(filter).first();
             List<EntidadUbicacion> ubi;
-            if(registro!=null){
-                ubi=registro.getUbicaciones();
+            if (registro != null) {
+                ubi = registro.getUbicaciones();
                 return ubi.get(0);
             }
             return null;
-        }catch(MongoException e){
+        } catch (MongoException e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
             throw new PersistenciaExceptionn("Hubo un error al obtener la ubicacion");
+        }
+    }
+
+    public EntidadUbicacion agregarUbicacion(EntidadUbicacion ubicacion) throws PersistenciaExceptionn {
+        try {
+            EntidadCampus campus = new EntidadCampus();
+            campus.setNombre(ubicacion.getCampus());
+            
+            //Obtiene el campus de la ubicacion
+            campus = obtenerCampus(campus);
+            
+            //Añade la ubicacion a el campus
+            campus.getUbicaciones().add(ubicacion);
+            editarCampus(campus);
+            
+            return ubicacion;
+        } catch (PersistenciaExceptionn e) {
+            LOG.log(Level.SEVERE, e.getMessage(), e);
+            throw new PersistenciaExceptionn("Hubo un error al agregar la ubicacion.");
+        }
+    }
+    
+    public EntidadUbicacion editarUbicacion(EntidadUbicacion ubicacion) throws PersistenciaExceptionn {
+        try {
+            EntidadCampus campus = new EntidadCampus();
+            campus.setNombre(ubicacion.getCampus());
+
+            //Obtiene el campus de la ubicacion
+            campus = obtenerCampus(campus);
+
+            ///Edita la ubicacion a el campus
+            List<EntidadUbicacion> ubicaciones = campus.getUbicaciones();
+            Iterator<EntidadUbicacion> iterator = ubicaciones.iterator();
+            
+            while (iterator.hasNext()) {
+                EntidadUbicacion ubicacionIterable = iterator.next();
+                
+                if (ubicacionIterable.equals(ubicacion)) {
+                    iterator.remove();
+                    ubicaciones.add(ubicacion);
+                    break; // Termina el bucle una vez que se ha encontrado y editado la ubicación
+                }
+                
+            }
+            editarCampus(campus);
+            
+            return ubicacion;
+        } catch (PersistenciaExceptionn e) {
+            LOG.log(Level.SEVERE, e.getMessage(), e);
+        throw new PersistenciaExceptionn("Hubo un error al actualizar la ubicacion.");
+    }
+}
+
+    public Boolean eliminarUbicacion(EntidadUbicacion ubicacionParametro) throws PersistenciaExceptionn {
+        try {
+            EntidadCampus campus = new EntidadCampus();
+            campus.setNombre(ubicacionParametro.getCampus());
+
+            //Obtiene el campus de la ubicacion
+            campus = obtenerCampus(campus);
+
+            //Elimina la ubicacion a el campus
+            campus.getUbicaciones().remove(ubicacionParametro);
+            editarCampus(campus);
+
+            return true;
+        } catch (PersistenciaExceptionn e) {
+            LOG.log(Level.SEVERE, e.getMessage(), e);
+            throw new PersistenciaExceptionn("Hubo un error al eliminar la ubicacion.");
         }
     }
     

@@ -38,7 +38,7 @@ public class Insercion {
             EntidadUbicacion ubicacionObregon1 = new EntidadUbicacion("LV-100", "Campus Principal", "Aula para clases regulares");
             EntidadUbicacion ubicacionObregon2 = new EntidadUbicacion("LV-200", "Campus Principal", "Aula para clases regulares");
             
-            EntidadMaestro maestro = new EntidadMaestro("1", "Juan Pérez", ubicacionNainari1, "Profesor de Matemáticas", "fotoMaestroG.png");
+            EntidadMaestro maestro = new EntidadMaestro(true,"1", "Juan Pérez", ubicacionNainari1, "Profesor de Matemáticas", "fotoMaestroG.png");
 
             EntidadCampus campusNainari = new EntidadCampus("Obregon Nainari");
             EntidadCampus campusCentro = new EntidadCampus("Centro");

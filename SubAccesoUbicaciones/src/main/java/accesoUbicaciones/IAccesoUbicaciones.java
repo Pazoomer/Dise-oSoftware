@@ -20,6 +20,30 @@ public interface IAccesoUbicaciones {
     public CampusConsultableDTO recuperarCampus(CampusConsultableDTO campus)throws NegocioException;
     
     /**
+     * Agrega el campus del parametro
+     * @param campus
+     * @return 
+     * @throws excepciones.NegocioException 
+     */
+    public CampusConsultableDTO agregarCampus(CampusConsultableDTO campus)throws NegocioException;
+    
+    /**
+     * Elimina el campus del parametro
+     * @param campus
+     * @return 
+     * @throws excepciones.NegocioException 
+     */
+    public Boolean eliminarCampus(CampusConsultableDTO campus)throws NegocioException;
+    
+    /**
+     * Edita el campus del parametro
+     * @param campus
+     * @return 
+     * @throws excepciones.NegocioException 
+     */
+    public CampusConsultableDTO editarCampus(CampusConsultableDTO campus)throws NegocioException;
+    
+    /**
      * Recupera todos los campus
      * @return 
      * @throws excepciones.NegocioException 
@@ -41,4 +65,28 @@ public interface IAccesoUbicaciones {
      * @throws excepciones.NegocioException 
      */
     public UbicacionDTO recuperarUbicacion(UbicacionDTO ubicacion)throws NegocioException;
+    
+    /**
+     * Agrega los edificios de un campus
+     * @param ubicacion
+     * @return 
+     * @throws excepciones.NegocioException 
+     */
+    public UbicacionDTO agregarUbicacion(UbicacionDTO ubicacion)throws NegocioException;
+    
+    /**
+     * Edita los edificios de un campus
+     * @param ubicacion
+     * @return 
+     * @throws excepciones.NegocioException 
+     */
+    public UbicacionDTO editarUbicacion(UbicacionDTO ubicacion)throws NegocioException;
+    
+    /**
+     * Elimina los edificios de un campus
+     * @param ubicacion
+     * @return 
+     * @throws excepciones.NegocioException 
+     */
+    public Boolean eliminarUbicacion(UbicacionDTO ubicacion)throws NegocioException;
 }

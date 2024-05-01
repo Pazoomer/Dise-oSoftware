@@ -1,17 +1,10 @@
 
 package Ejecutable;
 
-//import BO.recuperarMaestroBO.IRecuperarMaestroBO;
-//import BO.recuperarMaestroBO.RecuperarMaestroBO;
-import DTOS.evento.EventoConsultableDTO;
 import DTOS.maestro.MaestroEditableDTO;
 import accesoMaestro.FachadaAccesoMaestro;
-//import conexion.ConexionDAO;
-//import conexion.IConexionDAO;
 import accesoMaestro.IAccesoMaestro;
 import excepciones.NegocioException;
-import java.util.Calendar;
-import java.util.List;
 import presentacion.pantallas.PrincipalMaestro;
 /**
  *
@@ -30,15 +23,6 @@ public class Ejecutable {
             maestro = acceso.recuperarMaestro(new MaestroEditableDTO("1"));
             
             if (maestro != null) {
-//                List<EventoConsultableDTO> eventos=maestro.getCalendario();
-//                eventos.forEach(e->{
-//                    System.out.println("fecha inicio: "+
-//                            e.getFechaInicio().get(Calendar.DAY_OF_MONTH)+"/"+
-//                            e.getFechaInicio().get(Calendar.MONTH)+"/"+
-//                            e.getFechaInicio().get(Calendar.YEAR)+" "+
-//                            e.getFechaInicio().get(Calendar.HOUR_OF_DAY)+":"+
-//                            e.getFechaInicio().get(Calendar.MINUTE));
-//                });
                 System.out.println(maestro.toString());
                 new PrincipalMaestro(maestro).setVisible(true);
             }

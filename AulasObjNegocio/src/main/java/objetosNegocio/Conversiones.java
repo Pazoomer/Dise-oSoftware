@@ -86,7 +86,7 @@ class Conversiones {
             for (EventoConsultableDTO ec : eventos) {
                 eventosBO.add(toEventoBO(ec));
             }
-            maestroBO= new EntidadMaestro(
+            maestroBO= new EntidadMaestro(maestro.getAdmin(),
                     maestro.getId(),
                     maestro.getNombre(),
                     ubicacionBO,
@@ -95,7 +95,7 @@ class Conversiones {
                     eventosBO
             );
         }else{
-            maestroBO= new EntidadMaestro(
+            maestroBO= new EntidadMaestro(maestro.getAdmin(),
                     maestro.getId(),
                     maestro.getNombre(),
                     ubicacionBO,
@@ -110,7 +110,7 @@ class Conversiones {
     protected MaestroEditableDTO toMaestroDTO(EntidadMaestro maestro) {
         List<EntidadEvento> eventos = maestro.getCalendario();
         List<EventoConsultableDTO> eventosDTO = new ArrayList<>();
-        MaestroEditableDTO maestroDTO = new MaestroEditableDTO(
+        MaestroEditableDTO maestroDTO = new MaestroEditableDTO(maestro.getAdmin(),
                 maestro.getIdMaestro(),
                 maestro.getNombre(),
                 toUbicacionDTO(maestro.getCubiculo()),
@@ -129,13 +129,6 @@ class Conversiones {
     
     protected EntidadEvento toEventoBO(EventoConsultableDTO evento) {
         EntidadEvento eventoConvertido=null;
-        //EntidadUbicacion ubi=null;
-//        EntidadMaestro maestroBO=null;
-//        
-//        if(evento.getMaestro()!=null) maestroBO=toMaestroBO(evento.getMaestro());
-        
-//        if(evento.getUbicacion()!=null)
-//            ubi=toUbicacionBO(evento.getUbicacion());
         String identificadorUbicacion = null;
         if (evento.getUbicacion() != null) {
             identificadorUbicacion = evento.getUbicacion().getIdentificador();

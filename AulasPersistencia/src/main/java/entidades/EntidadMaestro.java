@@ -27,6 +27,8 @@ public class EntidadMaestro implements Serializable {
     private String foto;
 
     private List<EntidadEvento> calendario;
+    
+    private Boolean admin;
 
     public EntidadMaestro() {
         this.calendario = new ArrayList<>();
@@ -36,22 +38,24 @@ public class EntidadMaestro implements Serializable {
         this.id = id;
     }
 
-    public EntidadMaestro(String idMaestro, String nombre, EntidadUbicacion cubiculo, String descripcion, String foto, List<EntidadEvento> calendario) {
+    public EntidadMaestro(Boolean admin,String idMaestro, String nombre, EntidadUbicacion cubiculo, String descripcion, String foto, List<EntidadEvento> calendario) {
         this.idMaestro = idMaestro;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
         this.descripcion = descripcion;
         this.foto = foto;
         this.calendario = calendario;
+        this.admin=admin;
     }
 
-    public EntidadMaestro(String idMaestro, String nombre, EntidadUbicacion cubiculo, String descripcion, String foto) {
+    public EntidadMaestro(Boolean admin,String idMaestro, String nombre, EntidadUbicacion cubiculo, String descripcion, String foto) {
         this.idMaestro = idMaestro;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
         this.descripcion = descripcion;
         this.foto = foto;
         this.calendario = new ArrayList<>();
+        this.admin=admin;
     }
 
     public ObjectId getId() {
@@ -109,6 +113,14 @@ public class EntidadMaestro implements Serializable {
     public void setCalendario(List<EntidadEvento> calendario) {
         this.calendario = calendario;
     }
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
+    }
     
     /**
      * Obtienes el valor de ObjectId como string
@@ -144,12 +156,11 @@ public class EntidadMaestro implements Serializable {
         sb.append(", cubiculo=").append(cubiculo);
         sb.append(", descripcion=").append(descripcion);
         sb.append(", foto=").append(foto);
-        sb.append(", calendario=").append(calendarioToString());
+        sb.append(", calendario=").append(calendario);
+        sb.append(", admin=").append(admin);
         sb.append('}');
         return sb.toString();
     }
-
-   
 
     public String calendarioToString() {
         StringBuilder sb = new StringBuilder();
