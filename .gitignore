@@ -13,3 +13,6 @@
 /SubAccesoMaestro/target/
 /SubAccesoUbicaciones/target/
 /AulasPersistencia2/target/
+/AulasExcepciones/target/
+AulasExcepciones/target/AulasExcepciones-1.0.jar
+AulasPersistencia/src/main/resources/META-INF/persistence.xml
