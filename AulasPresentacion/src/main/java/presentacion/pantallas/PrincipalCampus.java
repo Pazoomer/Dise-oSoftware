@@ -61,7 +61,7 @@ public class PrincipalCampus extends javax.swing.JFrame {
             Image imagenRedimensionadaUbicaciones = iconoUbicaciones.getImage().getScaledInstance(btnConsultarUbicaciones.getWidth(), btnConsultarUbicaciones.getHeight(), Image.SCALE_SMOOTH);
             this.btnConsultarUbicaciones.setIcon(new ImageIcon(imagenRedimensionadaUbicaciones));
         } catch (Exception e) {
-            System.out.println("No cargaron los iconos");
+            error("No cargaron los iconos");
         }
 
     }

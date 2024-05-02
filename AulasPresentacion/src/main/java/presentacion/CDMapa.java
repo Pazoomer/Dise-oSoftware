@@ -3,17 +3,13 @@ package presentacion;
 
 import DTOS.campus.CampusConsultableDTO;
 import DTOS.campus.UbicacionDTO;
-import imagenesURL.ImageFromURL;
 import java.awt.Image;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 /**
@@ -53,7 +49,7 @@ public class CDMapa extends javax.swing.JDialog {
             Image imagenRedimensionadaAceptar = iconoAceptar.getImage().getScaledInstance(btnAceptar.getWidth(), btnAceptar.getHeight(), Image.SCALE_SMOOTH);
             this.btnAceptar.setIcon(new ImageIcon(imagenRedimensionadaAceptar));
         } catch (Exception e) {
-            System.out.println("No cargaron los iconos");
+            error("No cargaron los iconos");
         }
 
     }
@@ -82,7 +78,7 @@ public class CDMapa extends javax.swing.JDialog {
                 pnlMapa.repaint();
 
             } catch (IOException e) {
-                System.out.println("Error al cargar la imagen desde la URL: " + e.getMessage());
+                error("Error al cargar la imagen desde la URL: " + e.getMessage());
             }
         });
 
@@ -171,10 +167,6 @@ public class CDMapa extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnlMapa, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblInstruccionEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -191,6 +183,10 @@ public class CDMapa extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblAceptarEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(87, 87, 87))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlMapa, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

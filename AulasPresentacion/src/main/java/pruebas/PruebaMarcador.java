@@ -5,6 +5,8 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -14,6 +16,7 @@ public class PruebaMarcador {
     private JLabel labelMarcador;
     private BufferedImage imagenMapa;
     private Point posicionMarcador;
+    private ImageIcon iconoMarcador;
 
     public PruebaMarcador() {
         frame = new JFrame("Mapa con Marcador");
@@ -39,14 +42,36 @@ public class PruebaMarcador {
 
         // Carga la imagen del mapa
         try {
-            URL urlMapa = new URL("https://itson.mx/eventos/enace/PublishingImages/croquis-nainari.jpg");
-            imagenMapa = ImageIO.read(urlMapa);
+            URL urlMapa = new URL("https://itson.mx/universidad/PublishingImages/mapas-campus/campus-centro.jpg");
+            BufferedImage imagenOriginal = ImageIO.read(urlMapa);
+
+            // Define el tamaño deseado para la imagen
+            int anchoDeseado = 480; // Coloca el ancho deseado en píxeles
+            int altoDeseado = 360; // Coloca el alto deseado en píxeles
+
+            // Redimensiona la imagen al tamaño deseado
+            Image imagenRedimensionada = imagenOriginal.getScaledInstance(anchoDeseado, altoDeseado, Image.SCALE_SMOOTH);
+
+            // Crea una nueva imagen a partir de la imagen redimensionada
+            imagenMapa = new BufferedImage(anchoDeseado, altoDeseado, BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2d = imagenMapa.createGraphics();
+            g2d.drawImage(imagenRedimensionada, 0, 0, null);
+            g2d.dispose();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         // Carga la imagen del marcador
-        ImageIcon iconoMarcador = new ImageIcon("/imagenes/marcador.jpg");
+        URL urlMarcador = getClass().getResource("/imagenes/marcador.jpg");
+        BufferedImage imagenMarcador=null;
+        try {
+            imagenMarcador = ImageIO.read(urlMarcador);
+        } catch (IOException ex) {
+            Logger.getLogger(PruebaMarcador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Image imagenRedimensionada = imagenMarcador.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        iconoMarcador = new ImageIcon(imagenRedimensionada);
+
         labelMarcador = new JLabel(iconoMarcador);
         panelMapa.add(labelMarcador);
 

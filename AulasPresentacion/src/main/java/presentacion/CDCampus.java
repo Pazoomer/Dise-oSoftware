@@ -54,7 +54,7 @@ public class CDCampus extends javax.swing.JDialog {
             ImageIcon iconoConfirmar = new ImageIcon(getClass().getResource("/imagenes/icons8-save-50.png"));
             this.btnConfirmar.setIcon(iconoConfirmar);
         } catch (Exception e) {
-            System.out.println("No cargaron los iconos");
+            error("No cargaron los iconos");
         }
 
     }

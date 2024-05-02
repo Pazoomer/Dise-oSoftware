@@ -72,7 +72,7 @@ public class CDUbicacion extends javax.swing.JDialog {
             Image imagenRedimensionadaMapa = iconoMapa.getImage().getScaledInstance(btnMapa.getWidth(), btnMapa.getHeight(), Image.SCALE_SMOOTH);
             this.btnMapa.setIcon(new ImageIcon(imagenRedimensionadaMapa));
         } catch (Exception e) {
-            System.out.println("No cargaron los iconos");
+            error("No cargaron los iconos");
         }
 
     }

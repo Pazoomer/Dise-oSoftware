@@ -4,6 +4,7 @@ package presentacion.pantallas;
 import DTOS.maestro.MaestroEditableDTO;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -46,9 +47,13 @@ public final class PrincipalInicio extends javax.swing.JFrame {
             Image imagenRedimensionadaMapa = iconoMapa.getImage().getScaledInstance(btnMapa.getWidth(), btnMapa.getHeight(), Image.SCALE_SMOOTH);
             this.btnMapa.setIcon(new ImageIcon(imagenRedimensionadaMapa));
         } catch (Exception e) {
-            System.out.println("No cargaron los iconos");
+            error("No cargaron los iconos");
         }
 
+    }
+    
+    private void error(String error) {
+        JOptionPane.showMessageDialog(this, error);
     }
 
     private void cerrar() {

@@ -60,7 +60,7 @@ public class PrincipalUbicacion extends javax.swing.JFrame {
             Image imagenRedimensionadaEliminar = iconoEliminar.getImage().getScaledInstance(btnEliminar.getWidth(), btnEliminar.getHeight(), Image.SCALE_SMOOTH);
             this.btnEliminar.setIcon(new ImageIcon(imagenRedimensionadaEliminar));
         } catch (Exception e) {
-            System.out.println("No cargaron los iconos");
+            error("No cargaron los iconos");
         }
 
     }
