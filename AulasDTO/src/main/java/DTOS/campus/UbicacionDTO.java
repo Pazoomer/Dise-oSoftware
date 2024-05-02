@@ -15,8 +15,8 @@ public class UbicacionDTO {
     private String descripcion;
     private CampusConsultableDTO campus;
     private List<EventoConsultableDTO> eventos;
-    private Integer posicionX;
-    private Integer posicionY;
+    private Double posicionX;
+    private Double posicionY;
 
     public UbicacionDTO() {
     }
@@ -39,19 +39,19 @@ public class UbicacionDTO {
         this.eventos = eventos;
     }
 
-    public Integer getPosicionX() {
+    public Double getPosicionX() {
         return posicionX;
     }
 
-    public void setPosicionX(Integer posicionX) {
+    public void setPosicionX(Double posicionX) {
         this.posicionX = posicionX;
     }
 
-    public Integer getPosicionY() {
+    public Double getPosicionY() {
         return posicionY;
     }
 
-    public void setPosicionY(Integer posicionY) {
+    public void setPosicionY(Double posicionY) {
         this.posicionY = posicionY;
     }
     

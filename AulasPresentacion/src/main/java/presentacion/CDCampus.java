@@ -5,7 +5,6 @@ import DTOS.campus.CampusConsultableDTO;
 import accesoUbicaciones.FachadaAccesoUbicaciones;
 import accesoUbicaciones.IAccesoUbicaciones;
 import excepciones.NegocioException;
-import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -16,12 +15,13 @@ import javax.swing.JOptionPane;
  */
 public class CDCampus extends javax.swing.JDialog {
 
-    IAccesoUbicaciones accesoUbicaciones=new FachadaAccesoUbicaciones();
-    String operacion;
-    CampusConsultableDTO campusSeleccionado;
-    JFrame pantallaAnterior;
+    private final IAccesoUbicaciones accesoUbicaciones=new FachadaAccesoUbicaciones();
+    private final String operacion;
+    private final CampusConsultableDTO campusSeleccionado;
+    private final JFrame pantallaAnterior;
     /**
      * Creates new form CDCampus
+     * @param pantallaAnterior
      * @param parent
      * @param modal
      * @param operacion
@@ -58,6 +58,7 @@ public class CDCampus extends javax.swing.JDialog {
         }
 
     }
+  
     
     private void limpiar(){
         this.txtNombre.setText("");

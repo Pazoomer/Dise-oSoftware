@@ -20,6 +20,7 @@ public class CDMapa extends javax.swing.JDialog {
 
     private final UbicacionDTO ubicacion;
     private final CampusConsultableDTO campus;
+    private JLabel labelMarcador;
     /**
      * Creates new form CDMapa
      * @param parent
@@ -77,11 +78,16 @@ public class CDMapa extends javax.swing.JDialog {
                 pnlMapa.revalidate();
                 pnlMapa.repaint();
 
+                
             } catch (IOException e) {
                 error("Error al cargar la imagen desde la URL: " + e.getMessage());
             }
         });
 
+    }
+    
+    private void colocarMarcadores(){
+        
     }
 
     private void cerrar() {

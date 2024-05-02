@@ -21,10 +21,10 @@ import presentacion.CDCampus;
  */
 public class PrincipalCampus extends javax.swing.JFrame {
 
-    JFrame pantallaAnterior;
-    CampusConsultableDTO campusSeleccionado;
-    List<CampusConsultableDTO> campuses;
-    IAccesoUbicaciones accesoUbicaciones=new FachadaAccesoUbicaciones();
+    private final JFrame pantallaAnterior;
+    private CampusConsultableDTO campusSeleccionado;
+    private List<CampusConsultableDTO> campuses;
+    private final IAccesoUbicaciones accesoUbicaciones=new FachadaAccesoUbicaciones();
     /**
      * Creates new form PrincipalCampus
      * @param pantallaAnterior
@@ -66,7 +66,7 @@ public class PrincipalCampus extends javax.swing.JFrame {
 
     }
 
-    private void actualizarTabla() {
+    public void actualizarTabla() {
         consultarCampuses();
         actualizarModeloTabla();
     }
@@ -103,14 +103,19 @@ public class PrincipalCampus extends javax.swing.JFrame {
         //Al hacer clic en un campus se coloca ese campus como campusSeleccionado
         this.tblCampuses.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 int filaSeleccionada = tblCampuses.getSelectedRow();
                 
                 if (filaSeleccionada != -1) {
                     campusSeleccionado=campuses.get(filaSeleccionada);
+                    cambiarTitulo();
                 }
             }
         });
+    }
+    
+    private void cambiarTitulo(){
+        this.lblEstaticoCampus.setText("Campus "+campusSeleccionado.getNombre());
     }
 
     private void consultarCampuses() {
@@ -143,12 +148,6 @@ public class PrincipalCampus extends javax.swing.JFrame {
     private void consultarUbicaciones() {
         if (campusSeleccionado == null) {
             error("Seleccione un campus");
-            return;
-        } else if (campusSeleccionado.getUbicaciones() == null) {
-            error("El campus no tiene ubicaciones");
-            return;
-        } else if (campusSeleccionado.getUbicaciones().isEmpty()) {
-            error("El campus no tiene ubicaciones");
             return;
         }
         new PrincipalUbicacion(this, campusSeleccionado).setVisible(true);
@@ -242,9 +241,9 @@ public class PrincipalCampus extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTituloLayout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addComponent(btnVolver)
-                .addGap(150, 150, 150)
-                .addComponent(lblEstaticoCampus, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(263, Short.MAX_VALUE))
+                .addGap(41, 41, 41)
+                .addComponent(lblEstaticoCampus, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(72, Short.MAX_VALUE))
         );
         pnlTituloLayout.setVerticalGroup(
             pnlTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

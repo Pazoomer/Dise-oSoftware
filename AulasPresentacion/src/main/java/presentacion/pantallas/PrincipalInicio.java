@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  */
 public final class PrincipalInicio extends javax.swing.JFrame {
 
-    MaestroEditableDTO admin;
+    private MaestroEditableDTO admin;
     /**
      * Creates new form PrincipalInicio
      *
@@ -43,7 +43,7 @@ public final class PrincipalInicio extends javax.swing.JFrame {
             ImageIcon iconoReturn = new ImageIcon(getClass().getResource("/imagenes/icons8-return-50.png"));
             this.btnVolver.setIcon(iconoReturn);
 
-            ImageIcon iconoMapa = new ImageIcon(getClass().getResource("/imagenes/location-marker-icon-vector.jpg"));
+            ImageIcon iconoMapa = new ImageIcon(getClass().getResource("/imagenes/marcador.jpg"));
             Image imagenRedimensionadaMapa = iconoMapa.getImage().getScaledInstance(btnMapa.getWidth(), btnMapa.getHeight(), Image.SCALE_SMOOTH);
             this.btnMapa.setIcon(new ImageIcon(imagenRedimensionadaMapa));
         } catch (Exception e) {

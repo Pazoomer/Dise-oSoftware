@@ -17,12 +17,12 @@ import javax.swing.JOptionPane;
  */
 public class CDUbicacion extends javax.swing.JDialog {
 
-    IAccesoUbicaciones accesoUbicaciones=new FachadaAccesoUbicaciones();
-    String operacion;
-    UbicacionDTO ubicacionSeleccionada;
-    CampusConsultableDTO campusSeleccionado;
-    java.awt.Frame parent;
-    JFrame pantallaAnterior;
+    private final IAccesoUbicaciones accesoUbicaciones=new FachadaAccesoUbicaciones();
+    private final String operacion;
+    private final UbicacionDTO ubicacionSeleccionada;
+    private final CampusConsultableDTO campusSeleccionado;
+    private final java.awt.Frame parent;
+    private final JFrame pantallaAnterior;
     boolean modal;
     
     /**

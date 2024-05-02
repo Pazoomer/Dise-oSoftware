@@ -20,9 +20,9 @@ public class EntidadUbicacion implements Serializable {
 
     private List<EntidadEvento> eventos;
     
-    private Integer posicionX;
+    private Double posicionX;
             
-    private Integer posicionY;       
+    private Double posicionY;       
     
     public EntidadUbicacion() {
         this.eventos=new ArrayList<>();
@@ -84,19 +84,19 @@ public class EntidadUbicacion implements Serializable {
         this.id = id;
     }
 
-    public Integer getPosicionX() {
+    public Double getPosicionX() {
         return posicionX;
     }
 
-    public void setPosicionX(Integer posicionX) {
+    public void setPosicionX(Double posicionX) {
         this.posicionX = posicionX;
     }
 
-    public Integer getPosicionY() {
+    public Double getPosicionY() {
         return posicionY;
     }
 
-    public void setPosicionY(Integer posicionY) {
+    public void setPosicionY(Double posicionY) {
         this.posicionY = posicionY;
     }
     

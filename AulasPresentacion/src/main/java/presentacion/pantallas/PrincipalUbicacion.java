@@ -22,17 +22,17 @@ import presentacion.CDUbicacion;
  */
 public class PrincipalUbicacion extends javax.swing.JFrame {
 
-    JFrame pantallaAnterior;
-    CampusConsultableDTO campusSeleccionado;
-    UbicacionDTO ubicacionSeleccionada;
-    List<UbicacionDTO> ubicaciones;
-    IAccesoUbicaciones accesoUbicaciones=new FachadaAccesoUbicaciones();
+    private final PrincipalCampus pantallaAnterior;
+    private final CampusConsultableDTO campusSeleccionado;
+    private UbicacionDTO ubicacionSeleccionada;
+    private List<UbicacionDTO> ubicaciones;
+    private final IAccesoUbicaciones accesoUbicaciones=new FachadaAccesoUbicaciones();
     /**
      * Creates new form PrincipalUbicacion
      * @param pantallaAnterior
      * @param campusSeleccionado
      */
-    public PrincipalUbicacion(JFrame pantallaAnterior, CampusConsultableDTO campusSeleccionado) {
+    public PrincipalUbicacion(PrincipalCampus pantallaAnterior, CampusConsultableDTO campusSeleccionado) {
         setUndecorated(true);
         this.setResizable(false);
         initComponents();
@@ -65,9 +65,15 @@ public class PrincipalUbicacion extends javax.swing.JFrame {
 
     }
     
+    private void cambiarTitulo(){
+        this.lblUbicacionEstatico.setText("Ubicacion "+this.ubicacionSeleccionada.getIdentificador());
+    }
+    
     private void cerrar(){
         pantallaAnterior.setVisible(true);
+        pantallaAnterior.actualizarTabla();
         this.dispose();
+        
     }
     
     private void actualizarTabla() {
@@ -96,11 +102,14 @@ public class PrincipalUbicacion extends javax.swing.JFrame {
         modeloTabla.addColumn("Identificador");
         modeloTabla.addColumn("Descripcion");
 
-        // Agregar los datos de las personas
-        for (UbicacionDTO ubicacion : ubicaciones) {
+        if (ubicaciones != null) {
 
-            Object[] fila = {ubicacion.getIdentificador(), ubicacion.getDescripcion()};
-            modeloTabla.addRow(fila);
+            // Agregar los datos de las personas
+            for (UbicacionDTO ubicacion : ubicaciones) {
+
+                Object[] fila = {ubicacion.getIdentificador(), ubicacion.getDescripcion()};
+                modeloTabla.addRow(fila);
+            }
         }
         // Establecer el modelo de la tabla
         this.tblUbicaciones.setModel(modeloTabla);
@@ -108,14 +117,16 @@ public class PrincipalUbicacion extends javax.swing.JFrame {
         //Al hacer clic en un campus se coloca esa ubicacion como ubicacionSeleccionada
         this.tblUbicaciones.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 int filaSeleccionada = tblUbicaciones.getSelectedRow();
                 
                 if (filaSeleccionada != -1) {
                     ubicacionSeleccionada=ubicaciones.get(filaSeleccionada);
+                    cambiarTitulo();
                 }
             }
         });
+        
     }
     
     private void error(String error) {
@@ -187,7 +198,7 @@ public class PrincipalUbicacion extends javax.swing.JFrame {
 
         lblUbicacionEstatico.setFont(new java.awt.Font("Segoe UI Black", 3, 18)); // NOI18N
         lblUbicacionEstatico.setForeground(new java.awt.Color(255, 255, 255));
-        lblUbicacionEstatico.setText("Ubicaciones");
+        lblUbicacionEstatico.setText("Ubicacion");
 
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
