@@ -14,6 +14,8 @@ public class EntidadCampus implements Serializable {
     private String nombre;
 
     private List<EntidadUbicacion> ubicaciones;
+    
+    private String url;
 
     public EntidadCampus() {
     }
@@ -50,6 +52,16 @@ public class EntidadCampus implements Serializable {
     public void setId(ObjectId id) {
         this.id = id;
     }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+    
+    
     
     /**
      * Obtienes el valor de ObjectId como string
@@ -82,13 +94,10 @@ public class EntidadCampus implements Serializable {
         sb.append("id=").append(id);
         sb.append(", nombre=").append(nombre);
         sb.append(", ubicaciones=").append(ubicaciones);
+        sb.append(", url=").append(url);
         sb.append('}');
         return sb.toString();
-    }
-
-    
-
-    
+    }    
 
     private String edificiosToString(){
         StringBuilder sb=new StringBuilder();

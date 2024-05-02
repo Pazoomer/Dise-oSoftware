@@ -9,11 +9,14 @@ import java.util.List;
  * @author luiis
  */
 public class UbicacionDTO {
+
     private String id;
     private String identificador;
     private String descripcion;
     private CampusConsultableDTO campus;
     private List<EventoConsultableDTO> eventos;
+    private Integer posicionX;
+    private Integer posicionY;
 
     public UbicacionDTO() {
     }
@@ -35,6 +38,24 @@ public class UbicacionDTO {
     public void setEventos(List<EventoConsultableDTO> eventos) {
         this.eventos = eventos;
     }
+
+    public Integer getPosicionX() {
+        return posicionX;
+    }
+
+    public void setPosicionX(Integer posicionX) {
+        this.posicionX = posicionX;
+    }
+
+    public Integer getPosicionY() {
+        return posicionY;
+    }
+
+    public void setPosicionY(Integer posicionY) {
+        this.posicionY = posicionY;
+    }
+    
+    
     
     public String getId() {
         return id;
@@ -75,14 +96,15 @@ public class UbicacionDTO {
         sb.append("id=").append(id);
         sb.append(", identificador=").append(identificador);
         sb.append(", descripcion=").append(descripcion);
-        if (campus!=null) {
-           sb.append(", campus=").append(campus.getNombre()); 
-        }
+        sb.append(", campus=").append(campus);
         sb.append(", eventos=").append(eventos);
+        sb.append(", posicionX=").append(posicionX);
+        sb.append(", posicionY=").append(posicionY);
         sb.append('}');
         return sb.toString();
     }
 
+   
     
     
     public String toStringReducido(){

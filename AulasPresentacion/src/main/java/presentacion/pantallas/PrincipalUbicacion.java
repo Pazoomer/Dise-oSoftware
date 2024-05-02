@@ -127,7 +127,8 @@ public class PrincipalUbicacion extends javax.swing.JFrame {
             error("Seleccione una ubicacion");
             return;
         }
-        new CDUbicacion(this,true,operacion,ubicacionSeleccionada,campusSeleccionado).setVisible(true);
+        this.setVisible(false);
+        new CDUbicacion(this,this,true,operacion,ubicacionSeleccionada,campusSeleccionado).setVisible(true);
         actualizarTabla();
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

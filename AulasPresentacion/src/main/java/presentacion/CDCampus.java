@@ -7,6 +7,7 @@ import accesoUbicaciones.IAccesoUbicaciones;
 import excepciones.NegocioException;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,6 +19,7 @@ public class CDCampus extends javax.swing.JDialog {
     IAccesoUbicaciones accesoUbicaciones=new FachadaAccesoUbicaciones();
     String operacion;
     CampusConsultableDTO campusSeleccionado;
+    JFrame pantallaAnterior;
     /**
      * Creates new form CDCampus
      * @param parent
@@ -25,7 +27,7 @@ public class CDCampus extends javax.swing.JDialog {
      * @param operacion
      * @param campusSeleccionado
      */
-    public CDCampus(java.awt.Frame parent, boolean modal, String operacion, CampusConsultableDTO campusSeleccionado) {
+    public CDCampus(JFrame pantallaAnterior,java.awt.Frame parent, boolean modal, String operacion, CampusConsultableDTO campusSeleccionado) {
         super(parent, modal);
         setUndecorated(true);
         this.setResizable(false);
@@ -33,6 +35,7 @@ public class CDCampus extends javax.swing.JDialog {
         this.setSize(500, 620);
         this.operacion=operacion;
         this.campusSeleccionado=campusSeleccionado;
+        this.pantallaAnterior=pantallaAnterior;
         decorar();
         colocarPermisos();
     }
@@ -62,6 +65,7 @@ public class CDCampus extends javax.swing.JDialog {
 
     private void cerrar() {
         this.dispose();
+        pantallaAnterior.setVisible(true);
     }
 
     private void error(String error) {
@@ -250,9 +254,9 @@ public class CDCampus extends javax.swing.JDialog {
                     .addComponent(lblConfirmarEstatico)
                     .addComponent(lblCancelarEstatico))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnConfirmar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 36, Short.MAX_VALUE))
         );
 

@@ -8,6 +8,7 @@ import accesoUbicaciones.IAccesoUbicaciones;
 import excepciones.NegocioException;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,6 +22,7 @@ public class CDUbicacion extends javax.swing.JDialog {
     UbicacionDTO ubicacionSeleccionada;
     CampusConsultableDTO campusSeleccionado;
     java.awt.Frame parent;
+    JFrame pantallaAnterior;
     boolean modal;
     
     /**
@@ -31,7 +33,7 @@ public class CDUbicacion extends javax.swing.JDialog {
      * @param ubicacionSeleccionada
      * @param campusSeleccionado
      */
-    public CDUbicacion(java.awt.Frame parent, boolean modal, String operacion, UbicacionDTO ubicacionSeleccionada, CampusConsultableDTO campusSeleccionado) {
+    public CDUbicacion(JFrame pantallaAnterior,java.awt.Frame parent, boolean modal, String operacion, UbicacionDTO ubicacionSeleccionada, CampusConsultableDTO campusSeleccionado) {
         super(parent, modal);
         setUndecorated(true);
         this.setResizable(false);
@@ -42,6 +44,7 @@ public class CDUbicacion extends javax.swing.JDialog {
         this.operacion = operacion;
         this.parent=parent;
         this.modal=modal;
+        this.pantallaAnterior=pantallaAnterior;
         decorar();
         colocarPermisos();
     }
@@ -81,6 +84,7 @@ public class CDUbicacion extends javax.swing.JDialog {
 
     private void cerrar() {
         this.dispose();
+        this.pantallaAnterior.setVisible(true);
     }
 
     private void error(String error) {
@@ -329,9 +333,9 @@ public class CDUbicacion extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCancelarEstatico)
-                    .addComponent(lblAceptarEstatico))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblAceptarEstatico, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblCancelarEstatico))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnAceptar, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)

@@ -3,14 +3,18 @@ package presentacion;
 
 import DTOS.campus.CampusConsultableDTO;
 import DTOS.campus.UbicacionDTO;
+import imagenesURL.ImageFromURL;
 import java.awt.Image;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -55,30 +59,32 @@ public class CDMapa extends javax.swing.JDialog {
     }
 
     private void colocarImagenMapa() {
+        SwingUtilities.invokeLater(() -> {
+           try {
+                // Lee la imagen desde la URL
+                URL url = new URL("https://itson.mx/universidad/PublishingImages/mapas-campus/campus-centro.jpg");
+                Image imagenDesdeURL = ImageIO.read(url);
 
-        URL url = null;
-        Image image = null;
-        try {
-            url = new URL("https://itson.mx/universidad/PublishingImages/mapas-campus/campus-centro.jpg");
+                // Redimensiona la imagen si es necesario
+                int anchoDeseado = 150; // Coloca el ancho deseado
+                int altoDeseado = 150; // Coloca el alto deseado
+                Image imagenRedimensionada = imagenDesdeURL.getScaledInstance(anchoDeseado, altoDeseado, Image.SCALE_SMOOTH);
 
-            image = ImageIO.read(url);
-        } catch (MalformedURLException ex) {
+                // Crea un ImageIcon con la imagen redimensionada
+                ImageIcon icono = new ImageIcon(imagenRedimensionada);
 
-            error("El URL del campus esta incorrecto");
-            return;
-        } catch (IOException ex) {
+                // Crea un JLabel con el ImageIcon
+                JLabel label = new JLabel(icono);
+                label.setVisible(true);
+                
+                this.pnlMapa.add(label);
+                pnlMapa.revalidate();
+                pnlMapa.repaint();
 
-            error("No se pudo leer la URL");
-            return;
-        }
-        if (image != null) {
-
-            JLabel label = new JLabel(new ImageIcon(image));
-            this.pnlMapa.add(label);
-            pnlMapa.setVisible(true);
-            pnlMapa.revalidate();
-            pnlMapa.repaint();
-        }
+            } catch (IOException e) {
+                System.out.println("Error al cargar la imagen desde la URL: " + e.getMessage());
+            }
+        });
 
     }
 
@@ -117,6 +123,7 @@ public class CDMapa extends javax.swing.JDialog {
         });
 
         pnlMapa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pnlMapa.setPreferredSize(new java.awt.Dimension(300, 360));
 
         javax.swing.GroupLayout pnlMapaLayout = new javax.swing.GroupLayout(pnlMapa);
         pnlMapa.setLayout(pnlMapaLayout);
@@ -166,7 +173,7 @@ public class CDMapa extends javax.swing.JDialog {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlMapa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlMapa, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

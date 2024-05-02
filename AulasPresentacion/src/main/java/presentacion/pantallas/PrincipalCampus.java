@@ -135,7 +135,8 @@ public class PrincipalCampus extends javax.swing.JFrame {
             error("Seleccione un campus");
             return;
         }
-        new CDCampus(this,true,operacion,campusSeleccionado).setVisible(true);
+        this.setVisible(false);
+        new CDCampus(this,this,true,operacion,campusSeleccionado).setVisible(true);
         actualizarTabla();
     }
     

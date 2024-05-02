@@ -20,6 +20,10 @@ public class EntidadUbicacion implements Serializable {
 
     private List<EntidadEvento> eventos;
     
+    private Integer posicionX;
+            
+    private Integer posicionY;       
+    
     public EntidadUbicacion() {
         this.eventos=new ArrayList<>();
     }
@@ -79,6 +83,24 @@ public class EntidadUbicacion implements Serializable {
     public void setId(ObjectId id) {
         this.id = id;
     }
+
+    public Integer getPosicionX() {
+        return posicionX;
+    }
+
+    public void setPosicionX(Integer posicionX) {
+        this.posicionX = posicionX;
+    }
+
+    public Integer getPosicionY() {
+        return posicionY;
+    }
+
+    public void setPosicionY(Integer posicionY) {
+        this.posicionY = posicionY;
+    }
+    
+    
     
     /**
      * Obtienes el valor de ObjectId como string
@@ -115,9 +137,13 @@ public class EntidadUbicacion implements Serializable {
         sb.append(", identificador=").append(identificador);
         sb.append(", campus=").append(campus);
         sb.append(", eventos=").append(eventos);
+        sb.append(", posicionX=").append(posicionX);
+        sb.append(", posicionY=").append(posicionY);
         sb.append('}');
         return sb.toString();
     }
+
+   
 
     public String eventosToString(){
         StringBuilder sb = new StringBuilder();
