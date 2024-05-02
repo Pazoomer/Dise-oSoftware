@@ -40,7 +40,7 @@ public class CrudCampus {
     
     public EntidadCampus editarCampus(EntidadCampus campus) throws PersistenciaExceptionn {
     try {
-        coleccion.replaceOne(eq("nombre", campus.getNombre()), campus);
+        coleccion.replaceOne(eq("_id", campus.getId()), campus);
         return campus;
     } catch (Exception e) {
         LOG.log(Level.SEVERE, e.getMessage(), e);
