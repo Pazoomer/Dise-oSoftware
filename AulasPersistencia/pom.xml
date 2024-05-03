@@ -57,6 +57,12 @@
         <artifactId>mongodb-driver-sync</artifactId>
         <version>5.0.1</version>
     </dependency>
+        <dependency>
+            <groupId>ch.rasc</groupId>
+            <artifactId>bsoncodec-annotations</artifactId>
+            <version>1.0.6</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

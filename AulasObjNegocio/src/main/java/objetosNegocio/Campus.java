@@ -102,8 +102,9 @@ public class Campus {
     
     public List<UbicacionDTO> obtenerUbicacionesPorCampus(CampusConsultableDTO campus)throws NegocioException{
         List<UbicacionDTO> ubicacionesDTO=new ArrayList<>();
-        EntidadCampus campusBO=new EntidadCampus(campus.getNombre());
-        
+
+        EntidadCampus campusBO=conversiones.toCampusBO(campus);
+
         try{
             List<EntidadUbicacion> ubicacionesAux=crudCampus.obtenerUbicacionesPorCampus(campusBO);
             
@@ -152,7 +153,11 @@ public class Campus {
     public Boolean eliminarUbicacion(UbicacionDTO ubicacionParametro) throws NegocioException {
 
         try {
-            Boolean eliminado=crudCampus.eliminarUbicacion(conversiones.toUbicacionBO(ubicacionParametro));
+            System.out.println(ubicacionParametro);
+            EntidadUbicacion toUbicacionBO = conversiones.toUbicacionBO(ubicacionParametro);
+            System.out.println(toUbicacionBO);
+            Boolean eliminado=crudCampus.eliminarUbicacion(toUbicacionBO);
+           //Boolean eliminado=crudCampus.eliminarUbicacion(conversiones.toUbicacionBO(ubicacionParametro));
             if (eliminado==true) {
                  return eliminado;
             }

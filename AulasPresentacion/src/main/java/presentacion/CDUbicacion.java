@@ -27,6 +27,7 @@ public class CDUbicacion extends javax.swing.JDialog {
     
     /**
      * Creates new form CDUbicacion
+     * @param pantallaAnterior
      * @param parent
      * @param modal
      * @param operacion
@@ -47,6 +48,7 @@ public class CDUbicacion extends javax.swing.JDialog {
         this.pantallaAnterior=pantallaAnterior;
         decorar();
         colocarPermisos();
+        System.out.println(ubicacionSeleccionada);
     }
 
     private void decorar() {

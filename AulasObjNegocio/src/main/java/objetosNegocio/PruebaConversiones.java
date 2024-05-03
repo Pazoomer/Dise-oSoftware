@@ -25,7 +25,7 @@ import org.bson.types.ObjectId;
 public class PruebaConversiones {
 
     public static void main(String[] args) {
-
+/*
         Conversiones conversiones = new Conversiones();
 
         EntidadUbicacion ubicacion = new EntidadUbicacion("AV-1100", "Campus Principal", "Aula para clases regulares");
@@ -107,7 +107,7 @@ public class PruebaConversiones {
         } else {
             System.out.println("Evento no es igual");
         }
-
+*/
     }
     
 }

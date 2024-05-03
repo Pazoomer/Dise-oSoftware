@@ -13,6 +13,10 @@ public class CampusConsultableDTO {
     private String nombre;
     private List<UbicacionDTO> ubicaciones;
     private String url;
+    
+    public CampusConsultableDTO() {
+        this.ubicaciones=new ArrayList<>();
+    }
 
     public CampusConsultableDTO(String nombre) {
         this.nombre = nombre;

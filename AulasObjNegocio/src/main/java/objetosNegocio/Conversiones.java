@@ -32,7 +32,7 @@ class Conversiones {
 
         if (ubicacionDTO.getCampus() != null) {
 
-            ubicacion.setCampus(ubicacionDTO.getCampus().getNombre());
+            ubicacion.setCampusConversion(ubicacionDTO.getCampus().getId());
 
         }
 
@@ -57,23 +57,27 @@ class Conversiones {
         return ubicacion;
     }
 
-    protected UbicacionDTO toUbicacionDTO(EntidadUbicacion ubicacionBO){
+    protected UbicacionDTO toUbicacionDTO(EntidadUbicacion ubicacionBO) {
         UbicacionDTO ubicacion;
-        if(ubicacionBO.getCampus()!=null){
-            ubicacion=new UbicacionDTO(
+
+        CampusConsultableDTO campusAux = new CampusConsultableDTO();
+        campusAux.setId(ubicacionBO.getCampusConversion());
+        if (ubicacionBO.getCampus() != null) {
+
+            ubicacion = new UbicacionDTO(
                     ubicacionBO.getIdentificador(),
                     ubicacionBO.getDescripcion(),
-                    new CampusConsultableDTO(ubicacionBO.getCampus())
+                    campusAux
             );
-        }else{
-            ubicacion=new UbicacionDTO(ubicacionBO.getIdentificador());
+        } else {
+            ubicacion = new UbicacionDTO(ubicacionBO.getIdentificador());
         }
         ubicacion.setId(ubicacionBO.getIdConversion());
         ubicacion.setPosicionX(ubicacionBO.getPosicionX());
         ubicacion.setPosicionY(ubicacionBO.getPosicionY());
         return ubicacion;
     }
-    
+
     protected EntidadMaestro toMaestroBO(MaestroEditableDTO maestro) {
         List<EventoConsultableDTO> eventos = maestro.getCalendario();
         List<EntidadEvento> eventosBO = new ArrayList<>();
@@ -275,6 +279,7 @@ class Conversiones {
 
         EntidadCampus entidadCampus = new EntidadCampus();
         List<EntidadUbicacion> entidadUbicaciones = new ArrayList<>();
+        entidadCampus.setIdConversion(campusDTO.getId());
 
         if (campusDTO.getUbicaciones() != null) {
 
@@ -282,8 +287,8 @@ class Conversiones {
 
                 EntidadUbicacion ubicacionAux = toUbicacionBO(ubicacion);
 
-                ubicacionAux.setCampus(entidadCampus.getNombre());
-
+                ubicacionAux.setCampus(entidadCampus.getId());
+                
                 entidadUbicaciones.add(ubicacionAux);
             }
             entidadCampus.setUbicaciones(entidadUbicaciones);
@@ -291,7 +296,7 @@ class Conversiones {
 
         entidadCampus.setNombre(campusDTO.getNombre());
         entidadCampus.setUrl(campusDTO.getUrl());
-        entidadCampus.setIdConversion(campusDTO.getId());
+        
         return entidadCampus;
     }
 

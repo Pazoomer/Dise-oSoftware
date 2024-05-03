@@ -20,7 +20,7 @@ public class PruebaInsertar {
     
 
     public static void main(String[] args) throws PersistenciaExceptionn {
-
+/*
         CrudMaestro CRUDmaestro=new CrudMaestro();
         CrudCampus CRUDcampus=new CrudCampus();
 //
@@ -55,7 +55,7 @@ public class PruebaInsertar {
         if(CRUDmaestro.cerrarConexion()) System.out.println("Se cerro la conexion");
         else System.out.println("No se cerro la conexion");
         
-       
+       */
     }
 
 }

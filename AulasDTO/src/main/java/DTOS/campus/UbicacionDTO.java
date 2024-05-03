@@ -96,7 +96,10 @@ public class UbicacionDTO {
         sb.append("id=").append(id);
         sb.append(", identificador=").append(identificador);
         sb.append(", descripcion=").append(descripcion);
-        sb.append(", campus=").append(campus);
+        if (campus != null) {
+            sb.append(", campus=").append(campus.getId());
+        }
+
         sb.append(", eventos=").append(eventos);
         sb.append(", posicionX=").append(posicionX);
         sb.append(", posicionY=").append(posicionY);

@@ -33,16 +33,41 @@ public class Insercion {
             CrudMaestro CRUDmaestro = new CrudMaestro();
             CrudCampus CRUDcampus = new CrudCampus();
 
-            EntidadUbicacion ubicacionNainari1 = new EntidadUbicacion("AV-1100", "Campus Principal", "Aula para clases regulares");
-            EntidadUbicacion ubicacionNainari2 = new EntidadUbicacion("AV-1200", "Campus Principal", "Aula para clases regulares");
-            EntidadUbicacion ubicacionObregon1 = new EntidadUbicacion("LV-100", "Campus Principal", "Aula para clases regulares");
-            EntidadUbicacion ubicacionObregon2 = new EntidadUbicacion("LV-200", "Campus Principal", "Aula para clases regulares");
-            
-            EntidadMaestro maestro = new EntidadMaestro(true,"1", "Juan Pérez", ubicacionNainari1, "Profesor de Matemáticas", "fotoMaestroG.png");
-
             EntidadCampus campusNainari = new EntidadCampus("Obregon Nainari");
             EntidadCampus campusCentro = new EntidadCampus("Centro");
 
+            if ((campusNainari = CRUDcampus.agregarCampus(campusNainari)) != null) {
+                //System.out.println("Se agrego el campus");
+                //System.out.println("Id Campus nainari: " + campusNainari.getId());
+            } else {
+                System.out.println("No se agrego el campus");
+            }
+
+            if ((campusCentro = CRUDcampus.agregarCampus(campusCentro)) != null) {
+                //System.out.println("Se agrego el campus");
+                //System.out.println("Id Campus centro: " + campusCentro.getId());
+            } else {
+                System.out.println("No se agrego el campus");
+            }
+            
+            EntidadUbicacion ubicacionNainari1 = new EntidadUbicacion("AV-1100", campusNainari.getId(), "Aula para clases regulares");
+            ubicacionNainari1.setPosicionX(200D);
+            ubicacionNainari1.setPosicionY(200D);
+            
+            EntidadUbicacion ubicacionNainari2 = new EntidadUbicacion("AV-1200", campusNainari.getId(), "Aula para clases regulares");
+            ubicacionNainari2.setPosicionX(300D);
+            ubicacionNainari2.setPosicionY(300D);
+            
+            EntidadUbicacion ubicacionObregon1 = new EntidadUbicacion("LV-100", campusCentro.getId(), "Aula para clases regulares");
+            ubicacionObregon1.setPosicionX(100D);
+            ubicacionObregon1.setPosicionY(100D);
+            
+            EntidadUbicacion ubicacionObregon2 = new EntidadUbicacion("LV-200", campusCentro.getId(), "Aula para clases regulares");
+            ubicacionObregon2.setPosicionX(400D);
+            ubicacionObregon2.setPosicionY(400D);
+            
+            EntidadMaestro maestro = new EntidadMaestro(true,"1", "Juan Pérez", ubicacionNainari1, "Profesor de Matemáticas", "fotoMaestroG.png");
+            
             List<EntidadUbicacion> ubicacionesNainari = new ArrayList<>();
             ubicacionesNainari.add(ubicacionNainari1);
             ubicacionesNainari.add(ubicacionNainari2);
@@ -62,7 +87,7 @@ public class Insercion {
             Calendar f=Calendar.getInstance();
             f.setTime(evento1.getFechaInicio());
             
-            System.out.println(f.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US));
+            //System.out.println(f.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US));
             evento1.setTipo(EntidadTipoEventoEnum.SEMANAL);
             evento1.setDiasSemana("0011100");
             evento1.setMaestro(maestro.getNombre());
@@ -71,23 +96,25 @@ public class Insercion {
             calendario.add(evento1);
             maestro.setCalendario(calendario);
             
-            System.out.println(maestro);
-            System.out.println(evento1);
-            System.out.println(campusNainari);
-            System.out.println(ubicacionNainari1);
+            //System.out.println(maestro);
+            //System.out.println(evento1);
+            //System.out.println(campusNainari);
+            //System.out.println(ubicacionNainari1);
             
-            if (CRUDcampus.agregarCampus(campusNainari) != null) {
+            System.out.println(campusNainari.getUbicaciones().get(0));
+            
+            if (CRUDcampus.editarCampus(campusNainari) != null) {
                 System.out.println("Se agrego el campus");
             } else {
                 System.out.println("No se agrego el campus");
             }
-            
-            if (CRUDcampus.agregarCampus(campusCentro) != null) {
+
+            if (CRUDcampus.editarCampus(campusCentro) != null) {
                 System.out.println("Se agrego el campus");
             } else {
                 System.out.println("No se agrego el campus");
             }
-            
+    
             if (CRUDmaestro.agregarMaestro(maestro) != null) {
                 System.out.println("Se agrego el maestro");
             } else {

@@ -1,10 +1,12 @@
 package entidades;
 
+import java.beans.Transient;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import org.bson.codecs.pojo.annotations.BsonId;
+import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
 
 public class EntidadUbicacion implements Serializable {
@@ -16,7 +18,8 @@ public class EntidadUbicacion implements Serializable {
     
     private String identificador;
     
-    private String campus;
+    //@BsonProperty("idCampus")
+    private ObjectId idCampus;
 
     private List<EntidadEvento> eventos;
     
@@ -37,9 +40,9 @@ public class EntidadUbicacion implements Serializable {
         this.eventos=new ArrayList<>();
     }
 
-    public EntidadUbicacion(String identificador, String campus, String descripcion) {
+    public EntidadUbicacion(String identificador, ObjectId idCampus, String descripcion) {
         this.identificador = identificador;
-        this.campus = campus;
+        this.idCampus = idCampus;
         this.descripcion=descripcion;
         this.eventos=new ArrayList<>();
     }
@@ -68,12 +71,12 @@ public class EntidadUbicacion implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public String getCampus() {
-        return campus;
+    public ObjectId getCampus() {
+        return idCampus;
     }
 
-    public void setCampus(String campus) {
-        this.campus = campus;
+    public void setCampus(ObjectId idCampus) {
+        this.idCampus = idCampus;
     }
     
     public ObjectId getId() {
@@ -100,13 +103,40 @@ public class EntidadUbicacion implements Serializable {
         this.posicionY = posicionY;
     }
     
-    
+    /**
+     * Obtienes el valor de ObjectId como string
+     *
+     * @return
+     */
+    @Transient
+    public String getCampusConversion() {
+        // Obtener el valor hexadecimal del ObjectId
+        if (this.idCampus == null) {
+            return null;
+        }
+        
+        return this.idCampus.toString();
+    }
+
+    /**
+     * Recibe un String que convierta a ObjectId para colocarselo como atributo
+     *
+     * @param idCampus
+     */
+    @Transient
+    public void setCampusConversion(String idCampus) {
+        if (idCampus != null) {
+            this.idCampus = new ObjectId(idCampus);
+        }
+
+    }
     
     /**
      * Obtienes el valor de ObjectId como string
      *
      * @return
      */
+    @Transient
     public String getIdConversion() {
         // Obtener el valor hexadecimal del ObjectId
         if (this.id == null) {
@@ -121,6 +151,7 @@ public class EntidadUbicacion implements Serializable {
      *
      * @param id
      */
+    @Transient
     public void setIdConversion(String id) {
         if (id != null) {
             this.id = new ObjectId(id);
@@ -135,7 +166,7 @@ public class EntidadUbicacion implements Serializable {
         sb.append("id=").append(id);
         sb.append(", descripcion=").append(descripcion);
         sb.append(", identificador=").append(identificador);
-        sb.append(", campus=").append(campus);
+        sb.append(", campus=").append(idCampus);
         sb.append(", eventos=").append(eventos);
         sb.append(", posicionX=").append(posicionX);
         sb.append(", posicionY=").append(posicionY);

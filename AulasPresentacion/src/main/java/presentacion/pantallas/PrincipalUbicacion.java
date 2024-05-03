@@ -11,7 +11,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import presentacion.CDUbicacion;
@@ -84,8 +83,10 @@ public class PrincipalUbicacion extends javax.swing.JFrame {
     private void consultarUbicaciones() {
          try {
             ubicaciones=accesoUbicaciones.recuperarEdificiosPorCampus(campusSeleccionado);
+             System.out.println("ubicaciones "+ubicaciones);
         } catch (NegocioException ex) {
             error("No se pudieron consultar las ubicaciones");
+            cerrar();
         }
     }
 
@@ -123,6 +124,7 @@ public class PrincipalUbicacion extends javax.swing.JFrame {
                 if (filaSeleccionada != -1) {
                     ubicacionSeleccionada=ubicaciones.get(filaSeleccionada);
                     cambiarTitulo();
+                    System.out.println("ubicacionSeleccionada "+ubicacionSeleccionada);
                 }
             }
         });

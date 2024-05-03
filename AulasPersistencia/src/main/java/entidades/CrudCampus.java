@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import org.bson.conversions.Bson;
 import com.mongodb.client.model.Filters;
 import java.util.Iterator;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -37,20 +38,30 @@ public class CrudCampus {
             throw new PersistenciaExceptionn("Hubo un error al agregar el campus.");
         }
     }
-    
+
     public EntidadCampus editarCampus(EntidadCampus campus) throws PersistenciaExceptionn {
-    try {
-        coleccion.replaceOne(eq("_id", campus.getId()), campus);
-        return campus;
-    } catch (Exception e) {
-        LOG.log(Level.SEVERE, e.getMessage(), e);
-        throw new PersistenciaExceptionn("Hubo un error al actualizar el campus.");
-    }
+        try {
+
+            if (campus.getUbicaciones() != null && !campus.getUbicaciones().isEmpty()) {
+
+                for (EntidadUbicacion ubicacion : campus.getUbicaciones()) {
+                    if (ubicacion.getId() == null) {
+                        ubicacion.setId(new ObjectId()); // Generar un nuevo ID
+                    }
+                }
+            }
+            coleccion.replaceOne(eq("_id", campus.getId()), campus);
+
+            return campus;
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, e.getMessage(), e);
+            throw new PersistenciaExceptionn("Hubo un error al actualizar el campus.");
+        }
 }
 
     public boolean eliminarCampus(EntidadCampus campusParametro) throws PersistenciaExceptionn {
         try {
-            coleccion.deleteOne(eq("nombre", campusParametro.getNombre()));
+            coleccion.deleteOne(eq("_id", campusParametro.getId()));
             return true;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
@@ -60,7 +71,7 @@ public class CrudCampus {
 
     public EntidadCampus obtenerCampus(EntidadCampus campusParametro) throws PersistenciaExceptionn {
         try {
-            EntidadCampus campusEncontrado = coleccion.find(eq("nombre", campusParametro.getNombre())).first();
+            EntidadCampus campusEncontrado = coleccion.find(eq("_id", campusParametro.getId())).first();
             return campusEncontrado;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
@@ -144,7 +155,7 @@ public class CrudCampus {
     public EntidadUbicacion agregarUbicacion(EntidadUbicacion ubicacion) throws PersistenciaExceptionn {
         try {
             EntidadCampus campus = new EntidadCampus();
-            campus.setNombre(ubicacion.getCampus());
+            campus.setId(ubicacion.getCampus());
             
             //Obtiene el campus de la ubicacion
             campus = obtenerCampus(campus);
@@ -163,7 +174,7 @@ public class CrudCampus {
     public EntidadUbicacion editarUbicacion(EntidadUbicacion ubicacion) throws PersistenciaExceptionn {
         try {
             EntidadCampus campus = new EntidadCampus();
-            campus.setNombre(ubicacion.getCampus());
+            campus.setId(ubicacion.getCampus());
 
             //Obtiene el campus de la ubicacion
             campus = obtenerCampus(campus);
@@ -194,7 +205,7 @@ public class CrudCampus {
     public Boolean eliminarUbicacion(EntidadUbicacion ubicacionParametro) throws PersistenciaExceptionn {
         try {
             EntidadCampus campus = new EntidadCampus();
-            campus.setNombre(ubicacionParametro.getCampus());
+            campus.setId(ubicacionParametro.getCampus());
 
             //Obtiene el campus de la ubicacion
             campus = obtenerCampus(campus);
