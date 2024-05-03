@@ -44,6 +44,7 @@ public class CDMapa extends javax.swing.JDialog {
     private Point posicionMarcador;
     private ImageIcon iconoMarcador;
     private javax.swing.JDialog pantallaAnterior;
+    private JPanel panelImagen;
     
     /**
      * Creates new form CDMapa
@@ -93,17 +94,32 @@ public class CDMapa extends javax.swing.JDialog {
             e.printStackTrace();
         }
         
+        // Crear un panel para mostrar la imagen
+        panelImagen = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(imagenMapa, 0, 0, this); // Dibujar la imagen en el panel
+            }
+        };
+        panelImagen.setSize(435, 350); // Establecer el tamaño del panel de imagen
+        panelImagen.setLocation(0, 0); // Establecer la ubicación del panel de imagen
+
+        // Agregar el panel de imagen al pnlMapa
+        pnlMapa.add(panelImagen);
+        
+        
         //Pone el layout null
         //pnlMapa.setLayout(null);
-
         // Crear un JLabel para mostrar la imagen
+        /*
         JLabel labelImagen = new JLabel(new ImageIcon(imagenMapa));
         labelImagen.setSize(435, 350);
         labelImagen.setLocation(0, 0);
 
         // Agregar el JLabel al panel
         pnlMapa.add(labelImagen);
-
+        */
         // Carga la imagen del marcador
         URL urlMarcador = getClass().getResource("/imagenes/marcador.png");
         BufferedImage imagenMarcador=null;
@@ -118,12 +134,12 @@ public class CDMapa extends javax.swing.JDialog {
         labelMarcador = new JLabel(iconoMarcador);
         
         // Agrega un listener de clic del ratón al panel del mapa
-        pnlMapa.addMouseListener(new MouseAdapter() {
+        panelImagen.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 posicionMarcador = e.getPoint();
-                pnlMapa.repaint(); // Vuelve a dibujar el panel para mostrar el marcador en la nueva posición
+                panelImagen.repaint(); // Vuelve a dibujar el panel para mostrar el marcador en la nueva posición
 
                 // Aquí puedes guardar la posición del marcador (posicionMarcador)
                 System.out.println("Posición del marcador: " + posicionMarcador);
@@ -171,7 +187,10 @@ public class CDMapa extends javax.swing.JDialog {
     
     private void colocarMarcadores() {
 
+        panelImagen.setLayout(null);
         //Quita los marcadores
+        panelImagen.removeAll();
+        /*
         Component[] componentes = pnlMapa.getComponents();
         if (componentes.length > 1) {
             for (int i = 1; i < componentes.length; i++) {
@@ -179,7 +198,7 @@ public class CDMapa extends javax.swing.JDialog {
             }
             pnlMapa.revalidate(); // Revalida el panel para reflejar los cambios
             pnlMapa.repaint(); // Vuelve a dibujar el panel
-        }
+        }*/
         
         for (UbicacionDTO ubicacion : ubicaciones) {
             if (ubicacion.getPosicionX() != null && ubicacion.getPosicionY() != null) {
@@ -203,7 +222,7 @@ public class CDMapa extends javax.swing.JDialog {
                 });
 
                 // Agrega el marcador al panel del mapa
-                pnlMapa.add(marcador);
+                panelImagen.add(marcador);
             }
         }
 

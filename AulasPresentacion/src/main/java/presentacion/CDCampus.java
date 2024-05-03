@@ -44,6 +44,7 @@ public class CDCampus extends javax.swing.JDialog {
         
         if ((operacion.equalsIgnoreCase("Editar") || operacion.equalsIgnoreCase("Eliminar"))) {
             this.txtNombre.setText(campusSeleccionado.getNombre());
+            this.txtUrl.setText(campusSeleccionado.getUrl());
         }
         this.lblOperacionDinamico.setText(operacion+" el campus");
 
@@ -62,6 +63,7 @@ public class CDCampus extends javax.swing.JDialog {
     
     private void limpiar(){
         this.txtNombre.setText("");
+        this.txtUrl.setText("");
     }
 
     private void cerrar() {
@@ -76,12 +78,15 @@ public class CDCampus extends javax.swing.JDialog {
     private void colocarPermisos() {
         if (operacion.equalsIgnoreCase("Eliminar")) {
             this.txtNombre.setEnabled(false);
+            this.txtUrl.setEnabled(false);
             
         } else if (operacion.equalsIgnoreCase("Editar")) {
             this.txtNombre.setEnabled(true);
+            this.txtUrl.setEnabled(false);
 
         } else if (operacion.equalsIgnoreCase("Agregar")) {
             this.txtNombre.setEnabled(true);
+            this.txtUrl.setEnabled(false);
         } else {
             error("No tiene permisos para acceder a los campus");
             cerrar();
@@ -114,6 +119,7 @@ public class CDCampus extends javax.swing.JDialog {
 
     private void editar(){
         campusSeleccionado.setNombre(this.txtNombre.getText());
+        campusSeleccionado.setUrl(this.txtUrl.getText());
         
         try {
             accesoUbicaciones.editarCampus(campusSeleccionado);
@@ -127,6 +133,7 @@ public class CDCampus extends javax.swing.JDialog {
     
     private void agregar() {
         CampusConsultableDTO campus = new CampusConsultableDTO(this.txtNombre.getText());
+        campus.setUrl(this.txtUrl.getText());
         try {
             accesoUbicaciones.agregarCampus(campus);
         } catch (NegocioException ex) {
@@ -149,6 +156,9 @@ public class CDCampus extends javax.swing.JDialog {
         lblCancelarEstatico = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lblNombreEstatico = new javax.swing.JLabel();
+        pnlUrlEstatico = new javax.swing.JPanel();
+        lblUrlEstatico = new javax.swing.JLabel();
+        txtUrl = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -215,6 +225,29 @@ public class CDCampus extends javax.swing.JDialog {
                 .addGap(0, 6, Short.MAX_VALUE))
         );
 
+        pnlUrlEstatico.setBackground(new java.awt.Color(22, 81, 198));
+
+        lblUrlEstatico.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        lblUrlEstatico.setForeground(new java.awt.Color(255, 255, 255));
+        lblUrlEstatico.setText("URL de la imagen");
+
+        javax.swing.GroupLayout pnlUrlEstaticoLayout = new javax.swing.GroupLayout(pnlUrlEstatico);
+        pnlUrlEstatico.setLayout(pnlUrlEstaticoLayout);
+        pnlUrlEstaticoLayout.setHorizontalGroup(
+            pnlUrlEstaticoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlUrlEstaticoLayout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addComponent(lblUrlEstatico)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlUrlEstaticoLayout.setVerticalGroup(
+            pnlUrlEstaticoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlUrlEstaticoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblUrlEstatico)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -238,8 +271,11 @@ public class CDCampus extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(89, 89, 89)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtUrl, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(pnlUrlEstatico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -250,7 +286,11 @@ public class CDCampus extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(pnlUrlEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(129, 129, 129)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblConfirmarEstatico)
                     .addComponent(lblCancelarEstatico))
@@ -258,7 +298,7 @@ public class CDCampus extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnConfirmar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 36, Short.MAX_VALUE))
+                .addGap(0, 23, Short.MAX_VALUE))
         );
 
         pack();
@@ -283,7 +323,10 @@ public class CDCampus extends javax.swing.JDialog {
     private javax.swing.JLabel lblConfirmarEstatico;
     private javax.swing.JLabel lblNombreEstatico;
     private javax.swing.JLabel lblOperacionDinamico;
+    private javax.swing.JLabel lblUrlEstatico;
     private javax.swing.JPanel pnlTitulo;
+    private javax.swing.JPanel pnlUrlEstatico;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtUrl;
     // End of variables declaration//GEN-END:variables
 }
