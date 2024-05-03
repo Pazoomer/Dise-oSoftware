@@ -48,7 +48,7 @@ public class CDUbicacion extends javax.swing.JDialog {
         this.pantallaAnterior=pantallaAnterior;
         decorar();
         colocarPermisos();
-        System.out.println(ubicacionSeleccionada);
+
     }
 
     private void decorar() {

@@ -153,9 +153,9 @@ public class Campus {
     public Boolean eliminarUbicacion(UbicacionDTO ubicacionParametro) throws NegocioException {
 
         try {
-            System.out.println(ubicacionParametro);
+
             EntidadUbicacion toUbicacionBO = conversiones.toUbicacionBO(ubicacionParametro);
-            System.out.println(toUbicacionBO);
+
             Boolean eliminado=crudCampus.eliminarUbicacion(toUbicacionBO);
            //Boolean eliminado=crudCampus.eliminarUbicacion(conversiones.toUbicacionBO(ubicacionParametro));
             if (eliminado==true) {

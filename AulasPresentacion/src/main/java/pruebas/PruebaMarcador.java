@@ -1,5 +1,6 @@
 
 package pruebas;
+import DTOS.campus.CampusConsultableDTO;
 import DTOS.campus.UbicacionDTO;
 import java.awt.*;
 import java.awt.event.*;
@@ -18,15 +19,38 @@ public class PruebaMarcador {
     private JLabel labelMarcador;
     private BufferedImage imagenMapa;
     private Point posicionMarcador;
-    private final ImageIcon iconoMarcador;
+    private ImageIcon iconoMarcador;
     private java.util.List<UbicacionDTO> ubicaciones=new ArrayList<>();
     private UbicacionDTO ubicacionActual;
+    private JButton btnAceptar;
+    private JButton btnCancelar;
 
     public PruebaMarcador() {
-
+        decorar();
+        limpiarUbicaciones();
+        colocarMarcadores();
+    }
+    
+    private void decorar() {
+        //Crea el frame
         frame = new JFrame("Mapa con Marcador");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
 
+        /*
+        // Panel superior azul con el título
+        JPanel panelSuperior = new JPanel();
+        panelSuperior.setBackground(new Color(22,81,198));
+        
+        // Coloca el tirulo
+        JLabel lblTitulo = new JLabel("Título");
+        lblTitulo.setText("Mapa de "+campus.getNombre());
+        lblTitulo.setForeground(Color.WHITE); 
+        panelSuperior.add(lblTitulo);
+        frame.add(panelSuperior, BorderLayout.NORTH);
+
+        */
+        //Crea el panel del mapa
         panelMapa = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -42,9 +66,8 @@ public class PruebaMarcador {
             }
         };
         panelMapa.setLayout(null); // Para poder posicionar el marcador manualmente
-
         frame.add(panelMapa, BorderLayout.CENTER);
-
+        
         // Carga la imagen del mapa
         try {
             URL urlMapa = new URL("https://itson.mx/universidad/PublishingImages/mapas-campus/campus-centro.jpg");
@@ -78,7 +101,6 @@ public class PruebaMarcador {
         iconoMarcador = new ImageIcon(imagenRedimensionada);
         labelMarcador = new JLabel(iconoMarcador);
         labelMarcador.setOpaque(false);
-        
         panelMapa.add(labelMarcador);
 
         // Establece el tamaño del frame
@@ -111,8 +133,36 @@ public class PruebaMarcador {
                 colocarMarcadores();
             }
         });
-        limpiarUbicaciones();
-        colocarMarcadores();
+        //Detalles del mapa
+        panelMapa.setBackground(Color.WHITE);
+        frame.add(panelMapa, BorderLayout.CENTER);
+
+        /*
+        // Panel inferior con los botones
+        JPanel panelInferior = new JPanel(new BorderLayout());
+
+        // Botón Cancelar y su label
+        btnCancelar = new JButton("Cancelar");
+        btnCancelar.setPreferredSize(new Dimension(80, 70));
+        JLabel lblCancelar = new JLabel("Cancelar", SwingConstants.CENTER);
+        panelInferior.add(lblCancelar, BorderLayout.NORTH);
+        panelInferior.add(btnCancelar, BorderLayout.SOUTH);
+
+        // Botón Aceptar y su label
+        btnAceptar = new JButton("Aceptar");
+        btnAceptar.setPreferredSize(new Dimension(80, 70));
+        JLabel lblAceptar = new JLabel("Aceptar", SwingConstants.CENTER);
+        panelInferior.add(lblAceptar, BorderLayout.NORTH);
+        panelInferior.add(btnAceptar, BorderLayout.EAST);
+        */
+        frame.setSize(500, 600);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+
+    }
+    
+    private void error(String error) {
+        JOptionPane.showMessageDialog(null, error);
     }
 
     private void limpiarUbicaciones() {
@@ -175,8 +225,8 @@ public class PruebaMarcador {
             }
         }
     }
-
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(PruebaMarcador::new);
+        new PruebaMarcador();
     }
+
 }

@@ -1,11 +1,14 @@
 
 package Ejecutable;
 
+import DTOS.campus.CampusConsultableDTO;
+import DTOS.campus.UbicacionDTO;
 import DTOS.maestro.MaestroEditableDTO;
 import accesoMaestro.FachadaAccesoMaestro;
 import accesoMaestro.IAccesoMaestro;
 import excepciones.NegocioException;
 import presentacion.pantallas.PrincipalInicio;
+import pruebas.PruebaMarcador;
 
 /**
  *
@@ -17,7 +20,6 @@ public class CUAdministrarUbicaciones {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
         
         IAccesoMaestro acceso = new FachadaAccesoMaestro();
         MaestroEditableDTO admin;
