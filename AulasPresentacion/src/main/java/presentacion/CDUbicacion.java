@@ -127,6 +127,11 @@ public class CDUbicacion extends javax.swing.JDialog {
         }
     }
     
+    public void colocarCoordenadas(Double x, Double y){
+        this.ubicacionSeleccionada.setPosicionX(x);
+        this.ubicacionSeleccionada.setPosicionY(y);
+    }
+    
     private void eliminar(){
         try {
             accesoUbicaciones.eliminarUbicacion(ubicacionSeleccionada);
@@ -157,6 +162,8 @@ public class CDUbicacion extends javax.swing.JDialog {
         ubicacion.setIdentificador(this.txtIdentificadorDinamico.getText());
         ubicacion.setDescripcion(this.txtDescripcionDinamico.getText());
         ubicacion.setCampus(campusSeleccionado);
+        ubicacion.setPosicionX(ubicacionSeleccionada.getPosicionX());
+        ubicacion.setPosicionY(ubicacionSeleccionada.getPosicionY());
         try {
             accesoUbicaciones.agregarUbicacion(ubicacion);
         } catch (NegocioException ex) {
@@ -311,13 +318,13 @@ public class CDUbicacion extends javax.swing.JDialog {
                         .addComponent(lblCancelarEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblAceptarEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(105, 105, 105))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(158, 158, 158)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblAñadirIconoMapaEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(105, 105, 105))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblAñadirIconoMapaEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

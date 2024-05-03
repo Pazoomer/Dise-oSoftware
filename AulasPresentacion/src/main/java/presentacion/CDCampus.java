@@ -82,11 +82,11 @@ public class CDCampus extends javax.swing.JDialog {
             
         } else if (operacion.equalsIgnoreCase("Editar")) {
             this.txtNombre.setEnabled(true);
-            this.txtUrl.setEnabled(false);
+            this.txtUrl.setEnabled(true);
 
         } else if (operacion.equalsIgnoreCase("Agregar")) {
             this.txtNombre.setEnabled(true);
-            this.txtUrl.setEnabled(false);
+            this.txtUrl.setEnabled(true);
         } else {
             error("No tiene permisos para acceder a los campus");
             cerrar();
