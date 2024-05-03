@@ -168,7 +168,8 @@ public class CDUbicacion extends javax.swing.JDialog {
     }
     
     private void abrirCDMapa(){
-       new CDMapa(parent,modal,campusSeleccionado,ubicacionSeleccionada).setVisible(true); 
+        this.setVisible(false);
+       new CDMapa(this,parent,modal,campusSeleccionado,ubicacionSeleccionada).setVisible(true); 
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

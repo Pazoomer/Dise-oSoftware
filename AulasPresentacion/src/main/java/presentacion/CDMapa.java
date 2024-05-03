@@ -5,6 +5,7 @@ import DTOS.campus.CampusConsultableDTO;
 import DTOS.campus.UbicacionDTO;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -42,44 +43,34 @@ public class CDMapa extends javax.swing.JDialog {
     private BufferedImage imagenMapa;
     private Point posicionMarcador;
     private ImageIcon iconoMarcador;
+    private javax.swing.JDialog pantallaAnterior;
+    
     /**
      * Creates new form CDMapa
+     * @param pantallaAnterior
      * @param parent
      * @param modal
      * @param campus
      * @param ubicacion
      */
-    public CDMapa(java.awt.Frame parent, boolean modal,CampusConsultableDTO campus, UbicacionDTO ubicacion) {
+    public CDMapa(javax.swing.JDialog pantallaAnterior,java.awt.Frame parent, boolean modal,CampusConsultableDTO campus, UbicacionDTO ubicacion) {
         super(parent, modal);
-        setUndecorated(true);
-        this.setResizable(false);
-        initComponents();
-        this.setSize(500, 620);
+        
         this.ubicacion = ubicacion;
         this.campus=campus;
-        colocarImagenMapa();
+        this.pantallaAnterior=pantallaAnterior;
+        this.setUndecorated(true);
+        this.setResizable(false);
+        initComponents();
         prueba();
+        decorar();
+        limpiarUbicaciones();
+        colocarMarcadores();
+        
     }
     
     private void prueba(){
-
-        //Crea el panel del mapa
-         //pnlMapa = new JPanel();
-         /*{
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                if (imagenMapa != null) {
-                    g.drawImage(imagenMapa, 0, 0, this);
-                    if (posicionMarcador != null) {
-                        int x = (int) posicionMarcador.getX() - (labelMarcador.getWidth() / 2);
-                        int y = (int) posicionMarcador.getY() - (labelMarcador.getHeight() / 2);
-                        labelMarcador.setLocation(x, y);
-                    }
-                }
-            }
-        };*/
-
+        
         // Carga la imagen del mapa
         try {
             URL urlMapa = new URL("https://itson.mx/universidad/PublishingImages/mapas-campus/campus-centro.jpg");
@@ -101,6 +92,17 @@ public class CDMapa extends javax.swing.JDialog {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
+        //Pone el layout null
+        //pnlMapa.setLayout(null);
+
+        // Crear un JLabel para mostrar la imagen
+        JLabel labelImagen = new JLabel(new ImageIcon(imagenMapa));
+        labelImagen.setSize(435, 350);
+        labelImagen.setLocation(0, 0);
+
+        // Agregar el JLabel al panel
+        pnlMapa.add(labelImagen);
 
         // Carga la imagen del marcador
         URL urlMarcador = getClass().getResource("/imagenes/marcador.png");
@@ -113,9 +115,7 @@ public class CDMapa extends javax.swing.JDialog {
         
         Image imagenRedimensionada = imagenMarcador.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         iconoMarcador = new ImageIcon(imagenRedimensionada);
-        //labelMarcador = new JLabel(iconoMarcador);
-        //labelMarcador.setOpaque(false);
-        //pnlMapa.add(labelMarcador);
+        labelMarcador = new JLabel(iconoMarcador);
         
         // Agrega un listener de clic del ratón al panel del mapa
         pnlMapa.addMouseListener(new MouseAdapter() {
@@ -138,28 +138,7 @@ public class CDMapa extends javax.swing.JDialog {
                 colocarMarcadores();
             }
         });
-        //Detalles del mapa
-        pnlMapa.setLayout(null); // Para poder posicionar el marcador manualmente
-        this.add(pnlMapa, BorderLayout.CENTER);
-
-        //Iconos de botones
-        try {
-            ImageIcon iconoReturn = new ImageIcon(getClass().getResource("/imagenes/icons8-return-50.png"));
-            this.btnCancelar.setIcon(iconoReturn);
-
-            ImageIcon iconoAceptar = new ImageIcon(getClass().getResource("/imagenes/icons8-save-50.png"));
-            Image imagenRedimensionadaAceptar = iconoAceptar.getImage().getScaledInstance(btnAceptar.getWidth(), btnAceptar.getHeight(), Image.SCALE_SMOOTH);
-            this.btnAceptar.setIcon(new ImageIcon(imagenRedimensionadaAceptar));
-
-        } catch (Exception e) {
-            error("No cargaron los iconos");
-        }
-
-        // Centra el frame en la pantalla
-        this.setLocationRelativeTo(null);
-
     }
-    
     
     private void decorar() {
         this.lblMapaTitulo.setText("Mapa de " + campus.getNombre());
@@ -175,44 +154,64 @@ public class CDMapa extends javax.swing.JDialog {
         }
 
     }
-
-    private void colocarImagenMapa() {
-        SwingUtilities.invokeLater(() -> {
-            try {
-                // Lee la imagen desde la URL
-                URL url = new URL("https://itson.mx/universidad/PublishingImages/mapas-campus/campus-centro.jpg");
-                Image imagenDesdeURL = ImageIO.read(url);
-
-                // Redimensiona la imagen si es necesario
-                int anchoDeseado = 150; // Coloca el ancho deseado
-                int altoDeseado = 150; // Coloca el alto deseado
-                Image imagenRedimensionada = imagenDesdeURL.getScaledInstance(anchoDeseado, altoDeseado, Image.SCALE_SMOOTH);
-
-                // Crea un ImageIcon con la imagen redimensionada
-                ImageIcon icono = new ImageIcon(imagenRedimensionada);
-
-                // Crea un JLabel con el ImageIcon
-                JLabel label = new JLabel(icono);
-                label.setVisible(true);
-
-                this.pnlMapa.add(label);
-                pnlMapa.revalidate();
-                pnlMapa.repaint();
-                 
-                 
-            } catch (IOException e) {
-                error("Error al cargar la imagen desde la URL: " + e.getMessage());
+    
+    private void limpiarUbicaciones() {
+        
+        java.util.List<UbicacionDTO> ubicacionesNuevas=new ArrayList<>();
+        
+        //Descarta las ubicaciones sin coordenadas
+        for (UbicacionDTO ubicacion:ubicaciones) {
+            if (ubicacion.getPosicionX()!=null && ubicacion.getPosicionY()!=null) {
+                ubicacionesNuevas.add(ubicacion);
             }
-        });
-
+        }
+        ubicaciones=ubicacionesNuevas;
+        ubicaciones.add(ubicacion);
     }
     
-    private void colocarMarcadores(){
+    private void colocarMarcadores() {
+
+        //Quita los marcadores
+        Component[] componentes = pnlMapa.getComponents();
+        if (componentes.length > 1) {
+            for (int i = 1; i < componentes.length; i++) {
+                pnlMapa.remove(componentes[i]);
+            }
+            pnlMapa.revalidate(); // Revalida el panel para reflejar los cambios
+            pnlMapa.repaint(); // Vuelve a dibujar el panel
+        }
         
+        for (UbicacionDTO ubicacion : ubicaciones) {
+            if (ubicacion.getPosicionX() != null && ubicacion.getPosicionY() != null) {
+
+                Double x = ubicacion.getPosicionX();
+                Double y = ubicacion.getPosicionY();
+                String identificador = ubicacion.getIdentificador();
+                // Crea un nuevo JLabel con la imagen del marcador
+                JLabel marcador = new JLabel(iconoMarcador);
+                marcador.setSize(iconoMarcador.getIconWidth(), iconoMarcador.getIconHeight());
+                marcador.setLocation(x.intValue() - (iconoMarcador.getIconWidth() / 2), y.intValue() - (iconoMarcador.getIconHeight() / 2));
+
+                // Agrega un listener de clic del ratón al marcador
+                marcador.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        super.mouseClicked(e);
+                        // Muestra un mensaje con el identificador de la ubicación
+                        JOptionPane.showMessageDialog(null, identificador);
+                    }
+                });
+
+                // Agrega el marcador al panel del mapa
+                pnlMapa.add(marcador);
+            }
+        }
+
     }
 
     private void cerrar() {
-        this.dispose();
+        this.pantallaAnterior.setVisible(true);
+        
     }
     
     private void error(String error) {
@@ -226,12 +225,16 @@ public class CDMapa extends javax.swing.JDialog {
         btnCancelar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         lblMapaTitulo = new javax.swing.JLabel();
-        lblInstruccionEstatico = new javax.swing.JLabel();
         lblCancelarEstatico = new javax.swing.JLabel();
         lblAceptarEstatico = new javax.swing.JLabel();
         pnlMapa = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -268,9 +271,6 @@ public class CDMapa extends javax.swing.JDialog {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        lblInstruccionEstatico.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        lblInstruccionEstatico.setText("Haga clic en el mapa para colocar la ubicacion");
-
         lblCancelarEstatico.setText("Cancelar");
 
         lblAceptarEstatico.setText("Aceptar");
@@ -293,10 +293,6 @@ public class CDMapa extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblInstruccionEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(79, 79, 79))
             .addGroup(layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(lblCancelarEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -321,9 +317,7 @@ public class CDMapa extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlMapa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblInstruccionEstatico, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCancelarEstatico)
                     .addComponent(lblAceptarEstatico))
@@ -343,8 +337,12 @@ public class CDMapa extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        cerrar();
+        this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        cerrar();
+    }//GEN-LAST:event_formWindowClosed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -353,7 +351,6 @@ public class CDMapa extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblAceptarEstatico;
     private javax.swing.JLabel lblCancelarEstatico;
-    private javax.swing.JLabel lblInstruccionEstatico;
     private javax.swing.JLabel lblMapaTitulo;
     private javax.swing.JPanel pnlMapa;
     // End of variables declaration//GEN-END:variables

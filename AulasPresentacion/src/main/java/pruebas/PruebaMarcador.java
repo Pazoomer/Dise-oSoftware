@@ -22,36 +22,22 @@ public class PruebaMarcador {
     private ImageIcon iconoMarcador;
     private java.util.List<UbicacionDTO> ubicaciones=new ArrayList<>();
     private UbicacionDTO ubicacionActual;
-    private JButton btnAceptar;
-    private JButton btnCancelar;
+    
 
     public PruebaMarcador() {
         decorar();
-        limpiarUbicaciones();
-        colocarMarcadores();
+        //limpiarUbicaciones();
+        //colocarMarcadores();
     }
     
     private void decorar() {
         //Crea el frame
         frame = new JFrame("Mapa con Marcador");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new BorderLayout());
-
-        /*
-        // Panel superior azul con el título
-        JPanel panelSuperior = new JPanel();
-        panelSuperior.setBackground(new Color(22,81,198));
-        
-        // Coloca el tirulo
-        JLabel lblTitulo = new JLabel("Título");
-        lblTitulo.setText("Mapa de "+campus.getNombre());
-        lblTitulo.setForeground(Color.WHITE); 
-        panelSuperior.add(lblTitulo);
-        frame.add(panelSuperior, BorderLayout.NORTH);
-
-        */
+ 
         //Crea el panel del mapa
-        panelMapa = new JPanel() {
+        panelMapa = new JPanel()
+        {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -65,8 +51,9 @@ public class PruebaMarcador {
                 }
             }
         };
+        
+        
         panelMapa.setLayout(null); // Para poder posicionar el marcador manualmente
-        frame.add(panelMapa, BorderLayout.CENTER);
         
         // Carga la imagen del mapa
         try {
@@ -82,6 +69,7 @@ public class PruebaMarcador {
 
             // Crea una nueva imagen a partir de la imagen redimensionada
             imagenMapa = new BufferedImage(anchoDeseado, altoDeseado, BufferedImage.TYPE_INT_ARGB);
+            
             Graphics2D g2d = imagenMapa.createGraphics();
             g2d.drawImage(imagenRedimensionada, 0, 0, null);
             g2d.dispose();
@@ -92,25 +80,17 @@ public class PruebaMarcador {
         // Carga la imagen del marcador
         URL urlMarcador = getClass().getResource("/imagenes/marcador.png");
         BufferedImage imagenMarcador=null;
+        
         try {
             imagenMarcador = ImageIO.read(urlMarcador);
         } catch (IOException ex) {
             Logger.getLogger(PruebaMarcador.class.getName()).log(Level.SEVERE, null, ex);
         }
         Image imagenRedimensionada = imagenMarcador.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        
         iconoMarcador = new ImageIcon(imagenRedimensionada);
         labelMarcador = new JLabel(iconoMarcador);
-        labelMarcador.setOpaque(false);
-        panelMapa.add(labelMarcador);
 
-        // Establece el tamaño del frame
-        frame.setSize(800, 600);
-
-        // Centra el frame en la pantalla
-        frame.setLocationRelativeTo(null);
-
-        // Muestra el frame
-        frame.setVisible(true);
 
         // Agrega un listener de clic del ratón al panel del mapa
         panelMapa.addMouseListener(new MouseAdapter() {
@@ -133,10 +113,34 @@ public class PruebaMarcador {
                 colocarMarcadores();
             }
         });
-        //Detalles del mapa
-        panelMapa.setBackground(Color.WHITE);
+
         frame.add(panelMapa, BorderLayout.CENTER);
 
+        frame.setSize(500, 600);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+
+        //frame.setLayout(new BorderLayout());
+
+        /*
+        // Panel superior azul con el título
+        JPanel panelSuperior = new JPanel();
+        panelSuperior.setBackground(new Color(22,81,198));
+        
+        // Coloca el titulo
+        JLabel lblTitulo = new JLabel("Título");
+        lblTitulo.setText("Mapa de "+campus.getNombre());
+        lblTitulo.setForeground(Color.WHITE); 
+        panelSuperior.add(lblTitulo);
+        frame.add(panelSuperior, BorderLayout.NORTH);
+
+        */
+
+        //frame.add(panelMapa, BorderLayout.CENTER);
+        //labelMarcador.setOpaque(false);
+        //panelMapa.add(labelMarcador);
+        //Detalles del mapa
+        //panelMapa.setBackground(Color.WHITE);
         /*
         // Panel inferior con los botones
         JPanel panelInferior = new JPanel(new BorderLayout());
@@ -155,9 +159,6 @@ public class PruebaMarcador {
         panelInferior.add(lblAceptar, BorderLayout.NORTH);
         panelInferior.add(btnAceptar, BorderLayout.EAST);
         */
-        frame.setSize(500, 600);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
 
     }
     
