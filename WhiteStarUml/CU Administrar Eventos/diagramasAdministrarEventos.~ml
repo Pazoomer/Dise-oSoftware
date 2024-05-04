@@ -26439,15 +26439,24 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:OBJ name="Operations[0]" type="UMLOperation" guid="rStOAr3ddEmOsDVYhbFr1QAA">
 <XPD:ATTR name="Name" type="string">CDEvento</XPD:ATTR>
 <XPD:REF name="Owner">ghmAVhSe2kGXper8ZUIPFAAA</XPD:REF>
+<XPD:ATTR name="#CallActions" type="integer">2</XPD:ATTR>
+<XPD:REF name="CallActions[0]">/MEMbIDnpUSpuha8vGHmiQAA</XPD:REF>
+<XPD:REF name="CallActions[1]">gtefS+YPBEGkCbWwLfUiUgAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Operations[1]" type="UMLOperation" guid="CsUF89v4AkOSf+lbhfC/BgAA">
 <XPD:ATTR name="Name" type="string">guardar</XPD:ATTR>
 <XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkPrivate</XPD:ATTR>
 <XPD:REF name="Owner">ghmAVhSe2kGXper8ZUIPFAAA</XPD:REF>
+<XPD:ATTR name="#CallActions" type="integer">2</XPD:ATTR>
+<XPD:REF name="CallActions[0]">y347a8dBI02Z9bGu5n9jBAAA</XPD:REF>
+<XPD:REF name="CallActions[1]">DlpeeV1F4U2N3vxw0So9jgAA</XPD:REF>
 </XPD:OBJ>
 <XPD:ATTR name="#Associations" type="integer">2</XPD:ATTR>
 <XPD:REF name="Associations[0]">QlZKKIuZUU6OhMa+3yY8iwAA</XPD:REF>
 <XPD:REF name="Associations[1]">QOGSPj7pV0S2nrT77Tw9RwAA</XPD:REF>
+<XPD:ATTR name="#Instances" type="integer">2</XPD:ATTR>
+<XPD:REF name="Instances[0]">B2xY/gCoJkKzN/KIbZR2EAAA</XPD:REF>
+<XPD:REF name="Instances[1]">97M+2r5nnUuvQAjfh/g1EwAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[8]" type="UMLPackage" guid="FwuKpGfXJUK6JLdeL6uepQAA">
@@ -27141,7 +27150,7 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:OBJ name="DiagramView" type="UMLSequenceDiagramView" guid="rAenCchHr0KkGNtWG7Hy0AAA">
 <XPD:REF name="Model">IRLnh8JD6Uu97nook1+cEQAA</XPD:REF>
 <XPD:REF name="Diagram">IRLnh8JD6Uu97nook1+cEQAA</XPD:REF>
-<XPD:ATTR name="#OwnedViews" type="integer">13</XPD:ATTR>
+<XPD:ATTR name="#OwnedViews" type="integer">16</XPD:ATTR>
 <XPD:OBJ name="OwnedViews[0]" type="UMLSeqObjectView" guid="jdC154d2E0qiNy7lUZNdwAAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
@@ -27193,7 +27202,7 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:OBJ name="OwnedViews[2]" type="UMLSeqObjectView" guid="6NBo9YtBxU2PiadD4lZrRwAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Left" type="integer">320</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">404</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">4</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">148</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">350</XPD:ATTR>
@@ -27217,8 +27226,7 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:OBJ name="OwnedViews[3]" type="UMLSeqObjectView" guid="GdHhoUx/MUGOONTcxb8YswAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Left" type="integer">496</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">4</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">588</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">75</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">350</XPD:ATTR>
 <XPD:REF name="Model">J8HGCmRDokim5+3FMxZMigAA</XPD:REF>
@@ -27241,7 +27249,7 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:OBJ name="OwnedViews[4]" type="UMLSeqObjectView" guid="Fv4vWxtYL02fx1a3IAnSBAAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Left" type="integer">608</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">720</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">77</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">350</XPD:ATTR>
 <XPD:REF name="Model">Sxn9RRH5pUaq/axaVhDgdAAA</XPD:REF>
@@ -27261,7 +27269,31 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:REF name="Model">Sxn9RRH5pUaq/axaVhDgdAAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="OwnedViews[5]" type="UMLSeqStimulusView" guid="99x2hxCTfE2HRFBj2WQmSAAA">
+<XPD:OBJ name="OwnedViews[5]" type="UMLSeqObjectView" guid="6n42T/VuJE2zoYV4/THcAAAA">
+<XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
+<XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">300</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">4</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">88</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">350</XPD:ATTR>
+<XPD:REF name="Model">B2xY/gCoJkKzN/KIbZR2EAAA</XPD:REF>
+<XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="whZuVt2Vh0C3+Uu7yh4LLQAA">
+<XPD:OBJ name="NameLabel" type="LabelView" guid="r5t2qhmvkE+qntKMGhOTnAAA">
+<XPD:ATTR name="FontStyle" type="integer">4</XPD:ATTR>
+<XPD:ATTR name="Text" type="string"> : CDEvento</XPD:ATTR>
+</XPD:OBJ>
+<XPD:OBJ name="StereotypeLabel" type="LabelView" guid="aA199GbQvEyyFS+2ExvBtgAA">
+<XPD:ATTR name="Text" type="string">&lt;&lt;boundary&gt;&gt;</XPD:ATTR>
+</XPD:OBJ>
+<XPD:OBJ name="PropertyLabel" type="LabelView" guid="0Efm9tw4pk6vc0/MCRn0FQAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+</XPD:OBJ>
+</XPD:OBJ>
+<XPD:OBJ name="LifeLine" type="UMLLifeLineView" guid="s66bsvQEk0OZIz94WPFPUAAA">
+<XPD:REF name="Model">B2xY/gCoJkKzN/KIbZR2EAAA</XPD:REF>
+</XPD:OBJ>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedViews[6]" type="UMLSeqStimulusView" guid="99x2hxCTfE2HRFBj2WQmSAAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
@@ -27297,7 +27329,7 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:ATTR name="Height" type="integer">29</XPD:ATTR>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="OwnedViews[6]" type="UMLSeqStimulusView" guid="rJOUZUag6km7tr5W79xrBgAA">
+<XPD:OBJ name="OwnedViews[7]" type="UMLSeqStimulusView" guid="rJOUZUag6km7tr5W79xrBgAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
@@ -27330,21 +27362,93 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:ATTR name="Left" type="integer">211</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">136</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">14</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">85</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">189</XPD:ATTR>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="OwnedViews[7]" type="UMLSeqStimulusView" guid="WLJNEK1QtEK0A8X1R01HvwAA">
+<XPD:OBJ name="OwnedViews[8]" type="UMLSeqStimulusView" guid="EAJ9BLcqSkWRZD5jioGC1AAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">224,148;387,148</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">224,140;337,140</XPD:ATTR>
+<XPD:REF name="Model">VVaOMpGRwE21b/yxc/xgtwAA</XPD:REF>
+<XPD:REF name="Head">s66bsvQEk0OZIz94WPFPUAAA</XPD:REF>
+<XPD:REF name="Tail">uTjxPU8UY0u62Z1LquASVAAA</XPD:REF>
+<XPD:OBJ name="NameLabel" type="EdgeLabelView" guid="KKKWy7ySM0Kvq0Tns837qAAA">
+<XPD:ATTR name="Alpha" type="real">1.5707963267949</XPD:ATTR>
+<XPD:ATTR name="Distance" type="real">10</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">3 : CDEvento()</XPD:ATTR>
+<XPD:REF name="Model">VVaOMpGRwE21b/yxc/xgtwAA</XPD:REF>
+<XPD:REF name="HostEdge">EAJ9BLcqSkWRZD5jioGC1AAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="StereotypeLabel" type="EdgeLabelView" guid="rcUYGof3bk+kfIWpR92uFwAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+<XPD:ATTR name="Alpha" type="real">1.5707963267949</XPD:ATTR>
+<XPD:ATTR name="Distance" type="real">25</XPD:ATTR>
+<XPD:REF name="Model">VVaOMpGRwE21b/yxc/xgtwAA</XPD:REF>
+<XPD:REF name="HostEdge">EAJ9BLcqSkWRZD5jioGC1AAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="PropertyLabel" type="EdgeLabelView" guid="jSweI7Y6ik+fOfumjP7DpwAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+<XPD:ATTR name="Alpha" type="real">-1.5707963267949</XPD:ATTR>
+<XPD:ATTR name="Distance" type="real">10</XPD:ATTR>
+<XPD:REF name="Model">VVaOMpGRwE21b/yxc/xgtwAA</XPD:REF>
+<XPD:REF name="HostEdge">EAJ9BLcqSkWRZD5jioGC1AAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Activation" type="UMLActivationView" guid="j19eUlPpuEqXEIcZc5RCjQAA">
+<XPD:ATTR name="Left" type="integer">337</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">140</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">14</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">29</XPD:ATTR>
+</XPD:OBJ>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedViews[9]" type="UMLSeqStimulusView" guid="YiOsLwTaHU2LmhmpusJt4gAA">
+<XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
+<XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
+<XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">350,156;380,156;380,176;350,176</XPD:ATTR>
+<XPD:REF name="Model">ipoFrhp4OkO8v8QfbtJkXQAA</XPD:REF>
+<XPD:REF name="Head">s66bsvQEk0OZIz94WPFPUAAA</XPD:REF>
+<XPD:REF name="Tail">s66bsvQEk0OZIz94WPFPUAAA</XPD:REF>
+<XPD:OBJ name="NameLabel" type="EdgeLabelView" guid="hc0LqOx8cEuzc416w8y3fAAA">
+<XPD:ATTR name="Alpha" type="real">2.30861016067107</XPD:ATTR>
+<XPD:ATTR name="Distance" type="real">29.732137494637</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">4 : guardar()</XPD:ATTR>
+<XPD:REF name="Model">ipoFrhp4OkO8v8QfbtJkXQAA</XPD:REF>
+<XPD:REF name="HostEdge">YiOsLwTaHU2LmhmpusJt4gAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="StereotypeLabel" type="EdgeLabelView" guid="ceytP/EXwkGJK6ue2PyUOgAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+<XPD:ATTR name="Alpha" type="real">1.5707963267949</XPD:ATTR>
+<XPD:ATTR name="Distance" type="real">25</XPD:ATTR>
+<XPD:REF name="Model">ipoFrhp4OkO8v8QfbtJkXQAA</XPD:REF>
+<XPD:REF name="HostEdge">YiOsLwTaHU2LmhmpusJt4gAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="PropertyLabel" type="EdgeLabelView" guid="iTOJ+E5iFUKhmbSIzGwMYwAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+<XPD:ATTR name="Alpha" type="real">-1.5707963267949</XPD:ATTR>
+<XPD:ATTR name="Distance" type="real">10</XPD:ATTR>
+<XPD:REF name="Model">ipoFrhp4OkO8v8QfbtJkXQAA</XPD:REF>
+<XPD:REF name="HostEdge">YiOsLwTaHU2LmhmpusJt4gAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Activation" type="UMLActivationView" guid="IDYi936eXkyQgD6KUVXHHQAA">
+<XPD:ATTR name="Left" type="integer">337</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">176</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">14</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">29</XPD:ATTR>
+</XPD:OBJ>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedViews[10]" type="UMLSeqStimulusView" guid="WLJNEK1QtEK0A8X1R01HvwAA">
+<XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
+<XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
+<XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">224,209;471,209</XPD:ATTR>
 <XPD:REF name="Model">NrSurOBTHEKDVZCz3RYBIAAA</XPD:REF>
 <XPD:REF name="Head">Ofl46v7DWEy0xGGKMk8ttgAA</XPD:REF>
 <XPD:REF name="Tail">uTjxPU8UY0u62Z1LquASVAAA</XPD:REF>
 <XPD:OBJ name="NameLabel" type="EdgeLabelView" guid="KeEz+bbQ8UCVLrfqJ6VB/QAA">
-<XPD:ATTR name="Alpha" type="real">1.5707963267949</XPD:ATTR>
-<XPD:ATTR name="Distance" type="real">10</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">3 : agregarEvento()</XPD:ATTR>
+<XPD:ATTR name="Alpha" type="real">-3.00188310416427</XPD:ATTR>
+<XPD:ATTR name="Distance" type="real">64.6297145282261</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">5 : agregarEvento()</XPD:ATTR>
 <XPD:REF name="Model">NrSurOBTHEKDVZCz3RYBIAAA</XPD:REF>
 <XPD:REF name="HostEdge">WLJNEK1QtEK0A8X1R01HvwAA</XPD:REF>
 </XPD:OBJ>
@@ -27363,24 +27467,24 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:REF name="HostEdge">WLJNEK1QtEK0A8X1R01HvwAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Activation" type="UMLActivationView" guid="No+hCfLdN0amkOfeaZsJMwAA">
-<XPD:ATTR name="Left" type="integer">387</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">148</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">471</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">209</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">14</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">80</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">71</XPD:ATTR>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="OwnedViews[8]" type="UMLSeqStimulusView" guid="Izg/s5FOjEGeAZBhHV8whAAA">
+<XPD:OBJ name="OwnedViews[11]" type="UMLSeqStimulusView" guid="Izg/s5FOjEGeAZBhHV8whAAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">400,156;526,156</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">484,224;618,224</XPD:ATTR>
 <XPD:REF name="Model">EFhFfyv8eUiiEo5YhyeGeAAA</XPD:REF>
 <XPD:REF name="Head">EDHRXF24y0KGyrBEEoM6swAA</XPD:REF>
 <XPD:REF name="Tail">Ofl46v7DWEy0xGGKMk8ttgAA</XPD:REF>
 <XPD:OBJ name="NameLabel" type="EdgeLabelView" guid="4ZkZIM1M/0uPdDJVirZSvwAA">
 <XPD:ATTR name="Alpha" type="real">1.5707963267949</XPD:ATTR>
 <XPD:ATTR name="Distance" type="real">10</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">4 : agregarEvento()</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">6 : agregarEvento()</XPD:ATTR>
 <XPD:REF name="Model">EFhFfyv8eUiiEo5YhyeGeAAA</XPD:REF>
 <XPD:REF name="HostEdge">Izg/s5FOjEGeAZBhHV8whAAA</XPD:REF>
 </XPD:OBJ>
@@ -27399,24 +27503,24 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:REF name="HostEdge">Izg/s5FOjEGeAZBhHV8whAAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Activation" type="UMLActivationView" guid="28OPBIyLFEa/VwGXQMCBtgAA">
-<XPD:ATTR name="Left" type="integer">526</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">156</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">618</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">224</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">14</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">45</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">55</XPD:ATTR>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="OwnedViews[9]" type="UMLSeqStimulusView" guid="lvsMYDH+SE6/g6f5+2hKyQAA">
+<XPD:OBJ name="OwnedViews[12]" type="UMLSeqStimulusView" guid="lvsMYDH+SE6/g6f5+2hKyQAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">539,164;639,164</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">631,233;751,233</XPD:ATTR>
 <XPD:REF name="Model">TIw4at4Dw0Oz0Hqk10ioywAA</XPD:REF>
 <XPD:REF name="Head">F45zUNhNwkaXoZPxIf2s4AAA</XPD:REF>
 <XPD:REF name="Tail">EDHRXF24y0KGyrBEEoM6swAA</XPD:REF>
 <XPD:OBJ name="NameLabel" type="EdgeLabelView" guid="D+G4bvVefk+rXs2N3xFH5AAA">
 <XPD:ATTR name="Alpha" type="real">1.5707963267949</XPD:ATTR>
 <XPD:ATTR name="Distance" type="real">10</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">5 : agregarEvento()</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">7 : agregarEvento()</XPD:ATTR>
 <XPD:REF name="Model">TIw4at4Dw0Oz0Hqk10ioywAA</XPD:REF>
 <XPD:REF name="HostEdge">lvsMYDH+SE6/g6f5+2hKyQAA</XPD:REF>
 </XPD:OBJ>
@@ -27435,24 +27539,24 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:REF name="HostEdge">lvsMYDH+SE6/g6f5+2hKyQAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Activation" type="UMLActivationView" guid="exjZ/ChpKUmphPvyFoTIZAAA">
-<XPD:ATTR name="Left" type="integer">639</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">164</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">751</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">233</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">14</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">29</XPD:ATTR>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="OwnedViews[10]" type="UMLSeqStimulusView" guid="UcLkmtcCa0eKZI23rgRSEAAA">
+<XPD:OBJ name="OwnedViews[13]" type="UMLSeqStimulusView" guid="UcLkmtcCa0eKZI23rgRSEAAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">639,187;539,187</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">751,250;631,250</XPD:ATTR>
 <XPD:REF name="Model">t+5yp0G+gUKcWSJU79BA6wAA</XPD:REF>
 <XPD:REF name="Head">EDHRXF24y0KGyrBEEoM6swAA</XPD:REF>
 <XPD:REF name="Tail">F45zUNhNwkaXoZPxIf2s4AAA</XPD:REF>
 <XPD:OBJ name="NameLabel" type="EdgeLabelView" guid="y2yQ1Oo16EqtxZVMdgy4CgAA">
 <XPD:ATTR name="Alpha" type="real">1.5707963267949</XPD:ATTR>
 <XPD:ATTR name="Distance" type="real">10</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">6 : evento agregado</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">8 : evento agregado</XPD:ATTR>
 <XPD:REF name="Model">t+5yp0G+gUKcWSJU79BA6wAA</XPD:REF>
 <XPD:REF name="HostEdge">UcLkmtcCa0eKZI23rgRSEAAA</XPD:REF>
 </XPD:OBJ>
@@ -27472,24 +27576,24 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 </XPD:OBJ>
 <XPD:OBJ name="Activation" type="UMLActivationView" guid="bW1d7VIHPkKTWJRrsqlIaAAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
-<XPD:ATTR name="Left" type="integer">526</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">187</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">618</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">250</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">14</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">29</XPD:ATTR>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="OwnedViews[11]" type="UMLSeqStimulusView" guid="aLlKYB7lMk6pSQDCohYc5wAA">
+<XPD:OBJ name="OwnedViews[14]" type="UMLSeqStimulusView" guid="aLlKYB7lMk6pSQDCohYc5wAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">526,192;400,192</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">618,263;484,263</XPD:ATTR>
 <XPD:REF name="Model">Q3pREihKNEizW15yQDJiNgAA</XPD:REF>
 <XPD:REF name="Head">Ofl46v7DWEy0xGGKMk8ttgAA</XPD:REF>
 <XPD:REF name="Tail">EDHRXF24y0KGyrBEEoM6swAA</XPD:REF>
 <XPD:OBJ name="NameLabel" type="EdgeLabelView" guid="tlkfad0txUKW6aIQeZWEigAA">
 <XPD:ATTR name="Alpha" type="real">1.5707963267949</XPD:ATTR>
 <XPD:ATTR name="Distance" type="real">10</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">7 : evento agregado</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">9 : evento agregado</XPD:ATTR>
 <XPD:REF name="Model">Q3pREihKNEizW15yQDJiNgAA</XPD:REF>
 <XPD:REF name="HostEdge">aLlKYB7lMk6pSQDCohYc5wAA</XPD:REF>
 </XPD:OBJ>
@@ -27509,24 +27613,24 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 </XPD:OBJ>
 <XPD:OBJ name="Activation" type="UMLActivationView" guid="BC3v09AAFkSvYeSsqJIjOwAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
-<XPD:ATTR name="Left" type="integer">387</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">192</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">471</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">263</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">14</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">29</XPD:ATTR>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="OwnedViews[12]" type="UMLSeqStimulusView" guid="VFWLgQY5t0Glxf0XctneSQAA">
+<XPD:OBJ name="OwnedViews[15]" type="UMLSeqStimulusView" guid="VFWLgQY5t0Glxf0XctneSQAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">387,206;224,206</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">471,271;224,271</XPD:ATTR>
 <XPD:REF name="Model">FCSwuVtwik64ZUPyzFEspAAA</XPD:REF>
 <XPD:REF name="Head">uTjxPU8UY0u62Z1LquASVAAA</XPD:REF>
 <XPD:REF name="Tail">Ofl46v7DWEy0xGGKMk8ttgAA</XPD:REF>
 <XPD:OBJ name="NameLabel" type="EdgeLabelView" guid="10JOzIEKBUiNoEjwMDVi+AAA">
 <XPD:ATTR name="Alpha" type="real">1.5707963267949</XPD:ATTR>
 <XPD:ATTR name="Distance" type="real">10</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">8 : evento agregado</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">10 : evento agregado</XPD:ATTR>
 <XPD:REF name="Model">FCSwuVtwik64ZUPyzFEspAAA</XPD:REF>
 <XPD:REF name="HostEdge">VFWLgQY5t0Glxf0XctneSQAA</XPD:REF>
 </XPD:OBJ>
@@ -27547,14 +27651,14 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:OBJ name="Activation" type="UMLActivationView" guid="Ogp2XIJDRkGAX6iVt6ZmVwAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
 <XPD:ATTR name="Left" type="integer">211</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">206</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">271</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">14</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">29</XPD:ATTR>
 </XPD:OBJ>
 </XPD:OBJ>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:ATTR name="#ParticipatingStimuli" type="integer">8</XPD:ATTR>
+<XPD:ATTR name="#ParticipatingStimuli" type="integer">10</XPD:ATTR>
 <XPD:OBJ name="ParticipatingStimuli[0]" type="UMLStimulus" guid="1TxEYIN86EiSw9Jt4G7jrwAA">
 <XPD:REF name="Sender">lFJ4tt1SfkSlMePT6wISEQAA</XPD:REF>
 <XPD:REF name="Receiver">9+iVAsNvPki2+iLt9aHzrgAA</XPD:REF>
@@ -27583,7 +27687,35 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:REF name="Views[2]">Hws1uBzAEEWwTzWMwOzLZQAA</XPD:REF>
 <XPD:REF name="Views[3]">g+8ZiqULlUSgovitZEtNHgAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="ParticipatingStimuli[2]" type="UMLStimulus" guid="NrSurOBTHEKDVZCz3RYBIAAA">
+<XPD:OBJ name="ParticipatingStimuli[2]" type="UMLStimulus" guid="VVaOMpGRwE21b/yxc/xgtwAA">
+<XPD:REF name="Sender">9+iVAsNvPki2+iLt9aHzrgAA</XPD:REF>
+<XPD:REF name="Receiver">B2xY/gCoJkKzN/KIbZR2EAAA</XPD:REF>
+<XPD:OBJ name="Action" type="UMLCallAction" guid="/MEMbIDnpUSpuha8vGHmiQAA">
+<XPD:REF name="Stimulus">VVaOMpGRwE21b/yxc/xgtwAA</XPD:REF>
+<XPD:REF name="Operation">rStOAr3ddEmOsDVYhbFr1QAA</XPD:REF>
+</XPD:OBJ>
+<XPD:REF name="InteractionInstanceSet">TQkBxyUySE6rx+xvULYQDAAA</XPD:REF>
+<XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
+<XPD:REF name="Views[0]">EAJ9BLcqSkWRZD5jioGC1AAA</XPD:REF>
+<XPD:REF name="Views[1]">KKKWy7ySM0Kvq0Tns837qAAA</XPD:REF>
+<XPD:REF name="Views[2]">rcUYGof3bk+kfIWpR92uFwAA</XPD:REF>
+<XPD:REF name="Views[3]">jSweI7Y6ik+fOfumjP7DpwAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="ParticipatingStimuli[3]" type="UMLStimulus" guid="ipoFrhp4OkO8v8QfbtJkXQAA">
+<XPD:REF name="Sender">B2xY/gCoJkKzN/KIbZR2EAAA</XPD:REF>
+<XPD:REF name="Receiver">B2xY/gCoJkKzN/KIbZR2EAAA</XPD:REF>
+<XPD:OBJ name="Action" type="UMLCallAction" guid="y347a8dBI02Z9bGu5n9jBAAA">
+<XPD:REF name="Stimulus">ipoFrhp4OkO8v8QfbtJkXQAA</XPD:REF>
+<XPD:REF name="Operation">CsUF89v4AkOSf+lbhfC/BgAA</XPD:REF>
+</XPD:OBJ>
+<XPD:REF name="InteractionInstanceSet">TQkBxyUySE6rx+xvULYQDAAA</XPD:REF>
+<XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
+<XPD:REF name="Views[0]">YiOsLwTaHU2LmhmpusJt4gAA</XPD:REF>
+<XPD:REF name="Views[1]">hc0LqOx8cEuzc416w8y3fAAA</XPD:REF>
+<XPD:REF name="Views[2]">ceytP/EXwkGJK6ue2PyUOgAA</XPD:REF>
+<XPD:REF name="Views[3]">iTOJ+E5iFUKhmbSIzGwMYwAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="ParticipatingStimuli[4]" type="UMLStimulus" guid="NrSurOBTHEKDVZCz3RYBIAAA">
 <XPD:REF name="Sender">9+iVAsNvPki2+iLt9aHzrgAA</XPD:REF>
 <XPD:REF name="Receiver">3rtgDL3+vEynDTkCW/zPHAAA</XPD:REF>
 <XPD:OBJ name="Action" type="UMLCallAction" guid="vBFmWNfVC0Sr/1pSO31s1wAA">
@@ -27597,7 +27729,7 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:REF name="Views[2]">mR55h2p5HEiUDwA9Tlo/twAA</XPD:REF>
 <XPD:REF name="Views[3]">9EwcUaxx0ke3EXV3Uu31EwAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="ParticipatingStimuli[3]" type="UMLStimulus" guid="EFhFfyv8eUiiEo5YhyeGeAAA">
+<XPD:OBJ name="ParticipatingStimuli[5]" type="UMLStimulus" guid="EFhFfyv8eUiiEo5YhyeGeAAA">
 <XPD:REF name="Sender">3rtgDL3+vEynDTkCW/zPHAAA</XPD:REF>
 <XPD:REF name="Receiver">J8HGCmRDokim5+3FMxZMigAA</XPD:REF>
 <XPD:OBJ name="Action" type="UMLCallAction" guid="SEoXApNqF0ydbRke5Ki3egAA">
@@ -27611,7 +27743,7 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:REF name="Views[2]">c0mew/dmFUmyos1nny8vjQAA</XPD:REF>
 <XPD:REF name="Views[3]">07+K3r7lqUOqFG2sPIJHbwAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="ParticipatingStimuli[4]" type="UMLStimulus" guid="TIw4at4Dw0Oz0Hqk10ioywAA">
+<XPD:OBJ name="ParticipatingStimuli[6]" type="UMLStimulus" guid="TIw4at4Dw0Oz0Hqk10ioywAA">
 <XPD:REF name="Sender">J8HGCmRDokim5+3FMxZMigAA</XPD:REF>
 <XPD:REF name="Receiver">Sxn9RRH5pUaq/axaVhDgdAAA</XPD:REF>
 <XPD:OBJ name="Action" type="UMLCallAction" guid="DCbi2VxX2Uix7N3AkyKFeAAA">
@@ -27625,7 +27757,7 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:REF name="Views[2]">+EJYqV3Ax0e1awKpR+ySCgAA</XPD:REF>
 <XPD:REF name="Views[3]">JEoPK4lo2UeoqxTZNn67igAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="ParticipatingStimuli[5]" type="UMLStimulus" guid="t+5yp0G+gUKcWSJU79BA6wAA">
+<XPD:OBJ name="ParticipatingStimuli[7]" type="UMLStimulus" guid="t+5yp0G+gUKcWSJU79BA6wAA">
 <XPD:ATTR name="Name" type="string">evento agregado</XPD:ATTR>
 <XPD:REF name="Sender">Sxn9RRH5pUaq/axaVhDgdAAA</XPD:REF>
 <XPD:REF name="Receiver">J8HGCmRDokim5+3FMxZMigAA</XPD:REF>
@@ -27639,7 +27771,7 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:REF name="Views[2]">n2M1HNYuzkebDu63YYDGqgAA</XPD:REF>
 <XPD:REF name="Views[3]">2fFJ0np0cE2u8ojLcw/xtQAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="ParticipatingStimuli[6]" type="UMLStimulus" guid="Q3pREihKNEizW15yQDJiNgAA">
+<XPD:OBJ name="ParticipatingStimuli[8]" type="UMLStimulus" guid="Q3pREihKNEizW15yQDJiNgAA">
 <XPD:ATTR name="Name" type="string">evento agregado</XPD:ATTR>
 <XPD:REF name="Sender">J8HGCmRDokim5+3FMxZMigAA</XPD:REF>
 <XPD:REF name="Receiver">3rtgDL3+vEynDTkCW/zPHAAA</XPD:REF>
@@ -27653,7 +27785,7 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:REF name="Views[2]">2gzNORPPF0+OZAgezKeufgAA</XPD:REF>
 <XPD:REF name="Views[3]">X4GifpjpzE677qmpmMnSLAAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="ParticipatingStimuli[7]" type="UMLStimulus" guid="FCSwuVtwik64ZUPyzFEspAAA">
+<XPD:OBJ name="ParticipatingStimuli[9]" type="UMLStimulus" guid="FCSwuVtwik64ZUPyzFEspAAA">
 <XPD:ATTR name="Name" type="string">evento agregado</XPD:ATTR>
 <XPD:REF name="Sender">3rtgDL3+vEynDTkCW/zPHAAA</XPD:REF>
 <XPD:REF name="Receiver">9+iVAsNvPki2+iLt9aHzrgAA</XPD:REF>
@@ -27668,7 +27800,7 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:REF name="Views[3]">KJh2tG+n6kK32Bo16GPCWQAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:ATTR name="#ParticipatingInstances" type="integer">5</XPD:ATTR>
+<XPD:ATTR name="#ParticipatingInstances" type="integer">6</XPD:ATTR>
 <XPD:OBJ name="ParticipatingInstances[0]" type="UMLObject" guid="lFJ4tt1SfkSlMePT6wISEQAA">
 <XPD:REF name="Classifier">bZallTxWpUmG91UT/y/kkQAA</XPD:REF>
 <XPD:REF name="CollaborationInstanceSet">XFnh5NWZPEik7nRGCCi+jwAA</XPD:REF>
@@ -27687,8 +27819,9 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:ATTR name="#Views" type="integer">2</XPD:ATTR>
 <XPD:REF name="Views[0]">N9cOMTX+1EG/VMDAX7TUWwAA</XPD:REF>
 <XPD:REF name="Views[1]">uTjxPU8UY0u62Z1LquASVAAA</XPD:REF>
-<XPD:ATTR name="#SendingStimuli" type="integer">1</XPD:ATTR>
+<XPD:ATTR name="#SendingStimuli" type="integer">2</XPD:ATTR>
 <XPD:REF name="SendingStimuli[0]">NrSurOBTHEKDVZCz3RYBIAAA</XPD:REF>
+<XPD:REF name="SendingStimuli[1]">VVaOMpGRwE21b/yxc/xgtwAA</XPD:REF>
 <XPD:ATTR name="#ReceivingStimuli" type="integer">3</XPD:ATTR>
 <XPD:REF name="ReceivingStimuli[0]">1TxEYIN86EiSw9Jt4G7jrwAA</XPD:REF>
 <XPD:REF name="ReceivingStimuli[1]">2Um5vVpOgkeDPMg3RwEXOQAA</XPD:REF>
@@ -27737,6 +27870,20 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:ATTR name="#ReceivingStimuli" type="integer">1</XPD:ATTR>
 <XPD:REF name="ReceivingStimuli[0]">TIw4at4Dw0Oz0Hqk10ioywAA</XPD:REF>
 </XPD:OBJ>
+<XPD:OBJ name="ParticipatingInstances[5]" type="UMLObject" guid="B2xY/gCoJkKzN/KIbZR2EAAA">
+<XPD:ATTR name="StereotypeProfile" type="string">UMLStandard</XPD:ATTR>
+<XPD:ATTR name="StereotypeName" type="string">boundary</XPD:ATTR>
+<XPD:REF name="Classifier">ghmAVhSe2kGXper8ZUIPFAAA</XPD:REF>
+<XPD:REF name="CollaborationInstanceSet">XFnh5NWZPEik7nRGCCi+jwAA</XPD:REF>
+<XPD:ATTR name="#Views" type="integer">2</XPD:ATTR>
+<XPD:REF name="Views[0]">6n42T/VuJE2zoYV4/THcAAAA</XPD:REF>
+<XPD:REF name="Views[1]">s66bsvQEk0OZIz94WPFPUAAA</XPD:REF>
+<XPD:ATTR name="#SendingStimuli" type="integer">1</XPD:ATTR>
+<XPD:REF name="SendingStimuli[0]">ipoFrhp4OkO8v8QfbtJkXQAA</XPD:REF>
+<XPD:ATTR name="#ReceivingStimuli" type="integer">2</XPD:ATTR>
+<XPD:REF name="ReceivingStimuli[0]">VVaOMpGRwE21b/yxc/xgtwAA</XPD:REF>
+<XPD:REF name="ReceivingStimuli[1]">ipoFrhp4OkO8v8QfbtJkXQAA</XPD:REF>
+</XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedCollaborationInstanceSets[1]" type="UMLCollaborationInstanceSet" guid="P9HcugLdJEuwTCzO1k22tAAA">
 <XPD:ATTR name="Name" type="string">CIS-FlujoAlternativo-Editar</XPD:ATTR>
@@ -27752,7 +27899,7 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:OBJ name="DiagramView" type="UMLSequenceDiagramView" guid="rp5XJ72PZ02CbfGID3ak3wAA">
 <XPD:REF name="Model">C9sHDB+sI0OWUQ5AqAokUQAA</XPD:REF>
 <XPD:REF name="Diagram">C9sHDB+sI0OWUQ5AqAokUQAA</XPD:REF>
-<XPD:ATTR name="#OwnedViews" type="integer">13</XPD:ATTR>
+<XPD:ATTR name="#OwnedViews" type="integer">16</XPD:ATTR>
 <XPD:OBJ name="OwnedViews[0]" type="UMLSeqObjectView" guid="jPTd7AZ7rUS+YDbT3CkOtQAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
@@ -27783,7 +27930,7 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:ATTR name="Left" type="integer">156</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">4</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">125</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">350</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">373</XPD:ATTR>
 <XPD:REF name="Model">q3R+ozKvRkStAdKElkE1tQAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="IdOH+ZU7/Uqg4J5aDgH+2QAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="TUlYew7hsEukiTH7WdOuBgAA">
@@ -27804,10 +27951,10 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:OBJ name="OwnedViews[2]" type="UMLSeqObjectView" guid="zCZxixkOxEC+VngdNFRaFgAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Left" type="integer">320</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">4</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">432</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">8</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">148</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">350</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">373</XPD:ATTR>
 <XPD:REF name="Model">IWTLFf7nHEePZlF/dNHMGAAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="Wu8LHATyVE6cM3yg/JUtAAAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="Qw5i/mtxikakfr1SSUFE3gAA">
@@ -27828,8 +27975,8 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:OBJ name="OwnedViews[3]" type="UMLSeqObjectView" guid="bDaFNfBKiEWNz5TqJuKKOgAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Left" type="integer">496</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">4</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">608</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">8</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">75</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">350</XPD:ATTR>
 <XPD:REF name="Model">Jttr5DSCM0yur4sfyH5LcgAA</XPD:REF>
@@ -27852,7 +27999,8 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:OBJ name="OwnedViews[4]" type="UMLSeqObjectView" guid="na1BsK8FNE21Rl29yC+3RAAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Left" type="integer">608</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">720</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">4</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">77</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">350</XPD:ATTR>
 <XPD:REF name="Model">wsALZmlVm0udSVScNXJEZwAA</XPD:REF>
@@ -27872,7 +28020,31 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:REF name="Model">wsALZmlVm0udSVScNXJEZwAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="OwnedViews[5]" type="UMLSeqStimulusView" guid="rRXHNOKTcUWUKiudCd74OQAA">
+<XPD:OBJ name="OwnedViews[5]" type="UMLSeqObjectView" guid="9eahR28vUUiFZxgGsWTmAAAA">
+<XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
+<XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">316</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">7</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">88</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">350</XPD:ATTR>
+<XPD:REF name="Model">97M+2r5nnUuvQAjfh/g1EwAA</XPD:REF>
+<XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="IwKMUDP73EWgFQ9dperS6wAA">
+<XPD:OBJ name="NameLabel" type="LabelView" guid="a5OzdR3f7EOomMf2lMIN4wAA">
+<XPD:ATTR name="FontStyle" type="integer">4</XPD:ATTR>
+<XPD:ATTR name="Text" type="string"> : CDEvento</XPD:ATTR>
+</XPD:OBJ>
+<XPD:OBJ name="StereotypeLabel" type="LabelView" guid="bLQbO7U1P02uGXxaMYAugAAA">
+<XPD:ATTR name="Text" type="string">&lt;&lt;boundary&gt;&gt;</XPD:ATTR>
+</XPD:OBJ>
+<XPD:OBJ name="PropertyLabel" type="LabelView" guid="yRjy7S+tQE+Snl7i6rAqqgAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+</XPD:OBJ>
+</XPD:OBJ>
+<XPD:OBJ name="LifeLine" type="UMLLifeLineView" guid="lfqLkfaJ7k6JWEBPhc/P9wAA">
+<XPD:REF name="Model">97M+2r5nnUuvQAjfh/g1EwAA</XPD:REF>
+</XPD:OBJ>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedViews[6]" type="UMLSeqStimulusView" guid="rRXHNOKTcUWUKiudCd74OQAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
@@ -27908,7 +28080,7 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:ATTR name="Height" type="integer">29</XPD:ATTR>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="OwnedViews[6]" type="UMLSeqStimulusView" guid="jYK8z3DvWEG1zVMFDi/BxgAA">
+<XPD:OBJ name="OwnedViews[7]" type="UMLSeqStimulusView" guid="jYK8z3DvWEG1zVMFDi/BxgAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
@@ -27941,21 +28113,93 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:ATTR name="Left" type="integer">211</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">136</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">14</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">85</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">173</XPD:ATTR>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="OwnedViews[7]" type="UMLSeqStimulusView" guid="9uiX11NadUqU5ooV4wJEqAAA">
+<XPD:OBJ name="OwnedViews[8]" type="UMLSeqStimulusView" guid="KzxSZAJLbkOTWookf6SFqgAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">224,148;387,148</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">224,144;353,144</XPD:ATTR>
+<XPD:REF name="Model">NfQn1dxsmEqZXB3tscuvHQAA</XPD:REF>
+<XPD:REF name="Head">lfqLkfaJ7k6JWEBPhc/P9wAA</XPD:REF>
+<XPD:REF name="Tail">Ikercgbi1kqjeCuBFppmnQAA</XPD:REF>
+<XPD:OBJ name="NameLabel" type="EdgeLabelView" guid="iqWzo2KYpk2eFuHH7dRUAgAA">
+<XPD:ATTR name="Alpha" type="real">1.5707963267949</XPD:ATTR>
+<XPD:ATTR name="Distance" type="real">10</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">3 : CDEvento()</XPD:ATTR>
+<XPD:REF name="Model">NfQn1dxsmEqZXB3tscuvHQAA</XPD:REF>
+<XPD:REF name="HostEdge">KzxSZAJLbkOTWookf6SFqgAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="StereotypeLabel" type="EdgeLabelView" guid="Oh6/YeetQ0KPdMvz0C5ywQAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+<XPD:ATTR name="Alpha" type="real">1.5707963267949</XPD:ATTR>
+<XPD:ATTR name="Distance" type="real">25</XPD:ATTR>
+<XPD:REF name="Model">NfQn1dxsmEqZXB3tscuvHQAA</XPD:REF>
+<XPD:REF name="HostEdge">KzxSZAJLbkOTWookf6SFqgAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="PropertyLabel" type="EdgeLabelView" guid="SYrZ6yHEnE+N/J9QExqKwwAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+<XPD:ATTR name="Alpha" type="real">-1.5707963267949</XPD:ATTR>
+<XPD:ATTR name="Distance" type="real">10</XPD:ATTR>
+<XPD:REF name="Model">NfQn1dxsmEqZXB3tscuvHQAA</XPD:REF>
+<XPD:REF name="HostEdge">KzxSZAJLbkOTWookf6SFqgAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Activation" type="UMLActivationView" guid="Q89gew11qk2ve+c4yrjmrwAA">
+<XPD:ATTR name="Left" type="integer">353</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">144</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">14</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">29</XPD:ATTR>
+</XPD:OBJ>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedViews[9]" type="UMLSeqStimulusView" guid="JjbKulP0qkyYVsxiJNtsbQAA">
+<XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
+<XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
+<XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">366,161;396,161;396,181;366,181</XPD:ATTR>
+<XPD:REF name="Model">NoVu+Z2EXkyFw37/m8cSrwAA</XPD:REF>
+<XPD:REF name="Head">lfqLkfaJ7k6JWEBPhc/P9wAA</XPD:REF>
+<XPD:REF name="Tail">lfqLkfaJ7k6JWEBPhc/P9wAA</XPD:REF>
+<XPD:OBJ name="NameLabel" type="EdgeLabelView" guid="iRnKeTmInEGUn7YGuZaEbQAA">
+<XPD:ATTR name="Alpha" type="real">2.40877627556026</XPD:ATTR>
+<XPD:ATTR name="Distance" type="real">26.9072480941474</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">4 : guardar()</XPD:ATTR>
+<XPD:REF name="Model">NoVu+Z2EXkyFw37/m8cSrwAA</XPD:REF>
+<XPD:REF name="HostEdge">JjbKulP0qkyYVsxiJNtsbQAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="StereotypeLabel" type="EdgeLabelView" guid="gf7SkQWgv0SxhepB71RIxQAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+<XPD:ATTR name="Alpha" type="real">1.5707963267949</XPD:ATTR>
+<XPD:ATTR name="Distance" type="real">25</XPD:ATTR>
+<XPD:REF name="Model">NoVu+Z2EXkyFw37/m8cSrwAA</XPD:REF>
+<XPD:REF name="HostEdge">JjbKulP0qkyYVsxiJNtsbQAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="PropertyLabel" type="EdgeLabelView" guid="cIDYTbwxmkK+KMZ57E1TyAAA">
+<XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
+<XPD:ATTR name="Alpha" type="real">-1.5707963267949</XPD:ATTR>
+<XPD:ATTR name="Distance" type="real">10</XPD:ATTR>
+<XPD:REF name="Model">NoVu+Z2EXkyFw37/m8cSrwAA</XPD:REF>
+<XPD:REF name="HostEdge">JjbKulP0qkyYVsxiJNtsbQAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Activation" type="UMLActivationView" guid="leW/X54oOEi4RZWgnC5VPgAA">
+<XPD:ATTR name="Left" type="integer">353</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">181</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">14</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">29</XPD:ATTR>
+</XPD:OBJ>
+</XPD:OBJ>
+<XPD:OBJ name="OwnedViews[10]" type="UMLSeqStimulusView" guid="9uiX11NadUqU5ooV4wJEqAAA">
+<XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
+<XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
+<XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">224,214;499,214</XPD:ATTR>
 <XPD:REF name="Model">fkTS4LH3yECFX/vDsMu23QAA</XPD:REF>
 <XPD:REF name="Head">bx8WA8TgkkSMSaqwCZ7g6wAA</XPD:REF>
 <XPD:REF name="Tail">Ikercgbi1kqjeCuBFppmnQAA</XPD:REF>
 <XPD:OBJ name="NameLabel" type="EdgeLabelView" guid="VepwdBNOS0C22CEH/BipFwAA">
-<XPD:ATTR name="Alpha" type="real">1.5707963267949</XPD:ATTR>
-<XPD:ATTR name="Distance" type="real">10</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">3 : editarEvento()</XPD:ATTR>
+<XPD:ATTR name="Alpha" type="real">-3.30024728298724</XPD:ATTR>
+<XPD:ATTR name="Distance" type="real">75.953933407033</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">5 : editarEvento()</XPD:ATTR>
 <XPD:REF name="Model">fkTS4LH3yECFX/vDsMu23QAA</XPD:REF>
 <XPD:REF name="HostEdge">9uiX11NadUqU5ooV4wJEqAAA</XPD:REF>
 </XPD:OBJ>
@@ -27974,24 +28218,24 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:REF name="HostEdge">9uiX11NadUqU5ooV4wJEqAAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Activation" type="UMLActivationView" guid="S/xux4x66U66EzMHW/AxKwAA">
-<XPD:ATTR name="Left" type="integer">387</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">148</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">499</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">214</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">14</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">80</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">91</XPD:ATTR>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="OwnedViews[8]" type="UMLSeqStimulusView" guid="lf0Fa4sc/0il2Gudxm3TaQAA">
+<XPD:OBJ name="OwnedViews[11]" type="UMLSeqStimulusView" guid="lf0Fa4sc/0il2Gudxm3TaQAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">400,156;526,156</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">512,227;638,227</XPD:ATTR>
 <XPD:REF name="Model">B0/oPF2U/E2G+hq0qqgp2gAA</XPD:REF>
 <XPD:REF name="Head">5Ptkv2RRDUC/RSleizG4lwAA</XPD:REF>
 <XPD:REF name="Tail">bx8WA8TgkkSMSaqwCZ7g6wAA</XPD:REF>
 <XPD:OBJ name="NameLabel" type="EdgeLabelView" guid="8Uj/9Z9xRkq97qhIADlR3wAA">
 <XPD:ATTR name="Alpha" type="real">1.5707963267949</XPD:ATTR>
 <XPD:ATTR name="Distance" type="real">10</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">4 : editarEvento()</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">6 : editarEvento()</XPD:ATTR>
 <XPD:REF name="Model">B0/oPF2U/E2G+hq0qqgp2gAA</XPD:REF>
 <XPD:REF name="HostEdge">lf0Fa4sc/0il2Gudxm3TaQAA</XPD:REF>
 </XPD:OBJ>
@@ -28010,24 +28254,24 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:REF name="HostEdge">lf0Fa4sc/0il2Gudxm3TaQAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Activation" type="UMLActivationView" guid="xFCRqrzZvU6SYnyi93ogqgAA">
-<XPD:ATTR name="Left" type="integer">526</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">156</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">638</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">227</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">14</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">45</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">62</XPD:ATTR>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="OwnedViews[9]" type="UMLSeqStimulusView" guid="N6gN0bR6N06U5LRK4wAkTAAA">
+<XPD:OBJ name="OwnedViews[12]" type="UMLSeqStimulusView" guid="N6gN0bR6N06U5LRK4wAkTAAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">539,164;639,164</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">651,241;751,241</XPD:ATTR>
 <XPD:REF name="Model">/dMCW5xAqEyMj47vnN6WEQAA</XPD:REF>
 <XPD:REF name="Head">XngBjQfoDEuCRcPPpSDyegAA</XPD:REF>
 <XPD:REF name="Tail">5Ptkv2RRDUC/RSleizG4lwAA</XPD:REF>
 <XPD:OBJ name="NameLabel" type="EdgeLabelView" guid="t69O19MmqEitQj3XwdQxVwAA">
 <XPD:ATTR name="Alpha" type="real">1.5707963267949</XPD:ATTR>
 <XPD:ATTR name="Distance" type="real">10</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">5 : editarEvento()</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">7 : editarEvento()</XPD:ATTR>
 <XPD:REF name="Model">/dMCW5xAqEyMj47vnN6WEQAA</XPD:REF>
 <XPD:REF name="HostEdge">N6gN0bR6N06U5LRK4wAkTAAA</XPD:REF>
 </XPD:OBJ>
@@ -28046,24 +28290,24 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:REF name="HostEdge">N6gN0bR6N06U5LRK4wAkTAAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Activation" type="UMLActivationView" guid="KTD+DhKWREy/bIWA4pVJyQAA">
-<XPD:ATTR name="Left" type="integer">639</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">164</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">751</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">241</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">14</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">29</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">36</XPD:ATTR>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="OwnedViews[10]" type="UMLSeqStimulusView" guid="Ob1fdkJtVUe5V7k5aq5oWwAA">
+<XPD:OBJ name="OwnedViews[13]" type="UMLSeqStimulusView" guid="Ob1fdkJtVUe5V7k5aq5oWwAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">639,187;539,187</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">751,267;651,267</XPD:ATTR>
 <XPD:REF name="Model">uGp6wyjCr0maCC9SY8RzRQAA</XPD:REF>
 <XPD:REF name="Head">5Ptkv2RRDUC/RSleizG4lwAA</XPD:REF>
 <XPD:REF name="Tail">XngBjQfoDEuCRcPPpSDyegAA</XPD:REF>
 <XPD:OBJ name="NameLabel" type="EdgeLabelView" guid="nB5LK3ZmpU+ZmjHEnsCNqQAA">
 <XPD:ATTR name="Alpha" type="real">1.5707963267949</XPD:ATTR>
 <XPD:ATTR name="Distance" type="real">10</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">6 : evento editado</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">8 : evento editado</XPD:ATTR>
 <XPD:REF name="Model">uGp6wyjCr0maCC9SY8RzRQAA</XPD:REF>
 <XPD:REF name="HostEdge">Ob1fdkJtVUe5V7k5aq5oWwAA</XPD:REF>
 </XPD:OBJ>
@@ -28083,24 +28327,24 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 </XPD:OBJ>
 <XPD:OBJ name="Activation" type="UMLActivationView" guid="WLLeyQFQ90+3LmMfP3D6jAAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
-<XPD:ATTR name="Left" type="integer">526</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">187</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">638</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">267</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">14</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">29</XPD:ATTR>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="OwnedViews[11]" type="UMLSeqStimulusView" guid="pkCocCY0Rkunz2rSUp2ZfwAA">
+<XPD:OBJ name="OwnedViews[14]" type="UMLSeqStimulusView" guid="pkCocCY0Rkunz2rSUp2ZfwAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">526,192;400,192</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">638,283;512,283</XPD:ATTR>
 <XPD:REF name="Model">fpg15jedokGoT1F2PFr85QAA</XPD:REF>
 <XPD:REF name="Head">bx8WA8TgkkSMSaqwCZ7g6wAA</XPD:REF>
 <XPD:REF name="Tail">5Ptkv2RRDUC/RSleizG4lwAA</XPD:REF>
 <XPD:OBJ name="NameLabel" type="EdgeLabelView" guid="JG0D+yE36kaj2xLMMt3XTwAA">
 <XPD:ATTR name="Alpha" type="real">1.37340172848366</XPD:ATTR>
 <XPD:ATTR name="Distance" type="real">10.1980390271856</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">7 : evento editado</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">9 : evento editado</XPD:ATTR>
 <XPD:REF name="Model">fpg15jedokGoT1F2PFr85QAA</XPD:REF>
 <XPD:REF name="HostEdge">pkCocCY0Rkunz2rSUp2ZfwAA</XPD:REF>
 </XPD:OBJ>
@@ -28120,24 +28364,24 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 </XPD:OBJ>
 <XPD:OBJ name="Activation" type="UMLActivationView" guid="IZtkkLk31ka58IizGXLkBgAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
-<XPD:ATTR name="Left" type="integer">387</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">192</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">499</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">283</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">14</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">29</XPD:ATTR>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:OBJ name="OwnedViews[12]" type="UMLSeqStimulusView" guid="vLOfdTDnvEuKvrwYqL0k1QAA">
+<XPD:OBJ name="OwnedViews[15]" type="UMLSeqStimulusView" guid="vLOfdTDnvEuKvrwYqL0k1QAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="LineStyle" type="LineStyleKind">lsRectilinear</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">387,206;224,206</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">499,294;224,294</XPD:ATTR>
 <XPD:REF name="Model">EqaEyUwFzU2lR0fScMRtEwAA</XPD:REF>
 <XPD:REF name="Head">Ikercgbi1kqjeCuBFppmnQAA</XPD:REF>
 <XPD:REF name="Tail">bx8WA8TgkkSMSaqwCZ7g6wAA</XPD:REF>
 <XPD:OBJ name="NameLabel" type="EdgeLabelView" guid="1LjHY4FxQECL5kOXypefywAA">
-<XPD:ATTR name="Alpha" type="real">1.5707963267949</XPD:ATTR>
-<XPD:ATTR name="Distance" type="real">10</XPD:ATTR>
-<XPD:ATTR name="Text" type="string">8 : evento editado</XPD:ATTR>
+<XPD:ATTR name="Alpha" type="real">0.136138979272742</XPD:ATTR>
+<XPD:ATTR name="Distance" type="real">73.6817480791546</XPD:ATTR>
+<XPD:ATTR name="Text" type="string">10 : evento editado</XPD:ATTR>
 <XPD:REF name="Model">EqaEyUwFzU2lR0fScMRtEwAA</XPD:REF>
 <XPD:REF name="HostEdge">vLOfdTDnvEuKvrwYqL0k1QAA</XPD:REF>
 </XPD:OBJ>
@@ -28158,14 +28402,14 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:OBJ name="Activation" type="UMLActivationView" guid="daaHgKAh9kyOZ4Cf2kErJAAA">
 <XPD:ATTR name="Visible" type="boolean">False</XPD:ATTR>
 <XPD:ATTR name="Left" type="integer">211</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">206</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">294</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">14</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">29</XPD:ATTR>
 </XPD:OBJ>
 </XPD:OBJ>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:ATTR name="#ParticipatingStimuli" type="integer">8</XPD:ATTR>
+<XPD:ATTR name="#ParticipatingStimuli" type="integer">10</XPD:ATTR>
 <XPD:OBJ name="ParticipatingStimuli[0]" type="UMLStimulus" guid="e34Qw96GE0y7G/Lt/ixftAAA">
 <XPD:REF name="Sender">w3ImkAafH0O0V5yXCGIDCgAA</XPD:REF>
 <XPD:REF name="Receiver">q3R+ozKvRkStAdKElkE1tQAA</XPD:REF>
@@ -28194,7 +28438,35 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:REF name="Views[2]">mKIVVMttuUWyVtPrZtuKWAAA</XPD:REF>
 <XPD:REF name="Views[3]">ks6TA4B0/EK97yXY+650hQAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="ParticipatingStimuli[2]" type="UMLStimulus" guid="fkTS4LH3yECFX/vDsMu23QAA">
+<XPD:OBJ name="ParticipatingStimuli[2]" type="UMLStimulus" guid="NfQn1dxsmEqZXB3tscuvHQAA">
+<XPD:REF name="Sender">q3R+ozKvRkStAdKElkE1tQAA</XPD:REF>
+<XPD:REF name="Receiver">97M+2r5nnUuvQAjfh/g1EwAA</XPD:REF>
+<XPD:OBJ name="Action" type="UMLCallAction" guid="gtefS+YPBEGkCbWwLfUiUgAA">
+<XPD:REF name="Stimulus">NfQn1dxsmEqZXB3tscuvHQAA</XPD:REF>
+<XPD:REF name="Operation">rStOAr3ddEmOsDVYhbFr1QAA</XPD:REF>
+</XPD:OBJ>
+<XPD:REF name="InteractionInstanceSet">GDmBWiWHhUaQBrF/2h6kLQAA</XPD:REF>
+<XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
+<XPD:REF name="Views[0]">KzxSZAJLbkOTWookf6SFqgAA</XPD:REF>
+<XPD:REF name="Views[1]">iqWzo2KYpk2eFuHH7dRUAgAA</XPD:REF>
+<XPD:REF name="Views[2]">Oh6/YeetQ0KPdMvz0C5ywQAA</XPD:REF>
+<XPD:REF name="Views[3]">SYrZ6yHEnE+N/J9QExqKwwAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="ParticipatingStimuli[3]" type="UMLStimulus" guid="NoVu+Z2EXkyFw37/m8cSrwAA">
+<XPD:REF name="Sender">97M+2r5nnUuvQAjfh/g1EwAA</XPD:REF>
+<XPD:REF name="Receiver">97M+2r5nnUuvQAjfh/g1EwAA</XPD:REF>
+<XPD:OBJ name="Action" type="UMLCallAction" guid="DlpeeV1F4U2N3vxw0So9jgAA">
+<XPD:REF name="Stimulus">NoVu+Z2EXkyFw37/m8cSrwAA</XPD:REF>
+<XPD:REF name="Operation">CsUF89v4AkOSf+lbhfC/BgAA</XPD:REF>
+</XPD:OBJ>
+<XPD:REF name="InteractionInstanceSet">GDmBWiWHhUaQBrF/2h6kLQAA</XPD:REF>
+<XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
+<XPD:REF name="Views[0]">JjbKulP0qkyYVsxiJNtsbQAA</XPD:REF>
+<XPD:REF name="Views[1]">iRnKeTmInEGUn7YGuZaEbQAA</XPD:REF>
+<XPD:REF name="Views[2]">gf7SkQWgv0SxhepB71RIxQAA</XPD:REF>
+<XPD:REF name="Views[3]">cIDYTbwxmkK+KMZ57E1TyAAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="ParticipatingStimuli[4]" type="UMLStimulus" guid="fkTS4LH3yECFX/vDsMu23QAA">
 <XPD:REF name="Sender">q3R+ozKvRkStAdKElkE1tQAA</XPD:REF>
 <XPD:REF name="Receiver">IWTLFf7nHEePZlF/dNHMGAAA</XPD:REF>
 <XPD:OBJ name="Action" type="UMLCallAction" guid="9Lqfhz0osE+T5rUYCPT70gAA">
@@ -28208,7 +28480,7 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:REF name="Views[2]">uAfpajzJYU68yO6auHcVswAA</XPD:REF>
 <XPD:REF name="Views[3]">qQEbNZpORUacaxMrg38m3gAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="ParticipatingStimuli[3]" type="UMLStimulus" guid="B0/oPF2U/E2G+hq0qqgp2gAA">
+<XPD:OBJ name="ParticipatingStimuli[5]" type="UMLStimulus" guid="B0/oPF2U/E2G+hq0qqgp2gAA">
 <XPD:REF name="Sender">IWTLFf7nHEePZlF/dNHMGAAA</XPD:REF>
 <XPD:REF name="Receiver">Jttr5DSCM0yur4sfyH5LcgAA</XPD:REF>
 <XPD:OBJ name="Action" type="UMLCallAction" guid="tBl2cGUTtEKlTJi3N967cAAA">
@@ -28222,7 +28494,7 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:REF name="Views[2]">Gf9VLAAErkSDSL7uNfR/aAAA</XPD:REF>
 <XPD:REF name="Views[3]">CsaEFeaTEUOtcnO5pUXlcgAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="ParticipatingStimuli[4]" type="UMLStimulus" guid="/dMCW5xAqEyMj47vnN6WEQAA">
+<XPD:OBJ name="ParticipatingStimuli[6]" type="UMLStimulus" guid="/dMCW5xAqEyMj47vnN6WEQAA">
 <XPD:REF name="Sender">Jttr5DSCM0yur4sfyH5LcgAA</XPD:REF>
 <XPD:REF name="Receiver">wsALZmlVm0udSVScNXJEZwAA</XPD:REF>
 <XPD:OBJ name="Action" type="UMLCallAction" guid="FqzuX3mOpUa7yCx3yKtpogAA">
@@ -28236,7 +28508,7 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:REF name="Views[2]">bx2wdJ7mbE6Dk8qmF0qIygAA</XPD:REF>
 <XPD:REF name="Views[3]">OQnF3t44lESFwBv/4ozyyAAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="ParticipatingStimuli[5]" type="UMLStimulus" guid="uGp6wyjCr0maCC9SY8RzRQAA">
+<XPD:OBJ name="ParticipatingStimuli[7]" type="UMLStimulus" guid="uGp6wyjCr0maCC9SY8RzRQAA">
 <XPD:ATTR name="Name" type="string">evento editado</XPD:ATTR>
 <XPD:REF name="Sender">wsALZmlVm0udSVScNXJEZwAA</XPD:REF>
 <XPD:REF name="Receiver">Jttr5DSCM0yur4sfyH5LcgAA</XPD:REF>
@@ -28250,7 +28522,7 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:REF name="Views[2]">lSmxE0R3xUa2e4i9ZCULyQAA</XPD:REF>
 <XPD:REF name="Views[3]">1lvU44FTSke9tlIinPTfpgAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="ParticipatingStimuli[6]" type="UMLStimulus" guid="fpg15jedokGoT1F2PFr85QAA">
+<XPD:OBJ name="ParticipatingStimuli[8]" type="UMLStimulus" guid="fpg15jedokGoT1F2PFr85QAA">
 <XPD:ATTR name="Name" type="string">evento editado</XPD:ATTR>
 <XPD:REF name="Sender">Jttr5DSCM0yur4sfyH5LcgAA</XPD:REF>
 <XPD:REF name="Receiver">IWTLFf7nHEePZlF/dNHMGAAA</XPD:REF>
@@ -28264,7 +28536,7 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:REF name="Views[2]">MCiNoyCU/0CrvoqOTDLMCgAA</XPD:REF>
 <XPD:REF name="Views[3]">+k7p7Dx3IUqb4umxMYp4MQAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="ParticipatingStimuli[7]" type="UMLStimulus" guid="EqaEyUwFzU2lR0fScMRtEwAA">
+<XPD:OBJ name="ParticipatingStimuli[9]" type="UMLStimulus" guid="EqaEyUwFzU2lR0fScMRtEwAA">
 <XPD:ATTR name="Name" type="string">evento editado</XPD:ATTR>
 <XPD:REF name="Sender">IWTLFf7nHEePZlF/dNHMGAAA</XPD:REF>
 <XPD:REF name="Receiver">q3R+ozKvRkStAdKElkE1tQAA</XPD:REF>
@@ -28279,7 +28551,7 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:REF name="Views[3]">guzg7S2llkW5QCq9wG9HWgAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
-<XPD:ATTR name="#ParticipatingInstances" type="integer">5</XPD:ATTR>
+<XPD:ATTR name="#ParticipatingInstances" type="integer">6</XPD:ATTR>
 <XPD:OBJ name="ParticipatingInstances[0]" type="UMLObject" guid="w3ImkAafH0O0V5yXCGIDCgAA">
 <XPD:REF name="Classifier">bZallTxWpUmG91UT/y/kkQAA</XPD:REF>
 <XPD:REF name="CollaborationInstanceSet">P9HcugLdJEuwTCzO1k22tAAA</XPD:REF>
@@ -28298,8 +28570,9 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:ATTR name="#Views" type="integer">2</XPD:ATTR>
 <XPD:REF name="Views[0]">4xIMURe8b0K2VhxmtcbocAAA</XPD:REF>
 <XPD:REF name="Views[1]">Ikercgbi1kqjeCuBFppmnQAA</XPD:REF>
-<XPD:ATTR name="#SendingStimuli" type="integer">1</XPD:ATTR>
+<XPD:ATTR name="#SendingStimuli" type="integer">2</XPD:ATTR>
 <XPD:REF name="SendingStimuli[0]">fkTS4LH3yECFX/vDsMu23QAA</XPD:REF>
+<XPD:REF name="SendingStimuli[1]">NfQn1dxsmEqZXB3tscuvHQAA</XPD:REF>
 <XPD:ATTR name="#ReceivingStimuli" type="integer">3</XPD:ATTR>
 <XPD:REF name="ReceivingStimuli[0]">e34Qw96GE0y7G/Lt/ixftAAA</XPD:REF>
 <XPD:REF name="ReceivingStimuli[1]">UNSjUb0niUaASkeDhLmvbgAA</XPD:REF>
@@ -28347,6 +28620,20 @@ metodo editarEvento de la clase Evento devuelve un valor diferente de null
 <XPD:REF name="SendingStimuli[0]">uGp6wyjCr0maCC9SY8RzRQAA</XPD:REF>
 <XPD:ATTR name="#ReceivingStimuli" type="integer">1</XPD:ATTR>
 <XPD:REF name="ReceivingStimuli[0]">/dMCW5xAqEyMj47vnN6WEQAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="ParticipatingInstances[5]" type="UMLObject" guid="97M+2r5nnUuvQAjfh/g1EwAA">
+<XPD:ATTR name="StereotypeProfile" type="string">UMLStandard</XPD:ATTR>
+<XPD:ATTR name="StereotypeName" type="string">boundary</XPD:ATTR>
+<XPD:REF name="Classifier">ghmAVhSe2kGXper8ZUIPFAAA</XPD:REF>
+<XPD:REF name="CollaborationInstanceSet">P9HcugLdJEuwTCzO1k22tAAA</XPD:REF>
+<XPD:ATTR name="#Views" type="integer">2</XPD:ATTR>
+<XPD:REF name="Views[0]">9eahR28vUUiFZxgGsWTmAAAA</XPD:REF>
+<XPD:REF name="Views[1]">lfqLkfaJ7k6JWEBPhc/P9wAA</XPD:REF>
+<XPD:ATTR name="#SendingStimuli" type="integer">1</XPD:ATTR>
+<XPD:REF name="SendingStimuli[0]">NoVu+Z2EXkyFw37/m8cSrwAA</XPD:REF>
+<XPD:ATTR name="#ReceivingStimuli" type="integer">2</XPD:ATTR>
+<XPD:REF name="ReceivingStimuli[0]">NfQn1dxsmEqZXB3tscuvHQAA</XPD:REF>
+<XPD:REF name="ReceivingStimuli[1]">NoVu+Z2EXkyFw37/m8cSrwAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedCollaborationInstanceSets[2]" type="UMLCollaborationInstanceSet" guid="DxQhD4gJ/0Sl94yn2CoTHAAA">
