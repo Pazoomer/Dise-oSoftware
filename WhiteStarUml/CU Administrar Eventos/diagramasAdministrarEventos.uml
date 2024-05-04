@@ -20643,25 +20643,6 @@
 <XPD:OBJ name="OwnedElements[4]" type="UMLPackage" guid="5rsIjOIH6EuwVkiwJjrv+gAA">
 <XPD:ATTR name="Name" type="string">Secuencias</XPD:ATTR>
 <XPD:REF name="Namespace">Q7lrHHXd/0ONW7/IJPCqEAAA</XPD:REF>
-<XPD:ATTR name="#OwnedCollaborationInstanceSets" type="integer">1</XPD:ATTR>
-<XPD:OBJ name="OwnedCollaborationInstanceSets[0]" type="UMLCollaborationInstanceSet" guid="kXZ7cmXbNEKW0qA/2hFa0gAA">
-<XPD:ATTR name="Name" type="string">CollaborationInstanceSet1</XPD:ATTR>
-<XPD:REF name="RepresentedClassifier">5rsIjOIH6EuwVkiwJjrv+gAA</XPD:REF>
-<XPD:ATTR name="#InteractionInstanceSets" type="integer">1</XPD:ATTR>
-<XPD:OBJ name="InteractionInstanceSets[0]" type="UMLInteractionInstanceSet" guid="vfcBIcAeYEGKZd2li4N6qQAA">
-<XPD:ATTR name="Name" type="string">InteractionInstanceSet1</XPD:ATTR>
-<XPD:REF name="Context">kXZ7cmXbNEKW0qA/2hFa0gAA</XPD:REF>
-<XPD:ATTR name="#OwnedDiagrams" type="integer">1</XPD:ATTR>
-<XPD:OBJ name="OwnedDiagrams[0]" type="UMLSequenceDiagram" guid="6BFCaK8Qbk6DvSvnaqn6EAAA">
-<XPD:ATTR name="Name" type="string">FlujoBasico-Agregar</XPD:ATTR>
-<XPD:REF name="DiagramOwner">vfcBIcAeYEGKZd2li4N6qQAA</XPD:REF>
-<XPD:OBJ name="DiagramView" type="UMLSequenceDiagramView" guid="hrvExtF3XECEy+hDVPdXPwAA">
-<XPD:REF name="Model">6BFCaK8Qbk6DvSvnaqn6EAAA</XPD:REF>
-<XPD:REF name="Diagram">6BFCaK8Qbk6DvSvnaqn6EAAA</XPD:REF>
-</XPD:OBJ>
-</XPD:OBJ>
-</XPD:OBJ>
-</XPD:OBJ>
 </XPD:OBJ>
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[4]" type="UMLPackage" guid="2SWl6lkYBkG/2o82hGrqxgAA">
