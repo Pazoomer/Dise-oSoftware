@@ -67,4 +67,9 @@ public class Conexion implements IConexion{
         return baseDatos.getCollection("Campus", EntidadCampus.class);
     }
 
+    @Override
+    public MongoCollection<EntidadEvento> ConversionDocumentEvento() {
+        return baseDatos.getCollection("Eventos", EntidadEvento.class);
+    }
+
 }
