@@ -38,14 +38,14 @@ public class CrudCampus {
     }
     
     public EntidadCampus editarCampus(EntidadCampus campus) throws PersistenciaExceptionn {
-    try {
-        coleccion.replaceOne(eq("nombre", campus.getNombre()), campus);
-        return campus;
-    } catch (Exception e) {
-        LOG.log(Level.SEVERE, e.getMessage(), e);
-        throw new PersistenciaExceptionn("Hubo un error al actualizar el campus.");
+        try {
+            coleccion.replaceOne(eq("nombre", campus.getNombre()), campus);
+            return campus;
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, e.getMessage(), e);
+            throw new PersistenciaExceptionn("Hubo un error al actualizar el campus.");
+        }
     }
-}
 
     public boolean eliminarCampus(EntidadCampus campusParametro) throws PersistenciaExceptionn {
         try {
