@@ -75,18 +75,17 @@ public class Campus {
     }
 
     public UbicacionDTO obtenerUbicacion(UbicacionDTO ubicacion) throws NegocioException {
-
         try {
-            EntidadUbicacion entidadUbicacion=crudCampus.obtenerUbicacion(conversiones.toUbicacionBO(ubicacion));
+            EntidadUbicacion entidadUbicacion=crudCampus.obtenerUbi(conversiones.toUbicacionBO(ubicacion));
             if (entidadUbicacion!=null) {
                 return conversiones.toUbicacionDTO(entidadUbicacion);
             }
-            throw new PersistenciaExceptionn("No se encontro la ubicacion");
-
+            return null;
         } catch (PersistenciaExceptionn ex) {
-            Logger.getLogger(Campus.class.getName()).log(Level.SEVERE, null, ex);
+            throw new NegocioException(ex.getMessage());
+            //Logger.getLogger(Campus.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        //return null;
     }
 
 }
