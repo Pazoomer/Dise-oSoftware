@@ -1,9 +1,11 @@
 package entidades;
 
 import com.mongodb.MongoException;
+import com.mongodb.MongoWriteException;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
+import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.client.result.UpdateResult;
 import excepcioness.PersistenciaExceptionn;
 import java.util.ArrayList;
@@ -25,19 +27,19 @@ import org.bson.conversions.Bson;
 
 
 public class CrudEvento {
-    private MongoCollection<EntidadEvento> coleccion;
+    private static MongoCollection<EntidadEvento> coleccion;
     private Logger LOG =Logger.getLogger(CrudEvento.class.getName());
-    private IConexion conexion;
+    //private IConexion conexion;
 
-    public void CrudEvento() {
-        conexion=new Conexion();
-        coleccion = conexion.ConversionDocumentEvento();
+    public CrudEvento() {
+        this.coleccion = Conexion.getDatabasee().getCollection("Eventos", EntidadEvento.class);
     }
 
     public EntidadEvento agregarEvento(EntidadEvento evento)throws PersistenciaExceptionn {
          try {
-            coleccion.insertOne(evento);
-            return evento;
+            InsertOneResult result=coleccion.insertOne(evento);
+            if(result.getInsertedId()!=null)return evento;
+            return null;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
             throw new PersistenciaExceptionn("Hubo un error al agregar el evento.");
@@ -66,23 +68,23 @@ public class CrudEvento {
                     updates.add(Updates.set("ubicacion", evento.getUbicacion()));
                     break;
                 case "color":
-                    updates.add(Updates.push("color", evento.getColor()));
+                    updates.add(Updates.set("color", evento.getColor()));
                     break;
                 case "fechaInicio":
                     updates.add(Updates.set("fechaInicio", evento.getFechaInicio()));
                     break;
                 case "horaInicio":
-                    updates.add(Updates.push("horaInicio", evento.getHoraInicio()));
+                    updates.add(Updates.set("horaInicio", evento.getHoraInicio()));
                     break;
                 case "horasDuracion":
-                    updates.add(Updates.push("horasDuracion", evento.getHorasDuracionEvento()));
+                    updates.add(Updates.set("horasDuracion", evento.getHorasDuracionEvento()));
                     break;
             }
         }
         Bson filtro = Filters.eq("nombre", evento.getNombre());
         UpdateResult result;
         try {
-            result = coleccion.updateOne(filtro, Updates.combine(updates));
+            result = coleccion.updateOne(filtro, updates);
         } catch (MongoException ex) {
             LOG.log(Level.SEVERE, ex.getMessage(), ex);
             throw new PersistenciaExceptionn("Hubo un error al actualizar la pelicula");
