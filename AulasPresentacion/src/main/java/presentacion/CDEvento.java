@@ -1,4 +1,3 @@
-
 package presentacion;
 
 import DTOS.campus.UbicacionDTO;
@@ -22,9 +21,10 @@ public class CDEvento extends javax.swing.JDialog {
     private EventoConsultableDTO eventoEditable;
     private UbicacionDTO ubicacionDTO;
     private String tipoOperacion;
-    
+
     /**
      * Creates new form CDEvento
+     *
      * @param parent
      * @param calendario
      * @param modal
@@ -72,87 +72,81 @@ public class CDEvento extends javax.swing.JDialog {
         ImageIcon iconoDatos = new ImageIcon(getClass().getResource("/imagenes/icons8-note-50.png"));
         lblInfoEventoEstatico.setIcon(iconoDatos);
     }
-    
-    private void añadirEvento2(){
-        EventoConsultableDTO eventoN=crearEvento();
+
+    private void añadirEvento2() {
+        EventoConsultableDTO eventoN = crearEvento();
         calendario.añadirEvento(eventoN);
         JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
-        
+
         calendario.setVisible(true);
     }
-    
-    private EventoConsultableDTO crearEvento() {
-        String tipoStr = (String) this.cmbTipo.getSelectedItem();
-        TipoEventoEnumDTO tipo;
-        if (tipoStr.equals("Unico")) {
-            tipo = TipoEventoEnumDTO.UNICO_UN_DIA;
-        } else {
-            tipo = TipoEventoEnumDTO.SEMANAL;
-        }
 
+    private EventoConsultableDTO crearEvento() {
+        EventoConsultableDTO eventoN;
         String descripcion = this.txtDescripcion.getText();
         String nombre = this.txtNombre.getText();
-        //String ubicacion = this.txtUbicacion.getText();
-        Calendar fecha = Calendar.getInstance();
-        if (tipo.equals(TipoEventoEnumDTO.UNICO_UN_DIA)) {
-            fecha = this.dtcFecha.getCalendar();
-        }
         String color = this.lblEjemploEstatico.getForeground().toString();
         String duracionStr = (String) cmbDuracionEvento.getSelectedItem();
         double horasDuracion = Double.parseDouble(String.valueOf(duracionStr.charAt(0)));
         if (duracionStr.length() > 1) {
             horasDuracion = horasDuracion + 0.5f;
         }
-
-        JCheckBox[] arrChkBx = {chbDomingo, chbLunes, chbMartes, chbMiercoles, chbJueves, chbViernes, chbSabado};
-        StringBuilder stringBuilder = new StringBuilder();
-        for (JCheckBox checkBox : arrChkBx) {
-            // Verificar si el checkbox está seleccionado o no y agregar '1' o '0' al string
-            if (checkBox.isSelected()) {
-                stringBuilder.append('1');
-            } else {
-                stringBuilder.append('0');
-            }
-        }
-        String diasSemana = stringBuilder.toString();
-
         String horaSeleccionada = (String) cmbHora.getSelectedItem();
         int hora = Integer.parseInt(horaSeleccionada.substring(0, 2));
-        int minutos = Integer.parseInt(horaSeleccionada.substring(3,5));
+        int minutos = Integer.parseInt(horaSeleccionada.substring(3, 5));
         Calendar horaInicio = Calendar.getInstance();
         horaInicio.set(Calendar.HOUR_OF_DAY, hora);
         horaInicio.set(Calendar.MINUTE, minutos);
-        //System.out.println("hora inicio evento desde cdEvento: "+hora+":"+minutos);
-
-        EventoConsultableDTO eventoN;
         
-        if (tipo.equals(TipoEventoEnumDTO.UNICO_UN_DIA)) {
+        String tipoStr = (String) this.cmbTipo.getSelectedItem();
+        TipoEventoEnumDTO tipo;
+        if (tipoStr.equals("Unico")) {
+            tipo = TipoEventoEnumDTO.UNICO_UN_DIA;
+            Calendar fecha = this.dtcFecha.getCalendar();
             eventoN = new EventoConsultableDTO(nombre, descripcion, color, ubicacionDTO, fecha, horaInicio, horasDuracion);
         } else {
+            tipo = TipoEventoEnumDTO.SEMANAL;
+            JCheckBox[] arrChkBx = {chbDomingo, chbLunes, chbMartes, chbMiercoles, chbJueves, chbViernes, chbSabado};
+            String[] dias = {"Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"};
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < 7; i++) {
+                if (arrChkBx[i].isSelected()) {
+                    if (!stringBuilder.isEmpty() && i < 6) {
+                        stringBuilder.append(",");
+                    }
+                    stringBuilder.append(dias[i]);
+                }
+            }
+            String diasSemana = stringBuilder.toString();
             eventoN = new EventoConsultableDTO(tipo, nombre, descripcion, color,
-                    diasSemana, ubicacionDTO, fecha, fecha, horaInicio, horasDuracion);
+                    diasSemana, ubicacionDTO, Calendar.getInstance(), Calendar.getInstance(), horaInicio, horasDuracion);
         }
 
-        JOptionPane.showMessageDialog(null, "Evento añadido con exito", "Mensaje de confirmación", JOptionPane.INFORMATION_MESSAGE);
-
-//calendario.añadirEvento(eventoN);
+//        for (JCheckBox checkBox : arrChkBx) {
+//            // Verificar si el checkbox está seleccionado o no y agregar '1' o '0' al string
+//            if (checkBox.isSelected()) {
+//                stringBuilder.append('1');
+//            } else {
+//                stringBuilder.append('0');
+//            }
+//        }
         return eventoN;
     }
 
     public void guardarUbicacion(String ubicacion, UbicacionDTO ubicacionDTO) {
         this.txtUbicacion.setText(ubicacion);
-        this.ubicacionDTO=ubicacionDTO;
+        this.ubicacionDTO = ubicacionDTO;
     }
-    
+
     /**
      * Abre el frame MapaCalendario
      */
-    private void abrirMapa(){
+    private void abrirMapa() {
         new MapaCalendario(this).setVisible(true);
         calendario.setVisible(false);
         this.setVisible(false);
     }
-    
+
     /**
      * Abre un seleccionador de color y se le asigna al evento
      */
@@ -161,22 +155,22 @@ public class CDEvento extends javax.swing.JDialog {
         color.setVisible(true);
         this.lblEjemploEstatico.setForeground(color.getColor());
     }
-    
+
     /**
      * Abre un seleccionador de fecha y se le asigna al evento
      */
-    public void editarEvento(){
+    public void editarEvento() {
         //accesoCalendario=new AccesoCalendarioBO(conexion);
-        EventoConsultableDTO eventoEditado=crearEvento();
+        EventoConsultableDTO eventoEditado = crearEvento();
         calendario.editarEvento(eventoEditado);
     }
-    
-    public void desplegarEventoEditable(){
+
+    public void desplegarEventoEditable() {
         desplegarInfo();
         actualizarPermisos();
         btnLimpiar.setVisible(false);
     }
-    
+
     private void desplegarInfo() {
 
         if (eventoEditable != null) {
@@ -194,10 +188,14 @@ public class CDEvento extends javax.swing.JDialog {
             int horaIn = eventoEditable.getHoraInicio().get(Calendar.HOUR);
             int minutoIn = eventoEditable.getHoraInicio().get(Calendar.MINUTE);
             String horaInicio = horaIn + ":" + minutoIn;
-            if (horaIn >= 12)
-            horaInicio = horaInicio + " PM";
-            else
+            if (minutoIn == 0) {
+                horaInicio = horaInicio + "0";
+            }
+            if (horaIn >= 12) {
+                horaInicio = horaInicio + " PM";
+            } else {
                 horaInicio = horaInicio + " AM";
+            }
             System.out.println("metodo desplegar info");
             System.out.println("hora inicio: " + horaInicio);
             for (int i = 0; i < cmbHora.getModel().getSize(); i++) {
@@ -213,29 +211,32 @@ public class CDEvento extends javax.swing.JDialog {
             } else if (eventoEditable.getTipo().equals(TipoEventoEnumDTO.SEMANAL)) {
                 cmbTipo.setSelectedIndex(0);
                 String diasSemana = eventoEditable.getDiasSemana();
-            for (int i = 0; i < diasSemana.length(); i++) {
-                    char dia = diasSemana.charAt(i);
-                switch (i + 1) { // Sumamos 1 para que coincida con el índice de los días de la semana
-                        case 1 ->
-                        chbDomingo.setSelected(dia == '1');
-                    case 2 ->
-                        chbLunes.setSelected(dia == '1');
-                    case 3 ->
-                        chbMartes.setSelected(dia == '1');
-                    case 4 ->
-                        chbMiercoles.setSelected(dia == '1');
-                    case 5 ->
-                        chbJueves.setSelected(dia == '1');
-                    case 6 ->
-                        chbViernes.setSelected(dia == '1');
-                    case 7 ->
-                        chbSabado.setSelected(dia == '1');
+                //String[] dias={"Do","Lu","Ma","Mi","Ju","Vi","Sa"};
+                String[] arrDiasS = diasSemana.split(",");
+                for (String arrDiasS1 : arrDiasS) {
+                    // char dia = diasSemana.charAt(i);
+                    switch (arrDiasS1) {
+                        // Sumamos 1 para que coincida con el índice de los días de la semana
+                        case "Do" ->
+                            chbDomingo.setSelected(true);
+                        case "Lu" ->
+                            chbLunes.setSelected(true);
+                        case "Ma" ->
+                            chbMartes.setSelected(true);
+                        case "Mi" ->
+                            chbMiercoles.setSelected(true);
+                        case "Ju" ->
+                            chbJueves.setSelected(true);
+                        case "Vi" ->
+                            chbViernes.setSelected(true);
+                        case "Sa" ->
+                            chbSabado.setSelected(true);
                         default -> {
                         }
                     }
                 }
- {
-                    
+                {
+
                     // Sumamos 1 para que coincida con el índice de los días de la semana
                     // Manejar cualquier otro caso si es necesario
                 }
@@ -244,7 +245,7 @@ public class CDEvento extends javax.swing.JDialog {
         }
     }
 
-    public void desplegarEvento(){
+    public void desplegarEvento() {
         desplegarInfo();
         txtNombre.setEnabled(false);
         txtDescripcion.setEnabled(false);
@@ -263,12 +264,12 @@ public class CDEvento extends javax.swing.JDialog {
         btnLimpiar.setVisible(false);
         btnAñadir.setVisible(false);
     }
-    
+
     /**
      * Establece vacio los campos de texto y la fecha
      */
-    private void limpiar(){
-       txtDescripcion.setText("");
+    private void limpiar() {
+        txtDescripcion.setText("");
         txtNombre.setText("");
         txtUbicacion.setText("");
         this.dtcFecha.setDate(null);
@@ -281,9 +282,9 @@ public class CDEvento extends javax.swing.JDialog {
         this.chbDomingo.setSelected(false);
         actualizarPermisos();
     }
-    
-     private void actualizarPermisos(){
-      if (this.cmbTipo.getSelectedItem().equals("Unico")) {
+
+    private void actualizarPermisos() {
+        if (this.cmbTipo.getSelectedItem().equals("Unico")) {
             this.chbLunes.setSelected(false);
             this.chbMartes.setSelected(false);
             this.chbMiercoles.setSelected(false);
@@ -291,7 +292,7 @@ public class CDEvento extends javax.swing.JDialog {
             this.chbViernes.setSelected(false);
             this.chbSabado.setSelected(false);
             this.chbDomingo.setSelected(false);
-            
+
             this.chbLunes.setEnabled(false);
             this.chbMartes.setEnabled(false);
             this.chbMiercoles.setEnabled(false);
@@ -299,9 +300,9 @@ public class CDEvento extends javax.swing.JDialog {
             this.chbViernes.setEnabled(false);
             this.chbSabado.setEnabled(false);
             this.chbDomingo.setEnabled(false);
-            
+
             this.dtcFecha.setEnabled(true);
-        }else if (this.cmbTipo.getSelectedItem().equals("Semanal")) {
+        } else if (this.cmbTipo.getSelectedItem().equals("Semanal")) {
             this.chbLunes.setEnabled(true);
             this.chbMartes.setEnabled(true);
             this.chbMiercoles.setEnabled(true);
@@ -309,12 +310,12 @@ public class CDEvento extends javax.swing.JDialog {
             this.chbViernes.setEnabled(true);
             this.chbSabado.setEnabled(true);
             this.chbDomingo.setEnabled(true);
-            
+
             this.dtcFecha.setEnabled(false);
             this.dtcFecha.setDate(null);
-        }  
+        }
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -609,10 +610,11 @@ public class CDEvento extends javax.swing.JDialog {
     }//GEN-LAST:event_btnMapaActionPerformed
 
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
-        if(tipoOperacion.equals("editar")){
+        if (tipoOperacion.equals("editar")) {
             editarEvento();
-        }else
+        } else {
             añadirEvento2();
+        }
         this.dispose();
     }//GEN-LAST:event_btnAñadirActionPerformed
 
