@@ -157,7 +157,7 @@ public class CrudCampus {
     }
     
     public boolean cerrarConexion(){
-        conexion.cerrarConexion();
+        Conexion.cerrarConexion();
         return true;
     }
     
