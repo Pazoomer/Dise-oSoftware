@@ -46,7 +46,8 @@ public class PruebaConversiones {
         fechaInicio.set(Calendar.MONTH, 4);
         fechaInicio.set(Calendar.HOUR_OF_DAY, 10);
         fechaInicio.set(Calendar.MINUTE, 0);
-        EntidadEvento evento = new EntidadEvento("Asesoria de Algebra", "asesoria para examen de algebra", "AV-1100", "Rosa", fechaInicio.getTime(), fechaInicio.getTime(), 2.5, maestro.getIdConversion());
+        EntidadUbicacion ubi=new EntidadUbicacion("AV-1100");
+        EntidadEvento evento = new EntidadEvento("Asesoria de Algebra", "asesoria para examen de algebra", ubi, "Rosa", fechaInicio.getTime(), fechaInicio.getTime(), 2.5, maestro.getIdConversion());
         evento.setTipo(EntidadTipoEventoEnum.SEMANAL);
         evento.setDiasSemana("0011100");
         evento.setMaestro(maestro.getNombre());
@@ -65,7 +66,8 @@ public class PruebaConversiones {
         MaestroEditableDTO maestroDTO = conversiones.toMaestroDTO(maestro);
         System.out.println("MaestroDTO: " + maestroDTO);
 
-        EventoConsultableDTO eventoDTO = conversiones.toEventoDTO(evento, maestroDTO);
+        EventoConsultableDTO eventoDTO = conversiones.toEventoDTO(evento);
+        eventoDTO.setMaestro(maestroDTO);
         System.out.println("EventoDTO: " + eventoDTO);
 
         EntidadCampus entidadCampus = conversiones.toCampusBO(campusDTO);
