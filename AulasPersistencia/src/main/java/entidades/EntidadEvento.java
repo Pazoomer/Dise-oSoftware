@@ -39,6 +39,44 @@ public class EntidadEvento implements Serializable {
     public EntidadEvento() {
     }
 
+    public EntidadEvento(String nombre, String descripcion, String ubicacion, String color, Date fechaInicio, Double horasDuracionEvento) {
+        this.tipo=EntidadTipoEventoEnum.UNICO_UN_DIA;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.ubicacion = ubicacion;
+        this.color = color;
+        Calendar fechaInicioCalculada=Calendar.getInstance();
+        fechaInicioCalculada.setTime(fechaInicio);
+        fechaInicioCalculada.add(Calendar.MONTH, -1);
+        this.fechaInicio = fechaInicioCalculada.getTime();
+        this.horaInicio = this.fechaInicio;
+        Calendar fechaFinCalculada=Calendar.getInstance();
+        fechaFinCalculada.setTime(this.horaInicio);
+        fechaFinCalculada.add(Calendar.HOUR, horasDuracionEvento.intValue());
+        this.fechaFin=fechaFinCalculada.getTime();
+        this.horasDuracionEvento = horasDuracionEvento;
+    }
+
+    public EntidadEvento(EntidadTipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, String ubicacion, String color, Date fechaInicio, Date fechaFin, Double horasDuracionEvento) {
+        this.tipo = tipo;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.diasSemana = diasSemana;
+        this.ubicacion = ubicacion;
+        this.color = color;
+        Calendar fechaInicioCalculada=Calendar.getInstance();
+        fechaInicioCalculada.setTime(fechaInicio);
+        fechaInicioCalculada.add(Calendar.MONTH, -1);
+        this.fechaInicio = fechaInicioCalculada.getTime();
+        this.horaInicio=this.fechaInicio;
+        Calendar fechaFinCalculada=Calendar.getInstance();
+        fechaFinCalculada.setTime(fechaFin);
+        fechaFinCalculada.add(Calendar.MONTH, -1);
+        this.fechaFin = fechaFinCalculada.getTime();
+        this.horasDuracionEvento = horasDuracionEvento;
+    }
+
+    
 
     public EntidadEvento(EntidadTipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, String ubicacion, String color, Date fechaInicio, Date fechaFin, Date horaInicio, Double horasDuracionEvento, String maestro) {
         this.tipo = tipo;
@@ -59,7 +97,7 @@ public class EntidadEvento implements Serializable {
         this.fechaFin = fechaFinCalculada.getTime();
         this.horaInicio = horaInicio;
         this.horasDuracionEvento = horasDuracionEvento;
-        //this.maestro = maestro;
+        this.maestro = maestro;
     }
 
     public EntidadEvento(String nombre, String descripcion, String ubicacion, String color, Date fechaInicio, Date horaInicio, Double horasDuracionEvento, String maestro) {
@@ -68,17 +106,16 @@ public class EntidadEvento implements Serializable {
         this.ubicacion = ubicacion;
         this.color = color;
         Calendar fechaInicioCalculada=Calendar.getInstance();
-        //fechaInicioCalculada.setTimeZone(TimeZone.getTimeZone("UTC"));
         fechaInicioCalculada.setTime(fechaInicio);
         fechaInicioCalculada.add(Calendar.MONTH, -1);
         this.fechaInicio = fechaInicioCalculada.getTime();
         this.horaInicio = fechaInicioCalculada.getTime();
-        this.fechaFin=fechaInicioCalculada.getTime();
         Calendar fechaFinCalculada=Calendar.getInstance();
         fechaFinCalculada.setTime(this.horaInicio);
         fechaFinCalculada.add(Calendar.HOUR, horasDuracionEvento.intValue());
+        this.fechaFin=fechaFinCalculada.getTime();
         this.horasDuracionEvento = horasDuracionEvento;
-        //this.maestro = maestro;
+        this.maestro = maestro;
     }
 
     public ObjectId getId() {
