@@ -60,29 +60,52 @@ public class Prueba {
 //        }catch(PersistenciaExceptionn e){
 //            System.out.println(e);
 //        }
-
+//--------------------------------------
         CrudEvento crud=new CrudEvento();
-        try{
-            EntidadEvento ev=crud.obtenerEventos().get(0);
-            ev.setColor("naranja");
-            List<String> camposModificados=new ArrayList<>();
-            camposModificados.add("color");
-            ev=crud.editarEvento(ev, camposModificados);
-            System.out.println(ev.getColor());
-        }catch(PersistenciaExceptionn e){
-            System.out.println(e);
-        }
-//        Calendar fechaInicio=Calendar.getInstance();
-//        Calendar fechaFin=Calendar.getInstance();
-//        fechaInicio.set(2024, 5, 10, 8, 30,0);
-//        fechaFin.set(2024, 5, 15, 19, 0,0);
-//        EntidadEvento evento=new EntidadEvento("Galeria de arte", "Exposicion de obras de la galeria de arte ITSON 2024", "Tutorias", "verde", fechaInicio.getTime(), 5.5);
 //        try{
-//            evento=crud.agregarEvento(evento);
-//            System.out.println(evento.getNombre());
+//            EntidadEvento ev=crud.obtenerEventos().get(0);
+//            ev.setColor("naranja");
+//            List<String> camposModificados=new ArrayList<>();
+//            camposModificados.add("color");
+//            ev=crud.editarEvento(ev, camposModificados);
+//            System.out.println(ev.getColor());
 //        }catch(PersistenciaExceptionn e){
 //            System.out.println(e);
 //        }
+//-------------------------------------------
+        Calendar fechaInicio=Calendar.getInstance();
+        fechaInicio.set(2024, 5, 10, 8, 30,0);
+        //Calendar fechaFin=Calendar.getInstance();
+        //fechaFin.set(2024, 5, 15, 19, 0,0);
+//        EntidadUbicacion ubicacion=new EntidadUbicacion("AV-1100");
+//        CrudCampus c=new CrudCampus();
+        //EntidadEvento evento=new EntidadEvento("Galeria de arte", "Exposicion de obras de la galeria de arte ITSON 2024", null, "verde", fechaInicio.getTime(), 5.5);
+        EntidadEvento evento=new EntidadEvento();
+        evento.setNombre("Galeria de arte");
+        try{
+            //ubicacion=c.obtenerUbi(ubicacion);
+//            System.out.println("ubicacion: "+ubicacion);
+//            evento.setUbicacion(ubicacion);
+            evento=crud.obtenerEvento(evento);
+            System.out.println(evento);
+            evento.setColor("morado");
+            System.out.println("evento con color morado: "+evento);
+            List<String> camposModificados=new ArrayList<>();
+            camposModificados.add("color");
+            evento=crud.editarEvento(evento, camposModificados);
+            if(evento!=null)System.out.println("evento editado; "+evento);
+//            List<EntidadEvento> eventos=crud.obtenerEventos();
+//            if(eventos!=null){
+//                for (EntidadEvento evento1 : eventos) {
+//                    System.out.println("nombre: "+evento1.getNombre());
+//                    System.out.println("tipo: "+evento1.getTipo().toString());
+//                }
+//            }else System.out.println("sin eventos");
+            
+        }catch(PersistenciaExceptionn e){
+            System.out.println(e);
+        }
+        
 ////       
 //        System.out.println("eeeee");
 //        

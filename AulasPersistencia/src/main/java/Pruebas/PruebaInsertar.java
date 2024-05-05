@@ -44,7 +44,8 @@ public class PruebaInsertar {
         fechaInicio.set(Calendar.MONTH, 4);
         fechaInicio.set(Calendar.HOUR_OF_DAY, 10);
         fechaInicio.set(Calendar.MINUTE, 0);
-        EntidadEvento evento2 = new EntidadEvento("Asesoria de Algebra", "asesoria para examen de algebra", "Aula 210", "Rosa", fechaInicio.getTime(), fechaInicio.getTime(), 2.5, maestro.getIdConversion());
+        EntidadUbicacion ubi=new EntidadUbicacion("AV-1210");
+        EntidadEvento evento2 = new EntidadEvento("Asesoria de Algebra", "asesoria para examen de algebra", ubi, "Rosa", fechaInicio.getTime(), fechaInicio.getTime(), 2.5, maestro.getIdConversion());
         
         if(CRUDmaestro.agregarMaestro(maestro)!=null) System.out.println("Se agrego el maestro");
         else System.out.println("No se agrego el maestro");
