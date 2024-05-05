@@ -2,6 +2,7 @@ package entidades;
 
 import com.mongodb.MongoException;
 import com.mongodb.MongoWriteException;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bson.Document;
 import org.bson.conversions.Bson;
 
 //
@@ -48,49 +50,52 @@ public class CrudEvento {
 
     public EntidadEvento editarEvento(EntidadEvento evento,List<String> camposModificados) throws PersistenciaExceptionn{
         List<Bson> updates = new ArrayList<>();
-        if (evento.getTipo() != null && evento.getTipo().equals(EntidadTipoEventoEnum.SEMANAL)) {
-            if (camposModificados.contains("fechaFin")) {
-                updates.add(Updates.set("fechaFin", evento.getFechaFin()));
-            }
-            if (camposModificados.contains("diasSemana")) {
-                updates.add(Updates.set("diasSemana", evento.getDiasSemana()));
-            }
-        }
-        for (int i = 0; i < camposModificados.size(); i++) {
-            switch (camposModificados.get(i)) {
-                case "nombre":
-                    updates.add(Updates.set("nombre", evento.getNombre()));
-                    break;
-                case "descripcion":
-                    updates.add(Updates.set("descripcion", evento.getDescripcion()));
-                    break;
-                case "ubicacion":
-                    updates.add(Updates.set("ubicacion", evento.getUbicacion()));
-                    break;
-                case "color":
-                    updates.add(Updates.set("color", evento.getColor()));
-                    break;
-                case "fechaInicio":
+        if (evento.getTipo() != null ) {
+            if(evento.getTipo().equals(EntidadTipoEventoEnum.UNICO_UN_DIA)){
+                if (camposModificados.contains("fechaFin")) {
+                    updates.add(Updates.set("fechaFin", evento.getFechaFin()));
+                }
+                if (camposModificados.contains("fechaInicio")) {
                     updates.add(Updates.set("fechaInicio", evento.getFechaInicio()));
-                    break;
-                case "horaInicio":
-                    updates.add(Updates.set("horaInicio", evento.getHoraInicio()));
-                    break;
-                case "horasDuracion":
-                    updates.add(Updates.set("horasDuracion", evento.getHorasDuracionEvento()));
-                    break;
+                } 
+            }else{
+                if (camposModificados.contains("diasSemana")) {
+                    updates.add(Updates.set("diasSemana", evento.getDiasSemana()));
+                }
             }
-        }
-        Bson filtro = Filters.eq("nombre", evento.getNombre());
-        UpdateResult result;
-        try {
-            result = coleccion.updateOne(filtro, updates);
-        } catch (MongoException ex) {
-            LOG.log(Level.SEVERE, ex.getMessage(), ex);
-            throw new PersistenciaExceptionn("Hubo un error al actualizar la pelicula");
-        }
-        if (result.getModifiedCount() > 0) {
-            return evento;
+            for (int i = 0; i < camposModificados.size(); i++) {
+                switch (camposModificados.get(i)) {
+                    case "nombre":
+                        updates.add(Updates.set("nombre", evento.getNombre()));
+                        break;
+                    case "descripcion":
+                        updates.add(Updates.set("descripcion", evento.getDescripcion()));
+                        break;
+                    case "ubicacion":
+                        updates.add(Updates.set("ubicacion", evento.getUbicacion()));
+                        break;
+                    case "color":
+                        updates.add(Updates.set("color", evento.getColor()));
+                        break;
+                    case "horaInicio":
+                        updates.add(Updates.set("horaInicio", evento.getHoraInicio()));
+                        break;
+                    case "horasDuracion":
+                        updates.add(Updates.set("horasDuracion", evento.getHorasDuracionEvento()));
+                        break;
+                }
+            }
+            Bson filtro = Filters.eq("nombre", evento.getNombre());
+            UpdateResult result;
+            try {
+                result = coleccion.updateOne(filtro, updates);
+                if (result.getModifiedCount() > 0) {
+                    return evento;
+                }
+            } catch (MongoException ex) {
+                LOG.log(Level.SEVERE, ex.getMessage(), ex);
+                throw new PersistenciaExceptionn("Hubo un error al actualizar el evento");
+            }
         }
         return null;
     }
@@ -108,11 +113,28 @@ public class CrudEvento {
     public List<EntidadEvento> obtenerEventos() throws PersistenciaExceptionn{
         try {
             List<EntidadEvento> eventos = new ArrayList<>();
-            this.coleccion.find().into(eventos);
-            return eventos;
+            FindIterable<EntidadEvento> it=this.coleccion.find();
+            if(it.first()!=null){
+                for (EntidadEvento ev : it) {
+                    eventos.add(ev);
+                }
+                return eventos;
+            }
+            return null;
         } catch (MongoException e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
             throw new PersistenciaExceptionn("Hubo un error al consultar los eventos");
+        }
+    }
+    
+    public EntidadEvento obtenerEvento(EntidadEvento evento)throws PersistenciaExceptionn{
+        try{
+            EntidadEvento e= coleccion.find(Filters.eq("nombre", evento.getNombre())).first();
+            if(e!=null)return e;
+            return null;
+        }catch(MongoException e){
+            LOG.log(Level.SEVERE, e.getMessage(), e);
+            throw new PersistenciaExceptionn("Hubo un error al consultar el evento");
         }
     }
 }
