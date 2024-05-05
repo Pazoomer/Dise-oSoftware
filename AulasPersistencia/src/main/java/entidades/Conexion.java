@@ -56,8 +56,8 @@ public class Conexion implements IConexion{
     /**
      *
      */
-    @Override
-    public void cerrarConexion() {
+    //@Override
+    public static void cerrarConexion() {
         if (mongoClient != null) {
             mongoClient.close();
         }
