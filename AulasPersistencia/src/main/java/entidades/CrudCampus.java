@@ -12,6 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bson.conversions.Bson;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
+import com.mongodb.client.result.UpdateResult;
 
 /**
  *
@@ -23,10 +25,22 @@ public class CrudCampus {
     IConexion conexion;
 
     public CrudCampus() {
-        conexion=new Conexion();
-        coleccion = conexion.ConversionDocumentCampus();
+        coleccion = Conexion.getDatabasee().getCollection("Campus", EntidadCampus.class);
     }
 
+    public EntidadUbicacion agregarUbicacionACampus(EntidadUbicacion ubicacion)throws PersistenciaExceptionn{
+        try{
+            EntidadCampus campus=new EntidadCampus(ubicacion.getCampus());
+            campus=obtenerCampus(campus);
+            UpdateResult result=coleccion.updateOne(Filters.eq("nombre", campus.getNombre()),Updates.push("ubicaciones", ubicacion));
+            if(result.getModifiedCount()>0)return ubicacion;
+            return null;
+        }catch(MongoException e){
+            LOG.log(Level.SEVERE, e.getMessage(), e);
+            throw new PersistenciaExceptionn("Hubo un error al agregar la ubicacion al campus.");
+        }
+    }
+    
     public EntidadCampus agregarCampus(EntidadCampus campus) throws PersistenciaExceptionn {
         try {
             coleccion.insertOne(campus);
@@ -126,12 +140,14 @@ public class CrudCampus {
 
     public EntidadUbicacion obtenerUbi(EntidadUbicacion ubicacion)throws PersistenciaExceptionn {
         try{
-            Bson filter=Filters.eq("ubicaciones.identificador",ubicacion.getIdentificador());
+            Bson filter=Filters.elemMatch("ubicaciones",Filters.eq("identificador", ubicacion.getIdentificador()));
             EntidadCampus registro=coleccion.find(filter).first();
             List<EntidadUbicacion> ubi;
             if(registro!=null){
                 ubi=registro.getUbicaciones();
-                return ubi.get(0);
+                for (EntidadUbicacion entidadUbicacion : ubi){
+                    if(entidadUbicacion.getIdentificador().equals(ubicacion.getIdentificador())) return entidadUbicacion;
+                }
             }
             return null;
         }catch(MongoException e){
