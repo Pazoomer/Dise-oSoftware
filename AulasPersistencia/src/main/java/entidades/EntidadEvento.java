@@ -22,7 +22,7 @@ public class EntidadEvento implements Serializable {
 
     private String diasSemana;
 
-    private String ubicacion;
+    private EntidadUbicacion ubicacion;
 
     private String color;
 
@@ -39,7 +39,7 @@ public class EntidadEvento implements Serializable {
     public EntidadEvento() {
     }
 
-    public EntidadEvento(String nombre, String descripcion, String ubicacion, String color, Date fechaInicio, Double horasDuracionEvento) {
+    public EntidadEvento(String nombre, String descripcion, EntidadUbicacion ubicacion, String color, Date fechaInicio, Double horasDuracionEvento) {
         this.tipo=EntidadTipoEventoEnum.UNICO_UN_DIA;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -48,16 +48,18 @@ public class EntidadEvento implements Serializable {
         Calendar fechaInicioCalculada=Calendar.getInstance();
         fechaInicioCalculada.setTime(fechaInicio);
         fechaInicioCalculada.add(Calendar.MONTH, -1);
+        fechaInicioCalculada.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
         this.fechaInicio = fechaInicioCalculada.getTime();
         this.horaInicio = this.fechaInicio;
         Calendar fechaFinCalculada=Calendar.getInstance();
         fechaFinCalculada.setTime(this.horaInicio);
         fechaFinCalculada.add(Calendar.HOUR, horasDuracionEvento.intValue());
+        fechaFinCalculada.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
         this.fechaFin=fechaFinCalculada.getTime();
         this.horasDuracionEvento = horasDuracionEvento;
     }
 
-    public EntidadEvento(EntidadTipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, String ubicacion, String color, Date fechaInicio, Date fechaFin, Double horasDuracionEvento) {
+    public EntidadEvento(EntidadTipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, EntidadUbicacion ubicacion, String color, Date fechaInicio, Date fechaFin, Double horasDuracionEvento) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -65,11 +67,13 @@ public class EntidadEvento implements Serializable {
         this.ubicacion = ubicacion;
         this.color = color;
         Calendar fechaInicioCalculada=Calendar.getInstance();
+        fechaInicioCalculada.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
         fechaInicioCalculada.setTime(fechaInicio);
         fechaInicioCalculada.add(Calendar.MONTH, -1);
         this.fechaInicio = fechaInicioCalculada.getTime();
         this.horaInicio=this.fechaInicio;
         Calendar fechaFinCalculada=Calendar.getInstance();
+        fechaFinCalculada.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
         fechaFinCalculada.setTime(fechaFin);
         fechaFinCalculada.add(Calendar.MONTH, -1);
         this.fechaFin = fechaFinCalculada.getTime();
@@ -78,7 +82,7 @@ public class EntidadEvento implements Serializable {
 
     
 
-    public EntidadEvento(EntidadTipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, String ubicacion, String color, Date fechaInicio, Date fechaFin, Date horaInicio, Double horasDuracionEvento, String maestro) {
+    public EntidadEvento(EntidadTipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, EntidadUbicacion ubicacion, String color, Date fechaInicio, Date fechaFin, Date horaInicio, Double horasDuracionEvento, String maestro) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -86,12 +90,12 @@ public class EntidadEvento implements Serializable {
         this.ubicacion = ubicacion;
         this.color = color;
         Calendar fechaInicioCalculada=Calendar.getInstance();
-       // fechaInicioCalculada.setTimeZone(TimeZone.getTimeZone("UTC"));
+        fechaInicioCalculada.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
         fechaInicioCalculada.setTime(fechaInicio);
         fechaInicioCalculada.add(Calendar.MONTH, -1);
         this.fechaInicio = fechaInicioCalculada.getTime();
         Calendar fechaFinCalculada=Calendar.getInstance();
-       // fechaFinCalculada.setTimeZone(TimeZone.getTimeZone("UTC"));
+        fechaFinCalculada.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
         fechaFinCalculada.setTime(fechaFin);
         fechaFinCalculada.add(Calendar.MONTH, -1);
         this.fechaFin = fechaFinCalculada.getTime();
@@ -100,17 +104,20 @@ public class EntidadEvento implements Serializable {
         this.maestro = maestro;
     }
 
-    public EntidadEvento(String nombre, String descripcion, String ubicacion, String color, Date fechaInicio, Date horaInicio, Double horasDuracionEvento, String maestro) {
+    public EntidadEvento(String nombre, String descripcion, EntidadUbicacion ubicacion, String color, Date fechaInicio, Date horaInicio, Double horasDuracionEvento, String maestro) {
+        this.tipo=EntidadTipoEventoEnum.UNICO_UN_DIA;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.ubicacion = ubicacion;
         this.color = color;
         Calendar fechaInicioCalculada=Calendar.getInstance();
+        fechaInicioCalculada.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
         fechaInicioCalculada.setTime(fechaInicio);
         fechaInicioCalculada.add(Calendar.MONTH, -1);
         this.fechaInicio = fechaInicioCalculada.getTime();
         this.horaInicio = fechaInicioCalculada.getTime();
         Calendar fechaFinCalculada=Calendar.getInstance();
+        fechaFinCalculada.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
         fechaFinCalculada.setTime(this.horaInicio);
         fechaFinCalculada.add(Calendar.HOUR, horasDuracionEvento.intValue());
         this.fechaFin=fechaFinCalculada.getTime();
@@ -158,11 +165,11 @@ public class EntidadEvento implements Serializable {
         this.diasSemana = diasSemana;
     }
 
-    public String getUbicacion() {
+    public EntidadUbicacion getUbicacion() {
         return ubicacion;
     }
 
-    public void setUbicacion(String ubicacion) {
+    public void setUbicacion(EntidadUbicacion ubicacion) {
         this.ubicacion = ubicacion;
     }
 
