@@ -4,13 +4,17 @@
 
 package Pruebas;
 
+import entidades.Conexion;
 import entidades.CrudCampus;
+import entidades.CrudEvento;
 import entidades.CrudMaestro;
 import entidades.EntidadCampus;
 import entidades.EntidadEvento;
 import entidades.EntidadMaestro;
+import entidades.EntidadTipoEventoEnum;
 import entidades.EntidadUbicacion;
 import excepcioness.PersistenciaExceptionn;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -39,28 +43,82 @@ public class Prueba {
 //        +"/"+fechaFinCalculada.get(Calendar.YEAR)+" "+fechaFinCalculada.get(Calendar.HOUR_OF_DAY)+":"+fechaFinCalculada.get(Calendar.MINUTE));
 //        
 //        CrudCampus crudCampus=new CrudCampus(); 
-        CrudMaestro crudMaestro=new CrudMaestro();
-        EntidadMaestro entidadMaestro=new EntidadMaestro();
-        entidadMaestro.setIdMaestro("1");
-//       
-////        EntidadUbicacion ubicacion=new EntidadUbicacion("AV-1100");
-//        
+//        EntidadUbicacion ubi=null;
+//        try{
+//            //ubi=crudCampus.agregarUbicacionACampus(new EntidadUbicacion("Tutorias", "Obregon Nainari", "Edificio de tutorias"));
+//            ubi=crudCampus.obtenerUbi(new EntidadUbicacion("Tutorias"));
+//            System.out.println("ubicacion: "+ubi);
+//        }catch(PersistenciaExceptionn e){
+//            System.out.println(e);
+        //}
+        
+//        CrudMaestro crudMaestro=new CrudMaestro();
+//        EntidadMaestro entidadMaestro=new EntidadMaestro();
+//        entidadMaestro.setIdMaestro("1");
+//        try{
+//            System.out.println(crudMaestro.obtenerMaestro(entidadMaestro).getNombre());
+//        }catch(PersistenciaExceptionn e){
+//            System.out.println(e);
+//        }
+
+        CrudEvento crud=new CrudEvento();
         try{
-            
-//            List<EntidadCampus> campuses=crudCampus.obtenerTodosLosCampus();
-//            
-//            if(!campuses.isEmpty()) System.out.println(campuses.get(0));
-//            else System.out.println("No hay campuses");
-            
-            entidadMaestro=crudMaestro.obtenerMaestro(entidadMaestro);
-            //System.out.println(entidadMaestro.toString());
-            
-//            ubicacion=crudCampus.obtenerUbi(ubicacion);
-//            System.out.println(ubicacion.toString());
-            
+            EntidadEvento ev=crud.obtenerEventos().get(0);
+            ev.setColor("naranja");
+            List<String> camposModificados=new ArrayList<>();
+            camposModificados.add("color");
+            ev=crud.editarEvento(ev, camposModificados);
+            System.out.println(ev.getColor());
         }catch(PersistenciaExceptionn e){
             System.out.println(e);
         }
+//        Calendar fechaInicio=Calendar.getInstance();
+//        Calendar fechaFin=Calendar.getInstance();
+//        fechaInicio.set(2024, 5, 10, 8, 30,0);
+//        fechaFin.set(2024, 5, 15, 19, 0,0);
+//        EntidadEvento evento=new EntidadEvento("Galeria de arte", "Exposicion de obras de la galeria de arte ITSON 2024", "Tutorias", "verde", fechaInicio.getTime(), 5.5);
+//        try{
+//            evento=crud.agregarEvento(evento);
+//            System.out.println(evento.getNombre());
+//        }catch(PersistenciaExceptionn e){
+//            System.out.println(e);
+//        }
+////       
+//        System.out.println("eeeee");
+//        
+//        if(Conexion.getDatabasee().getCollection("Eventos", EntidadEvento.class).insertOne(evento).getInsertedId()!=null){
+//            System.out.println("se inserto");
+//        }else
+//            System.out.println("no se pudo");
+        //CrudEvento crudEvento=new CrudEvento();
+        
+//        
+//        try{
+//            evento=crudEvento.agregarEvento(evento);
+//            if(evento!=null)System.out.println(evento.getNombre());
+//            else System.out.println("evento null");
+//        }catch(PersistenciaExceptionn e){
+//            System.out.println(e);
+//        }
+//       
+////        EntidadUbicacion ubicacion=new EntidadUbicacion("AV-1100");
+//        
+//        try{
+//            
+////            List<EntidadCampus> campuses=crudCampus.obtenerTodosLosCampus();
+////            
+////            if(!campuses.isEmpty()) System.out.println(campuses.get(0));
+////            else System.out.println("No hay campuses");
+//            
+//            entidadMaestro=crudMaestro.obtenerMaestro(entidadMaestro);
+//            System.out.println(entidadMaestro.toString());
+//            
+////            ubicacion=crudCampus.obtenerUbi(ubicacion);
+////            System.out.println(ubicacion.toString());
+//            
+//        }catch(PersistenciaExceptionn e){
+//            System.out.println(e);
+//        }
 //       
 //        
 //        try{
