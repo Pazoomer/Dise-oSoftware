@@ -66,5 +66,10 @@ public class Conexion implements IConexion{
     public MongoCollection<EntidadCampus> ConversionDocumentCampus() {
         return baseDatos.getCollection("Campus", EntidadCampus.class);
     }
+    @Override
+    public MongoCollection<EntidadUsuario> ConversionDocumentUsuario() {
+        return baseDatos.getCollection("Usuarios", EntidadUsuario.class);
+    }
+    
 
 }

@@ -9,6 +9,7 @@ import static DTOS.evento.TipoEventoEnumDTO.SEMANAL;
 import static DTOS.evento.TipoEventoEnumDTO.UNICO_UN_DIA;
 import static DTOS.evento.TipoEventoEnumDTO.UNICO_VARIOS_DIAS;
 import DTOS.maestro.MaestroEditableDTO;
+import DTOS.usuarios.UsuarioDTO;
 import entidades.CrudCampus;
 import entidades.CrudMaestro;
 import entidades.EntidadCampus;
@@ -16,6 +17,7 @@ import entidades.EntidadEvento;
 import entidades.EntidadMaestro;
 import entidades.EntidadTipoEventoEnum;
 import entidades.EntidadUbicacion;
+import entidades.EntidadUsuario;
 import excepcioness.PersistenciaExceptionn;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -106,7 +108,14 @@ class Conversiones {
         if(maestro.getIdBD()!=null)maestroBO.setIdConversion(maestro.getIdBD());
         return maestroBO;
     }
-
+    protected UsuarioDTO toUsuarioDTO(EntidadUsuario  usuario){
+        UsuarioDTO usaurioDto=new UsuarioDTO();
+        usaurioDto.setUsuario(usuario.getUsuario());
+        usaurioDto.setContraseña(usuario.getContraseña());
+        usaurioDto.setAdministrador(usuario.isAdministrador());
+        return usaurioDto;
+        
+    }
     protected MaestroEditableDTO toMaestroDTO(EntidadMaestro maestro) {
         List<EntidadEvento> eventos = maestro.getCalendario();
         List<EventoConsultableDTO> eventosDTO = new ArrayList<>();
