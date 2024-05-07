@@ -3,6 +3,9 @@ package presentacion;
 
 import DTOS.campus.CampusConsultableDTO;
 import DTOS.campus.UbicacionDTO;
+import accesoUbicaciones.FachadaAccesoUbicaciones;
+import accesoUbicaciones.IAccesoUbicaciones;
+import excepciones.NegocioException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -30,12 +33,13 @@ public class CDMapa extends javax.swing.JDialog {
 
     private final UbicacionDTO ubicacion;
     private java.util.List<UbicacionDTO> ubicaciones=new ArrayList<>();
-    private final CampusConsultableDTO campus;
+    private CampusConsultableDTO campus;
     private BufferedImage imagenMapa;
     private Point posicionMarcador;
     private ImageIcon iconoMarcador;
     private final CDUbicacion pantallaAnterior;
     private JPanel panelImagen;
+    private final IAccesoUbicaciones accesoUbicaciones=new FachadaAccesoUbicaciones();
     
     /**
      * Creates new form CDMapa
@@ -63,11 +67,22 @@ public class CDMapa extends javax.swing.JDialog {
         this.setResizable(false);
         initComponents();
 
+        recuperarCampus();
         colocarMapa();
         decorar();
         limpiarUbicaciones();
         colocarMarcadores();
         
+    }
+    
+    private void recuperarCampus(){
+        if (campus!=null) {
+            try {
+                campus=accesoUbicaciones.recuperarCampus(campus);
+            } catch (NegocioException ex) {
+                error("No se pudo recuperar las ubicaciones del campus");
+            }
+        }
     }
     
     private void colocarMapa(){

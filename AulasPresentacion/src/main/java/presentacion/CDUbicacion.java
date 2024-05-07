@@ -144,9 +144,10 @@ public class CDUbicacion extends javax.swing.JDialog {
     }
     
     private void editar(){
+        
         ubicacionSeleccionada.setDescripcion(this.txtDescripcionDinamico.getText());
         ubicacionSeleccionada.setIdentificador(this.txtIdentificadorDinamico.getText());
-        
+
         try {
             accesoUbicaciones.editarUbicacion(ubicacionSeleccionada);
         } catch (NegocioException ex) {
@@ -173,10 +174,10 @@ public class CDUbicacion extends javax.swing.JDialog {
         error("Ubicacion agregada con exito");
         cerrar();
     }
-    
-    private void abrirCDMapa(){
+
+    private void abrirCDMapa() {
         this.setVisible(false);
-       new CDMapa(this,parent,modal,campusSeleccionado,ubicacionSeleccionada).setVisible(true); 
+        new CDMapa(this,parent,modal,campusSeleccionado,ubicacionSeleccionada).setVisible(true); 
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
