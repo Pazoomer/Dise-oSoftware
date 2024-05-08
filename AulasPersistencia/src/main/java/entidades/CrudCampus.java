@@ -136,7 +136,7 @@ public class CrudCampus {
         }
         return null;
     }
-/*
+
     public EntidadUbicacion obtenerUbi(EntidadUbicacion ubicacion) throws PersistenciaExceptionn {
         try {
             Bson filter = Filters.eq("ubicaciones.identificador", ubicacion.getIdentificador());
@@ -152,7 +152,7 @@ public class CrudCampus {
             throw new PersistenciaExceptionn("Hubo un error al obtener la ubicacion");
         }
     }
-*/
+
     public EntidadUbicacion agregarUbicacion(EntidadUbicacion ubicacion) throws PersistenciaExceptionn {
         try {
             EntidadCampus campus = new EntidadCampus();

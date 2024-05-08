@@ -41,7 +41,12 @@ public class CDUbicacion extends javax.swing.JDialog {
         this.setResizable(false);
         initComponents();
         this.setSize(500, 620);
-        this.ubicacionSeleccionada = ubicacionSeleccionada;
+        if (ubicacionSeleccionada != null) {
+            this.ubicacionSeleccionada = ubicacionSeleccionada;
+        } else {
+            this.ubicacionSeleccionada=new UbicacionDTO();
+        }
+        
         this.campusSeleccionado = campusSeleccionado;
         this.operacion = operacion;
         this.parent=parent;
@@ -190,15 +195,11 @@ public class CDUbicacion extends javax.swing.JDialog {
     }
 
     private void abrirCDMapa() {
-        if (ubicacionSeleccionada != null) {
-            this.setVisible(false);
-            new CDMapa(this, parent, modal, campusSeleccionado, ubicacionSeleccionada).setVisible(true);
-        }else{
-            error("Hubo un error con la ubicacion, volviendo al menu");
-            cerrar();
-        }
-
+        this.setVisible(false);
+        new CDMapa(this, parent, modal, campusSeleccionado, ubicacionSeleccionada).setVisible(true);
     }
+
+    
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

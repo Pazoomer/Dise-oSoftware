@@ -51,17 +51,20 @@ public class CDMapa extends javax.swing.JDialog {
      */
     public CDMapa(CDUbicacion pantallaAnterior,java.awt.Frame parent, boolean modal,CampusConsultableDTO campus, UbicacionDTO ubicacion) {
         super(parent, modal);
-        
+
         this.ubicacion = new UbicacionDTO();
-        this.ubicacion.setCampus(ubicacion.getCampus());
-        this.ubicacion.setDescripcion(ubicacion.getDescripcion());
-        this.ubicacion.setEventos(ubicacion.getEventos());
-        this.ubicacion.setId(ubicacion.getId());
-        this.ubicacion.setIdentificador(ubicacion.getIdentificador());
-        this.ubicacion.setPosicionX(ubicacion.getPosicionX());
-        this.ubicacion.setPosicionY(ubicacion.getPosicionY());
-        
-        this.campus=campus;
+        if (ubicacion != null) {
+
+            this.ubicacion.setCampus(ubicacion.getCampus());
+            this.ubicacion.setDescripcion(ubicacion.getDescripcion());
+            this.ubicacion.setEventos(ubicacion.getEventos());
+            this.ubicacion.setId(ubicacion.getId());
+            this.ubicacion.setIdentificador(ubicacion.getIdentificador());
+            this.ubicacion.setPosicionX(ubicacion.getPosicionX());
+            this.ubicacion.setPosicionY(ubicacion.getPosicionY());
+        }
+
+        this.campus = campus;
         this.pantallaAnterior=pantallaAnterior;
         this.setUndecorated(true);
         this.setResizable(false);
