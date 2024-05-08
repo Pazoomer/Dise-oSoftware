@@ -75,7 +75,7 @@ public class PrincipalUbicacion extends javax.swing.JFrame {
         
     }
     
-    private void actualizarTabla() {
+    public void actualizarTabla() {
         consultarUbicaciones();
         actualizarModeloTabla();
     }

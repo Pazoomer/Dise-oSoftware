@@ -10,6 +10,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import presentacion.pantallas.PrincipalUbicacion;
 
 /**
  *
@@ -22,7 +23,7 @@ public class CDUbicacion extends javax.swing.JDialog {
     private final UbicacionDTO ubicacionSeleccionada;
     private final CampusConsultableDTO campusSeleccionado;
     private final java.awt.Frame parent;
-    private final JFrame pantallaAnterior;
+    private final PrincipalUbicacion pantallaAnterior;
     boolean modal;
     
     /**
@@ -34,7 +35,7 @@ public class CDUbicacion extends javax.swing.JDialog {
      * @param ubicacionSeleccionada
      * @param campusSeleccionado
      */
-    public CDUbicacion(JFrame pantallaAnterior,java.awt.Frame parent, boolean modal, String operacion, UbicacionDTO ubicacionSeleccionada, CampusConsultableDTO campusSeleccionado) {
+    public CDUbicacion(PrincipalUbicacion pantallaAnterior,java.awt.Frame parent, boolean modal, String operacion, UbicacionDTO ubicacionSeleccionada, CampusConsultableDTO campusSeleccionado) {
         super(parent, modal);
         setUndecorated(true);
         this.setResizable(false);
@@ -49,6 +50,10 @@ public class CDUbicacion extends javax.swing.JDialog {
         decorar();
         colocarPermisos();
 
+    }
+    
+    private void actualizarTabla(){
+        pantallaAnterior.actualizarTabla();
     }
 
     private void decorar() {
@@ -140,6 +145,7 @@ public class CDUbicacion extends javax.swing.JDialog {
             return;
         }
         error("Ubicacion eliminada con exito");
+        actualizarTabla();
         cerrar();
     }
     
@@ -155,16 +161,23 @@ public class CDUbicacion extends javax.swing.JDialog {
             return;
         }
         error("Ubicacion editada con exito");
-    cerrar();
+        actualizarTabla();
+        cerrar();
     }
-    
-    private void agregar(){
-        UbicacionDTO ubicacion=new UbicacionDTO();
+
+    private void agregar() {
+        UbicacionDTO ubicacion = new UbicacionDTO();
         ubicacion.setIdentificador(this.txtIdentificadorDinamico.getText());
         ubicacion.setDescripcion(this.txtDescripcionDinamico.getText());
         ubicacion.setCampus(campusSeleccionado);
-        ubicacion.setPosicionX(ubicacionSeleccionada.getPosicionX());
-        ubicacion.setPosicionY(ubicacionSeleccionada.getPosicionY());
+        if (ubicacionSeleccionada != null) {
+
+            if (ubicacionSeleccionada.getPosicionX() != null && ubicacionSeleccionada.getPosicionY() != null) {
+                ubicacion.setPosicionX(ubicacionSeleccionada.getPosicionX());
+                ubicacion.setPosicionY(ubicacionSeleccionada.getPosicionY());
+            }
+        }
+
         try {
             accesoUbicaciones.agregarUbicacion(ubicacion);
         } catch (NegocioException ex) {
@@ -172,12 +185,19 @@ public class CDUbicacion extends javax.swing.JDialog {
             return;
         }
         error("Ubicacion agregada con exito");
+        actualizarTabla();
         cerrar();
     }
 
     private void abrirCDMapa() {
-        this.setVisible(false);
-        new CDMapa(this,parent,modal,campusSeleccionado,ubicacionSeleccionada).setVisible(true); 
+        if (ubicacionSeleccionada != null) {
+            this.setVisible(false);
+            new CDMapa(this, parent, modal, campusSeleccionado, ubicacionSeleccionada).setVisible(true);
+        }else{
+            error("Hubo un error con la ubicacion, volviendo al menu");
+            cerrar();
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
