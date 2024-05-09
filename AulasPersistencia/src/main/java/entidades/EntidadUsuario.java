@@ -17,10 +17,11 @@ import org.bson.types.ObjectId;
 public class EntidadUsuario implements Serializable{
     @BsonId
     private ObjectId id;
-    private String usuario;
+    private String idUsuario;
     private String contraseña;
     private boolean administrador;
 
+    
     
     
     public EntidadUsuario(){
@@ -34,12 +35,12 @@ public class EntidadUsuario implements Serializable{
         this.id = id;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setIdUsuario(String usuario) {
+        this.idUsuario = usuario;
     }
 
     public String getContraseña() {
@@ -86,7 +87,7 @@ public class EntidadUsuario implements Serializable{
         StringBuilder sb = new StringBuilder();
         sb.append("EntidadUsuario{");
         sb.append("id=").append(id);
-        sb.append(", usuario=").append(usuario);
+        sb.append(", idUsuario=").append(idUsuario);
         sb.append(", contraseña=").append(contraseña);
         sb.append(", administrador=").append(administrador);
         sb.append('}');

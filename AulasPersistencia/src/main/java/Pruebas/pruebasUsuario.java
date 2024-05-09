@@ -27,10 +27,10 @@ public class pruebasUsuario {
         
         EntidadUsuario usuario=new EntidadUsuario();
         
-        usuario.setUsuario("test1");
+        usuario.setIdUsuario("1");
         usuario.setContraseña("pass123");
         
-        EntidadUsuario usuarioEncontrado= crud.iniciarSesion("test1","pass123");
+        EntidadUsuario usuarioEncontrado= crud.iniciarSesion("1","pass123");
         if (usuarioEncontrado != null) {
             if(usuarioEncontrado.isAdministrador()){
                 //adm

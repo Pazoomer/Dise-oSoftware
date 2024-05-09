@@ -110,7 +110,7 @@ class Conversiones {
     }
     protected UsuarioDTO toUsuarioDTO(EntidadUsuario  usuario){
         UsuarioDTO usaurioDto=new UsuarioDTO();
-        usaurioDto.setUsuario(usuario.getUsuario());
+        usaurioDto.setIdUsuario(usuario.getIdUsuario());
         usaurioDto.setContraseña(usuario.getContraseña());
         usaurioDto.setAdministrador(usuario.isAdministrador());
         return usaurioDto;

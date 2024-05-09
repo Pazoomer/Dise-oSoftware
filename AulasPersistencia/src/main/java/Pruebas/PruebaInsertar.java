@@ -2,10 +2,12 @@ package Pruebas;
 
 import entidades.CrudCampus;
 import entidades.CrudMaestro;
+import entidades.CrudUsuario;
 import entidades.EntidadCampus;
 import entidades.EntidadEvento;
 import entidades.EntidadMaestro;
 import entidades.EntidadUbicacion;
+import entidades.EntidadUsuario;
 import excepcioness.PersistenciaExceptionn;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -52,10 +54,23 @@ public class PruebaInsertar {
         if(CRUDmaestro.agregarEventoCalendario(maestro, evento2)) System.out.println("Se agrego el evento");
         else System.out.println("No se agrego el evento");
         
-        if(CRUDmaestro.cerrarConexion()) System.out.println("Se cerro la conexion");
-        else System.out.println("No se cerro la conexion");
-        
        
+        
+        CrudUsuario crud=new CrudUsuario();
+        
+        EntidadUsuario usuario=new EntidadUsuario();
+        usuario.setIdUsuario("1");
+        usuario.setContraseña("pass123");
+        usuario.setAdministrador(false);
+        if(crud.agregarUsuario(usuario)!=null) System.out.println("Se agrego el usuario");
+        EntidadUsuario usuarioAdmin=new EntidadUsuario();
+        usuarioAdmin.setIdUsuario("23");
+        usuarioAdmin.setContraseña("pass123");
+        usuarioAdmin.setAdministrador(true);
+        if(crud.agregarUsuario(usuarioAdmin)!=null) System.out.println("Se agrego el usuario administrador");
+        
+         if(CRUDmaestro.cerrarConexion()) System.out.println("Se cerro la conexion");
+        else System.out.println("No se cerro la conexion");
     }
 
 }

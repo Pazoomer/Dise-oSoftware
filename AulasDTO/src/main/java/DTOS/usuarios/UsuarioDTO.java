@@ -9,19 +9,19 @@ package DTOS.usuarios;
  * @author pauli
  */
 public class UsuarioDTO {
-    private String usuario;
+    private String idUsuario;
     private String contraseña;
     private boolean administrador;
     public UsuarioDTO (){
         
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setIdUsuario(String usuario) {
+        this.idUsuario = usuario;
     }
 
     public String getContraseña() {

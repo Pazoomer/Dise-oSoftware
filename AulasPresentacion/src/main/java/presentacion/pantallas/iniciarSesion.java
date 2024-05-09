@@ -4,12 +4,21 @@
  */
 package presentacion.pantallas;
 
+import DTOS.maestro.MaestroEditableDTO;
+import DTOS.usuarios.UsuarioDTO;
+import accesoMaestro.FachadaAccesoMaestro;
+import accesoMaestro.IAccesoMaestro;
+import accesoUsuarios.FachadaAccesoUsuarios;
+import accesoUsuarios.IAccesoUsuarios;
+import excepciones.NegocioException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author pauli
  */
 public class iniciarSesion extends javax.swing.JFrame {
-
+   IAccesoUsuarios user=new FachadaAccesoUsuarios();
     /**
      * Creates new form iniciarSesion
      */
@@ -31,13 +40,15 @@ public class iniciarSesion extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnIniciarSesion = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        txtUsername = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        txtPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(22, 81, 198));
+        setPreferredSize(new java.awt.Dimension(800, 600));
+        setSize(new java.awt.Dimension(800, 600));
         getContentPane().setLayout(null);
 
         jPanel2.setBackground(new java.awt.Color(22, 81, 198));
@@ -69,14 +80,8 @@ public class iniciarSesion extends javax.swing.JFrame {
         });
         jPanel1.add(btnIniciarSesion);
         btnIniciarSesion.setBounds(60, 330, 180, 30);
-
-        jTextField1.setText("jTextField1");
-        jPanel1.add(jTextField1);
-        jTextField1.setBounds(60, 200, 180, 30);
-
-        jTextField2.setText("jTextField2");
-        jPanel1.add(jTextField2);
-        jTextField2.setBounds(60, 260, 180, 30);
+        jPanel1.add(txtUsername);
+        txtUsername.setBounds(60, 200, 180, 30);
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(22, 81, 198));
@@ -87,6 +92,8 @@ public class iniciarSesion extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/loginblue.png"))); // NOI18N
         jPanel1.add(jLabel4);
         jLabel4.setBounds(120, 54, 48, 48);
+        jPanel1.add(txtPassword);
+        txtPassword.setBounds(60, 260, 180, 30);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -109,10 +116,38 @@ public class iniciarSesion extends javax.swing.JFrame {
         jPanel2.setBounds(0, 0, 800, 600);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         // TODO add your handling code here:
+        String idUsuario=txtUsername.getText();
+        String password = new String(txtPassword.getPassword());
+        try{
+            UsuarioDTO usuario=this.user.iniciarSesion(idUsuario, password);   
+            if(usuario!=null){
+                if(usuario.isAdministrador()){
+                    this.setVisible(false);
+                    new Administrador().setVisible(true);
+                }else{
+                    IAccesoMaestro acceso = new FachadaAccesoMaestro();
+                    MaestroEditableDTO maestro; 
+                     maestro = acceso.recuperarMaestro(new MaestroEditableDTO(usuario.getIdUsuario())); 
+                    if (maestro != null) {
+                        System.out.println(maestro.toString());
+                        this.setVisible(false);
+                        new PrincipalMaestro(maestro).setVisible(true);
+                        
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Error al obtener al maestro", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
+            }
+        }catch(NegocioException e){
+            System.out.println(e.getMessage());
+        }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     /**
@@ -158,7 +193,7 @@ public class iniciarSesion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

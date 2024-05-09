@@ -75,10 +75,10 @@ public class CrudUsuario {
             throw new PersistenciaExceptionn("Hubo un error al obtener usuario.");
         }
     }
-    public EntidadUsuario iniciarSesion(String usuario, String contraseña) throws PersistenciaExceptionn {
+    public EntidadUsuario iniciarSesion(String idUsuario, String contraseña) throws PersistenciaExceptionn {
     try {
         // Buscar el usuario por nombre de usuario y contraseña
-        EntidadUsuario usuarioEncontrado = coleccion.find(and(eq("usuario", usuario), eq("contraseña", contraseña))).first();
+        EntidadUsuario usuarioEncontrado = coleccion.find(and(eq("idUsuario", idUsuario), eq("contraseña", contraseña))).first();
         
         // Verificar si el usuario existe
         if (usuarioEncontrado != null) {
