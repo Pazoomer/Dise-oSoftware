@@ -9,12 +9,14 @@ import static DTOS.evento.TipoEventoEnumDTO.SEMANAL;
 import static DTOS.evento.TipoEventoEnumDTO.UNICO_UN_DIA;
 import static DTOS.evento.TipoEventoEnumDTO.UNICO_VARIOS_DIAS;
 import DTOS.maestro.MaestroEditableDTO;
+import DTOS.usuarios.UsuarioDTO;
 import entidades.CrudCampus;
 import entidades.EntidadCampus;
 import entidades.EntidadEvento;
 import entidades.EntidadMaestro;
 import entidades.EntidadTipoEventoEnum;
 import entidades.EntidadUbicacion;
+import entidades.EntidadUsuario;
 import excepcioness.PersistenciaExceptionn;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -321,6 +323,15 @@ class Conversiones {
             
         }
         return campusDTO;
+    }
+    
+    protected UsuarioDTO toUsuarioDTO(EntidadUsuario  usuario){
+        UsuarioDTO usaurioDto=new UsuarioDTO();
+        usaurioDto.setIdUsuario(usuario.getIdUsuario());
+        usaurioDto.setContraseña(usuario.getContraseña());
+        usaurioDto.setAdministrador(usuario.isAdministrador());
+        return usaurioDto;
+        
     }
     
 }

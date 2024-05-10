@@ -15,5 +15,6 @@ public interface IConexion {
     public MongoCollection<EntidadMaestro> ConversionDocumentMaestro();
 
     public MongoCollection<EntidadCampus> ConversionDocumentCampus();
+    public MongoCollection<EntidadUsuario> ConversionDocumentUsuario();
 
 }
