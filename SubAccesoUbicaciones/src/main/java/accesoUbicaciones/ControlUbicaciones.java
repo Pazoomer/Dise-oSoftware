@@ -3,6 +3,7 @@ package accesoUbicaciones;
 
 import DTOS.campus.CampusConsultableDTO;
 import DTOS.campus.UbicacionDTO;
+import DTOS.evento.EventoConsultableDTO;
 import excepciones.NegocioException;
 import java.util.List;
 import objetosNegocio.Campus;
@@ -50,7 +51,13 @@ public class ControlUbicaciones {
         }catch(NegocioException e){
             throw e;
         }
-
     }
     
+    protected boolean agregarEventoAUbicacion(UbicacionDTO ubicacion, EventoConsultableDTO evento)throws NegocioException{
+        try{
+            return campusBO.agregarEventoAUbicacion(ubicacion, evento);
+        }catch(NegocioException e){
+            throw e;
+        }
+    }
 }

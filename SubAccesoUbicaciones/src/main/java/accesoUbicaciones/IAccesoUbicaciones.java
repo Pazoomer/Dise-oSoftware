@@ -3,6 +3,7 @@ package accesoUbicaciones;
 
 import DTOS.campus.CampusConsultableDTO;
 import DTOS.campus.UbicacionDTO;
+import DTOS.evento.EventoConsultableDTO;
 import excepciones.NegocioException;
 import java.util.List;
 
@@ -41,4 +42,6 @@ public interface IAccesoUbicaciones {
      * @throws excepciones.NegocioException 
      */
     public UbicacionDTO recuperarUbicacion(UbicacionDTO ubicacion)throws NegocioException;
+    
+    public boolean agregarEventoAUbicacion(UbicacionDTO ubicacion, EventoConsultableDTO evento)throws NegocioException;
 }
