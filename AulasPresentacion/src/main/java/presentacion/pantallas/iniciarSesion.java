@@ -142,15 +142,18 @@ public class iniciarSesion extends javax.swing.JFrame {
             UsuarioDTO usuario = this.user.iniciarSesion(idUsuario, password);
             if (usuario != null) {
                 if (usuario.isAdministrador()) {
-                    this.setVisible(false);
-                    new PrincipalInicio(usuario).setVisible(true);
+                    //this.setVisible(false);
+                    this.dispose();
+                    new FrmInicio(this).setVisible(true);   
+                    //new PrincipalInicio(usuario).setVisible(true);
                 } else {
                     IAccesoMaestro acceso = new FachadaAccesoMaestro();
                     MaestroEditableDTO maestro;
                     maestro = acceso.recuperarMaestro(new MaestroEditableDTO(usuario.getIdUsuario()));
                     if (maestro != null) {
                         System.out.println(maestro.toString());
-                        this.setVisible(false);
+                        //this.setVisible(false);
+                        this.dispose();
                         new PrincipalMaestro(maestro,this).setVisible(true);
 
                     } else {
@@ -165,18 +168,53 @@ public class iniciarSesion extends javax.swing.JFrame {
         }
     }
     
-    private void cerrar() {
-        this.dispose();
-    }
+//    private void cerrar() {
+//        this.dispose();
+//    }
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         iniciarSesion();
 
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        cerrar();
+        //cerrar();
+        this.dispose();
     }//GEN-LAST:event_btnAtrasActionPerformed
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(iniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(iniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(iniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(iniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new iniciarSesion().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;

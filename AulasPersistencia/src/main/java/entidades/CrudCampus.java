@@ -33,7 +33,7 @@ public class CrudCampus {
 
     public EntidadUbicacion agregarUbicacionACampus(EntidadUbicacion ubicacion)throws PersistenciaExceptionn{
         try{
-            EntidadCampus campus=new EntidadCampus(ubicacion.getCampus());
+            EntidadCampus campus=new EntidadCampus(ubicacion.getCampusStr());
             campus=obtenerCampus(campus);
             UpdateResult result=coleccion.updateOne(Filters.eq("nombre", campus.getNombre()),Updates.push("ubicaciones", ubicacion));
             if(result.getModifiedCount()>0)return ubicacion;
@@ -115,7 +115,7 @@ public class CrudCampus {
         List<EntidadCampus> campus = new ArrayList<>();
         try {
             FindIterable<EntidadCampus> resultados = coleccion.find();
-            if (campus != null) {
+            if (resultados != null) {
                 for (EntidadCampus entidad : resultados) {
                     campus.add(entidad);
                 }
@@ -132,7 +132,7 @@ public class CrudCampus {
     public EntidadUbicacion obtenerUbicacion(EntidadUbicacion entidadUbicacion) throws PersistenciaExceptionn {
         try {
 
-            EntidadCampus campusEncontrado = obtenerCampus(new EntidadCampus(entidadUbicacion.getCampus()));
+            EntidadCampus campusEncontrado = obtenerCampus(new EntidadCampus(entidadUbicacion.getCampusId()));
 
             if (campusEncontrado != null) {
 
@@ -173,7 +173,7 @@ public class CrudCampus {
     public EntidadUbicacion agregarUbicacion(EntidadUbicacion ubicacion) throws PersistenciaExceptionn {
         try {
             EntidadCampus campus = new EntidadCampus();
-            campus.setId(ubicacion.getCampus());
+            campus.setId(ubicacion.getCampusId());
             
             //Obtiene el campus de la ubicacion
             campus = obtenerCampus(campus);
@@ -192,7 +192,7 @@ public class CrudCampus {
     public EntidadUbicacion editarUbicacion(EntidadUbicacion ubicacion) throws PersistenciaExceptionn {
         try {
             EntidadCampus campus = new EntidadCampus();
-            campus.setId(ubicacion.getCampus());
+            campus.setId(ubicacion.getCampusId());
 
             //Obtiene el campus de la ubicacion
             campus = obtenerCampus(campus);
@@ -224,7 +224,7 @@ public class CrudCampus {
         try {
 
             EntidadCampus campus = new EntidadCampus();
-            campus.setId(ubicacionParametro.getCampus());
+            campus.setId(ubicacionParametro.getCampusId());
 
             //Obtiene el campus de la ubicacion
             campus = obtenerCampus(campus);
@@ -242,7 +242,7 @@ public class CrudCampus {
     
     public boolean agregarEventoAUbicacion(EntidadUbicacion ubicacion, EntidadEvento evento)throws PersistenciaExceptionn{
         try{
-            Bson filters=Filters.and(Filters.eq("nombre", ubicacion.getCampus()),
+            Bson filters=Filters.and(Filters.eq("nombre", ubicacion.getCampusId()),
                     Filters.elemMatch("ubicaciones", Filters.eq("identificador", ubicacion.getIdentificador())));
             EntidadEvento eventoReducido=new EntidadEvento();
             eventoReducido.setNombre(evento.getNombre());

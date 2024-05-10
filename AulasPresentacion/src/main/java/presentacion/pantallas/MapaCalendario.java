@@ -51,7 +51,7 @@ public class MapaCalendario extends javax.swing.JFrame {
         setMapa("Obregon Nainari");
         cargarIconos();
         actualizarImagenMapa();
-        setUbicaciones("Nainari");
+        setUbicaciones("6637187cee92b620c84a3086");
     }
 
     /**
@@ -90,10 +90,12 @@ public class MapaCalendario extends javax.swing.JFrame {
     /**
      * Accede al subsistema de recupera ubicaciones por los campus
      */
-    private void setUbicaciones(String campus) {
+    private void setUbicaciones(String idCampus) {
         cmbBoxModelEdificios=new DefaultComboBoxModel();
         try{
-            ubicacionesCampus = accesoUbicaciones.recuperarEdificiosPorCampus(new CampusConsultableDTO(campus));
+            CampusConsultableDTO campusConsultado=new CampusConsultableDTO();
+            campusConsultado.setId(idCampus);
+            ubicacionesCampus = accesoUbicaciones.recuperarEdificiosPorCampus(campusConsultado);
             if(ubicacionesCampus!=null && !ubicacionesCampus.isEmpty()){
                 for(UbicacionDTO u: ubicacionesCampus){
                     cmbBoxModelEdificios.addElement(u.getIdentificador());

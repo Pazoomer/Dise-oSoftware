@@ -17,6 +17,8 @@ public class EntidadUbicacion implements Serializable {
     
     private String identificador;
     
+    private String campus;
+    
     //@BsonProperty("idCampus")
     private ObjectId idCampus;
 
@@ -42,6 +44,12 @@ public class EntidadUbicacion implements Serializable {
     public EntidadUbicacion(String identificador, ObjectId idCampus, String descripcion) {
         this.identificador = identificador;
         this.idCampus = idCampus;
+        this.descripcion=descripcion;
+        this.eventos=new ArrayList<>();
+    }
+    public EntidadUbicacion(String identificador, String campus, String descripcion) {
+        this.identificador = identificador;
+        this.campus=campus;
         this.descripcion=descripcion;
         this.eventos=new ArrayList<>();
     }
@@ -73,12 +81,20 @@ public class EntidadUbicacion implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public ObjectId getCampus() {
+    public ObjectId getCampusId() {
         return idCampus;
     }
 
-    public void setCampus(ObjectId idCampus) {
+    public void setCampusId(ObjectId idCampus) {
         this.idCampus = idCampus;
+    }
+    
+    public void setCampusStr(String campus){
+        this.campus=campus;
+    }
+    
+    public String getCampusStr(){
+        return this.campus;
     }
     
     public ObjectId getId() {

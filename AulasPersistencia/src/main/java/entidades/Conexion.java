@@ -89,7 +89,7 @@ public class Conexion implements IConexion{
     
     @Override
     public MongoCollection<EntidadUsuario> ConversionDocumentUsuario() {
-        return baseDatos.getCollection("Usuarios", EntidadUsuario.class);
+        return getDatabasee().getCollection("Usuarios", EntidadUsuario.class);
     }
 
 }

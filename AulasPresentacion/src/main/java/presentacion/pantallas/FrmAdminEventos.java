@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -31,7 +32,8 @@ public class FrmAdminEventos extends javax.swing.JFrame {
     private static List<EventoConsultableDTO> eventos;
     private static DefaultTableModel modeloTabla;
     private static EventoConsultableDTO eventoSeleccionado;
-    private FrmInicio parent;
+    private JFrame parent;
+    
     public FrmAdminEventos(){
     }
     
@@ -39,7 +41,7 @@ public class FrmAdminEventos extends javax.swing.JFrame {
      * Creates new form FrmAdminEventos
      * @param parent
      */
-    public FrmAdminEventos(FrmInicio parent) {
+    public FrmAdminEventos(JFrame parent) {
         initComponents();
         this.parent=parent;
         adminEventos=new FachadaAdminEventos();

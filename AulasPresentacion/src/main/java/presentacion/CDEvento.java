@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
 import presentacion.pantallas.FrmAdminEventos;
 import presentacion.pantallas.MapaCalendario;
 import presentacion.pantallas.PrincipalCalendario;
-
 /**
  *
  * @author t1pas
@@ -29,7 +28,7 @@ public class CDEvento extends javax.swing.JDialog {
     private UbicacionDTO ubicacionDTO;
     private String tipoOperacion;
     private JFrame parent;
-    private static IAccesoMaestro accesoMaestro;
+    //private static IAccesoMaestro accesoMaestro;
     /**
      * Creates new form CDEvento
      *
@@ -60,10 +59,11 @@ public class CDEvento extends javax.swing.JDialog {
     }
 
     private void iniciar(JFrame parent){
+        getContentPane().add(pnlEvento);
         this.setSize(500,620);
         this.setLocationRelativeTo(null);
         this.setAlwaysOnTop(true);
-        accesoMaestro=new FachadaAccesoMaestro();
+        //accesoMaestro=new FachadaAccesoMaestro();
         this.parent=parent;
         cargarIconos();
         mostrarCheckBox(false);
@@ -199,9 +199,9 @@ public class CDEvento extends javax.swing.JDialog {
      */
     private void abrirMapa() {
         this.setAlwaysOnTop(false);
+        this.setVisible(false);
         new MapaCalendario(this).setVisible(true);
         //this.parent.setVisible(false);
-        this.setVisible(false);
     }
 
     /**
@@ -750,7 +750,7 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(cmbDuracionEvento);
-        cmbDuracionEvento.setBounds(270, 310, 47, 26);
+        cmbDuracionEvento.setBounds(270, 310, 50, 26);
 
         lblHorasDuracion.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         lblHorasDuracion.setForeground(new java.awt.Color(22, 81, 198));
@@ -828,11 +828,11 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(cbColor);
-
-        cbColor.setBounds(170, 330, 19, 19);
-
         cbColor.setBounds(170, 330, 24, 24);
+
+        getContentPane().add(pnlEvento);
         pnlEvento.setBounds(0, 60, 500, 520);
+
         lblInfoEventoEstatico.setBackground(new java.awt.Color(22, 81, 198));
         lblInfoEventoEstatico.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         lblInfoEventoEstatico.setForeground(new java.awt.Color(255, 255, 255));

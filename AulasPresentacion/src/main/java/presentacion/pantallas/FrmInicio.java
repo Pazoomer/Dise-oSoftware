@@ -8,6 +8,7 @@ import DTOS.maestro.MaestroEditableDTO;
 import accesoMaestro.FachadaAccesoMaestro;
 import accesoMaestro.IAccesoMaestro;
 import excepciones.NegocioException;
+import javax.swing.JFrame;
 
 /**
  *
@@ -15,12 +16,14 @@ import excepciones.NegocioException;
  */
 public class FrmInicio extends javax.swing.JFrame {
 
+    private JFrame parent;
     private IAccesoMaestro acceso;
     /**
      * Creates new form FrmInicio
      */
-    public FrmInicio() {
+    public FrmInicio(JFrame parent) {
         initComponents();
+        this.parent=parent;
     }
 
     /**
@@ -37,6 +40,7 @@ public class FrmInicio extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         btnAdminEventos = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        btnAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,6 +97,13 @@ public class FrmInicio extends javax.swing.JFrame {
                 .addContainerGap(53, Short.MAX_VALUE))
         );
 
+        btnAtras.setText("Volver");
+        btnAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtrasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,6 +113,10 @@ public class FrmInicio extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(192, 192, 192))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,7 +124,9 @@ public class FrmInicio extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(70, 70, 70)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
         );
 
         pack();
@@ -121,6 +138,13 @@ public class FrmInicio extends javax.swing.JFrame {
         new FrmAdminEventos(this).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnAdminEventosActionPerformed
+
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new iniciarSesion().setVisible(true);
+        //this.parent.setVisible(true);
+    }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void acceder(){
         acceso = new FachadaAccesoMaestro();
@@ -168,13 +192,14 @@ public class FrmInicio extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmInicio().setVisible(true);
+                new FrmInicio(null).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdminEventos;
+    private javax.swing.JButton btnAtras;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

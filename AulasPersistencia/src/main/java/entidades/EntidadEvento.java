@@ -183,6 +183,10 @@ public class EntidadEvento implements Serializable {
         return ubicacion;
     }
     */
+    public EntidadUbicacion getUbicacion() {
+        return ubicacion;
+    }
+    
     public void setUbicacion(EntidadUbicacion ubicacion) {
         this.ubicacion = ubicacion;
     }
@@ -298,7 +302,7 @@ public class EntidadEvento implements Serializable {
     private String ubicacionToString(){
         StringBuilder sb = new StringBuilder();
         sb.append('{');
-        sb.append("campus=").append(ubicacion.getCampus());
+        sb.append("campus=").append(ubicacion.getCampusStr());
         sb.append(", identificador=").append(ubicacion.getIdentificador());
         sb.append('}');
         return sb.toString();

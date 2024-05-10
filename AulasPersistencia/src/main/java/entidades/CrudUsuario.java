@@ -30,8 +30,9 @@ public class CrudUsuario {
     IConexion conexion;
 
     public CrudUsuario() {
-        conexion=new Conexion();
-        coleccion = conexion.ConversionDocumentUsuario();
+        //conexion=new Conexion();
+        //coleccion = conexion.ConversionDocumentUsuario();
+        coleccion = Conexion.getDatabasee().getCollection("Usuarios",EntidadUsuario.class);
     }
 
     public EntidadUsuario agregarUsuario(EntidadUsuario usuario) throws PersistenciaExceptionn {
@@ -96,7 +97,7 @@ public class CrudUsuario {
 
     
     public boolean cerrarConexion(){
-        conexion.cerrarConexion();
+        Conexion.cerrarConexion();
         return true;
     }
 }

@@ -59,9 +59,10 @@ class Conversiones {
         UbicacionDTO ubicacion;
 
         CampusConsultableDTO campusAux = new CampusConsultableDTO();
-        campusAux.setId(ubicacionBO.getCampusConversion());
-        if (ubicacionBO.getCampus() != null) {
-
+        //campusAux.setId(ubicacionBO.getCampusConversion());
+        if (ubicacionBO.getCampusId()!= null) {
+            campusAux.setId(ubicacionBO.getCampusConversion());
+            //campusAux.setNombre(ubicacionBO.getCampusStr());
             ubicacion = new UbicacionDTO(
                     ubicacionBO.getIdentificador(),
                     ubicacionBO.getDescripcion(),
@@ -296,7 +297,8 @@ class Conversiones {
 
                 EntidadUbicacion ubicacionAux = toUbicacionBO(ubicacion);
 
-                ubicacionAux.setCampus(entidadCampus.getId());
+                ubicacionAux.setCampusId(entidadCampus.getId());
+                //ubicacionAux.setCampusStr(entidadCampus.getNombre());
                 
                 entidadUbicaciones.add(ubicacionAux);
             }

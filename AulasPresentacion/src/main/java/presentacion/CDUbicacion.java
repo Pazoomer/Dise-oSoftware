@@ -18,7 +18,7 @@ import presentacion.pantallas.PrincipalUbicacion;
  */
 public class CDUbicacion extends javax.swing.JDialog {
 
-    private final IAccesoUbicaciones accesoUbicaciones=new FachadaAccesoUbicaciones();
+    private static IAccesoUbicaciones accesoUbicaciones;
     private final String operacion;
     private final UbicacionDTO ubicacionSeleccionada;
     private final CampusConsultableDTO campusSeleccionado;
@@ -39,6 +39,7 @@ public class CDUbicacion extends javax.swing.JDialog {
         super(parent, modal);
         setUndecorated(true);
         this.setResizable(false);
+        accesoUbicaciones=new FachadaAccesoUbicaciones();
         initComponents();
         this.setSize(500, 620);
         if (ubicacionSeleccionada != null) {

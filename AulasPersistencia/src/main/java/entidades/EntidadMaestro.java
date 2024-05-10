@@ -156,7 +156,7 @@ public class EntidadMaestro implements Serializable {
         sb.append("Eventos[");
         for (EntidadEvento ev : calendario) {
             sb.append("{nombre=").append(ev.getNombre());
-            sb.append(", ubicacion=").append(ev.getUbicacion());
+            sb.append(", ubicacion=").append(ev.getUbicacion().getIdentificador());
             sb.append(", fecha inicio=").append(ev.fechaToString(ev.getFechaInicio()));
             Calendar hora=Calendar.getInstance();
             hora.setTimeZone(TimeZone.getTimeZone("America/Arizona"));

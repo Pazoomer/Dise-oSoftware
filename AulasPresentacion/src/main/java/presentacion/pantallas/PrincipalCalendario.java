@@ -16,6 +16,7 @@ import java.util.List;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import presentacion.CDEvento;
 import presentacion.ModeloTablaHorario;
@@ -30,9 +31,9 @@ public class PrincipalCalendario extends javax.swing.JFrame {
      * Es el maestro al que le pertenece el calendario
      */
     private MaestroEditableDTO maestro;
-    PrincipalMaestro prinMaestro;
+   // PrincipalMaestro prinMaestro;
     IAccesoMaestro accesoMaestro;
-    Frame parent;
+    JFrame parent;
     static List<EventoConsultableDTO> calendarioMes;
     public static List<EventoConsultableDTO> calendarioMaestroTemporal;
     static ModeloTablaHorario modelo;
@@ -47,23 +48,23 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     /**
      * Creates new form PrincipalCalendario
      * @param parent
-     * @param prinMaestro
      * @param maestro
      */
-    public PrincipalCalendario(Frame parent, PrincipalMaestro prinMaestro, MaestroEditableDTO maestro) {
+    public PrincipalCalendario(JFrame parent, MaestroEditableDTO maestro) {
         setUndecorated(true);
         this.setResizable(false);
         initComponents();
         this.parent=parent;
         this.maestro=maestro.clone();
-        this.prinMaestro=prinMaestro;
+        //this.prinMaestro=prinMaestro;
         accesoMaestro=new FachadaAccesoMaestro();
         modelo=new ModeloTablaHorario();
         calendarioMaestroTemporal=maestro.getCalendario();
         cargarCalendario();
         cargarEventos();
-        this.setVisible(true);
+        //this.setVisible(true);
         this.setSize(800, 630);
+        this.setLocationRelativeTo(null);
         cargarIconos();
     }
     
@@ -106,28 +107,28 @@ public class PrincipalCalendario extends javax.swing.JFrame {
 //        }
         eventos.forEach(e->{
             String diasEvento=e.getDiasSemana();
-            System.out.println("evento de la semana dentro de foreach: "+e);
+//            System.out.println("evento de la semana dentro de foreach: "+e);
             Calendar horaInicio = e.getHoraInicio();
             int hora = horaInicio.get(Calendar.HOUR);
             int minutos = horaInicio.get(Calendar.MINUTE);
-            System.out.println("hora evenot: "+hora+":"+minutos);   
+//            System.out.println("hora evenot: "+hora+":"+minutos);   
             Double duracion = e.getHorasDuracionEvento();
-            System.out.println("duracion evento:"+duracion);
+//            System.out.println("duracion evento:"+duracion);
             if (e.getTipo().equals(TipoEventoEnumDTO.SEMANAL)) {
                 String[] arrDias=diasEvento.split(",");
                 String[] diasSemana={"Do","Lu","Ma","Mi","Ju","Vi","Sa"};
                 for (String dia : arrDias) {
-                    System.out.println("diaaa: " + dia);
+//                    System.out.println("diaaa: " + dia);
                     for (int i = 0; i < 7; i++) {
                         if (dia.equals(diasSemana[i])) {
-                            System.out.println("true");
+//                            System.out.println("true");
                             setEvento(hora, minutos, duracion, i + 1, e);
                         }
                     }
                 }
             } else {
                 int diaEv=e.getFechaInicio().get(Calendar.DAY_OF_WEEK);
-                System.out.println("dia ev dentro d foreachh:"+diaEv);
+//                System.out.println("dia ev dentro d foreachh:"+diaEv);
                 setEvento(hora, minutos, duracion,
                          diaEv, e);
             }
@@ -140,7 +141,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     private void setEvento(int horaEvento,int minutoEvento, 
             Double duracionEvento,int diaEvento,EventoConsultableDTO evento){
         int rows=modelo.getRowCount();
-        System.out.println("rows: "+rows);
+//        System.out.println("rows: "+rows);
         
         int index=0;
         boolean encontrada=false;
@@ -148,8 +149,8 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         for (int i = 0; i < rows; i++) {
            String horaCelda=(String)modelo.getValueAt(i, 0);
            horaCelda=horaCelda.substring(0, 5);
-           System.out.println("hora celda: "+horaCelda);
-           System.out.println("hora evento: "+horaEvento);
+////           System.out.println("hora celda: "+horaCelda);
+//           System.out.println("hora evento: "+horaEvento);
            int semana=calEsquinaSuperior.getCalendar().get(Calendar.WEEK_OF_MONTH);
            if(!encontrada){
                if (minutoEvento > 0) {
@@ -157,7 +158,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
                    //System.out.println("columna dia evento: " + diaEvento);
                    if (horaCelda.equals(horaEvento + ":" + minutoEvento) ||
                            horaCelda.equals("0"+horaEvento + ":" + minutoEvento)) {
-                       System.out.println("se encontro la celda: " + horaCelda);
+//                       System.out.println("se encontro la celda: " + horaCelda);
                        modelo.setValueAt(evento.getNombre(), i, diaEvento);
                        agregarEventoASemana(evento, semana);
                        encontrada = true;
@@ -166,7 +167,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
                    }
                } else if (horaCelda.equals(horaEvento + ":" + "00") || 
                        horaCelda.equals("0"+horaEvento+":"+"00")) {
-                   System.out.println("se encontro la celda: " + horaCelda);
+//                   System.out.println("se encontro la celda: " + horaCelda);
                    modelo.setValueAt(evento.getNombre(), i, diaEvento);
                    agregarEventoASemana(evento, semana);
                    encontrada = true;
@@ -206,13 +207,13 @@ public class PrincipalCalendario extends javax.swing.JFrame {
                     int selectedRow = tablaEventos.getSelectedRow();
                     int selectedColumn = tablaEventos.getSelectedColumn();
                     if(selectedRow>0 && selectedColumn>0){
-                        System.out.println("celda seelccionada: "+selectedRow+", "+selectedColumn);
+//                        System.out.println("celda seelccionada: "+selectedRow+", "+selectedColumn);
                         String nombreEvento = (String) modelo.getValueAt(selectedRow, selectedColumn);
-                        System.out.println(nombreEvento);
+////                        System.out.println(nombreEvento);
                         if (nombreEvento != null) {
                             if(!isDisplayed){
                                 isDisplayed=true;
-                                System.out.println("nombre evento: " + nombreEvento);
+////                                System.out.println("nombre evento: " + nombreEvento);
                                 List<EventoConsultableDTO> evSem = cargarEventosSemana(
                                         calEsquinaSuperior.getCalendar().get(Calendar.WEEK_OF_MONTH));
                                 for (EventoConsultableDTO e : evSem) {
@@ -256,7 +257,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         } catch (NegocioException e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-        this.prinMaestro.setVisible(true);
+        this.parent.setVisible(true);
         this.dispose();
     }
 
@@ -264,8 +265,8 @@ public class PrincipalCalendario extends javax.swing.JFrame {
      * Cierra este frame y abre el frame PrincipalMaestro
      */
     private void cerrar() {
-        this.prinMaestro.setVisible(true);
         this.dispose();
+        this.parent.setVisible(true);
     }
 
     public void añadirEvento(EventoConsultableDTO evento) {
@@ -273,7 +274,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         maestro.setCalendario(calendarioMaestroTemporal);
         try {
             if (accesoMaestro.agregarEventoCalendario(maestro, evento)) {
-                System.out.println("yesss");
+//                System.out.println("yesss");
                 eventoSeleccionado = evento;
                 cargarEventos();
             }
@@ -295,18 +296,20 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     }
 
     private void desplegarCDEvento(String operacion) {
-        switch (operacion) {
-            case "agregar" -> cdEvento = new CDEvento(this, true,operacion);
-            case "editar" -> {
-                cdEvento = new CDEvento( this, eventoSeleccionado, true,"editar");
+        CDEvento cdEvento;
+        if (operacion.equals("agregar")) {
+            cdEvento = new CDEvento(this, true, "agregar");
+        } else if (eventoSeleccionado != null) {
+            if (operacion.equals("editar")) {
+                cdEvento = new CDEvento(this, eventoSeleccionado, true, "editar");
                 cdEvento.desplegarEventoEditable();
-            }
-            case "desplegar" -> {
-                cdEvento = new CDEvento(this, eventoSeleccionado, true,"desplegar");
+            } else {
+                cdEvento = new CDEvento(this, eventoSeleccionado, true, "desplegar");
                 cdEvento.desplegarEvento();
             }
-            default -> {
-            }
+        } else {
+            JOptionPane.showMessageDialog(this, "No se selecciono algun evento");
+            return;
         }
         cdEvento.setVisible(true);
     }
@@ -594,7 +597,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        dispose();
+        cerrar();
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void btnAñadirEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirEventoActionPerformed
@@ -602,7 +605,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAñadirEventoActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        cerrar();
+        //cerrar();
     }//GEN-LAST:event_formWindowClosed
 
     private void calEsquinaSuperiorPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_calEsquinaSuperiorPropertyChange
@@ -613,7 +616,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     private void btnEditarEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarEventoActionPerformed
         EventoConsultableDTO ev=eventoSeleccionado;
         desplegarCDEvento("editar");
-        cargarEventos();
+        //cargarEventos();
     }//GEN-LAST:event_btnEditarEventoActionPerformed
 
     private void btnAñadirEventoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAñadirEventoMouseEntered

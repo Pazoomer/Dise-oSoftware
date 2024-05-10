@@ -202,7 +202,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
      * PrincipalCalendario y ocultarse este frame
      */
     private void abrirCalendario() {
-        new PrincipalCalendario(this,this, maestroDTO).setVisible(true);
+        new PrincipalCalendario(this, maestroDTO).setVisible(true);
         this.setVisible(false);
     }
 
@@ -211,7 +211,8 @@ public class PrincipalMaestro extends javax.swing.JFrame {
      */
     private void cerrar() {
         this.dispose();
-        this.parent.setVisible(true);
+        //this.parent.setVisible(true);
+        new iniciarSesion().setVisible(true);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
