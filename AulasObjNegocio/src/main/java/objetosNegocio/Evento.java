@@ -30,15 +30,26 @@ public class Evento {
     public EventoConsultableDTO agregarEvento(EventoConsultableDTO evento)throws NegocioException{
         CrudCampus crudC=new CrudCampus();
         try{
-            EntidadUbicacion ubicacion=crudC.obtenerUbi(new EntidadUbicacion(evento.getUbicacion().getIdentificador()));
-            if(ubicacion!=null){
-                System.out.println(ubicacion);
-                EntidadEvento e=conversiones.toEventoBO(evento);
-                e.setUbicacion(ubicacion);
-                e=crudEvento.agregarEvento(e);
-                if(e!=null)return conversiones.toEventoDTO(e);
-                return null;
-            }throw new NegocioException("La ubicacion ingresada no existe");
+            EntidadEvento e = conversiones.toEventoBO(evento);
+            e = crudEvento.agregarEvento(e);
+            if (e != null) return conversiones.toEventoDTO(e);
+            return null;
+//            if(evento.getUbicacion()!=null && evento.getUbicacion().getIdentificador()!=null){
+//                EntidadUbicacion ubicacion = crudC.obtenerUbi(new EntidadUbicacion(evento.getUbicacion().getIdentificador()));
+//                if (ubicacion != null) {
+//                    System.out.println(ubicacion);
+//                    EntidadEvento e = conversiones.toEventoBO(evento);
+//                    e.setUbicacion(ubicacion);
+//                    e = crudEvento.agregarEvento(e);
+//                    if (e != null) {
+//                        if(!crudC.agregarEventoAUbicacion(ubicacion, e)){
+//                            boolean b=eliminarEvento(evento);
+//                        }
+//                        return conversiones.toEventoDTO(e);
+//                    }
+//                    return null;
+//                }throw new NegocioException("La ubicacion ingresada no existe");
+//            }throw new NegocioException("Debe ingresar una ubicacion para el evento");
         }catch(PersistenciaExceptionn e){
             throw new NegocioException(e.getMessage());
         }
@@ -66,6 +77,22 @@ public class Evento {
         try{
             List<EventoConsultableDTO> eventosDTO=new ArrayList<>();
             List<EntidadEvento> eventos=crudEvento.obtenerEventos();
+            if(eventos!=null){
+                for (EntidadEvento ev : eventos) {
+                    eventosDTO.add(conversiones.toEventoDTO(ev));
+                }
+                return eventosDTO;
+            }
+            return null;
+        }catch(PersistenciaExceptionn e){
+            throw new NegocioException(e.getMessage());
+        }
+    }
+    
+    public List<EventoConsultableDTO> obtenerEventos(String tipoEvento)throws NegocioException{
+        try{
+            List<EventoConsultableDTO> eventosDTO=new ArrayList<>();
+            List<EntidadEvento> eventos=crudEvento.obtenerEventos(tipoEvento);
             if(eventos!=null){
                 for (EntidadEvento ev : eventos) {
                     eventosDTO.add(conversiones.toEventoDTO(ev));
