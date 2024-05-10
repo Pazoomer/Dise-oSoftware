@@ -37,4 +37,34 @@ public class FachadaAccesoUbicaciones implements IAccesoUbicaciones {
        return ubicaciones.recuperarUbicacion(ubicacion);
     }
 
+    @Override
+    public CampusConsultableDTO agregarCampus(CampusConsultableDTO campus) throws NegocioException {
+        return ubicaciones.agregarCampus(campus);
+    }
+
+    @Override
+    public Boolean eliminarCampus(CampusConsultableDTO campus) throws NegocioException {
+      return ubicaciones.eliminarCampus(campus);
+    }
+
+    @Override
+    public CampusConsultableDTO editarCampus(CampusConsultableDTO campus) throws NegocioException {
+        return ubicaciones.editarCampus(campus);
+    }
+
+    @Override
+    public UbicacionDTO agregarUbicacion(UbicacionDTO ubicacion) throws NegocioException {
+        return ubicaciones.agregarUbicacion(ubicacion);
+    }
+
+    @Override
+    public UbicacionDTO editarUbicacion(UbicacionDTO ubicacion) throws NegocioException {
+        return ubicaciones.editarUbicacion(ubicacion);
+    }
+
+    @Override
+    public Boolean eliminarUbicacion(UbicacionDTO ubicacion) throws NegocioException {
+       return ubicaciones.eliminarUbicacion(ubicacion);
+    }
+
 }

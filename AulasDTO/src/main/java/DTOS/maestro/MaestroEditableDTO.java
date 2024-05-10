@@ -21,6 +21,7 @@ public class MaestroEditableDTO {
     private String descripcion;
     private String foto;
     private List<EventoConsultableDTO> calendario;   
+    private Boolean admin;
 
     public MaestroEditableDTO(String id) {
         this.id=id;
@@ -30,6 +31,7 @@ public class MaestroEditableDTO {
     
     /**
      * Constructor con todos los atributos
+     * @param admin
      * @param id
      * @param nombre
      * @param cubiculo
@@ -37,48 +39,60 @@ public class MaestroEditableDTO {
      * @param foto
      * @param calendario 
      */
-    public MaestroEditableDTO(String id, String nombre, UbicacionDTO cubiculo, String descripcion, String foto, List<EventoConsultableDTO> calendario) {
+    public MaestroEditableDTO(Boolean admin,String id, String nombre, UbicacionDTO cubiculo, String descripcion, String foto, List<EventoConsultableDTO> calendario) {
         this.id = id;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
         this.descripcion = descripcion;
         this.foto = foto;
         this.calendario = calendario;
+        this.admin=admin;
     }
     
     /**
      * Constructor sin ID
+     * @param admin
      * @param nombre
      * @param cubiculo
      * @param descripcion
      * @param foto
      * @param calendario 
      */
-    public MaestroEditableDTO(String nombre, UbicacionDTO cubiculo, String descripcion, String foto, List<EventoConsultableDTO> calendario) {
+    public MaestroEditableDTO(Boolean admin,String nombre, UbicacionDTO cubiculo, String descripcion, String foto, List<EventoConsultableDTO> calendario) {
         this.nombre = nombre;
         this.cubiculo = cubiculo;
         this.descripcion = descripcion;
         this.foto = foto;
         this.calendario = calendario;
         this.id=null;
-        
+        this.admin=admin;
     }
 
     /**
      * Constructor sin calendario
+     * @param admin
      * @param id
      * @param nombre
      * @param cubiculo
      * @param descripcion
      * @param foto 
      */
-    public MaestroEditableDTO(String id, String nombre, UbicacionDTO cubiculo, String descripcion, String foto) {
+    public MaestroEditableDTO(Boolean admin,String id, String nombre, UbicacionDTO cubiculo, String descripcion, String foto) {
         this.id = id;
         this.nombre = nombre;
         this.cubiculo = cubiculo;
         this.descripcion = descripcion;
         this.foto = foto;
         this.calendario=new ArrayList<>();
+        this.admin=admin;
+    }
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
     }
 
     public void setId(String id) {
@@ -144,14 +158,16 @@ public class MaestroEditableDTO {
         sb.append("idBD=").append(idBD);
         sb.append(", id=").append(id);
         sb.append(", nombre=").append(nombre);
-        sb.append(", cubiculo=").append(cubiculo.getIdentificador());
+        sb.append(", cubiculo=").append(cubiculo);
         sb.append(", descripcion=").append(descripcion);
         sb.append(", foto=").append(foto);
-        if(!calendario.isEmpty())
-            sb.append(", calendario=").append(calendarioToString());
+        sb.append(", calendario=").append(calendario);
+        sb.append(", admin=").append(admin);
         sb.append('}');
         return sb.toString();
     }
+
+    
     
     public String calendarioToString(){
         StringBuilder sb=new StringBuilder();
@@ -176,7 +192,7 @@ public class MaestroEditableDTO {
     
     @Override
     public MaestroEditableDTO clone(){
-        MaestroEditableDTO maestro=new MaestroEditableDTO(id,nombre,cubiculo,descripcion,foto,calendario);
+        MaestroEditableDTO maestro=new MaestroEditableDTO(admin,id,nombre,cubiculo,descripcion,foto,calendario);
         maestro.setIdBD(idBD);
         return maestro;
     }

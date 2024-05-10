@@ -12,6 +12,11 @@ public class CampusConsultableDTO {
     private String id;
     private String nombre;
     private List<UbicacionDTO> ubicaciones;
+    private String url;
+    
+    public CampusConsultableDTO() {
+        this.ubicaciones=new ArrayList<>();
+    }
 
     public CampusConsultableDTO(String nombre) {
         this.nombre = nombre;
@@ -47,6 +52,14 @@ public class CampusConsultableDTO {
         this.ubicaciones = ubicaciones;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -54,9 +67,12 @@ public class CampusConsultableDTO {
         sb.append("id=").append(id);
         sb.append(", nombre=").append(nombre);
         sb.append(", ubicaciones=").append(ubicaciones);
+        sb.append(", url=").append(url);
         sb.append('}');
         return sb.toString();
     }
+    
+
     
     public String edificiosToString(){
         StringBuilder sb = new StringBuilder();

@@ -26,11 +26,35 @@ public class ControlUbicaciones {
             throw e;
         }
     }
-    
-    protected CampusConsultableDTO recuperarCampus(CampusConsultableDTO campusParametro)throws NegocioException{
-        try{
+
+    protected CampusConsultableDTO recuperarCampus(CampusConsultableDTO campusParametro) throws NegocioException {
+        try {
             return campusBO.obtenerCampus(campusParametro);
-        }catch(NegocioException e){
+        } catch (NegocioException e) {
+            throw e;
+        }
+    }
+
+    protected CampusConsultableDTO agregarCampus(CampusConsultableDTO campusParametro) throws NegocioException {
+        try {
+            return campusBO.agregarCampus(campusParametro);
+        } catch (NegocioException e) {
+            throw e;
+        }
+    }
+
+    protected Boolean eliminarCampus(CampusConsultableDTO campusParametro) throws NegocioException {
+        try {
+            return campusBO.eliminarCampus(campusParametro);
+        } catch (NegocioException e) {
+            throw e;
+        }
+    }
+
+    protected CampusConsultableDTO editarCampus(CampusConsultableDTO campusParametro) throws NegocioException {
+        try {
+            return campusBO.editarCampus(campusParametro);
+        } catch (NegocioException e) {
             throw e;
         }
     }
@@ -47,6 +71,33 @@ public class ControlUbicaciones {
      protected UbicacionDTO recuperarUbicacion(UbicacionDTO ubicacion)throws NegocioException {
         try{
             return campusBO.obtenerUbicacion(ubicacion);
+        }catch(NegocioException e){
+            throw e;
+        }
+
+    }
+     
+     protected UbicacionDTO agregarUbicacion(UbicacionDTO ubicacion)throws NegocioException {
+        try{
+            return campusBO.agregarUbicacion(ubicacion);
+        }catch(NegocioException e){
+            throw e;
+        }
+
+    }
+     
+     protected UbicacionDTO editarUbicacion(UbicacionDTO ubicacion)throws NegocioException {
+        try{
+            return campusBO.editarUbicacion(ubicacion);
+        }catch(NegocioException e){
+            throw e;
+        }
+
+    }
+     
+     protected Boolean eliminarUbicacion(UbicacionDTO ubicacion)throws NegocioException {
+        try{
+            return campusBO.eliminarUbicacion(ubicacion);
         }catch(NegocioException e){
             throw e;
         }

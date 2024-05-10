@@ -1,10 +1,12 @@
 package entidades;
 
+import java.beans.Transient;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
+
 
 public class EntidadCampus implements Serializable {
 
@@ -14,6 +16,8 @@ public class EntidadCampus implements Serializable {
     private String nombre;
 
     private List<EntidadUbicacion> ubicaciones;
+    
+    private String url;
 
     public EntidadCampus() {
     }
@@ -23,6 +27,10 @@ public class EntidadCampus implements Serializable {
         this.ubicaciones = ubicaciones;
     }
 
+    public EntidadCampus(ObjectId id) {
+        this.id = id;
+    }
+    
     public EntidadCampus(String nombre) {
         this.nombre = nombre;
     }
@@ -50,12 +58,21 @@ public class EntidadCampus implements Serializable {
     public void setId(ObjectId id) {
         this.id = id;
     }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
     
     /**
      * Obtienes el valor de ObjectId como string
      *
      * @return
      */
+    @Transient
     public String getIdConversion() {
         // Obtener el valor hexadecimal del ObjectId
         if (this.id == null) {
@@ -69,6 +86,7 @@ public class EntidadCampus implements Serializable {
      * Recibe un String que convierta a ObjectId para colocarselo como atributo
      * @param id 
      */
+    @Transient
     public void setIdConversion(String id) {
        if (id != null) {
             this.id = new ObjectId(id);
@@ -82,13 +100,10 @@ public class EntidadCampus implements Serializable {
         sb.append("id=").append(id);
         sb.append(", nombre=").append(nombre);
         sb.append(", ubicaciones=").append(ubicaciones);
+        sb.append(", url=").append(url);
         sb.append('}');
         return sb.toString();
-    }
-
-    
-
-    
+    }    
 
     private String edificiosToString(){
         StringBuilder sb=new StringBuilder();

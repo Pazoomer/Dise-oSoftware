@@ -25,13 +25,13 @@ import org.bson.types.ObjectId;
 public class PruebaConversiones {
 
     public static void main(String[] args) {
-
+/*
         Conversiones conversiones = new Conversiones();
 
         EntidadUbicacion ubicacion = new EntidadUbicacion("AV-1100", "Campus Principal", "Aula para clases regulares");
         ubicacion.setId(new ObjectId("662e839aecc0c87a0fbe5e90"));
 
-        EntidadMaestro maestro = new EntidadMaestro("1", "Juan Pérez", ubicacion, "Profesor de Matemáticas", "fotoMaestroG.jpg");
+        EntidadMaestro maestro = new EntidadMaestro(true,"1", "Juan Pérez", ubicacion, "Profesor de Matemáticas", "fotoMaestroG.jpg");
         maestro.setId(new ObjectId("662e839aecc0c87a0fbe5e90"));
 
         EntidadCampus campus = new EntidadCampus("Campus Principal");
@@ -107,7 +107,7 @@ public class PruebaConversiones {
         } else {
             System.out.println("Evento no es igual");
         }
-
+*/
     }
     
 }

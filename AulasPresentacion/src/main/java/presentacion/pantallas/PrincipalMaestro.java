@@ -158,7 +158,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
             }
             ubicacionCubiculo=accesoUbicaciones.recuperarUbicacion(ubicacionReal);
             
-            maestroAuxiliar = new MaestroEditableDTO(maestroDTO.getId(), maestroDTO.getNombre(),
+            maestroAuxiliar = new MaestroEditableDTO(maestroDTO.getAdmin(),maestroDTO.getId(), maestroDTO.getNombre(),
                     ubicacionCubiculo, descripcion, maestroDTO.getFoto(),maestroDTO.getCalendario());
             
             maestroAuxiliar.setIdBD(maestroDTO.getIdBD());
