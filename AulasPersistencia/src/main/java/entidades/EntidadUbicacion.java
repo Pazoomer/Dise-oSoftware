@@ -48,6 +48,9 @@ public class EntidadUbicacion implements Serializable {
         this.eventos = eventos;
     }
 
+    public void agregarEvento(EntidadEvento evento){
+        this.eventos.add(evento);
+    }
     public String getIdentificador() {
         return identificador;
     }
@@ -114,7 +117,7 @@ public class EntidadUbicacion implements Serializable {
         sb.append(", descripcion=").append(descripcion);
         sb.append(", identificador=").append(identificador);
         sb.append(", campus=").append(campus);
-        sb.append(", eventos=").append(eventos);
+        sb.append(", eventos=").append(eventosToString());
         sb.append('}');
         return sb.toString();
     }
@@ -124,14 +127,7 @@ public class EntidadUbicacion implements Serializable {
         sb.append("Eventos[");
         for(EntidadEvento e:eventos){
             sb.append("{nombre=").append(e.getNombre());
-            sb.append(", tipo=").append(e.getTipo().toString());
-            if(e.getTipo().equals(EntidadTipoEventoEnum.UNICO_UN_DIA)){
-                sb.append(",dia=").append(e.getFechaInicio());
-            }else{
-                sb.append(", dias semana=").append(e.getDiasSemana());
-            }
-            sb.append(", hora inicio=").append(e.getHoraInicio());
-            sb.append(", duracion en hrs=").append(e.getHorasDuracionEvento()).append('}');
+            sb.append(", tipo=").append(e.getTipo().toString()).append('}');
         }
         sb.append(']');
         return sb.toString();
