@@ -24,10 +24,10 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
-              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
+              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="192" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -35,9 +35,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="77" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
+              <EmptySpace pref="144" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -91,9 +91,7 @@
                   <Component id="btnAdminEventos" min="-2" pref="130" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                   <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                  <Component id="btnAdminMaestros" min="-2" pref="155" max="-2" attributes="0"/>
-                  <EmptySpace pref="49" max="32767" attributes="0"/>
+                  <EmptySpace pref="32" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -104,7 +102,6 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnAdminEventos" alignment="3" min="-2" pref="70" max="-2" attributes="0"/>
                       <Component id="jButton2" alignment="3" min="-2" pref="70" max="-2" attributes="0"/>
-                      <Component id="btnAdminMaestros" alignment="3" min="-2" pref="70" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="53" max="32767" attributes="0"/>
               </Group>
@@ -125,14 +122,6 @@
             <Property name="enabled" type="boolean" value="false"/>
             <Property name="label" type="java.lang.String" value="Administrar Ubicaciones"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnAdminMaestros">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Adminsitrar Maestros"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdminMaestrosActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
