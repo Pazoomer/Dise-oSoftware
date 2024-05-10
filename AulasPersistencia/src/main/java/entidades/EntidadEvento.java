@@ -47,7 +47,7 @@ public class EntidadEvento implements Serializable {
         this.color = color;
         Calendar fechaInicioCalculada=Calendar.getInstance();
         fechaInicioCalculada.setTime(fechaInicio);
-        fechaInicioCalculada.add(Calendar.MONTH, -1);
+        //fechaInicioCalculada.add(Calendar.MONTH, -1);
         fechaInicioCalculada.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
         this.fechaInicio = fechaInicioCalculada.getTime();
         this.horaInicio = this.fechaInicio;
@@ -69,13 +69,16 @@ public class EntidadEvento implements Serializable {
         Calendar fechaInicioCalculada=Calendar.getInstance();
         fechaInicioCalculada.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
         fechaInicioCalculada.setTime(fechaInicio);
-        fechaInicioCalculada.add(Calendar.MONTH, -1);
+        //fechaInicioCalculada.add(Calendar.MONTH, -1);
         this.fechaInicio = fechaInicioCalculada.getTime();
-        this.horaInicio=this.fechaInicio;
+        Calendar horaInicioCalculada=Calendar.getInstance();
+        horaInicioCalculada.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
+        horaInicioCalculada.setTime(horaInicio);
+        this.horaInicio = horaInicioCalculada.getTime();
         Calendar fechaFinCalculada=Calendar.getInstance();
         fechaFinCalculada.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
         fechaFinCalculada.setTime(fechaFin);
-        fechaFinCalculada.add(Calendar.MONTH, -1);
+        //fechaFinCalculada.add(Calendar.MONTH, -1);
         this.fechaFin = fechaFinCalculada.getTime();
         this.horasDuracionEvento = horasDuracionEvento;
     }
@@ -92,14 +95,17 @@ public class EntidadEvento implements Serializable {
         Calendar fechaInicioCalculada=Calendar.getInstance();
         fechaInicioCalculada.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
         fechaInicioCalculada.setTime(fechaInicio);
-        fechaInicioCalculada.add(Calendar.MONTH, -1);
+        //fechaInicioCalculada.add(Calendar.MONTH, -1);
         this.fechaInicio = fechaInicioCalculada.getTime();
+        Calendar horaInicioCalculada=Calendar.getInstance();
+        horaInicioCalculada.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
+        horaInicioCalculada.setTime(horaInicio);
+        this.horaInicio = horaInicioCalculada.getTime();
         Calendar fechaFinCalculada=Calendar.getInstance();
         fechaFinCalculada.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
         fechaFinCalculada.setTime(fechaFin);
-        fechaFinCalculada.add(Calendar.MONTH, -1);
+        //fechaFinCalculada.add(Calendar.MONTH, -1);
         this.fechaFin = fechaFinCalculada.getTime();
-        this.horaInicio = horaInicio;
         this.horasDuracionEvento = horasDuracionEvento;
         this.maestro = maestro;
     }
@@ -110,12 +116,14 @@ public class EntidadEvento implements Serializable {
         this.descripcion = descripcion;
         this.ubicacion = ubicacion;
         this.color = color;
+        System.out.println("f1= "+fechaToString(fechaInicio));
+        //System.out.println("f1= "+fechaToString(fechaFin));
         Calendar fechaInicioCalculada=Calendar.getInstance();
         fechaInicioCalculada.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
         fechaInicioCalculada.setTime(fechaInicio);
-        fechaInicioCalculada.add(Calendar.MONTH, -1);
+        //fechaInicioCalculada.add(Calendar.MONTH, -1);
         this.fechaInicio = fechaInicioCalculada.getTime();
-        this.horaInicio = fechaInicioCalculada.getTime();
+        this.horaInicio = this.fechaInicio;
         Calendar fechaFinCalculada=Calendar.getInstance();
         fechaFinCalculada.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
         fechaFinCalculada.setTime(this.horaInicio);
@@ -189,7 +197,7 @@ public class EntidadEvento implements Serializable {
         Calendar fechaInicioCalculada=Calendar.getInstance();
         //fechaInicioCalculada.setTimeZone(TimeZone.getTimeZone("UTC"));
         fechaInicioCalculada.setTime(fechaInicio);
-        fechaInicioCalculada.add(Calendar.MONTH, -1);
+        //fechaInicioCalculada.add(Calendar.MONTH, -1);
         this.fechaInicio = fechaInicioCalculada.getTime();
     }
 
@@ -201,7 +209,7 @@ public class EntidadEvento implements Serializable {
         Calendar fechaFinCalculada=Calendar.getInstance();
         //fechaFinCalculada.setTimeZone(TimeZone.getTimeZone("UTC"));
         fechaFinCalculada.setTime(fechaFin);
-        fechaFinCalculada.add(Calendar.MONTH, -1);
+       // fechaFinCalculada.add(Calendar.MONTH, -1);
         this.fechaFin = fechaFinCalculada.getTime();
     }
 
@@ -213,7 +221,7 @@ public class EntidadEvento implements Serializable {
         Calendar horaInicioCalculada=Calendar.getInstance();
         //horaInicioCalculada.setTimeZone(TimeZone.getTimeZone("UTC"));
         horaInicioCalculada.setTime(horaInicio);
-        horaInicioCalculada.add(Calendar.MONTH, -1);
+        //horaInicioCalculada.add(Calendar.MONTH, -1);
         this.horaInicio = horaInicioCalculada.getTime();
     }
 
@@ -261,26 +269,34 @@ public class EntidadEvento implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("EntidadEvento{");
-        sb.append("id=").append(id);
         sb.append(", tipo=").append(tipo);
         sb.append(", nombre=").append(nombre);
         sb.append(", descripcion=").append(descripcion);
-        sb.append(", diasSemana=").append(diasSemana);
-        sb.append(", ubicacion=").append(ubicacion);
-        sb.append(", color=").append(color);
         sb.append(", fechaInicio=").append(fechaToString(fechaInicio));
         sb.append(", fechaFin=").append(fechaToString(fechaFin));
+        if(tipo.equals(EntidadTipoEventoEnum.SEMANAL)){
+            sb.append(", diasSemana=").append(diasSemana);
+        }
+        sb.append(", ubicacion=").append(ubicacionToString());
+        sb.append(", color=").append(color);
         Calendar hora=Calendar.getInstance();
         hora.setTime(horaInicio);
         hora.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
-        sb.append(", horaInicio=").append(hora.get(Calendar.HOUR_OF_DAY)+":"+hora.get(Calendar.MINUTE));
+        sb.append(", horaInicio=").append(hora.get(Calendar.HOUR_OF_DAY)).append(":").append(hora.get(Calendar.MINUTE));
         sb.append(", horasDuracionEvento=").append(horasDuracionEvento);
-        sb.append(", maestro=").append(maestro);
+        if(maestro!=null)sb.append(", maestro=").append(maestro);
         sb.append('}');
         return sb.toString();
     }
 
-    
+    private String ubicacionToString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append('{');
+        sb.append("campus=").append(ubicacion.getCampus());
+        sb.append(", identificador=").append(ubicacion.getIdentificador());
+        sb.append('}');
+        return sb.toString();
+    }
 
     public String fechaToString(Date fecha){
         SimpleDateFormat formatoFecha=new SimpleDateFormat("yyyy-MM-dd");
