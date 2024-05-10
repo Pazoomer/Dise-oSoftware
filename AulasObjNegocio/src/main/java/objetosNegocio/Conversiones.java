@@ -94,7 +94,7 @@ class Conversiones {
             for (EventoConsultableDTO ec : eventos) {
                 eventosBO.add(toEventoBO(ec));
             }
-            maestroBO= new EntidadMaestro(maestro.getAdmin(),
+            maestroBO= new EntidadMaestro(
                     maestro.getId(),
                     maestro.getNombre(),
                     ubicacionBO,
@@ -103,7 +103,7 @@ class Conversiones {
                     eventosBO
             );
         }else{
-            maestroBO= new EntidadMaestro(maestro.getAdmin(),
+            maestroBO= new EntidadMaestro(
                     maestro.getId(),
                     maestro.getNombre(),
                     ubicacionBO,
@@ -118,7 +118,7 @@ class Conversiones {
     protected MaestroEditableDTO toMaestroDTO(EntidadMaestro maestro) {
         List<EntidadEvento> eventos = maestro.getCalendario();
         List<EventoConsultableDTO> eventosDTO = new ArrayList<>();
-        MaestroEditableDTO maestroDTO = new MaestroEditableDTO(maestro.getAdmin(),
+        MaestroEditableDTO maestroDTO = new MaestroEditableDTO(
                 maestro.getIdMaestro(),
                 maestro.getNombre(),
                 toUbicacionDTO(maestro.getCubiculo()),

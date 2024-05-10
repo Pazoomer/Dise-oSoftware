@@ -48,6 +48,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
         cargarIconos();
         this.setVisible(true);
         this.setSize(800, 600);
+        this.setLocationRelativeTo(null);
         cargarComboBox();
     }
 
@@ -158,7 +159,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
             }
             ubicacionCubiculo=accesoUbicaciones.recuperarUbicacion(ubicacionReal);
             
-            maestroAuxiliar = new MaestroEditableDTO(maestroDTO.getAdmin(),maestroDTO.getId(), maestroDTO.getNombre(),
+            maestroAuxiliar = new MaestroEditableDTO(maestroDTO.getId(), maestroDTO.getNombre(),
                     ubicacionCubiculo, descripcion, maestroDTO.getFoto(),maestroDTO.getCalendario());
             
             maestroAuxiliar.setIdBD(maestroDTO.getIdBD());
