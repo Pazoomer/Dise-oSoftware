@@ -4,6 +4,7 @@ package adminEventos;
 
 import DTOS.evento.EventoConsultableDTO;
 import excepciones.NegocioException;
+import java.util.Calendar;
 import java.util.List;
 
 //
@@ -55,6 +56,33 @@ public class FachadaAdminEventos implements IAdminEventos {
     public List<EventoConsultableDTO> obtenerEventos() throws NegocioException {
         try {
             return this.control.obtenerEventos();
+        } catch (NegocioException e) {
+            throw e;
+        }
+    }
+
+    @Override
+    public List<EventoConsultableDTO> obtenerEventos(String tipoEvento) throws NegocioException {
+        try {
+            return this.control.obtenerEventos(tipoEvento);
+        } catch (NegocioException e) {
+            throw e;
+        }
+    }
+
+    @Override
+    public List<EventoConsultableDTO> obtenerEventos(Calendar fechaFiltro) throws NegocioException {
+        try {
+            return this.control.obtenerEventos(fechaFiltro);
+        } catch (NegocioException e) {
+            throw e;
+        }
+    }
+    
+    @Override
+    public List<EventoConsultableDTO> obtenerEventos(String tipoEvento, Calendar fechaFiltro) throws NegocioException {
+        try {
+            return this.control.obtenerEventos(tipoEvento, fechaFiltro);
         } catch (NegocioException e) {
             throw e;
         }

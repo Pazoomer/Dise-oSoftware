@@ -4,6 +4,7 @@ package adminEventos;
 
 import DTOS.evento.EventoConsultableDTO;
 import excepciones.NegocioException;
+import java.util.Calendar;
 import java.util.List;
 
 //
@@ -25,6 +26,12 @@ public interface IAdminEventos {
     public boolean eliminarEvento(EventoConsultableDTO evento)throws NegocioException;
 
     public List<EventoConsultableDTO> obtenerEventos()throws NegocioException;
+    
+    public List<EventoConsultableDTO> obtenerEventos(String tipoEvento)throws NegocioException;
+    
+    public List<EventoConsultableDTO> obtenerEventos(Calendar fechaFiltro)throws NegocioException;
+    
+    public List<EventoConsultableDTO> obtenerEventos(String tipoEvento, Calendar fechaFiltro)throws NegocioException;
     
     public EventoConsultableDTO obtenerEvento(EventoConsultableDTO evento)throws NegocioException;
 }
