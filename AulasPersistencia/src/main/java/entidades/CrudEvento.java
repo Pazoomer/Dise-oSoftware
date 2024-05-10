@@ -10,11 +10,15 @@ import com.mongodb.client.result.InsertOneResult;
 import com.mongodb.client.result.UpdateResult;
 import excepcioness.PersistenciaExceptionn;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
 //
 //
@@ -65,27 +69,15 @@ public class CrudEvento {
             }
             for (int i = 0; i < camposModificados.size(); i++) {
                 switch (camposModificados.get(i)) {
-                    case "nombre":
-                        updates.add(Updates.set("nombre", evento.getNombre()));
-                        break;
-                    case "descripcion":
-                        updates.add(Updates.set("descripcion", evento.getDescripcion()));
-                        break;
-                    case "ubicacion":
-                        updates.add(Updates.set("ubicacion", evento.getUbicacion()));
-                        break;
-                    case "color":
-                        updates.add(Updates.set("color", evento.getColor()));
-                        break;
-                    case "horaInicio":
-                        updates.add(Updates.set("horaInicio", evento.getHoraInicio()));
-                        break;
-                    case "horasDuracion":
-                        updates.add(Updates.set("horasDuracion", evento.getHorasDuracionEvento()));
-                        break;
+                    case "nombre" -> updates.add(Updates.set("nombre", evento.getNombre()));
+                    case "descripcion" -> updates.add(Updates.set("descripcion", evento.getDescripcion()));
+                    case "ubicacion" -> updates.add(Updates.set("ubicacion", evento.getUbicacion()));
+                    case "color" -> updates.add(Updates.set("color", evento.getColor()));
+                    case "horaInicio" -> updates.add(Updates.set("horaInicio", evento.getHoraInicio()));
+                    case "horasDuracion" -> updates.add(Updates.set("horasDuracion", evento.getHorasDuracionEvento()));
                 }
             }
-            Bson filtro = Filters.eq("nombre", evento.getNombre());
+            Bson filtro = Filters.eq("_id", evento.getId());
             UpdateResult result;
             try {
                 result = coleccion.updateOne(filtro, updates);
@@ -126,6 +118,52 @@ public class CrudEvento {
             throw new PersistenciaExceptionn("Hubo un error al consultar los eventos");
         }
     }
+    
+    public List<EntidadEvento> obtenerEventos(String tipoEvento) throws PersistenciaExceptionn{
+        try {
+            List<EntidadEvento> eventos = new ArrayList<>();
+            EntidadTipoEventoEnum tipo;
+            if(tipoEvento.equalsIgnoreCase("semanal")) tipo=EntidadTipoEventoEnum.SEMANAL;
+            else tipo=EntidadTipoEventoEnum.UNICO_UN_DIA;
+            FindIterable<EntidadEvento> it=this.coleccion.find(Filters.eq("tipo", tipo.toString()));
+            if(it.first()!=null){
+                for (EntidadEvento ev : it) {
+                    eventos.add(ev);
+                }
+                return eventos;
+            }
+            return null;
+        } catch (MongoException e) {
+            LOG.log(Level.SEVERE, e.getMessage(), e);
+            throw new PersistenciaExceptionn("Hubo un error al consultar los eventos");
+        }
+    }
+    
+//    private List<EntidadEvento> filtrarEventosPorFecha(List<EntidadEvento> eventos,Calendar fechaFiltro){
+//        Calendar inicioDia = fechaFiltro;
+//        inicioDia.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
+//        inicioDia.set(Calendar.HOUR_OF_DAY, 0);
+//        inicioDia.set(Calendar.MINUTE, 0);
+//        
+//        String diaSemana=obtenerDiaSemana(fechaFiltro);
+//        
+//        List<EntidadEvento> eventosFiltrados=new ArrayList<>();
+//        String[] arrDias;
+//        for (EntidadEvento evento : eventos) {
+//            if(evento.getTipo().equals(EntidadTipoEventoEnum.UNICO_UN_DIA)){
+//                if(evento.getFechaInicio().after(inicioDia.getTime()))
+//                    eventosFiltrados.add(evento);
+//            }else{
+//                arrDias=evento.getDiasSemana().split(",");
+//                for (String arrDia : arrDias) {
+//                    if (arrDia.equals(diaSemana)) {
+//                        eventosFiltrados.add(evento);
+//                    }
+//                }
+//            }
+//        }
+//        return eventosFiltrados;
+//    }
     
     public EntidadEvento obtenerEvento(EntidadEvento evento)throws PersistenciaExceptionn{
         try{
