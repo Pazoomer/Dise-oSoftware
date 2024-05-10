@@ -156,6 +156,21 @@ public class CrudCampus {
         }
     }
     
+    public boolean agregarEventoAUbicacion(EntidadUbicacion ubicacion, EntidadEvento evento)throws PersistenciaExceptionn{
+        try{
+            Bson filters=Filters.and(Filters.eq("nombre", ubicacion.getCampus()),
+                    Filters.elemMatch("ubicaciones", Filters.eq("identificador", ubicacion.getIdentificador())));
+            EntidadEvento eventoReducido=new EntidadEvento();
+            eventoReducido.setNombre(evento.getNombre());
+            eventoReducido.setTipo(evento.getTipo());
+            UpdateResult updateRes=coleccion.updateOne(filters, Updates.push("ubicaciones.$.eventos",eventoReducido));
+            return updateRes.getModifiedCount()>0;
+        }catch(MongoException e){
+            LOG.log(Level.SEVERE, e.getMessage(), e);
+            throw new PersistenciaExceptionn("Hubo un error al agregar el evento a la ubicacion");
+        }
+    }
+    
     public boolean cerrarConexion(){
         Conexion.cerrarConexion();
         return true;
