@@ -9,6 +9,7 @@ import accesoMaestro.IAccesoMaestro;
 import excepciones.NegocioException;
 import java.awt.Color;
 import java.awt.Frame;
+import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -28,7 +29,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     /**
      * Es el maestro al que le pertenece el calendario
      */
-    private final MaestroEditableDTO maestro;
+    private MaestroEditableDTO maestro;
     PrincipalMaestro prinMaestro;
     IAccesoMaestro accesoMaestro;
     Frame parent;
@@ -38,6 +39,9 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     private CDEvento cdEvento;
     public static boolean isDisplayed=false;
     public static EventoConsultableDTO eventoSeleccionado;
+
+    public PrincipalCalendario(){
+    }
     
     /**
      * Creates new form PrincipalCalendario
@@ -291,13 +295,13 @@ public class PrincipalCalendario extends javax.swing.JFrame {
 
     private void desplegarCDEvento(String operacion) {
         switch (operacion) {
-            case "agregar" -> cdEvento = new CDEvento(parent,this, true,operacion);
+            case "agregar" -> cdEvento = new CDEvento(this, true,operacion);
             case "editar" -> {
-                cdEvento = new CDEvento( parent,this, eventoSeleccionado, true,"editar");
+                cdEvento = new CDEvento( this, eventoSeleccionado, true,"editar");
                 cdEvento.desplegarEventoEditable();
             }
             case "desplegar" -> {
-                cdEvento = new CDEvento(parent,this, eventoSeleccionado, true,"desplegar");
+                cdEvento = new CDEvento(this, eventoSeleccionado, true,"desplegar");
                 cdEvento.desplegarEvento();
             }
             default -> {
