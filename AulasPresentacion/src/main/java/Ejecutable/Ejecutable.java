@@ -24,7 +24,7 @@ public class Ejecutable {
             
             if (maestro != null) {
                 System.out.println(maestro.toString());
-                new PrincipalMaestro(maestro).setVisible(true);
+                new PrincipalMaestro(maestro,null).setVisible(true);
             }
 
         } catch (NegocioException e) {

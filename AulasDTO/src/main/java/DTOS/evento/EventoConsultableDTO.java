@@ -24,6 +24,9 @@ public class EventoConsultableDTO {
     private Double horasDuracionEvento;
     private MaestroEditableDTO maestro;
 
+    public EventoConsultableDTO() {
+    }
+    
     public EventoConsultableDTO(String nombre) {
         this.nombre=nombre;
     }

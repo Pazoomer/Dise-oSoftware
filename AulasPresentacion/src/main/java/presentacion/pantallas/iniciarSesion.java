@@ -151,7 +151,7 @@ public class iniciarSesion extends javax.swing.JFrame {
                     if (maestro != null) {
                         System.out.println(maestro.toString());
                         this.setVisible(false);
-                        new PrincipalMaestro(maestro).setVisible(true);
+                        new PrincipalMaestro(maestro,this).setVisible(true);
 
                     } else {
                         JOptionPane.showMessageDialog(null, "Error al obtener al maestro", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);

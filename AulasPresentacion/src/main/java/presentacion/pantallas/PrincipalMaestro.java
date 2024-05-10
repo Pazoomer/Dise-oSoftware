@@ -17,6 +17,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 /**
  *
@@ -32,15 +33,17 @@ public class PrincipalMaestro extends javax.swing.JFrame {
     private final IAccesoUbicaciones accesoUbicaciones;
     private DefaultComboBoxModel cmbBoxModel;
     private List<UbicacionDTO> edificiosCubiculos;
-
+    private final JFrame parent;
 
     /**
      * Creates new form PrincipalMaestro
      *
      * @param maestro
+     * @param parent
      */
-    public PrincipalMaestro(MaestroEditableDTO maestro) {
+    public PrincipalMaestro(MaestroEditableDTO maestro, JFrame parent) {
         initComponents();
+        this.parent=parent;
         this.maestroDTO = maestro;
         this.accesoMaestro=new FachadaAccesoMaestro();
         this.accesoUbicaciones=new FachadaAccesoUbicaciones();
@@ -208,7 +211,7 @@ public class PrincipalMaestro extends javax.swing.JFrame {
      */
     private void cerrar() {
         this.dispose();
-        
+        this.parent.setVisible(true);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

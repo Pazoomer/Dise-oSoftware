@@ -39,6 +39,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     public static boolean isDisplayed=false;
     public static EventoConsultableDTO eventoSeleccionado;
     
+    
     /**
      * Creates new form PrincipalCalendario
      * @param parent
@@ -289,13 +290,13 @@ public class PrincipalCalendario extends javax.swing.JFrame {
 
     private void desplegarCDEvento(String operacion) {
         switch (operacion) {
-            case "agregar" -> cdEvento = new CDEvento(parent,this, true,operacion);
+            case "agregar" -> cdEvento = new CDEvento(this, true,operacion);
             case "editar" -> {
-                cdEvento = new CDEvento( parent,this, eventoSeleccionado, true,"editar");
+                cdEvento = new CDEvento(this, eventoSeleccionado, true,"editar");
                 cdEvento.desplegarEventoEditable();
             }
             case "desplegar" -> {
-                cdEvento = new CDEvento(parent,this, eventoSeleccionado, true,"desplegar");
+                cdEvento = new CDEvento(this, eventoSeleccionado, true,"desplegar");
                 cdEvento.desplegarEvento();
             }
             default -> {

@@ -25,9 +25,6 @@ import objetosNegocio.Evento;
 //
 //
 
-
-
-
 public class ControlAdminEventos {
     private Evento eventoBO;
     private final static Logger LOG = Logger.getLogger(ControlAdminEventos.class.getName());
