@@ -23,29 +23,29 @@ public class Ejecutable {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
-        IAccesoMaestro acceso = new FachadaAccesoMaestro();
-        MaestroEditableDTO maestro;
-        try {
-            maestro = acceso.recuperarMaestro(new MaestroEditableDTO("1"));
-            
-            if (maestro != null) {
-//                List<EventoConsultableDTO> eventos=maestro.getCalendario();
-//                eventos.forEach(e->{
-//                    System.out.println("fecha inicio: "+
-//                            e.getFechaInicio().get(Calendar.DAY_OF_MONTH)+"/"+
-//                            e.getFechaInicio().get(Calendar.MONTH)+"/"+
-//                            e.getFechaInicio().get(Calendar.YEAR)+" "+
-//                            e.getFechaInicio().get(Calendar.HOUR_OF_DAY)+":"+
-//                            e.getFechaInicio().get(Calendar.MINUTE));
-//                });
-                System.out.println(maestro.toString());
-                new PrincipalMaestro(maestro).setVisible(true);
-            }
-
-        } catch (NegocioException e) {
-            System.out.println(e.getMessage());
-        }
+//
+//        IAccesoMaestro acceso = new FachadaAccesoMaestro();
+//        MaestroEditableDTO maestro;
+//        try {
+//            maestro = acceso.recuperarMaestro(new MaestroEditableDTO("1"));
+//            
+//            if (maestro != null) {
+////                List<EventoConsultableDTO> eventos=maestro.getCalendario();
+////                eventos.forEach(e->{
+////                    System.out.println("fecha inicio: "+
+////                            e.getFechaInicio().get(Calendar.DAY_OF_MONTH)+"/"+
+////                            e.getFechaInicio().get(Calendar.MONTH)+"/"+
+////                            e.getFechaInicio().get(Calendar.YEAR)+" "+
+////                            e.getFechaInicio().get(Calendar.HOUR_OF_DAY)+":"+
+////                            e.getFechaInicio().get(Calendar.MINUTE));
+////                });
+//                System.out.println(maestro.toString());
+//                new PrincipalMaestro(maestro).setVisible(true);
+//            }
+//
+//        } catch (NegocioException e) {
+//            System.out.println(e.getMessage());
+//        }
         
 //        
 //        IConexionDAO conexion = new ConexionDAO();
