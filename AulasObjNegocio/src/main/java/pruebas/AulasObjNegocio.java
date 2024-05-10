@@ -61,35 +61,37 @@ public class AulasObjNegocio {
 //        }
 //      
         Evento ev=new Evento();
-        Campus c=new Campus();
+//        Campus c=new Campus();
 //        Calendar fechaInicio=Calendar.getInstance();
 //        Calendar fechaFin=Calendar.getInstance();
 //        fechaInicio.set(2024, 0, 15, 8, 0,0);
 //        fechaFin.set(2024, 5, 10);
 //        UbicacionDTO ubicacion=new UbicacionDTO("AV-1100");
         
-        EventoConsultableDTO eventoN=new EventoConsultableDTO("Galeria de arte");
+//        EventoConsultableDTO eventoN=new EventoConsultableDTO("Galeria de arte");
 //        EventoConsultableDTO eventoN=new EventoConsultableDTO(TipoEventoEnumDTO.SEMANAL, "Algebra lineal", "Clase de algebra lineal", "rojo", "LuMi",ubicacion, fechaInicio, fechaFin, fechaInicio, 1.5);
         try{
             //eventoN=ev.agregarEvento(eventoN);
-            eventoN=ev.obtenerEvento(eventoN);
-            if(eventoN!=null)System.out.println(eventoN);
-            else System.out.println("evento null");
-            eventoN.setColor("purpura");
-            List<String> camposModificados=new ArrayList<>();
-            camposModificados.add("color");
-            eventoN=ev.editarEvento(eventoN, camposModificados);
-            if(eventoN!=null)System.out.println("evento editado: "+eventoN);
-            else System.out.println("evento editado null");
+//            eventoN=ev.obtenerEvento(eventoN);
+//            if(eventoN!=null)System.out.println(eventoN);
+//            else System.out.println("evento null");
+//            eventoN.setColor("purpura");
+//            List<String> camposModificados=new ArrayList<>();
+//            camposModificados.add("color");
+//            eventoN=ev.editarEvento(eventoN, camposModificados);
+//            if(eventoN!=null)System.out.println("evento editado: "+eventoN);
+//            else System.out.println("evento editado null");
+//-------------------------------------------//
 //            ubicacion=c.obtenerUbicacion(ubicacion);
 //            if(ubicacion!=null)System.out.println(ubicacion);
 //            else System.out.println("ubi null");
-//            List<EventoConsultableDTO> eventos=ev.obtenerEventos();
-//            if(eventos!=null){
-//                for (EventoConsultableDTO evento : eventos) {
-//                    System.out.println("nombre evento; "+evento.getNombre());
-//                }
-//            }else System.out.println("eventosss null");
+//-------------------------------------------
+            List<EventoConsultableDTO> eventos=ev.obtenerEventos("unico");
+            if(eventos!=null){
+                for (EventoConsultableDTO evento : eventos) {
+                    System.out.println("nombre evento; "+evento.getNombre());
+                }
+            }else System.out.println("eventosss null");
         }catch(NegocioException e){
             System.out.println(e);
         }

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  *
@@ -26,6 +27,12 @@ import java.util.Locale;
 public class Prueba {
 
     public static void main(String[] args) {
+//        Calendar inicioDia = Calendar.getInstance();
+//        inicioDia.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
+//        inicioDia.set(Calendar.HOUR_OF_DAY, 10);
+//        inicioDia.set(Calendar.MINUTE, 20);
+//        String diaSemana=inicioDia.getDisplayName(Calendar.DAY_OF_WEEK,Calendar.LONG,Locale.US);
+//        System.out.println(diaSemana);
 //        Double horasDuracionEvento=2.5;
 //        Calendar horaInicio=Calendar.getInstance();
 //        horaInicio.set(Calendar.MONTH, 2);
@@ -61,7 +68,7 @@ public class Prueba {
 //            System.out.println(e);
 //        }
 //--------------------------------------
-        CrudEvento crud=new CrudEvento();
+//        CrudEvento crud=new CrudEvento();
 //        try{
 //            EntidadEvento ev=crud.obtenerEventos().get(0);
 //            ev.setColor("naranja");
@@ -73,35 +80,58 @@ public class Prueba {
 //            System.out.println(e);
 //        }
 //-------------------------------------------
-        Calendar fechaInicio=Calendar.getInstance();
-        fechaInicio.set(2024, 5, 10, 8, 30,0);
+        CrudEvento crud=new CrudEvento();
+//        Calendar fechaInicio=Calendar.getInstance();
+//        fechaInicio.set(2024, Calendar.MAY, 5, 8, 30,0);
+//        System.out.println(fechaInicio.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US));
         //Calendar fechaFin=Calendar.getInstance();
         //fechaFin.set(2024, 5, 15, 19, 0,0);
-//        EntidadUbicacion ubicacion=new EntidadUbicacion("AV-1100");
+//        EntidadUbicacion ubicacion=new EntidadUbicacion("AV-1200");
 //        CrudCampus c=new CrudCampus();
-        //EntidadEvento evento=new EntidadEvento("Galeria de arte", "Exposicion de obras de la galeria de arte ITSON 2024", null, "verde", fechaInicio.getTime(), 5.5);
-        EntidadEvento evento=new EntidadEvento();
-        evento.setNombre("Galeria de arte");
+//        EntidadEvento evento=new EntidadEvento("Dia de software", "Conferencias y talleres del dia de software 2024", null, "blanco", fechaInicio.getTime(), 4.0);
+//        EntidadEvento evento=new EntidadEvento();
+//        evento.setNombre("Galeria de arte");
         try{
-            //ubicacion=c.obtenerUbi(ubicacion);
+//            ubicacion=c.obtenerUbi(ubicacion);
 //            System.out.println("ubicacion: "+ubicacion);
 //            evento.setUbicacion(ubicacion);
-            evento=crud.obtenerEvento(evento);
-            System.out.println(evento);
-            evento.setColor("morado");
-            System.out.println("evento con color morado: "+evento);
-            List<String> camposModificados=new ArrayList<>();
-            camposModificados.add("color");
-            evento=crud.editarEvento(evento, camposModificados);
-            if(evento!=null)System.out.println("evento editado; "+evento);
-//            List<EntidadEvento> eventos=crud.obtenerEventos();
-//            if(eventos!=null){
-//                for (EntidadEvento evento1 : eventos) {
-//                    System.out.println("nombre: "+evento1.getNombre());
-//                    System.out.println("tipo: "+evento1.getTipo().toString());
-//                }
-//            }else System.out.println("sin eventos");
+//            evento=crud.agregarEvento(evento);
+//            if(evento!=null)System.out.println(evento);
+//            ubicacion.agregarEvento(evento);
+//            ubicacion=c.obtenerUbi(ubicacion);
+//            System.out.println("eventos de ubi: "+ubicacion.eventosToString());
+//            if(c.agregarEventoAUbicacion(ubicacion, evento))System.out.println("se agrego");
+//            else System.out.println("no se agrego");
+//--------------------------------------------            
+//            evento=crud.obtenerEvento(evento);
+//            System.out.println("evento a agregar: "+evento);
+//            ubicacion=c.obtenerUbi(ubicacion);
+//            System.out.println("ubicacion: "+ubicacion);
+//            ubicacion.agregarEvento(evento);
+//            System.out.println("eventos de ubi: "+ubicacion.eventosToString());
+//            if(c.agregarEventoAUbicacion(ubicacion, evento))System.out.println("se agrego");
+//            else System.out.println("no se agrego");
+//-----------------------------------------
+//            evento.setUbicacion(ubicacion);
+//            evento=crud.obtenerEvento(evento);
+//            System.out.println(evento);
             
+//-----------------------------------------
+//            evento.setColor("morado");
+//            System.out.println("evento con color morado: "+evento);
+//            List<String> camposModificados=new ArrayList<>();
+//            camposModificados.add("color");
+//            evento=crud.editarEvento(evento, camposModificados);
+//            if(evento!=null)System.out.println("evento editado; "+evento);
+//-----------------------------------------
+            List<EntidadEvento> eventos=crud.obtenerEventos("unico");
+            if(eventos!=null){
+                for (EntidadEvento evento1 : eventos) {
+                    System.out.println("nombre: "+evento1.getNombre());
+                    System.out.println("tipo: "+evento1.getTipo().toString());
+                }
+            }else System.out.println("sin eventos");
+//-----------------------------------------
         }catch(PersistenciaExceptionn e){
             System.out.println(e);
         }
