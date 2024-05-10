@@ -2,6 +2,7 @@
 package presentacion.pantallas;
 
 import DTOS.maestro.MaestroEditableDTO;
+import DTOS.usuarios.UsuarioDTO;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -12,19 +13,19 @@ import javax.swing.JOptionPane;
  */
 public final class PrincipalInicio extends javax.swing.JFrame {
 
-    private MaestroEditableDTO admin;
+    private UsuarioDTO admin;
     /**
      * Creates new form PrincipalInicio
      *
      * @param admin
      */
-    public PrincipalInicio(MaestroEditableDTO admin) {
+    public PrincipalInicio(UsuarioDTO admin) {
         //Verifica al administrador
         if (admin == null) {
             cerrar();
             return;
         }
-        if (admin.getAdmin() == false) {
+        if (admin.isAdministrador() == false) {
             cerrar();
             return;
         }
@@ -37,7 +38,7 @@ public final class PrincipalInicio extends javax.swing.JFrame {
     }
     
     private void decorar() {
-        this.lblNombreAdmin.setText("Administrador: " + admin.getNombre());
+        this.lblNombreAdmin.setText("Administrador: " + admin.getIdUsuario());
         // Carga el icono de retorno en el botón btnAtras
         try {
             ImageIcon iconoReturn = new ImageIcon(getClass().getResource("/imagenes/icons8-return-50.png"));
