@@ -8,6 +8,7 @@ import accesoMaestro.IAccesoMaestro;
 import accesoUsuarios.FachadaAccesoUsuarios;
 import accesoUsuarios.IAccesoUsuarios;
 import excepciones.NegocioException;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,7 +21,18 @@ public class iniciarSesion extends javax.swing.JFrame {
      * Creates new form iniciarSesion
      */
     public iniciarSesion() {
+        setUndecorated(true);
+        this.setResizable(false);
         initComponents();
+        this.setSize(800,600);
+        this.setLocationRelativeTo(null);
+        decorar();
+    }
+
+    private void decorar() {
+        
+        ImageIcon iconoReturn = new ImageIcon(getClass().getResource("/imagenes/icons8-return-50.png"));
+        this.btnAtras.setIcon(iconoReturn);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -35,6 +47,7 @@ public class iniciarSesion extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
+        btnAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(22, 81, 198));
@@ -85,21 +98,34 @@ public class iniciarSesion extends javax.swing.JFrame {
         jPanel1.add(txtPassword);
         txtPassword.setBounds(60, 260, 180, 30);
 
+        btnAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtrasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(259, Short.MAX_VALUE)
+                .addGap(19, 19, 19)
+                .addComponent(btnAtras)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(248, 248, 248))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(71, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27))))
         );
 
         getContentPane().add(jPanel2);
@@ -109,74 +135,51 @@ public class iniciarSesion extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        
-        String idUsuario=txtUsername.getText();
+    private void iniciarSesion() {
+        String idUsuario = txtUsername.getText();
         String password = new String(txtPassword.getPassword());
-        try{
-            UsuarioDTO usuario=this.user.iniciarSesion(idUsuario, password);   
-            if(usuario!=null){
-                if(usuario.isAdministrador()){
+        try {
+            UsuarioDTO usuario = this.user.iniciarSesion(idUsuario, password);
+            if (usuario != null) {
+                if (usuario.isAdministrador()) {
                     this.setVisible(false);
                     new PrincipalInicio(usuario).setVisible(true);
-                }else{
+                } else {
                     IAccesoMaestro acceso = new FachadaAccesoMaestro();
-                    MaestroEditableDTO maestro; 
-                     maestro = acceso.recuperarMaestro(new MaestroEditableDTO(usuario.getIdUsuario())); 
+                    MaestroEditableDTO maestro;
+                    maestro = acceso.recuperarMaestro(new MaestroEditableDTO(usuario.getIdUsuario()));
                     if (maestro != null) {
                         System.out.println(maestro.toString());
                         this.setVisible(false);
                         new PrincipalMaestro(maestro).setVisible(true);
-                        
-                    }else{
+
+                    } else {
                         JOptionPane.showMessageDialog(null, "Error al obtener al maestro", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
                     }
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
             }
-        }catch(NegocioException e){
+        } catch (NegocioException e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    private void cerrar() {
+        this.dispose();
+    }
+    private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
+        iniciarSesion();
+
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(iniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(iniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(iniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(iniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
+        cerrar();
+    }//GEN-LAST:event_btnAtrasActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new iniciarSesion().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnIniciarSesion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
