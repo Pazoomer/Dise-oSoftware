@@ -39,7 +39,7 @@ public class FrmInicio extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnAdminEventos = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAdminUbi = new javax.swing.JButton();
         btnAtras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -73,8 +73,12 @@ public class FrmInicio extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setEnabled(false);
-        jButton2.setLabel("Administrar Ubicaciones");
+        btnAdminUbi.setLabel("Administrar Ubicaciones");
+        btnAdminUbi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminUbiActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -84,7 +88,7 @@ public class FrmInicio extends javax.swing.JFrame {
                 .addGap(50, 50, 50)
                 .addComponent(btnAdminEventos, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
-                .addComponent(jButton2)
+                .addComponent(btnAdminUbi)
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -93,7 +97,7 @@ public class FrmInicio extends javax.swing.JFrame {
                 .addGap(50, 50, 50)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdminEventos, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAdminUbi, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
 
@@ -145,6 +149,12 @@ public class FrmInicio extends javax.swing.JFrame {
         new iniciarSesion().setVisible(true);
         //this.parent.setVisible(true);
     }//GEN-LAST:event_btnAtrasActionPerformed
+
+    private void btnAdminUbiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminUbiActionPerformed
+        // TODO add your handling code here:
+        new PrincipalCampus(this).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnAdminUbiActionPerformed
 
     private void acceder(){
         acceso = new FachadaAccesoMaestro();
@@ -199,8 +209,8 @@ public class FrmInicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdminEventos;
+    private javax.swing.JButton btnAdminUbi;
     private javax.swing.JButton btnAtras;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
