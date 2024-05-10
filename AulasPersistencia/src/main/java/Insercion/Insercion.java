@@ -33,67 +33,41 @@ public class Insercion {
             //PRIMERO BORRAR TODOS LOS DOCUMENTOS DE LA BASE DE DATOS
             
             CrudMaestro CRUDmaestro = new CrudMaestro();
-            CrudCampus CRUDcampus = new CrudCampus();
-            CrudUsuario CRUDusuario=new CrudUsuario();
+//            CrudCampus CRUDcampus = new CrudCampus();
 
-            EntidadCampus campusNainari = new EntidadCampus("Obregon Nainari");
-            EntidadCampus campusCentro = new EntidadCampus("Centro");
+            EntidadUbicacion ubicacionNainari1 = new EntidadUbicacion("AV-1100", "Nainari", "Edificio de aulas para clases regulares");
+//            EntidadUbicacion ubicacionNainari2 = new EntidadUbicacion("AV-1200", "Nainari", "Edificio de aulas para clases regulares");
+//            EntidadUbicacion ubicacionObregon1 = new EntidadUbicacion("AV-100", "Centro", "Edificio de aulas para clases regulares");
+//            EntidadUbicacion ubicacionObregon2 = new EntidadUbicacion("AV-200", "Centro", "Edificio de aulas para clases regulares");
+            
+            EntidadUbicacion ubicacion=new EntidadUbicacion("AV-1100");
+            ubicacion.setCampus("Nainari");
+            EntidadMaestro maestro = new EntidadMaestro("1", "Juan Pérez", ubicacion, "Profesor de Matemáticas", "fotoMaestroG.png");
 
-            if ((campusNainari = CRUDcampus.agregarCampus(campusNainari)) != null) {
-                //System.out.println("Se agrego el campus");
-                //System.out.println("Id Campus nainari: " + campusNainari.getId());
-            } else {
-                System.out.println("No se agrego el campus");
-            }
-
-            if ((campusCentro = CRUDcampus.agregarCampus(campusCentro)) != null) {
-                //System.out.println("Se agrego el campus");
-                //System.out.println("Id Campus centro: " + campusCentro.getId());
-            } else {
-                System.out.println("No se agrego el campus");
-            }
-                        
-            EntidadUbicacion ubicacionNainari1 = new EntidadUbicacion("AV-1100", campusNainari.getId(), "Aula para clases regulares");
-            ubicacionNainari1.setPosicionX(200D);
-            ubicacionNainari1.setPosicionY(200D);
-            ObjectId id=new ObjectId();
-            ubicacionNainari1.setId(id);
-            
-            EntidadUbicacion ubicacionNainari2 = new EntidadUbicacion("AV-1200", campusNainari.getId(), "Aula para clases regulares");
-            ubicacionNainari2.setPosicionX(300D);
-            ubicacionNainari2.setPosicionY(300D);
-            
-            EntidadUbicacion ubicacionObregon1 = new EntidadUbicacion("LV-100", campusCentro.getId(), "Aula para clases regulares");
-            ubicacionObregon1.setPosicionX(100D);
-            ubicacionObregon1.setPosicionY(100D);
-            
-            EntidadUbicacion ubicacionObregon2 = new EntidadUbicacion("LV-200", campusCentro.getId(), "Aula para clases regulares");
-            ubicacionObregon2.setPosicionX(400D);
-            ubicacionObregon2.setPosicionY(400D);
-            
-            EntidadMaestro maestro = new EntidadMaestro("1", "Juan Pérez", ubicacionNainari1, "Profesor de Matemáticas", "fotoMaestro.png");
-            
-            List<EntidadUbicacion> ubicacionesNainari = new ArrayList<>();
-            ubicacionesNainari.add(ubicacionNainari1);
-            ubicacionesNainari.add(ubicacionNainari2);
-            campusNainari.setUbicaciones(ubicacionesNainari);
-            
-            List<EntidadUbicacion> ubicacionesCentro = new ArrayList<>();
-            ubicacionesCentro.add(ubicacionObregon1);
-            ubicacionesCentro.add(ubicacionObregon2);
-            campusCentro.setUbicaciones(ubicacionesCentro);
-            
+//            EntidadCampus campusNainari = new EntidadCampus("Nainari");
+//            EntidadCampus campusCentro = new EntidadCampus("Centro");
+//
+//            List<EntidadUbicacion> ubicacionesNainari = new ArrayList<>();
+//            ubicacionesNainari.add(ubicacionNainari1);
+//            ubicacionesNainari.add(ubicacionNainari2);
+//            campusNainari.setUbicaciones(ubicacionesNainari);
+//            
+//            List<EntidadUbicacion> ubicacionesCentro = new ArrayList<>();
+//            ubicacionesCentro.add(ubicacionObregon1);
+//            ubicacionesCentro.add(ubicacionObregon2);
+//            campusCentro.setUbicaciones(ubicacionesCentro);
+//            
             Calendar fechaInicio1 = Calendar.getInstance();
             fechaInicio1.set(Calendar.DAY_OF_MONTH, 2);
             fechaInicio1.set(Calendar.MONTH, 4);
             fechaInicio1.set(Calendar.HOUR_OF_DAY, 10);
             fechaInicio1.set(Calendar.MINUTE, 30);
-            
-            EntidadEvento evento1 = new EntidadEvento("Asesoria de Algebra", "asesoria para examen de algebra", null, "Rosa", fechaInicio1.getTime(), fechaInicio1.getTime(), 2.5, maestro.getIdConversion());
-            Calendar f=Calendar.getInstance();
-            f.setTime(evento1.getFechaInicio());
-            
-            //System.out.println(f.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US));
+            ubicacion.setIdentificador("AV-1200");
+            EntidadEvento evento1 = new EntidadEvento("Asesoria de Algebra", "asesoria para examen de algebra", ubicacion, "Rosa", fechaInicio1.getTime(), 2.5);
+//            Calendar f=Calendar.getInstance();
+//            f.setTime(evento1.getFechaInicio());
+//            
+//            System.out.println(f.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US));
             evento1.setTipo(EntidadTipoEventoEnum.SEMANAL);
             evento1.setDiasSemana("Lu,Mi,Vi");
             evento1.setMaestro(maestro.getNombre());
@@ -102,56 +76,23 @@ public class Insercion {
             calendario.add(evento1);
             maestro.setCalendario(calendario);
             
-            //CREA LISTA DE EVENTOS PARA UBICACIONES
-            EntidadEvento eventoUbicacion1 = new EntidadEvento();
-            eventoUbicacion1.setColor("Red");
-            eventoUbicacion1.setDescripcion("Descripcion");
-            eventoUbicacion1.setDiasSemana("Lu,Ma");
-            eventoUbicacion1.setFechaFin(fechaInicio1.getTime());
-            eventoUbicacion1.setFechaInicio(fechaInicio1.getTime());
-            eventoUbicacion1.setHoraInicio(fechaInicio1.getTime());
-            eventoUbicacion1.setHorasDuracionEvento(2.5);
-            eventoUbicacion1.setNombre("Nombre");
-            eventoUbicacion1.setTipo(EntidadTipoEventoEnum.SEMANAL);
-            eventoUbicacion1.setUbicacion(id);
+            System.out.println(maestro);
+            System.out.println(evento1);
+//            System.out.println(campusNainari);
+            System.out.println(ubicacionNainari1);
             
-            EntidadEvento eventoUbicacion2 = new EntidadEvento();
-            eventoUbicacion2.setColor("Red");
-            eventoUbicacion2.setDescripcion("Descripcion");
-            eventoUbicacion2.setDiasSemana("Lu,Ma");
-            eventoUbicacion2.setFechaFin(fechaInicio1.getTime());
-            eventoUbicacion2.setFechaInicio(fechaInicio1.getTime());
-            eventoUbicacion2.setHoraInicio(fechaInicio1.getTime());
-            eventoUbicacion2.setHorasDuracionEvento(2.5);
-            eventoUbicacion2.setNombre("Nombre");
-            eventoUbicacion2.setTipo(EntidadTipoEventoEnum.SEMANAL);
-            eventoUbicacion2.setUbicacion(id);
-
-            List<EntidadEvento> eventosUbicaciones = new ArrayList<>();
-            eventosUbicaciones.add(eventoUbicacion1);
-            eventosUbicaciones.add(eventoUbicacion2);
+//            if (CRUDcampus.agregarCampus(campusNainari) != null) {
+//                System.out.println("Se agrego el campus");
+//            } else {
+//                System.out.println("No se agrego el campus");
+//            }
             
-            ubicacionNainari1.setEventos(eventosUbicaciones);
-            
-            //System.out.println(maestro);
-            //System.out.println(evento1);
-            //System.out.println(campusNainari);
-            //System.out.println(ubicacionNainari1);
-            
-            System.out.println(campusNainari.getUbicaciones().get(0));
-            
-            if (CRUDcampus.editarCampus(campusNainari) != null) {
-                System.out.println("Se agrego el campus");
-            } else {
-                System.out.println("No se agrego el campus");
-            }
-
-            if (CRUDcampus.editarCampus(campusCentro) != null) {
-                System.out.println("Se agrego el campus");
-            } else {
-                System.out.println("No se agrego el campus");
-            }
-    
+//            if (CRUDcampus.agregarCampus(campusCentro) != null) {
+//                System.out.println("Se agrego el campus");
+//            } else {
+//                System.out.println("No se agrego el campus");
+//            }
+//            
             if (CRUDmaestro.agregarMaestro(maestro) != null) {
                 System.out.println("Se agrego el maestro");
             } else {
@@ -164,11 +105,11 @@ public class Insercion {
                 System.out.println("No se cerro la conexion");
             }
             
-            if (CRUDcampus.cerrarConexion()) {
-                System.out.println("Se cerro la conexion");
-            } else {
-                System.out.println("No se cerro la conexion");
-            }
+//            if (CRUDcampus.cerrarConexion()) {
+//                System.out.println("Se cerro la conexion");
+//            } else {
+//                System.out.println("No se cerro la conexion");
+//            }
 
             EntidadUsuario usuario = new EntidadUsuario();
 

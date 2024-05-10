@@ -31,16 +31,30 @@ public class EventoConsultableDTO {
         this.nombre=nombre;
     }
 
-    public EventoConsultableDTO(TipoEventoEnumDTO tipo, String nombre, String descripcion, String color, String diasSemana, UbicacionDTO ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, Double horasDuracionEvento, MaestroEditableDTO maestro) {
+    public EventoConsultableDTO(TipoEventoEnumDTO tipo, String nombre, String descripcion, 
+            String color, String diasSemana, UbicacionDTO ubicacion, Calendar fechaInicio, 
+            Calendar fechaFin, Calendar horaInicio, Double horasDuracionEvento, MaestroEditableDTO maestro) {
         this.tipo = tipo;
+        if (tipo.equals(TipoEventoEnumDTO.UNICO_VARIOS_DIAS)) {
+            this.fechaInicio = fechaInicio;
+            this.fechaFin = fechaFin;
+        } else if (tipo.equals(TipoEventoEnumDTO.SEMANAL)) {
+            Calendar f=Calendar.getInstance();
+            f.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
+            this.fechaInicio=f;
+            this.fechaFin=f;
+            this.fechaInicio.set(2024, Calendar.JANUARY,15);
+            this.fechaFin.set(2024, Calendar.MAY, 10);
+        }
+//        this.fechaInicio.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
+//        this.fechaFin.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
+        horaInicio.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
+        this.horaInicio = horaInicio;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.color = color;
         this.diasSemana = diasSemana;
         this.ubicacion = ubicacion;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-        this.horaInicio = horaInicio;
         this.horasDuracionEvento = horasDuracionEvento;
         this.maestro = maestro;
     }
@@ -71,7 +85,8 @@ public class EventoConsultableDTO {
         this.fechaInicio.set(Calendar.HOUR_OF_DAY, horaInicio.get(Calendar.HOUR));
         this.fechaInicio.set(Calendar.MINUTE, horaInicio.get(Calendar.MINUTE));
         this.fechaInicio.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
-        this.horaInicio = horaInicio;
+        this.horaInicio = this.fechaInicio;
+        this.horaInicio.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
         //las horas se almacenan en un float para que permita guardar eventos
         //de hora y media por ejemplo
         this.horasDuracionEvento = horasDuracionEvento;
@@ -108,18 +123,26 @@ public class EventoConsultableDTO {
      */
     public EventoConsultableDTO(TipoEventoEnumDTO tipo, String nombre, String descripcion, String color,String diasSemanaa,
             UbicacionDTO ubicacion, Calendar fechaInicio, Calendar fechaFin, Calendar horaInicio, Double horasDuracionEvento) {
-        this.fechaInicio = fechaInicio;
-        this.fechaInicio.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
-        this.fechaFin = Calendar.getInstance();
         this.horaInicio = horaInicio;
         this.horaInicio.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
         this.horasDuracionEvento = horasDuracionEvento;
         if (tipo.equals(TipoEventoEnumDTO.UNICO_VARIOS_DIAS)) {
+            this.fechaInicio = fechaInicio;
             this.fechaFin = fechaFin;
         } else if (tipo.equals(TipoEventoEnumDTO.SEMANAL)) {
-            this.fechaFin.set(2024, Calendar.MAY, 11);
+            Calendar fI=Calendar.getInstance();
+            Calendar fF=Calendar.getInstance();
+            fI.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
+            fF.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
+            fI.set(2024, 0, 20);
+            fF.set(2024, 4, 10);
+            this.fechaInicio=fI;
+            this.fechaFin=fF;
+//            this.fechaInicio.set(2024, Calendar.JANUARY,15);
+//            this.fechaFin.set(2024, Calendar.MAY, 10);
         }
-        this.fechaFin.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
+//        this.fechaFin.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
+//        this.fechaInicio.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
         this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -158,8 +181,6 @@ public class EventoConsultableDTO {
         this.horasDuracionEvento = horasDuracionEvento;
     }
     
-    
-
     public String getId() {
         return id;
     }
@@ -175,19 +196,6 @@ public class EventoConsultableDTO {
     public void setMaestro(MaestroEditableDTO maestro) {
         this.maestro = maestro;
     }
-//    public EventoConsultableDTO(TipoEventoEnumDTO tipo, String nombre, String descripcion, Color color, boolean[] diasSemanaaa, 
-//            String ubicacion, Calendar fechaInicio, Calendar fechaFin) {
-//        this.tipo = tipo;
-//        this.nombre = nombre;
-//        this.descripcion = descripcion;
-//        this.color = color;
-//        this.diasSemana2=null;
-//        this.ubicacion = ubicacion;
-//        this.fechaInicio = fechaInicio;
-//        this.fechaFin = fechaFin;
-//        this.horaInicio=null;
-//        this.horasDuracionEvento=0.0f;
-//    }
 
     public void setDiasSemana(String diasSemana) {
         this.diasSemana = diasSemana;
@@ -258,11 +266,10 @@ public class EventoConsultableDTO {
         }
         sb.append(", fechaInicio=").append(fechaToString(fechaInicio));
         sb.append(", fechaFin=").append(fechaToString(fechaFin));
-        sb.append(", horaInicio=").append(horaInicio.get(Calendar.HOUR_OF_DAY)+":"+horaInicio.get(Calendar.MINUTE));
+        sb.append(", horaInicio=").append(horaInicio.get(Calendar.HOUR_OF_DAY)).append(":").append(horaInicio.get(Calendar.MINUTE));
+        if(horaInicio.get(Calendar.MINUTE)==0)sb.append("0");
         sb.append(", horasDuracionEvento=").append(horasDuracionEvento);
-        if (maestro != null) {
-            sb.append(", maestro=").append(maestro.getNombre());
-        }
+        if (maestro != null) sb.append(", maestro=").append(maestro.getNombre());
         sb.append('}');
         return sb.toString();
     }
@@ -278,7 +285,7 @@ public class EventoConsultableDTO {
      */
     public String fechaToString(Calendar fecha) {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-        formatoFecha.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
+        //formatoFecha.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
         return formatoFecha.format(fecha.getTime());
     }
 

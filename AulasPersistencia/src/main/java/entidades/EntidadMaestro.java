@@ -2,8 +2,10 @@ package entidades;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
+import java.util.TimeZone;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 
@@ -154,9 +156,12 @@ public class EntidadMaestro implements Serializable {
         sb.append("Eventos[");
         for (EntidadEvento ev : calendario) {
             sb.append("{nombre=").append(ev.getNombre());
-            sb.append("ubicacion=").append(ev.getUbicacion());
-            sb.append("fecha inicio=").append(ev.fechaToString(ev.getFechaInicio()));
-            sb.append("hora inicio=").append(ev.fechaToString(ev.getHoraInicio())).append("}");
+            sb.append(", ubicacion=").append(ev.getUbicacion());
+            sb.append(", fecha inicio=").append(ev.fechaToString(ev.getFechaInicio()));
+            Calendar hora=Calendar.getInstance();
+            hora.setTimeZone(TimeZone.getTimeZone("America/Arizona"));
+            hora.setTime(ev.getHoraInicio());
+            sb.append(", horaInicio=").append(hora.get(Calendar.HOUR_OF_DAY) + ":" + hora.get(Calendar.MINUTE));
         }
         sb.append("]");
         return sb.toString();

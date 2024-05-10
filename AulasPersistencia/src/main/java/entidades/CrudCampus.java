@@ -15,6 +15,8 @@ import org.bson.conversions.Bson;
 import com.mongodb.client.model.Filters;
 import java.util.Iterator;
 import org.bson.types.ObjectId;
+import com.mongodb.client.model.Updates;
+import com.mongodb.client.result.UpdateResult;
 
 /**
  *
@@ -26,10 +28,22 @@ public class CrudCampus {
     IConexion conexion;
 
     public CrudCampus() {
-        conexion=new Conexion();
-        coleccion = conexion.ConversionDocumentCampus();
+        coleccion = Conexion.getDatabasee().getCollection("Campus", EntidadCampus.class);
     }
 
+    public EntidadUbicacion agregarUbicacionACampus(EntidadUbicacion ubicacion)throws PersistenciaExceptionn{
+        try{
+            EntidadCampus campus=new EntidadCampus(ubicacion.getCampus());
+            campus=obtenerCampus(campus);
+            UpdateResult result=coleccion.updateOne(Filters.eq("nombre", campus.getNombre()),Updates.push("ubicaciones", ubicacion));
+            if(result.getModifiedCount()>0)return ubicacion;
+            return null;
+        }catch(MongoException e){
+            LOG.log(Level.SEVERE, e.getMessage(), e);
+            throw new PersistenciaExceptionn("Hubo un error al agregar la ubicacion al campus.");
+        }
+    }
+    
     public EntidadCampus agregarCampus(EntidadCampus campus) throws PersistenciaExceptionn {
         try {
             coleccion.insertOne(campus);
@@ -42,7 +56,7 @@ public class CrudCampus {
 
     public EntidadCampus editarCampus(EntidadCampus campus) throws PersistenciaExceptionn {
         try {
-
+            /* 
             if (campus.getUbicaciones() != null && !campus.getUbicaciones().isEmpty()) {
 
                 for (EntidadUbicacion ubicacion : campus.getUbicaciones()) {
@@ -52,13 +66,14 @@ public class CrudCampus {
                 }
             }
             coleccion.replaceOne(eq("_id", campus.getId()), campus);
-
+            */
+            coleccion.replaceOne(eq("nombre", campus.getNombre()), campus);
             return campus;
         } catch (Exception e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
             throw new PersistenciaExceptionn("Hubo un error al actualizar el campus.");
         }
-}
+    }
 
     public boolean eliminarCampus(EntidadCampus campusParametro) throws PersistenciaExceptionn {
         try {
@@ -137,14 +152,16 @@ public class CrudCampus {
         return null;
     }
 
-    public EntidadUbicacion obtenerUbi(EntidadUbicacion ubicacion) throws PersistenciaExceptionn {
-        try {
-            Bson filter = Filters.eq("ubicaciones.identificador", ubicacion.getIdentificador());
-            EntidadCampus registro = coleccion.find(filter).first();
+    public EntidadUbicacion obtenerUbi(EntidadUbicacion ubicacion)throws PersistenciaExceptionn {
+        try{
+            Bson filter=Filters.elemMatch("ubicaciones",Filters.eq("identificador", ubicacion.getIdentificador()));
+            EntidadCampus registro=coleccion.find(filter).first();
             List<EntidadUbicacion> ubi;
-            if (registro != null) {
-                ubi = registro.getUbicaciones();
-                return ubi.get(0);
+            if(registro!=null){
+                ubi=registro.getUbicaciones();
+                for (EntidadUbicacion entidadUbicacion : ubi){
+                    if(entidadUbicacion.getIdentificador().equals(ubicacion.getIdentificador())) return entidadUbicacion;
+                }
             }
             return null;
         } catch (MongoException e) {
@@ -223,8 +240,23 @@ public class CrudCampus {
         }
     }
     
+    public boolean agregarEventoAUbicacion(EntidadUbicacion ubicacion, EntidadEvento evento)throws PersistenciaExceptionn{
+        try{
+            Bson filters=Filters.and(Filters.eq("nombre", ubicacion.getCampus()),
+                    Filters.elemMatch("ubicaciones", Filters.eq("identificador", ubicacion.getIdentificador())));
+            EntidadEvento eventoReducido=new EntidadEvento();
+            eventoReducido.setNombre(evento.getNombre());
+            eventoReducido.setTipo(evento.getTipo());
+            UpdateResult updateRes=coleccion.updateOne(filters, Updates.push("ubicaciones.$.eventos",eventoReducido));
+            return updateRes.getModifiedCount()>0;
+        }catch(MongoException e){
+            LOG.log(Level.SEVERE, e.getMessage(), e);
+            throw new PersistenciaExceptionn("Hubo un error al agregar el evento a la ubicacion");
+        }
+    }
+    
     public boolean cerrarConexion(){
-        conexion.cerrarConexion();
+        Conexion.cerrarConexion();
         return true;
     }
     

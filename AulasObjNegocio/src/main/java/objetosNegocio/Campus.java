@@ -2,6 +2,7 @@ package objetosNegocio;
 
 import DTOS.campus.CampusConsultableDTO;
 import DTOS.campus.UbicacionDTO;
+import DTOS.evento.EventoConsultableDTO;
 import entidades.CrudCampus;
 import entidades.EntidadCampus;
 import entidades.EntidadUbicacion;
@@ -121,18 +122,17 @@ public class Campus {
     }
 
     public UbicacionDTO obtenerUbicacion(UbicacionDTO ubicacion) throws NegocioException {
-
         try {
-            EntidadUbicacion entidadUbicacion=crudCampus.obtenerUbicacion(conversiones.toUbicacionBO(ubicacion));
+            EntidadUbicacion entidadUbicacion=crudCampus.obtenerUbi(conversiones.toUbicacionBO(ubicacion));
             if (entidadUbicacion!=null) {
                 return conversiones.toUbicacionDTO(entidadUbicacion);
             }
-            throw new PersistenciaExceptionn("No se encontro la ubicacion");
-
+            return null;
         } catch (PersistenciaExceptionn ex) {
-            Logger.getLogger(Campus.class.getName()).log(Level.SEVERE, null, ex);
+            throw new NegocioException(ex.getMessage());
+            //Logger.getLogger(Campus.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        //return null;
     }
     
     public UbicacionDTO agregarUbicacion(UbicacionDTO ubicacionParametro) throws NegocioException {
@@ -184,4 +184,13 @@ public class Campus {
         return null;
     }
 
+    public boolean agregarEventoAUbicacion(UbicacionDTO ubicacion, EventoConsultableDTO evento)throws NegocioException{
+        try{
+            return crudCampus.agregarEventoAUbicacion(
+                    conversiones.toUbicacionBO(ubicacion),
+                    conversiones.toEventoBO(evento));
+        }catch(PersistenciaExceptionn e){
+            throw new NegocioException(e.getMessage());
+        }
+    }
 }

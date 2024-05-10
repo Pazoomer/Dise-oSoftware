@@ -568,7 +568,7 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(cmbTipo);
-        cmbTipo.setBounds(30, 50, 160, 21);
+        cmbTipo.setBounds(30, 50, 160, 25);
 
         lblTipoEstatico.setBackground(new java.awt.Color(255, 255, 255));
         lblTipoEstatico.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -622,14 +622,14 @@ public class CDEvento extends javax.swing.JDialog {
         chbLunes.setText("Lunes");
         chbLunes.setBorder(null);
         pnlEvento.add(chbLunes);
-        chbLunes.setBounds(30, 80, 85, 17);
+        chbLunes.setBounds(30, 80, 85, 20);
 
         chbMartes.setBackground(new java.awt.Color(255, 255, 255));
         chbMartes.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbMartes.setText("Martes");
         chbMartes.setBorder(null);
         pnlEvento.add(chbMartes);
-        chbMartes.setBounds(30, 100, 85, 17);
+        chbMartes.setBounds(30, 100, 85, 20);
 
         chbMiercoles.setBackground(new java.awt.Color(255, 255, 255));
         chbMiercoles.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
@@ -641,7 +641,7 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(chbMiercoles);
-        chbMiercoles.setBounds(30, 120, 85, 17);
+        chbMiercoles.setBounds(30, 120, 85, 20);
 
         chbJueves.setBackground(new java.awt.Color(255, 255, 255));
         chbJueves.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
@@ -653,28 +653,28 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(chbJueves);
-        chbJueves.setBounds(30, 140, 85, 17);
+        chbJueves.setBounds(30, 140, 85, 20);
 
         chbViernes.setBackground(new java.awt.Color(255, 255, 255));
         chbViernes.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbViernes.setText("Viernes");
         chbViernes.setBorder(null);
         pnlEvento.add(chbViernes);
-        chbViernes.setBounds(120, 80, 85, 17);
+        chbViernes.setBounds(120, 80, 85, 20);
 
         chbSabado.setBackground(new java.awt.Color(255, 255, 255));
         chbSabado.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbSabado.setText("Sabado");
         chbSabado.setBorder(null);
         pnlEvento.add(chbSabado);
-        chbSabado.setBounds(120, 100, 85, 17);
+        chbSabado.setBounds(120, 100, 85, 20);
 
         chbDomingo.setBackground(new java.awt.Color(255, 255, 255));
         chbDomingo.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         chbDomingo.setText("Domingo");
         chbDomingo.setBorder(null);
         pnlEvento.add(chbDomingo);
-        chbDomingo.setBounds(120, 120, 85, 17);
+        chbDomingo.setBounds(120, 120, 85, 20);
 
         dtcFecha.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
@@ -702,7 +702,7 @@ public class CDEvento extends javax.swing.JDialog {
 
         cmbHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "07:00 AM", "07:30 AM", "08:00 AM", "08:30 AM", "09:00 AM", "09:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM", "13:00 PM", "13:30 PM", "14:00 PM", "14:30 PM", "15:00 PM", "15:30 PM", "16:00 PM", "16:30 PM", "17:00 PM", "17:30 PM", "18:00 PM", "18:30 PM", "19:00 PM", "19:30 PM", "20:00 PM", "20:30 PM" }));
         pnlEvento.add(cmbHora);
-        cmbHora.setBounds(30, 270, 110, 22);
+        cmbHora.setBounds(30, 270, 110, 26);
 
         lblNombreEstatico.setBackground(new java.awt.Color(255, 255, 255));
         lblNombreEstatico.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -750,7 +750,7 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(cmbDuracionEvento);
-        cmbDuracionEvento.setBounds(270, 310, 72, 22);
+        cmbDuracionEvento.setBounds(270, 310, 47, 26);
 
         lblHorasDuracion.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         lblHorasDuracion.setForeground(new java.awt.Color(22, 81, 198));
@@ -765,7 +765,7 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(cbDias);
-        cbDias.setBounds(130, 20, 19, 19);
+        cbDias.setBounds(130, 20, 24, 24);
 
         cbFecha.setBackground(new java.awt.Color(255, 255, 255));
         cbFecha.addActionListener(new java.awt.event.ActionListener() {
@@ -774,7 +774,7 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(cbFecha);
-        cbFecha.setBounds(80, 170, 19, 19);
+        cbFecha.setBounds(80, 170, 24, 24);
 
         cbHora.setBackground(new java.awt.Color(255, 255, 255));
         cbHora.addActionListener(new java.awt.event.ActionListener() {
@@ -783,7 +783,7 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(cbHora);
-        cbHora.setBounds(70, 240, 19, 19);
+        cbHora.setBounds(70, 240, 24, 24);
 
         cbNombre.setBackground(new java.awt.Color(255, 255, 255));
         cbNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -792,7 +792,7 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(cbNombre);
-        cbNombre.setBounds(340, 20, 19, 19);
+        cbNombre.setBounds(340, 20, 24, 24);
 
         cbUbicacion.setBackground(new java.awt.Color(255, 255, 255));
         cbUbicacion.addActionListener(new java.awt.event.ActionListener() {
@@ -801,7 +801,7 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(cbUbicacion);
-        cbUbicacion.setBounds(290, 80, 19, 19);
+        cbUbicacion.setBounds(290, 80, 24, 24);
 
         cbDescripcion.setBackground(new java.awt.Color(255, 255, 255));
         cbDescripcion.addActionListener(new java.awt.event.ActionListener() {
@@ -810,7 +810,7 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(cbDescripcion);
-        cbDescripcion.setBounds(360, 150, 19, 19);
+        cbDescripcion.setBounds(360, 150, 24, 24);
 
         cbDuracion.setBackground(new java.awt.Color(255, 255, 255));
         cbDuracion.addActionListener(new java.awt.event.ActionListener() {
@@ -819,7 +819,7 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(cbDuracion);
-        cbDuracion.setBounds(340, 290, 19, 19);
+        cbDuracion.setBounds(340, 290, 24, 24);
 
         cbColor.setBackground(new java.awt.Color(255, 255, 255));
         cbColor.addActionListener(new java.awt.event.ActionListener() {
@@ -828,11 +828,11 @@ public class CDEvento extends javax.swing.JDialog {
             }
         });
         pnlEvento.add(cbColor);
+
         cbColor.setBounds(170, 330, 19, 19);
 
-        getContentPane().add(pnlEvento);
+        cbColor.setBounds(170, 330, 24, 24);
         pnlEvento.setBounds(0, 60, 500, 520);
-
         lblInfoEventoEstatico.setBackground(new java.awt.Color(22, 81, 198));
         lblInfoEventoEstatico.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         lblInfoEventoEstatico.setForeground(new java.awt.Color(255, 255, 255));

@@ -28,7 +28,7 @@ public class MapaCalendario extends javax.swing.JFrame {
     private int h = 0;
     private Image img = null;
     private String ubicacion;
-    private List<UbicacionDTO> ubicacionesCampus;
+    private static List<UbicacionDTO> ubicacionesCampus;
     private DefaultComboBoxModel cmbBoxModelEdificios;
     private final IAccesoUbicaciones accesoUbicaciones;
 
@@ -38,18 +38,20 @@ public class MapaCalendario extends javax.swing.JFrame {
      * @param cdEvento
      */
     public MapaCalendario(CDEvento cdEvento) {
-        setUndecorated(true);
-        setAlwaysOnTop(true);
-        this.setResizable(false);
+        this.setUndecorated(true);
         initComponents();
+        this.setSize(800, 600);
+        this.setLocationRelativeTo(null);
+        this.setAlwaysOnTop(true);
+        this.setResizable(false);
         this.ubicacionesCampus=new ArrayList<>();
         this.accesoUbicaciones=new FachadaAccesoUbicaciones();
         this.cdEvento = cdEvento;
+        this.btnGuardar.setEnabled(false);
         setMapa("Obregon Nainari");
-        this.setSize(800, 600);
         cargarIconos();
         actualizarImagenMapa();
-        setUbicaciones("Obregon Nainari");
+        setUbicaciones("Nainari");
     }
 
     /**
@@ -90,10 +92,9 @@ public class MapaCalendario extends javax.swing.JFrame {
      */
     private void setUbicaciones(String campus) {
         cmbBoxModelEdificios=new DefaultComboBoxModel();
-        
         try{
             ubicacionesCampus = accesoUbicaciones.recuperarEdificiosPorCampus(new CampusConsultableDTO(campus));
-            if(!ubicacionesCampus.isEmpty()){
+            if(ubicacionesCampus!=null && !ubicacionesCampus.isEmpty()){
                 for(UbicacionDTO u: ubicacionesCampus){
                     cmbBoxModelEdificios.addElement(u.getIdentificador());
                 }
@@ -108,6 +109,7 @@ public class MapaCalendario extends javax.swing.JFrame {
         String ubicacionTxt=txtUbicacionDinamica.getText();
         for(UbicacionDTO u:ubicacionesCampus){
             if(u.getIdentificador().equals(ubicacionTxt)){
+                System.out.println("ubicacionDto en metodo setUbiDTOSel: "+u);
                 return u;
             }
         }
@@ -116,14 +118,21 @@ public class MapaCalendario extends javax.swing.JFrame {
     
     private void guardar() {
         ubicacion = this.txtUbicacionDinamica.getText();
-        cdEvento.guardarUbicacion(ubicacion,setUbicacionDTOSeleccionado());
-        cerrar();
+        UbicacionDTO u=setUbicacionDTOSeleccionado();
+        if(u!=null){
+            cdEvento.guardarUbicacion(ubicacion,u);
+            cerrar();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "no se guardo la ubicacion");
+        }
     }
 
     private void cerrar() {
         this.dispose();
-        //cdEvento.calendario.setVisible(true);
+        //cdEvento.setAlwaysOnTop(true);
         cdEvento.setVisible(true);
+        //cdEvento.calendario.setVisible(true);
     }
     
     private void setMapa(String campus) {
@@ -170,7 +179,7 @@ public class MapaCalendario extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblTituloUbicacion = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -241,6 +250,12 @@ public class MapaCalendario extends javax.swing.JFrame {
         cmbCampus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbCampusActionPerformed(evt);
+            }
+        });
+
+        txtUbicacionDinamica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUbicacionDinamicaActionPerformed(evt);
             }
         });
 
@@ -405,6 +420,7 @@ public class MapaCalendario extends javax.swing.JFrame {
 
     private void cmbMapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMapaActionPerformed
         this.txtUbicacionDinamica.setText((String) this.cmbMapa.getSelectedItem());
+        btnGuardar.setEnabled(true);
     }//GEN-LAST:event_cmbMapaActionPerformed
 
     private void cmbMapaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbMapaMouseReleased
@@ -470,6 +486,10 @@ public class MapaCalendario extends javax.swing.JFrame {
         // TODO add your handling code here:
         btnZoomOut.setBackground(Color.WHITE);
     }//GEN-LAST:event_btnZoomOutMouseExited
+
+    private void txtUbicacionDinamicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUbicacionDinamicaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUbicacionDinamicaActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

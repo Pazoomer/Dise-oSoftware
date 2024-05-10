@@ -9,6 +9,7 @@ import accesoMaestro.IAccesoMaestro;
 import excepciones.NegocioException;
 import java.awt.Color;
 import java.awt.Frame;
+import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -28,7 +29,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     /**
      * Es el maestro al que le pertenece el calendario
      */
-    private final MaestroEditableDTO maestro;
+    private MaestroEditableDTO maestro;
     PrincipalMaestro prinMaestro;
     IAccesoMaestro accesoMaestro;
     Frame parent;
@@ -38,6 +39,9 @@ public class PrincipalCalendario extends javax.swing.JFrame {
     private CDEvento cdEvento;
     public static boolean isDisplayed=false;
     public static EventoConsultableDTO eventoSeleccionado;
+
+    public PrincipalCalendario(){
+    }
     
     
     /**
@@ -110,16 +114,17 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             Double duracion = e.getHorasDuracionEvento();
             System.out.println("duracion evento:"+duracion);
             if (e.getTipo().equals(TipoEventoEnumDTO.SEMANAL)) {
-//                String[] arrDias=diasEvento.split(",");
-//                String[] diasSemana={"Do","Lu","Ma","Mi","Ju","Vi","Sa"};
-                //for(String dia:arrDias){
-                //System.out.println("diaaa: "+dia);
-                for (int i = 0; i < 7; i++) {
-                    if (diasEvento.charAt(i) == '1') {
-                        setEvento(hora, minutos, duracion, i + 1, e);
+                String[] arrDias=diasEvento.split(",");
+                String[] diasSemana={"Do","Lu","Ma","Mi","Ju","Vi","Sa"};
+                for (String dia : arrDias) {
+                    System.out.println("diaaa: " + dia);
+                    for (int i = 0; i < 7; i++) {
+                        if (dia.equals(diasSemana[i])) {
+                            System.out.println("true");
+                            setEvento(hora, minutos, duracion, i + 1, e);
+                        }
                     }
                 }
-                //}
             } else {
                 int diaEv=e.getFechaInicio().get(Calendar.DAY_OF_WEEK);
                 System.out.println("dia ev dentro d foreachh:"+diaEv);
@@ -268,6 +273,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         maestro.setCalendario(calendarioMaestroTemporal);
         try {
             if (accesoMaestro.agregarEventoCalendario(maestro, evento)) {
+                System.out.println("yesss");
                 eventoSeleccionado = evento;
                 cargarEventos();
             }
@@ -292,7 +298,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         switch (operacion) {
             case "agregar" -> cdEvento = new CDEvento(this, true,operacion);
             case "editar" -> {
-                cdEvento = new CDEvento(this, eventoSeleccionado, true,"editar");
+                cdEvento = new CDEvento( this, eventoSeleccionado, true,"editar");
                 cdEvento.desplegarEventoEditable();
             }
             case "desplegar" -> {
@@ -568,7 +574,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(lblTituloCalendario)
-                .addContainerGap(608, Short.MAX_VALUE))
+                .addContainerGap(606, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -578,7 +584,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 0, 746, 80);
+        jPanel2.setBounds(0, 0, 743, 80);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

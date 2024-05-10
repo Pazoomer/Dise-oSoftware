@@ -21,8 +21,7 @@ public class CrudMaestro {
     IConexion conexion;
 
     public CrudMaestro() {
-        conexion=new Conexion();
-        coleccion = conexion.ConversionDocumentMaestro();
+        coleccion =Conexion.getDatabasee().getCollection("Maestros", EntidadMaestro.class);
     }
 
     public EntidadMaestro agregarMaestro(EntidadMaestro maestro) throws PersistenciaExceptionn {
@@ -120,7 +119,7 @@ public class CrudMaestro {
     }
     
     public boolean cerrarConexion(){
-        conexion.cerrarConexion();
+        Conexion.cerrarConexion();
         return true;
     }
 }

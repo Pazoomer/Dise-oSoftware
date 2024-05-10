@@ -2,8 +2,16 @@
 
 package pruebas;
 
+import DTOS.campus.UbicacionDTO;
+import DTOS.evento.EventoConsultableDTO;
+import DTOS.evento.TipoEventoEnumDTO;
 import DTOS.maestro.MaestroEditableDTO;
 import excepciones.NegocioException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import objetosNegocio.Campus;
+import objetosNegocio.Evento;
 import objetosNegocio.Maestro;
 
 /**
@@ -42,15 +50,50 @@ public class AulasObjNegocio {
 //                fechaFin.get(Calendar.MONTH)+"/"+fechaFin.get(Calendar.YEAR));
 //        System.out.println("hora inicio: "+horaInicio.get(Calendar.HOUR_OF_DAY)+":"+
 //                horaInicio.get(Calendar.MINUTE));
-        Maestro m=new Maestro();
-        MaestroEditableDTO maestroDTO=new MaestroEditableDTO("1");
+//        Maestro m=new Maestro();
+//        MaestroEditableDTO maestroDTO=new MaestroEditableDTO("1");
+//        try{
+//            MaestroEditableDTO maestro=m.obtenerMaestro(maestroDTO);
+//            System.out.println("Maestro: "+maestro);
+//            System.out.println("Nombre del campus de la ubicacion del primer evento del maestro: "+maestro.getCalendario().get(0).getUbicacion().getCampus().getNombre());
+//        }catch(NegocioException e){
+//            System.out.println(e);
+//        }
+//      
+        Evento ev=new Evento();
+//        Campus c=new Campus();
+//        Calendar fechaInicio=Calendar.getInstance();
+//        Calendar fechaFin=Calendar.getInstance();
+//        fechaInicio.set(2024, 0, 15, 8, 0,0);
+//        fechaFin.set(2024, 5, 10);
+//        UbicacionDTO ubicacion=new UbicacionDTO("AV-1100");
+        
+//        EventoConsultableDTO eventoN=new EventoConsultableDTO("Galeria de arte");
+//        EventoConsultableDTO eventoN=new EventoConsultableDTO(TipoEventoEnumDTO.SEMANAL, "Algebra lineal", "Clase de algebra lineal", "rojo", "LuMi",ubicacion, fechaInicio, fechaFin, fechaInicio, 1.5);
         try{
-            MaestroEditableDTO maestro=m.obtenerMaestro(maestroDTO);
-            System.out.println("Maestro: "+maestro);
-            System.out.println("Nombre del campus de la ubicacion del primer evento del maestro: "+maestro.getCalendario().get(0).getUbicacion().getCampus().getNombre());
+            //eventoN=ev.agregarEvento(eventoN);
+//            eventoN=ev.obtenerEvento(eventoN);
+//            if(eventoN!=null)System.out.println(eventoN);
+//            else System.out.println("evento null");
+//            eventoN.setColor("purpura");
+//            List<String> camposModificados=new ArrayList<>();
+//            camposModificados.add("color");
+//            eventoN=ev.editarEvento(eventoN, camposModificados);
+//            if(eventoN!=null)System.out.println("evento editado: "+eventoN);
+//            else System.out.println("evento editado null");
+//-------------------------------------------//
+//            ubicacion=c.obtenerUbicacion(ubicacion);
+//            if(ubicacion!=null)System.out.println(ubicacion);
+//            else System.out.println("ubi null");
+//-------------------------------------------
+            List<EventoConsultableDTO> eventos=ev.obtenerEventos("unico");
+            if(eventos!=null){
+                for (EventoConsultableDTO evento : eventos) {
+                    System.out.println("nombre evento; "+evento.getNombre());
+                }
+            }else System.out.println("eventosss null");
         }catch(NegocioException e){
             System.out.println(e);
         }
-//      
     }
 }

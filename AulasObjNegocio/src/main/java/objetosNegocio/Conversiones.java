@@ -31,25 +31,21 @@ class Conversiones {
 
     protected EntidadUbicacion toUbicacionBO(UbicacionDTO ubicacionDTO) {
         EntidadUbicacion ubicacion = new EntidadUbicacion();
-
         if (ubicacionDTO.getCampus() != null) {
 
-            ubicacion.setCampusConversion(ubicacionDTO.getCampus().getId());
+            //ubicacion.setCampusConversion(ubicacionDTO.getCampus().getId());
 
+            //ubicacion.setCampus(ubicacionDTO.getCampus().getNombre());
         }
 
-        List<EntidadEvento> entidadEventos = new ArrayList<>();
-
-        if (ubicacionDTO.getEventos() != null) {
-
-            for (EventoConsultableDTO evento : ubicacionDTO.getEventos()) {
-
-                EntidadEvento eventoAux = toEventoBO(evento);
-
-                entidadEventos.add(eventoAux);
-            }
-        }
-        ubicacion.setEventos(entidadEventos);
+//        List<EntidadEvento> entidadEventos = new ArrayList<>();
+//        if (ubicacionDTO.getEventos() != null) {
+//            for (EventoConsultableDTO evento : ubicacionDTO.getEventos()) {
+//                EntidadEvento eventoAux = toEventoBO(evento);
+//                entidadEventos.add(eventoAux);
+//            }
+//        }
+//        ubicacion.setEventos(entidadEventos);
         ubicacion.setDescripcion(ubicacionDTO.getDescripcion());
         ubicacion.setIdentificador(ubicacionDTO.getIdentificador());
         ubicacion.setIdConversion(ubicacionDTO.getId());
@@ -126,9 +122,12 @@ class Conversiones {
                 maestro.getFoto()
         );
         maestroDTO.setIdBD(maestro.getIdConversion());
+        EventoConsultableDTO evento;
         if (eventos != null && !eventos.isEmpty()) {
             for (EntidadEvento ec : eventos) {
-                eventosDTO.add(toEventoDTO(ec,maestroDTO));
+                evento=toEventoDTO(ec);
+                evento.setMaestro(maestroDTO);
+                eventosDTO.add(evento);
             }
             maestroDTO.setCalendario(eventosDTO);
         }
@@ -137,10 +136,17 @@ class Conversiones {
     
     protected EntidadEvento toEventoBO(EventoConsultableDTO evento) {
         EntidadEvento eventoConvertido=null;
-        String identificadorUbicacion = null;
-        if (evento.getUbicacion() != null) {
-            identificadorUbicacion = evento.getUbicacion().getIdentificador();
-        }
+      // String identificadorUbicacion = null;
+        //if (evento.getUbicacion() != null) {
+            //identificadorUbicacion = evento.getUbicacion().getIdentificador();
+       // }
+        EntidadUbicacion ubi=null;
+//        EntidadMaestro maestroBO=null;
+//        
+//        if(evento.getMaestro()!=null) maestroBO=toMaestroBO(evento.getMaestro());
+        
+        if(evento.getUbicacion()!=null)
+            ubi=toUbicacionBO(evento.getUbicacion());
         
         String nombreMaestro = null;
         if (evento.getMaestro() != null) {
@@ -151,9 +157,9 @@ class Conversiones {
             case UNICO_UN_DIA ->
                 eventoConvertido = new EntidadEvento(
                         evento.getNombre(),
-                        evento.getColor(),
-                        identificadorUbicacion,
                         evento.getDescripcion(),
+                        ubi,
+                        evento.getColor(),
                         evento.getFechaInicio().getTime(),
                         evento.getHoraInicio().getTime(),
                         (double) evento.getHorasDuracionEvento(),
@@ -165,7 +171,7 @@ class Conversiones {
                         evento.getNombre(),
                         evento.getDescripcion(),
                         evento.getDiasSemana(),
-                        identificadorUbicacion,
+                        ubi,
                         evento.getColor(),
                         evento.getFechaInicio().getTime(),
                         evento.getFechaFin().getTime(),
@@ -179,7 +185,7 @@ class Conversiones {
                         evento.getNombre(),
                         evento.getDescripcion(),
                         evento.getDiasSemana(),
-                        identificadorUbicacion,
+                        ubi,
                         evento.getColor(),
                         evento.getFechaInicio().getTime(),
                         evento.getFechaFin().getTime(),
@@ -192,7 +198,7 @@ class Conversiones {
         return eventoConvertido;
     }
     
-    protected EventoConsultableDTO toEventoDTO(EntidadEvento evento,MaestroEditableDTO maestro) {
+    protected EventoConsultableDTO toEventoDTO(EntidadEvento evento) {
         EventoConsultableDTO eventoConvertido = null;
         UbicacionDTO ubicacionDTO=null;
         Date date;
@@ -211,19 +217,20 @@ class Conversiones {
             date = evento.getHoraInicio();
             horaInicio.setTime(date);
         }
-        if (evento.getUbicacion() != null) {
-            CrudCampus crudCampus = new CrudCampus();
-
-            EntidadUbicacion ubicacion = new EntidadUbicacion();
-            ubicacion.setIdentificador(evento.getUbicacion());
-            try {
-                ubicacion = crudCampus.obtenerUbi(ubicacion);
-                if (ubicacion != null) {
-                    ubicacionDTO = toUbicacionDTO(ubicacion);
-                }
-            } catch (PersistenciaExceptionn e) {
-                System.out.println(e);
-            }
+        if(evento.getUbicacion()!=null) {
+            ubicacionDTO=toUbicacionDTO(evento.getUbicacion());
+//            CrudCampus crudCampus = new CrudCampus();
+//
+//            EntidadUbicacion ubicacion = new EntidadUbicacion();
+//            ubicacion.setIdentificador(evento.getUbicacion().getIdentificador());
+//            try {
+//                ubicacion = crudCampus.obtenerUbi(ubicacion);
+//                if(ubicacion!=null)ubicacionDTO=toUbicacionDTO(ubicacion);
+//                else
+//                    System.out.println("ubicacion null");
+//            } catch (PersistenciaExceptionn e) {
+//                System.out.println(e);
+//            }
         }
 
         switch (evento.getTipo()) {
@@ -272,7 +279,7 @@ class Conversiones {
         }
         if(eventoConvertido!=null){
             eventoConvertido.setId(evento.getIdConversion());
-            eventoConvertido.setMaestro(maestro);
+            //eventoConvertido.setMaestro(maestro);
         }
         return eventoConvertido;
     }

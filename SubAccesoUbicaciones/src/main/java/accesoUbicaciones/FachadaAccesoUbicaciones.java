@@ -2,6 +2,7 @@
 package accesoUbicaciones;
 
 import DTOS.campus.*;
+import DTOS.evento.EventoConsultableDTO;
 import excepciones.NegocioException;
 import java.util.List;
 
@@ -65,6 +66,10 @@ public class FachadaAccesoUbicaciones implements IAccesoUbicaciones {
     @Override
     public Boolean eliminarUbicacion(UbicacionDTO ubicacion) throws NegocioException {
        return ubicaciones.eliminarUbicacion(ubicacion);
+    }
+    
+    public boolean agregarEventoAUbicacion(UbicacionDTO ubicacion, EventoConsultableDTO evento) throws NegocioException {
+        return ubicaciones.agregarEventoAUbicacion(ubicacion, evento);
     }
 
 }
