@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -51,10 +52,12 @@ public class Insercion {
             } else {
                 System.out.println("No se agrego el campus");
             }
-            
+                        
             EntidadUbicacion ubicacionNainari1 = new EntidadUbicacion("AV-1100", campusNainari.getId(), "Aula para clases regulares");
             ubicacionNainari1.setPosicionX(200D);
             ubicacionNainari1.setPosicionY(200D);
+            ObjectId id=new ObjectId();
+            ubicacionNainari1.setId(id);
             
             EntidadUbicacion ubicacionNainari2 = new EntidadUbicacion("AV-1200", campusNainari.getId(), "Aula para clases regulares");
             ubicacionNainari2.setPosicionX(300D);
@@ -80,24 +83,55 @@ public class Insercion {
             ubicacionesCentro.add(ubicacionObregon2);
             campusCentro.setUbicaciones(ubicacionesCentro);
             
-            Calendar fechaInicio1 = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            Calendar fechaInicio1 = Calendar.getInstance();
             fechaInicio1.set(Calendar.DAY_OF_MONTH, 2);
             fechaInicio1.set(Calendar.MONTH, 4);
             fechaInicio1.set(Calendar.HOUR_OF_DAY, 10);
             fechaInicio1.set(Calendar.MINUTE, 30);
             
-            EntidadEvento evento1 = new EntidadEvento("Asesoria de Algebra", "asesoria para examen de algebra", "AV-1100", "Rosa", fechaInicio1.getTime(), fechaInicio1.getTime(), 2.5, maestro.getIdConversion());
+            EntidadEvento evento1 = new EntidadEvento("Asesoria de Algebra", "asesoria para examen de algebra", null, "Rosa", fechaInicio1.getTime(), fechaInicio1.getTime(), 2.5, maestro.getIdConversion());
             Calendar f=Calendar.getInstance();
             f.setTime(evento1.getFechaInicio());
             
             //System.out.println(f.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US));
             evento1.setTipo(EntidadTipoEventoEnum.SEMANAL);
-            evento1.setDiasSemana("0011100");
+            evento1.setDiasSemana("Lu,Mi,Vi");
             evento1.setMaestro(maestro.getNombre());
             
             List<EntidadEvento> calendario=new ArrayList<>();
             calendario.add(evento1);
             maestro.setCalendario(calendario);
+            
+            //CREA LISTA DE EVENTOS PARA UBICACIONES
+            EntidadEvento eventoUbicacion1 = new EntidadEvento();
+            eventoUbicacion1.setColor("Red");
+            eventoUbicacion1.setDescripcion("Descripcion");
+            eventoUbicacion1.setDiasSemana("Lu,Ma");
+            eventoUbicacion1.setFechaFin(fechaInicio1.getTime());
+            eventoUbicacion1.setFechaInicio(fechaInicio1.getTime());
+            eventoUbicacion1.setHoraInicio(fechaInicio1.getTime());
+            eventoUbicacion1.setHorasDuracionEvento(2.5);
+            eventoUbicacion1.setNombre("Nombre");
+            eventoUbicacion1.setTipo(EntidadTipoEventoEnum.SEMANAL);
+            eventoUbicacion1.setUbicacion(id);
+            
+            EntidadEvento eventoUbicacion2 = new EntidadEvento();
+            eventoUbicacion2.setColor("Red");
+            eventoUbicacion2.setDescripcion("Descripcion");
+            eventoUbicacion2.setDiasSemana("Lu,Ma");
+            eventoUbicacion2.setFechaFin(fechaInicio1.getTime());
+            eventoUbicacion2.setFechaInicio(fechaInicio1.getTime());
+            eventoUbicacion2.setHoraInicio(fechaInicio1.getTime());
+            eventoUbicacion2.setHorasDuracionEvento(2.5);
+            eventoUbicacion2.setNombre("Nombre");
+            eventoUbicacion2.setTipo(EntidadTipoEventoEnum.SEMANAL);
+            eventoUbicacion2.setUbicacion(id);
+
+            List<EntidadEvento> eventosUbicaciones = new ArrayList<>();
+            eventosUbicaciones.add(eventoUbicacion1);
+            eventosUbicaciones.add(eventoUbicacion2);
+            
+            ubicacionNainari1.setEventos(eventosUbicaciones);
             
             //System.out.println(maestro);
             //System.out.println(evento1);

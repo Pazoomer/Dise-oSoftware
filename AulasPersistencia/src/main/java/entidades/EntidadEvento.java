@@ -22,7 +22,7 @@ public class EntidadEvento implements Serializable {
 
     private String diasSemana;
 
-    private String ubicacion;
+    private ObjectId ubicacion;
 
     private String color;
 
@@ -40,7 +40,7 @@ public class EntidadEvento implements Serializable {
     }
 
 
-    public EntidadEvento(EntidadTipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, String ubicacion, String color, Date fechaInicio, Date fechaFin, Date horaInicio, Double horasDuracionEvento, String maestro) {
+    public EntidadEvento(EntidadTipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, ObjectId ubicacion, String color, Date fechaInicio, Date fechaFin, Date horaInicio, Double horasDuracionEvento, String maestro) {
         this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -62,7 +62,7 @@ public class EntidadEvento implements Serializable {
         //this.maestro = maestro;
     }
 
-    public EntidadEvento(String nombre, String descripcion, String ubicacion, String color, Date fechaInicio, Date horaInicio, Double horasDuracionEvento, String maestro) {
+    public EntidadEvento(String nombre, String descripcion, ObjectId ubicacion, String color, Date fechaInicio, Date horaInicio, Double horasDuracionEvento, String maestro) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.ubicacion = ubicacion;
@@ -121,11 +121,11 @@ public class EntidadEvento implements Serializable {
         this.diasSemana = diasSemana;
     }
 
-    public String getUbicacion() {
+    public ObjectId getUbicacion() {
         return ubicacion;
     }
 
-    public void setUbicacion(String ubicacion) {
+    public void setUbicacion(ObjectId ubicacion) {
         this.ubicacion = ubicacion;
     }
 
