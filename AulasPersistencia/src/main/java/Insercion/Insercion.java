@@ -38,8 +38,9 @@ public class Insercion {
 
             //CREAR LOS CAMPUS
             EntidadCampus campusNainari = new EntidadCampus("Obregon Nainari");
+            campusNainari.setUrl("https://itson.mx/eventos/olimpianeic/PublishingImages/Paginas/mapa/croquis-nainari.jpg");
             EntidadCampus campusCentro = new EntidadCampus("Centro");
-
+            campusCentro.setUrl("https://itson.mx/universidad/PublishingImages/mapas-campus/campus-centro.jpg");
             //AGREGAR LOS CAMPUS
             if ((campusNainari = CRUDcampus.agregarCampus(campusNainari)) != null) {
             } else {
