@@ -108,7 +108,7 @@ public class EntidadUbicacion implements Serializable {
      * @return
      */
     @Transient
-    public String getCampusConversion() {
+    public String ggetCampusConversion() {
         // Obtener el valor hexadecimal del ObjectId
         if (this.idCampus == null) {
             return null;
@@ -123,7 +123,7 @@ public class EntidadUbicacion implements Serializable {
      * @param idCampus
      */
     @Transient
-    public void setCampusConversion(String idCampus) {
+    public void ssetCampusConversion(String idCampus) {
         if (idCampus != null) {
             this.idCampus = new ObjectId(idCampus);
         }
@@ -136,7 +136,7 @@ public class EntidadUbicacion implements Serializable {
      * @return
      */
     @Transient
-    public String getIdConversion() {
+    public String ggetIdConversion() {
         // Obtener el valor hexadecimal del ObjectId
         if (this.id == null) {
             return null;
@@ -151,7 +151,7 @@ public class EntidadUbicacion implements Serializable {
      * @param id
      */
     @Transient
-    public void setIdConversion(String id) {
+    public void ssetIdConversion(String id) {
         if (id != null) {
             this.id = new ObjectId(id);
         }

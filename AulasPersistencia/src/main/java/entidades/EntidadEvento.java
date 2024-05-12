@@ -38,6 +38,27 @@ public class EntidadEvento implements Serializable {
 
     public EntidadEvento() {
     }
+    
+    public EntidadEvento(EntidadTipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, String color, Date fechaInicio, Date fechaFin, Date horaInicio, Double horasDuracionEvento, String maestro) {
+        this.tipo = tipo;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.diasSemana = diasSemana;
+        this.color = color;
+        Calendar fechaInicioCalculada=Calendar.getInstance();
+       // fechaInicioCalculada.setTimeZone(TimeZone.getTimeZone("UTC"));
+        fechaInicioCalculada.setTime(fechaInicio);
+        fechaInicioCalculada.add(Calendar.MONTH, -1);
+        this.fechaInicio = fechaInicioCalculada.getTime();
+        Calendar fechaFinCalculada=Calendar.getInstance();
+       // fechaFinCalculada.setTimeZone(TimeZone.getTimeZone("UTC"));
+        fechaFinCalculada.setTime(fechaFin);
+        fechaFinCalculada.add(Calendar.MONTH, -1);
+        this.fechaFin = fechaFinCalculada.getTime();
+        this.horaInicio = horaInicio;
+        this.horasDuracionEvento = horasDuracionEvento;
+        //this.maestro = maestro;
+    }
 
 
     public EntidadEvento(EntidadTipoEventoEnum tipo, String nombre, String descripcion, String diasSemana, ObjectId ubicacion, String color, Date fechaInicio, Date fechaFin, Date horaInicio, Double horasDuracionEvento, String maestro) {
@@ -79,6 +100,23 @@ public class EntidadEvento implements Serializable {
         fechaFinCalculada.add(Calendar.HOUR, horasDuracionEvento.intValue());
         this.horasDuracionEvento = horasDuracionEvento;
         //this.maestro = maestro;
+    }
+    
+    public EntidadEvento(String nombre, String descripcion, String color, Date fechaInicio, Date horaInicio, Double horasDuracionEvento, String maestro) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.color = color;
+        Calendar fechaInicioCalculada=Calendar.getInstance();
+        //fechaInicioCalculada.setTimeZone(TimeZone.getTimeZone("UTC"));
+        fechaInicioCalculada.setTime(fechaInicio);
+        fechaInicioCalculada.add(Calendar.MONTH, -1);
+        this.fechaInicio = fechaInicioCalculada.getTime();
+        this.horaInicio = fechaInicioCalculada.getTime();
+        this.fechaFin=fechaInicioCalculada.getTime();
+        Calendar fechaFinCalculada=Calendar.getInstance();
+        fechaFinCalculada.setTime(this.horaInicio);
+        fechaFinCalculada.add(Calendar.HOUR, horasDuracionEvento.intValue());
+        this.horasDuracionEvento = horasDuracionEvento;
     }
 
     public ObjectId getId() {
@@ -210,6 +248,30 @@ public class EntidadEvento implements Serializable {
     public void setIdConversion(String id) {
        if (id != null) {
             this.id = new ObjectId(id);
+        }
+    }
+    
+    /**
+     * Obtienes el valor de la ubicacion como string
+     *
+     * @return
+     */
+    public String ggetUbicacionConversion() {
+        // Obtener el valor hexadecimal del ObjectId
+        if (this.ubicacion == null) {
+            return null;
+        }
+        
+        return this.id.toString();
+    }
+
+    /**
+     * Recibe una ubicacion que convierta a ObjectId para colocarselo como atributo
+     * @param ubicacion 
+     */
+    public void ssetUbicacionConversion(String ubicacion) {
+       if (ubicacion != null) {
+            this.ubicacion = new ObjectId(ubicacion);
         }
     }
 

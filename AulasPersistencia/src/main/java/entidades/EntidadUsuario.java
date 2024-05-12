@@ -1,12 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package entidades;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Objects;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 
@@ -21,9 +16,6 @@ public class EntidadUsuario implements Serializable{
     private String contraseña;
     private boolean administrador;
 
-    
-    
-    
     public EntidadUsuario(){
         
     }
@@ -63,7 +55,7 @@ public class EntidadUsuario implements Serializable{
      *
      * @return
      */
-    public String getIdConversion() {
+    public String ggetIdConversion() {
         // Obtener el valor hexadecimal del ObjectId
         if (this.id == null) {
             return null;
@@ -76,7 +68,7 @@ public class EntidadUsuario implements Serializable{
      * Recibe un String que convierta a ObjectId para colocarselo como atributo
      * @param id 
      */
-    public void setIdConversion(String id) {
+    public void ssetIdConversion(String id) {
        if (id != null) {
             this.id = new ObjectId(id);
         }

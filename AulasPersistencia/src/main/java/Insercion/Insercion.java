@@ -13,7 +13,6 @@ import excepcioness.PersistenciaExceptionn;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bson.types.ObjectId;
@@ -32,27 +31,26 @@ public class Insercion {
             
             //PRIMERO BORRAR TODOS LOS DOCUMENTOS DE LA BASE DE DATOS
             
+            //CREAR LOS CRUDS
             CrudMaestro CRUDmaestro = new CrudMaestro();
             CrudCampus CRUDcampus = new CrudCampus();
             CrudUsuario CRUDusuario=new CrudUsuario();
 
+            //CREAR LOS CAMPUS
             EntidadCampus campusNainari = new EntidadCampus("Obregon Nainari");
             EntidadCampus campusCentro = new EntidadCampus("Centro");
 
+            //AGREGAR LOS CAMPUS
             if ((campusNainari = CRUDcampus.agregarCampus(campusNainari)) != null) {
-                //System.out.println("Se agrego el campus");
-                //System.out.println("Id Campus nainari: " + campusNainari.getId());
             } else {
                 System.out.println("No se agrego el campus");
             }
-
             if ((campusCentro = CRUDcampus.agregarCampus(campusCentro)) != null) {
-                //System.out.println("Se agrego el campus");
-                //System.out.println("Id Campus centro: " + campusCentro.getId());
             } else {
                 System.out.println("No se agrego el campus");
             }
-                        
+              
+            //CREAR LAS UBICACIONES
             EntidadUbicacion ubicacionNainari1 = new EntidadUbicacion("AV-1100", campusNainari.getId(), "Aula para clases regulares");
             ubicacionNainari1.setPosicionX(200D);
             ubicacionNainari1.setPosicionY(200D);
@@ -71,8 +69,10 @@ public class Insercion {
             ubicacionObregon2.setPosicionX(400D);
             ubicacionObregon2.setPosicionY(400D);
             
+            //CREAR EL MAESTRO
             EntidadMaestro maestro = new EntidadMaestro("1", "Juan Pérez", ubicacionNainari1, "Profesor de Matemáticas", "fotoMaestro.png");
             
+            //AÑADIR LAS UBICACIONES AL CAMPUS
             List<EntidadUbicacion> ubicacionesNainari = new ArrayList<>();
             ubicacionesNainari.add(ubicacionNainari1);
             ubicacionesNainari.add(ubicacionNainari2);
@@ -83,21 +83,24 @@ public class Insercion {
             ubicacionesCentro.add(ubicacionObregon2);
             campusCentro.setUbicaciones(ubicacionesCentro);
             
+            //CREAR LAS FECHAS
             Calendar fechaInicio1 = Calendar.getInstance();
             fechaInicio1.set(Calendar.DAY_OF_MONTH, 2);
             fechaInicio1.set(Calendar.MONTH, 4);
             fechaInicio1.set(Calendar.HOUR_OF_DAY, 10);
             fechaInicio1.set(Calendar.MINUTE, 30);
             
-            EntidadEvento evento1 = new EntidadEvento("Asesoria de Algebra", "asesoria para examen de algebra", null, "Rosa", fechaInicio1.getTime(), fechaInicio1.getTime(), 2.5, maestro.getIdConversion());
+            //CREAR EL EVENTO
+            EntidadEvento evento1 = new EntidadEvento("Asesoria de Algebra", "asesoria para examen de algebra", null, "Rosa", fechaInicio1.getTime(), fechaInicio1.getTime(), 2.5, maestro.ggetIdConversion());
             Calendar f=Calendar.getInstance();
             f.setTime(evento1.getFechaInicio());
             
-            //System.out.println(f.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US));
             evento1.setTipo(EntidadTipoEventoEnum.SEMANAL);
             evento1.setDiasSemana("Lu,Mi,Vi");
             evento1.setMaestro(maestro.getNombre());
+            evento1.setUbicacion(id);
             
+            //AGREGAR EL EVENTO AL MAESTRO
             List<EntidadEvento> calendario=new ArrayList<>();
             calendario.add(evento1);
             maestro.setCalendario(calendario);
@@ -127,68 +130,66 @@ public class Insercion {
             eventoUbicacion2.setTipo(EntidadTipoEventoEnum.SEMANAL);
             eventoUbicacion2.setUbicacion(id);
 
+            //AÑADIR LOS EVENTOS A LA UBICACION
             List<EntidadEvento> eventosUbicaciones = new ArrayList<>();
             eventosUbicaciones.add(eventoUbicacion1);
             eventosUbicaciones.add(eventoUbicacion2);
-            
             ubicacionNainari1.setEventos(eventosUbicaciones);
             
-            //System.out.println(maestro);
-            //System.out.println(evento1);
-            //System.out.println(campusNainari);
-            //System.out.println(ubicacionNainari1);
-            
-            System.out.println(campusNainari.getUbicaciones().get(0));
-            
+            //EDITAR LOS CAMPUS CON LAS UBICACIONES
             if (CRUDcampus.editarCampus(campusNainari) != null) {
                 System.out.println("Se agrego el campus");
             } else {
                 System.out.println("No se agrego el campus");
             }
-
             if (CRUDcampus.editarCampus(campusCentro) != null) {
                 System.out.println("Se agrego el campus");
             } else {
                 System.out.println("No se agrego el campus");
             }
     
+            //AGREGAR EL MAESTRO
             if (CRUDmaestro.agregarMaestro(maestro) != null) {
                 System.out.println("Se agrego el maestro");
             } else {
                 System.out.println("No se agrego el maestro");
             }
-
+            //CERRAR CONEXION MAESTROS
             if (CRUDmaestro.cerrarConexion()) {
                 System.out.println("Se cerro la conexion");
             } else {
                 System.out.println("No se cerro la conexion");
             }
-            
+            //CERRAR CONEXION CAMPUS
             if (CRUDcampus.cerrarConexion()) {
                 System.out.println("Se cerro la conexion");
             } else {
                 System.out.println("No se cerro la conexion");
             }
 
+            //CREAR EL USUARIO MAESTRO
             EntidadUsuario usuario = new EntidadUsuario();
-
             usuario.setIdUsuario("1");
             usuario.setContraseña("pass123");
             usuario.setAdministrador(false);
 
+            //AGREGAR EL USUARIO MAESTRO
             if (CRUDusuario.agregarUsuario(usuario) != null) {
                 System.out.println("Se agrego el usuario");
             }
 
+            //CREAR EL USUARIO ADMIN
             EntidadUsuario usuarioAdmin = new EntidadUsuario();
             usuarioAdmin.setIdUsuario("23");
             usuarioAdmin.setContraseña("pass123");
             usuarioAdmin.setAdministrador(true);
 
+            //AGREGAR EL USUARIO ADMIN
             if (CRUDusuario.agregarUsuario(usuarioAdmin) != null) {
                 System.out.println("Se agrego el usuario administrador");
             }
 
+            //CERRAR CONEXION USUARIO
             if (CRUDcampus.cerrarConexion()) {
                 System.out.println("Se cerro la conexion");
             } else {
