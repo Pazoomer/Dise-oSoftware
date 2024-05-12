@@ -262,7 +262,7 @@ public class EntidadEvento implements Serializable {
             return null;
         }
         
-        return this.id.toString();
+        return this.ubicacion.toString();
     }
 
     /**
