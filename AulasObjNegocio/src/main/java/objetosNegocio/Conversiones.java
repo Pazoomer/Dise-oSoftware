@@ -15,6 +15,9 @@ import entidades.EntidadCampus;
 import entidades.EntidadEvento;
 import entidades.EntidadMaestro;
 import entidades.EntidadTipoEventoEnum;
+import static entidades.EntidadTipoEventoEnum.SEMANAL;
+import static entidades.EntidadTipoEventoEnum.UNICO_UN_DIA;
+import static entidades.EntidadTipoEventoEnum.UNICO_VARIOS_DIAS;
 import entidades.EntidadUbicacion;
 import entidades.EntidadUsuario;
 import excepcioness.PersistenciaExceptionn;
@@ -127,9 +130,12 @@ class Conversiones {
                 maestro.getFoto()
         );
         maestroDTO.setIdBD(maestro.ggetIdConversion());
+        EventoConsultableDTO evento;
         if (eventos != null && !eventos.isEmpty()) {
             for (EntidadEvento ec : eventos) {
-                eventosDTO.add(toEventoDTO(ec,maestroDTO));
+                evento=toEventoDTO(ec);
+                evento.setMaestro(maestroDTO);
+                eventosDTO.add(evento);
             }
             maestroDTO.setCalendario(eventosDTO);
         }
@@ -195,7 +201,7 @@ class Conversiones {
         return eventoConvertido;
     }
 
-    protected EventoConsultableDTO toEventoDTO(EntidadEvento evento,MaestroEditableDTO maestro) {
+    protected EventoConsultableDTO toEventoDTO(EntidadEvento evento) {
         EventoConsultableDTO eventoConvertido = null;
         UbicacionDTO ubicacionDTO=null;
         Date date;
@@ -214,21 +220,11 @@ class Conversiones {
             date = evento.getHoraInicio();
             horaInicio.setTime(date);
         }
-        if (evento.getUbicacion() != null) {
-            CrudCampus crudCampus = new CrudCampus();
-
-            EntidadUbicacion ubicacion = new EntidadUbicacion();
-            ubicacion.setIdentificador(evento.ggetUbicacionConversion());
-            try {
-                ubicacion = crudCampus.obtenerUbi(ubicacion);
-                if (ubicacion != null) {
-                    ubicacionDTO = toUbicacionDTO(ubicacion);
-                }
-            } catch (PersistenciaExceptionn e) {
-                System.out.println(e);
-            }
+        if(evento.getUbicacion()!=null) {
+            ubicacionDTO=new UbicacionDTO();
+            ubicacionDTO.setId(evento.ggetUbicacionConversion());
         }
-
+        
         switch (evento.getTipo()) {
             case UNICO_UN_DIA ->{
                 eventoConvertido = new EventoConsultableDTO(
@@ -275,7 +271,7 @@ class Conversiones {
         }
         if(eventoConvertido!=null){
             eventoConvertido.setId(evento.getIdConversion());
-            eventoConvertido.setMaestro(maestro);
+            //eventoConvertido.setMaestro(maestro);
         }
         return eventoConvertido;
     }

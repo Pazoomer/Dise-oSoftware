@@ -1,23 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package entidades;
 
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
-import com.mongodb.client.model.Updates;
-import com.mongodb.client.result.UpdateResult;
 import excepcioness.PersistenciaExceptionn;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.bson.conversions.Bson;
 
 /**
  *
@@ -30,8 +19,7 @@ public class CrudUsuario {
     IConexion conexion;
 
     public CrudUsuario() {
-        conexion=new Conexion();
-        coleccion = conexion.ConversionDocumentUsuario();
+        CrudUsuario.coleccion =Conexion.getDatabasee().getCollection("Usuarios", EntidadUsuario.class);
     }
 
     public EntidadUsuario agregarUsuario(EntidadUsuario usuario) throws PersistenciaExceptionn {
@@ -92,13 +80,12 @@ public class CrudUsuario {
         throw new PersistenciaExceptionn("Hubo un error al iniciar sesión.");
     }
 }
-
-
     
     public boolean cerrarConexion(){
-        conexion.cerrarConexion();
+        Conexion.cerrarConexion();
         return true;
     }
+
 }
 
     

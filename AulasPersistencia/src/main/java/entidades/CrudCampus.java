@@ -13,6 +13,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bson.conversions.Bson;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
+import com.mongodb.client.result.UpdateResult;
 import java.util.Iterator;
 import org.bson.types.ObjectId;
 
@@ -23,11 +25,9 @@ import org.bson.types.ObjectId;
 public class CrudCampus {
     private static MongoCollection<EntidadCampus> coleccion;
     private final static Logger LOG = Logger.getLogger(CrudCampus.class.getName());
-    IConexion conexion;
 
     public CrudCampus() {
-        conexion=new Conexion();
-        coleccion = conexion.ConversionDocumentCampus();
+        coleccion = Conexion.getDatabasee().getCollection("Campus", EntidadCampus.class);
     }
 
     public EntidadCampus agregarCampus(EntidadCampus campus) throws PersistenciaExceptionn {
@@ -223,9 +223,25 @@ public class CrudCampus {
         }
     }
     
+    public boolean agregarEventoAUbicacion(EntidadUbicacion ubicacion, EntidadEvento evento)throws PersistenciaExceptionn{
+        try{
+            Bson filters=Filters.and(Filters.eq("nombre", ubicacion.getCampus()),
+                    Filters.elemMatch("ubicaciones", Filters.eq("identificador", ubicacion.getIdentificador())));
+            EntidadEvento eventoReducido=new EntidadEvento();
+            eventoReducido.setNombre(evento.getNombre());
+            eventoReducido.setTipo(evento.getTipo());
+            UpdateResult updateRes=coleccion.updateOne(filters, Updates.push("ubicaciones.$.eventos",eventoReducido));
+            return updateRes.getModifiedCount()>0;
+        }catch(MongoException e){
+            LOG.log(Level.SEVERE, e.getMessage(), e);
+            throw new PersistenciaExceptionn("Hubo un error al agregar el evento a la ubicacion");
+        }
+    }
+    
     public boolean cerrarConexion(){
-        conexion.cerrarConexion();
+        Conexion.cerrarConexion();
         return true;
     }
+    
     
 }

@@ -18,11 +18,9 @@ public class CrudMaestro {
 
     private static MongoCollection<EntidadMaestro> coleccion;
     private final static Logger LOG = Logger.getLogger(CrudMaestro.class.getName());
-    IConexion conexion;
 
     public CrudMaestro() {
-        conexion=new Conexion();
-        coleccion = conexion.ConversionDocumentMaestro();
+        coleccion = Conexion.getDatabasee().getCollection("Maestros", EntidadMaestro.class);
     }
 
     public EntidadMaestro agregarMaestro(EntidadMaestro maestro) throws PersistenciaExceptionn {
@@ -118,9 +116,9 @@ public class CrudMaestro {
         UpdateResult result = coleccion.updateOne(filtro, updates);
         return (result.getModifiedCount() > 0) ;
     }
-    
+
     public boolean cerrarConexion(){
-        conexion.cerrarConexion();
+        Conexion.cerrarConexion();
         return true;
     }
 }

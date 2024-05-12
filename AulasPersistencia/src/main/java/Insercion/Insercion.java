@@ -154,18 +154,6 @@ public class Insercion {
             } else {
                 System.out.println("No se agrego el maestro");
             }
-            //CERRAR CONEXION MAESTROS
-            if (CRUDmaestro.cerrarConexion()) {
-                System.out.println("Se cerro la conexion");
-            } else {
-                System.out.println("No se cerro la conexion");
-            }
-            //CERRAR CONEXION CAMPUS
-            if (CRUDcampus.cerrarConexion()) {
-                System.out.println("Se cerro la conexion");
-            } else {
-                System.out.println("No se cerro la conexion");
-            }
 
             //CREAR EL USUARIO MAESTRO
             EntidadUsuario usuario = new EntidadUsuario();
@@ -190,7 +178,7 @@ public class Insercion {
             }
 
             //CERRAR CONEXION USUARIO
-            if (CRUDcampus.cerrarConexion()) {
+            if (CRUDusuario.cerrarConexion()) {
                 System.out.println("Se cerro la conexion");
             } else {
                 System.out.println("No se cerro la conexion");
