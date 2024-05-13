@@ -1,7 +1,11 @@
 
 package presentacion.pantallas;
 
+import DTOS.campus.CampusConsultableDTO;
+import DTOS.campus.UbicacionDTO;
 import DTOS.evento.EventoConsultableDTO;
+import accesoUbicaciones.FachadaAccesoUbicaciones;
+import accesoUbicaciones.IAccesoUbicaciones;
 import adminEventos.FachadaAdminEventos;
 import adminEventos.IAdminEventos;
 import java.util.ArrayList;
@@ -11,7 +15,6 @@ import java.awt.Color;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import presentacion.CDEvento;
 
@@ -21,6 +24,7 @@ import presentacion.CDEvento;
  */
 public class FrmAdminEventos extends javax.swing.JFrame {
     private static IAdminEventos adminEventos;
+    private static IAccesoUbicaciones adminUbicaciones;
     private static List<EventoConsultableDTO> eventos;
     private static DefaultTableModel modeloTabla;
     private static EventoConsultableDTO eventoSeleccionado;
@@ -36,6 +40,7 @@ public class FrmAdminEventos extends javax.swing.JFrame {
         initComponents();
         this.parent=parent;
         adminEventos=new FachadaAdminEventos();
+        adminUbicaciones=new FachadaAccesoUbicaciones();
         iniciar();
         calendar.setEnabled(false);
     }
@@ -319,8 +324,27 @@ public class FrmAdminEventos extends javax.swing.JFrame {
 
     private void rdbSemanalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbSemanalActionPerformed
         // TODO add your handling code here:
-        if(adminEventos!=null)cambiarTipoEventos();
+        if (adminEventos != null)
+            cambiarTipoEventos();
     }//GEN-LAST:event_rdbSemanalActionPerformed
+
+    private String consultarUbicacionesPorId(EventoConsultableDTO ev) {
+        UbicacionDTO ubicacion;
+        CampusConsultableDTO campus=new CampusConsultableDTO();
+        System.out.println(ev.getUbicacion());
+        System.out.println(ev.getidCampus());
+        if (ev.getUbicacion() != null && ev.getidCampus() != null) {
+            campus.setId(ev.getidCampus());
+            ev.getUbicacion().setCampus(campus);
+            try {
+                ubicacion=adminUbicaciones.recuperarUbicacion(ev.getUbicacion());
+                return ubicacion.getIdentificador();
+            } catch (NegocioException ex) {
+                JOptionPane.showMessageDialog(this, "Hubo un error al consultar las ubicaciones");
+            }
+        }
+        return "Sin ubicacion";
+    }
 
     public void agregarEvento(EventoConsultableDTO evento){
         try {
@@ -374,26 +398,20 @@ public class FrmAdminEventos extends javax.swing.JFrame {
     
     private void iniciar(){
         modeloTabla=new DefaultTableModel();
-        //System.out.println(calendar.getCalendar().get(Calendar.MONTH)+"/"+calendar.getCalendar().get(Calendar.DAY_OF_MONTH));
-        //calendar.setSundayForeground(Color.PINK);
         tgbFecha.setSelected(false);
         cambiarEstadoFiltroFecha();
         this.rdbTodos.setSelected(true);
         setTablaEventos2(null);
-        tablaEventos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    int fila=tablaEventos.getSelectedRow();
-                    if(fila>=0){
-                        for(EventoConsultableDTO t:eventos){
-                            if(eventos.indexOf(t)==fila){
-                                eventoSeleccionado=t;
-                                System.out.println(t.toString());
-                                break;
-                            }
-                                
+        tablaEventos.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
+            if (!e.getValueIsAdjusting()) {
+                int fila=tablaEventos.getSelectedRow();
+                if(fila>=0){
+                    for(EventoConsultableDTO t:eventos){
+                        if(eventos.indexOf(t)==fila){
+                            eventoSeleccionado=t;
+                            break;
                         }
+                        
                     }
                 }
             }
@@ -438,7 +456,7 @@ public class FrmAdminEventos extends javax.swing.JFrame {
                     horaStr = horaStr + '0';
                 }
                 registros.add(horaStr);
-                registros.add(ev.getUbicacion().getIdentificador());
+                registros.add(consultarUbicacionesPorId(ev));
                 datos.add(registros);
             }
             Object[][] filas = new Object[datos.size()][4];

@@ -13,7 +13,7 @@ import org.bson.codecs.pojo.PojoCodecProvider;
  *
  * @author luiis
  */
-public class Conexion implements IConexion{
+public class Conexion{
 
     private static MongoClient mongoClient = null;
     private static final String URI = "mongodb://localhost:27017";
@@ -62,34 +62,6 @@ public class Conexion implements IConexion{
             mongoClient.close();
         }
 
-    }
-
-    /**
-     * Obtiene todos los maestros de la coleccion Maestros
-     * @return 
-     */
-    @Override
-    public MongoCollection<EntidadMaestro> ConversionDocumentMaestro() {
-        return getDatabasee().getCollection("Maestros", EntidadMaestro.class);
-    }
-
-    /**
-     * Obtiene todos los campus de la coleccion Campus
-     * @return 
-     */
-    @Override
-    public MongoCollection<EntidadCampus> ConversionDocumentCampus() {
-        return getDatabasee().getCollection("Campus", EntidadCampus.class);
-    }
-
-    @Override
-    public MongoCollection<EntidadEvento> ConversionDocumentEvento() {
-        return getDatabasee().getCollection("Eventos", EntidadEvento.class);
-    }
-
-    @Override
-    public MongoCollection<EntidadUsuario> ConversionDocumentUsuario() {
-         return getDatabasee().getCollection("Usuarios", EntidadUsuario.class);
     }
 
 }

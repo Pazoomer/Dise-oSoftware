@@ -1,5 +1,6 @@
 package DTOS.evento;
 
+import DTOS.campus.CampusConsultableDTO;
 import DTOS.campus.UbicacionDTO;
 import DTOS.maestro.MaestroEditableDTO;
 import java.text.SimpleDateFormat;
@@ -18,6 +19,7 @@ public class EventoConsultableDTO {
     private String color;
     private String diasSemana;
     private UbicacionDTO ubicacion;
+    private String idCampus;
     private Calendar fechaInicio;
     private Calendar fechaFin;
     private Calendar horaInicio;
@@ -157,8 +159,14 @@ public class EventoConsultableDTO {
     public void setHorasDuracionEvento(Double horasDuracionEvento) {
         this.horasDuracionEvento = horasDuracionEvento;
     }
-    
-    
+
+    public String getidCampus() {
+        return idCampus;
+    }
+
+    public void setidCampus(String idCampus) {
+        this.idCampus = idCampus;
+    }
 
     public String getId() {
         return id;

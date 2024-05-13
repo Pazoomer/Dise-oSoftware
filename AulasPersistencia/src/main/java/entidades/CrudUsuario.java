@@ -16,7 +16,6 @@ public class CrudUsuario {
     
     private static MongoCollection<EntidadUsuario> coleccion;
     private final static Logger LOG = Logger.getLogger(CrudUsuario.class.getName());
-    IConexion conexion;
 
     public CrudUsuario() {
         CrudUsuario.coleccion =Conexion.getDatabasee().getCollection("Usuarios", EntidadUsuario.class);

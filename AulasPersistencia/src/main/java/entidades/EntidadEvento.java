@@ -23,6 +23,8 @@ public class EntidadEvento implements Serializable {
     private String diasSemana;
 
     private ObjectId ubicacion;
+    
+    private ObjectId idCampus;
 
     private String color;
 
@@ -232,7 +234,7 @@ public class EntidadEvento implements Serializable {
      *
      * @return
      */
-    public String getIdConversion() {
+    public String ggetIdConversion() {
         // Obtener el valor hexadecimal del ObjectId
         if (this.id == null) {
             return null;
@@ -245,7 +247,7 @@ public class EntidadEvento implements Serializable {
      * Recibe un String que convierta a ObjectId para colocarselo como atributo
      * @param id 
      */
-    public void setIdConversion(String id) {
+    public void ssetIdConversion(String id) {
        if (id != null) {
             this.id = new ObjectId(id);
         }
@@ -274,6 +276,35 @@ public class EntidadEvento implements Serializable {
             this.ubicacion = new ObjectId(ubicacion);
         }
     }
+    
+    public String ggetCampusConversion() {
+        // Obtener el valor hexadecimal del ObjectId
+        if (this.idCampus == null) {
+            return null;
+        }
+        
+        return this.idCampus.toString();
+    }
+
+    /**
+     * Recibe una ubicacion que convierta a ObjectId para colocarselo como atributo 
+     * @param idCampus
+     */
+    public void ssetCampusConversion(String idCampus) {
+       if (idCampus != null) {
+            this.idCampus = new ObjectId(idCampus);
+        }
+    }
+
+    public ObjectId getIdCampus() {
+        return idCampus;
+    }
+
+    public void setIdCampus(ObjectId idCampus) {
+        this.idCampus = idCampus;
+    }
+    
+    
 
     @Override
     public String toString() {

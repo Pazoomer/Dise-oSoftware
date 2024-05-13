@@ -10,7 +10,6 @@ import static DTOS.evento.TipoEventoEnumDTO.UNICO_UN_DIA;
 import static DTOS.evento.TipoEventoEnumDTO.UNICO_VARIOS_DIAS;
 import DTOS.maestro.MaestroEditableDTO;
 import DTOS.usuarios.UsuarioDTO;
-import entidades.CrudCampus;
 import entidades.EntidadCampus;
 import entidades.EntidadEvento;
 import entidades.EntidadMaestro;
@@ -20,12 +19,10 @@ import static entidades.EntidadTipoEventoEnum.UNICO_UN_DIA;
 import static entidades.EntidadTipoEventoEnum.UNICO_VARIOS_DIAS;
 import entidades.EntidadUbicacion;
 import entidades.EntidadUsuario;
-import excepcioness.PersistenciaExceptionn;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import org.bson.types.ObjectId;
 
 /**
  *
@@ -194,7 +191,7 @@ class Conversiones {
         }
 
         if (eventoConvertido != null) {
-            eventoConvertido.setIdConversion(evento.getId());
+            eventoConvertido.ssetIdConversion(evento.getId());
             eventoConvertido.ssetUbicacionConversion(identificadorUbicacion);
         }
 
@@ -270,9 +267,10 @@ class Conversiones {
                
         }
         if(eventoConvertido!=null){
-            eventoConvertido.setId(evento.getIdConversion());
-            //eventoConvertido.setMaestro(maestro);
+            eventoConvertido.setId(evento.ggetIdConversion());
+            eventoConvertido.setidCampus(evento.ggetCampusConversion());
         }
+        
         return eventoConvertido;
     }
     

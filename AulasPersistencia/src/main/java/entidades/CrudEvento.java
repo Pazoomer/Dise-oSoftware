@@ -118,7 +118,7 @@ public class CrudEvento {
             EntidadTipoEventoEnum tipo;
             if(tipoEvento.equalsIgnoreCase("semanal")) tipo=EntidadTipoEventoEnum.SEMANAL;
             else tipo=EntidadTipoEventoEnum.UNICO_UN_DIA;
-            FindIterable<EntidadEvento> it=this.coleccion.find(Filters.eq("tipo", tipo.toString()));
+            FindIterable<EntidadEvento> it=CrudEvento.coleccion.find(Filters.eq("tipo", tipo.toString()));
             if(it.first()!=null){
                 for (EntidadEvento ev : it) {
                     eventos.add(ev);

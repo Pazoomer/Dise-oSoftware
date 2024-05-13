@@ -1,6 +1,7 @@
 package Insercion;
 
 import entidades.CrudCampus;
+import entidades.CrudEvento;
 import entidades.CrudMaestro;
 import entidades.CrudUsuario;
 import entidades.EntidadCampus;
@@ -35,6 +36,7 @@ public class Insercion {
             CrudMaestro CRUDmaestro = new CrudMaestro();
             CrudCampus CRUDcampus = new CrudCampus();
             CrudUsuario CRUDusuario=new CrudUsuario();
+            CrudEvento CRUDevento=new CrudEvento();
 
             //CREAR LOS CAMPUS
             EntidadCampus campusNainari = new EntidadCampus("Obregon Nainari");
@@ -118,6 +120,7 @@ public class Insercion {
             eventoUbicacion1.setNombre("Nombre");
             eventoUbicacion1.setTipo(EntidadTipoEventoEnum.SEMANAL);
             eventoUbicacion1.setUbicacion(id);
+            eventoUbicacion1.setIdCampus(campusNainari.getId());
             
             EntidadEvento eventoUbicacion2 = new EntidadEvento();
             eventoUbicacion2.setColor("Red");
@@ -130,12 +133,25 @@ public class Insercion {
             eventoUbicacion2.setNombre("Nombre");
             eventoUbicacion2.setTipo(EntidadTipoEventoEnum.SEMANAL);
             eventoUbicacion2.setUbicacion(id);
+            eventoUbicacion2.setIdCampus(campusNainari.getId());
 
             //AÑADIR LOS EVENTOS A LA UBICACION
-            List<EntidadEvento> eventosUbicaciones = new ArrayList<>();
-            eventosUbicaciones.add(eventoUbicacion1);
-            eventosUbicaciones.add(eventoUbicacion2);
-            ubicacionNainari1.setEventos(eventosUbicaciones);
+//            List<EntidadEvento> eventosUbicaciones = new ArrayList<>();
+//            eventosUbicaciones.add(eventoUbicacion1);
+//            eventosUbicaciones.add(eventoUbicacion2);
+//            ubicacionNainari1.setEventos(eventosUbicaciones);
+
+            //AÑADIR LOS EVENTOS A LA BASE DE DATOS
+            if (CRUDevento.agregarEvento(eventoUbicacion1) != null) {
+                System.out.println("Se agrego el evento");
+            } else {
+                System.out.println("No se agrego el evento");
+            }
+            if (CRUDevento.agregarEvento(eventoUbicacion2) != null) {
+                System.out.println("Se agrego el evento");
+            } else {
+                System.out.println("No se agrego el evento");
+            }
             
             //EDITAR LOS CAMPUS CON LAS UBICACIONES
             if (CRUDcampus.editarCampus(campusNainari) != null) {
