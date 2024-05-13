@@ -331,8 +331,6 @@ public class FrmAdminEventos extends javax.swing.JFrame {
     private String consultarUbicacionesPorId(EventoConsultableDTO ev) {
         UbicacionDTO ubicacion;
         CampusConsultableDTO campus=new CampusConsultableDTO();
-        System.out.println(ev.getUbicacion());
-        System.out.println(ev.getidCampus());
         if (ev.getUbicacion() != null && ev.getidCampus() != null) {
             campus.setId(ev.getidCampus());
             ev.getUbicacion().setCampus(campus);
