@@ -76,6 +76,7 @@ class Conversiones {
             ubicacion = new UbicacionDTO(ubicacionBO.getIdentificador());
         }
         ubicacion.setId(ubicacionBO.ggetIdConversion());
+        ubicacion.setDescripcion(ubicacionBO.getDescripcion());
         ubicacion.setPosicionX(ubicacionBO.getPosicionX());
         ubicacion.setPosicionY(ubicacionBO.getPosicionY());
         return ubicacion;
