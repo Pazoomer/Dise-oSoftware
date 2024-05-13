@@ -8,11 +8,9 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import javax.swing.ComboBoxModel;
 import javax.swing.JCheckBox;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import presentacion.pantallas.FrmAdminEventos;
 import presentacion.pantallas.MapaCalendario;
 import presentacion.pantallas.PrincipalCalendario;
@@ -34,7 +32,6 @@ public class CDEvento extends javax.swing.JDialog {
      * Creates new form CDEvento
      *
      * @param parent
-     * @param calendario
      * @param modal
      * @param tipoOperacion
      */
@@ -198,8 +195,13 @@ public class CDEvento extends javax.swing.JDialog {
      * Abre el frame MapaCalendario
      */
     private void abrirMapa() {
+        if (this.eventoEditable!=null) {
+            if (this.eventoEditable==null) {
+                
+            }
+        }
         this.setAlwaysOnTop(false);
-        new MapaCalendario(this).setVisible(true);
+        new MapaCalendario(this,null).setVisible(true);
         //this.parent.setVisible(false);
         this.setVisible(false);
     }

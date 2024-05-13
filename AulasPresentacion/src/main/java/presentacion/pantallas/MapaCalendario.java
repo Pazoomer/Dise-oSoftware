@@ -10,8 +10,11 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -37,7 +40,7 @@ public class MapaCalendario extends javax.swing.JFrame {
      *
      * @param cdEvento
      */
-    public MapaCalendario(CDEvento cdEvento) {
+    public MapaCalendario(CDEvento cdEvento, CampusConsultableDTO campus) {
         setUndecorated(true);
         setAlwaysOnTop(true);
         this.setResizable(false);
@@ -125,20 +128,36 @@ public class MapaCalendario extends javax.swing.JFrame {
         //cdEvento.calendario.setVisible(true);
         cdEvento.setVisible(true);
     }
-    
-    private void setMapa(String campus) {
 
-        ImageIcon icon = null;
-        w = jScrollPane1.getHeight();
-        h = jScrollPane1.getWidth();
-        if (campus.equals("Obregon Nainari")) {
-            img = new ImageIcon(getClass().getResource("/imagenes/campus-nainari.jpg")).getImage();
-            icon = new ImageIcon(zoom(h, w, img));
-        } else {
-            img = new ImageIcon(getClass().getResource("/imagenes/campus-centro.jpg")).getImage();
-            icon = new ImageIcon(zoom(h, w, img));
+    private void setMapa(String urlCampus) {
+
+        try {
+            URL urlMapa = new URL(urlCampus);
+            BufferedImage imagenOriginal = ImageIO.read(urlMapa);
+
+            // Define el tamaño deseado para la imagen
+            int anchoDeseado = 435; // Coloca el ancho deseado en píxeles
+            int altoDeseado = 350; // Coloca el alto deseado en píxeles
+
+            // Redimensiona la imagen al tamaño deseado
+            Image imagenRedimensionada = imagenOriginal.getScaledInstance(anchoDeseado, altoDeseado, Image.SCALE_SMOOTH);
+
+            // Crea una nueva imagen a partir de la imagen redimensionada
+            BufferedImage imagenMapa = new BufferedImage(anchoDeseado, altoDeseado, BufferedImage.TYPE_INT_ARGB);
+
+            Graphics2D g2d = imagenMapa.createGraphics();
+            g2d.drawImage(imagenRedimensionada, 0, 0, null);
+            g2d.dispose();
+
+            // Convierte BufferedImage a ImageIcon
+            ImageIcon icon = new ImageIcon(imagenMapa);
+
+            // Establece el ImageIcon en el JLabel
+            lblImageMap.setIcon(icon);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "El campus no tiene un mapa asociado");
+            e.printStackTrace();
         }
-        lblImageMap.setIcon(icon);
 
     }
     
