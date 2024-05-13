@@ -73,4 +73,14 @@ public class FachadaAccesoUbicaciones implements IAccesoUbicaciones {
         return ubicaciones.agregarEventoAUbicacion(ubicacion, evento);
     }
 
+    @Override
+    public List<UbicacionDTO> recuperarEdificiosPorNombre(String nombre)throws NegocioException {
+      return ubicaciones.recuperarEdificiosPorNombre(nombre);
+    }
+
+    @Override
+    public CampusConsultableDTO recuperarCampusPorNombre(String nombre) throws NegocioException {
+       return ubicaciones.recuperarCampusPorNombre(nombre);
+    }
+
 }

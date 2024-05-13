@@ -79,6 +79,16 @@ public class CrudCampus {
             throw new PersistenciaExceptionn("Hubo un error al obtener el campus.");
         }
     }
+    
+    public EntidadCampus obtenerCampusPorNombre(String nombre) throws PersistenciaExceptionn {
+        try {
+            EntidadCampus campusEncontrado = coleccion.find(eq("nombre", nombre)).first();
+            return campusEncontrado;
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, e.getMessage(), e);
+            throw new PersistenciaExceptionn("Hubo un error al obtener el campus.");
+        }
+    }
 
     public List<EntidadUbicacion> obtenerUbicacionesPorCampus(EntidadCampus campus) throws PersistenciaExceptionn {
 
@@ -93,6 +103,22 @@ public class CrudCampus {
         } catch (MongoException e) {
             LOG.log(Level.SEVERE, e.getMessage(), e);
             throw new PersistenciaExceptionn("Hubo un error al obtener las ubicaciones del campus " + campus.getNombre());
+        }
+    }
+    
+    public List<EntidadUbicacion> obtenerUbicacionesPorNombreCampus(String nombre) throws PersistenciaExceptionn {
+
+        try {
+            EntidadCampus campusEncontrado = obtenerCampusPorNombre(nombre);
+            if (campusEncontrado != null) {
+                return campusEncontrado.getUbicaciones();
+            } else {
+                throw new PersistenciaExceptionn("No se encontro al campus " +nombre);
+            }
+
+        } catch (MongoException e) {
+            LOG.log(Level.SEVERE, e.getMessage(), e);
+            throw new PersistenciaExceptionn("Hubo un error al obtener las ubicaciones del campus " + nombre);
         }
     }
 
@@ -237,6 +263,7 @@ public class CrudCampus {
             throw new PersistenciaExceptionn("Hubo un error al agregar el evento a la ubicacion");
         }
     }
+
     
     public boolean cerrarConexion(){
         Conexion.cerrarConexion();

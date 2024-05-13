@@ -41,6 +41,21 @@ public class Campus {
         return null;
     }
     
+     public CampusConsultableDTO obtenerCampusPorNombre(String nombre) throws NegocioException {
+
+        try {
+            EntidadCampus entidadCampus=crudCampus.obtenerCampusPorNombre(nombre);
+            if (entidadCampus!=null) {
+                 return conversiones.toCampusDTO(entidadCampus);
+            }
+            throw new PersistenciaExceptionn("No se encontro el campus");
+
+        } catch (PersistenciaExceptionn ex) {
+            Logger.getLogger(Campus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
     public CampusConsultableDTO agregarCampus(CampusConsultableDTO campusParametro) throws NegocioException {
 
         try {
@@ -108,6 +123,28 @@ public class Campus {
 
         try{
             List<EntidadUbicacion> ubicacionesAux=crudCampus.obtenerUbicacionesPorCampus(campusBO);
+            
+            if(ubicacionesAux!=null && !ubicacionesAux.isEmpty()){
+                for(EntidadUbicacion u:ubicacionesAux){
+                    ubicacionesDTO.add(conversiones.toUbicacionDTO(u));
+                }
+                return ubicacionesDTO;
+            }
+            return null;
+        } catch (PersistenciaExceptionn e) {
+            throw new NegocioException(e.getMessage());
+        }
+    }
+    
+    public List<UbicacionDTO> obtenerUbicacionesPorNombre(String nombre)throws NegocioException{
+        List<UbicacionDTO> ubicacionesDTO=new ArrayList<>();
+
+        
+        EntidadCampus campusBO=new EntidadCampus();
+        campusBO.setNombre(nombre);
+
+        try{
+            List<EntidadUbicacion> ubicacionesAux=crudCampus.obtenerUbicacionesPorNombreCampus(nombre);
             
             if(ubicacionesAux!=null && !ubicacionesAux.isEmpty()){
                 for(EntidadUbicacion u:ubicacionesAux){

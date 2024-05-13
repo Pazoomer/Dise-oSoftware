@@ -19,6 +19,8 @@ public interface IAccesoUbicaciones {
      * @throws excepciones.NegocioException 
      */
     public CampusConsultableDTO recuperarCampus(CampusConsultableDTO campus)throws NegocioException;
+
+    public CampusConsultableDTO recuperarCampusPorNombre(String nombre)throws NegocioException;
     
     /**
      * Agrega el campus del parametro
@@ -92,4 +94,6 @@ public interface IAccesoUbicaciones {
     public Boolean eliminarUbicacion(UbicacionDTO ubicacion)throws NegocioException;
     
     public boolean agregarEventoAUbicacion(UbicacionDTO ubicacion, EventoConsultableDTO evento)throws NegocioException;
+    
+    public List<UbicacionDTO> recuperarEdificiosPorNombre(String nombre)throws NegocioException;
 }

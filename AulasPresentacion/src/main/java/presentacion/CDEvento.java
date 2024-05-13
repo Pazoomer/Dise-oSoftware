@@ -195,13 +195,15 @@ public class CDEvento extends javax.swing.JDialog {
      * Abre el frame MapaCalendario
      */
     private void abrirMapa() {
-        if (this.eventoEditable!=null) {
-            if (this.eventoEditable==null) {
-                
+
+        String idCampus = null;
+        if (this.eventoEditable != null) {
+            if (this.eventoEditable.getidCampus() == null) {
+                idCampus = eventoEditable.getidCampus();
             }
         }
         this.setAlwaysOnTop(false);
-        new MapaCalendario(this,null).setVisible(true);
+        new MapaCalendario(this).setVisible(true);
         //this.parent.setVisible(false);
         this.setVisible(false);
     }

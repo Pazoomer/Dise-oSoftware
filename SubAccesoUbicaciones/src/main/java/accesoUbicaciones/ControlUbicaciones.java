@@ -6,6 +6,8 @@ import DTOS.campus.UbicacionDTO;
 import DTOS.evento.EventoConsultableDTO;
 import excepciones.NegocioException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import objetosNegocio.Campus;
 
 /**
@@ -31,6 +33,14 @@ public class ControlUbicaciones {
     protected CampusConsultableDTO recuperarCampus(CampusConsultableDTO campusParametro) throws NegocioException {
         try {
             return campusBO.obtenerCampus(campusParametro);
+        } catch (NegocioException e) {
+            throw e;
+        }
+    }
+    
+    protected CampusConsultableDTO recuperarCampusPorNombre(String nombre) throws NegocioException {
+        try {
+            return campusBO.obtenerCampusPorNombre(nombre);
         } catch (NegocioException e) {
             throw e;
         }
@@ -111,5 +121,12 @@ public class ControlUbicaciones {
             throw e;
         }
     }
+      protected List<UbicacionDTO> recuperarEdificiosPorNombre(String nombre) throws NegocioException{
+        try {
+            return campusBO.obtenerUbicacionesPorNombre(nombre);
+        } catch (NegocioException ex) {
+            throw ex;
+        }
+      }
     
 }
