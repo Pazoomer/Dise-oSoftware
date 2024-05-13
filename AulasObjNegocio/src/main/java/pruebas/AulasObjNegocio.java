@@ -2,8 +2,11 @@
 
 package pruebas;
 
+import DTOS.campus.CampusConsultableDTO;
+import DTOS.campus.UbicacionDTO;
 import DTOS.maestro.MaestroEditableDTO;
 import excepciones.NegocioException;
+import objetosNegocio.Campus;
 import objetosNegocio.Maestro;
 
 /**
@@ -43,14 +46,35 @@ public class AulasObjNegocio {
 //        System.out.println("hora inicio: "+horaInicio.get(Calendar.HOUR_OF_DAY)+":"+
 //                horaInicio.get(Calendar.MINUTE));
         Maestro m=new Maestro();
-        MaestroEditableDTO maestroDTO=new MaestroEditableDTO("1");
-        try{
-            MaestroEditableDTO maestro=m.obtenerMaestro(maestroDTO);
-            System.out.println("Maestro: "+maestro);
-            System.out.println("Nombre del campus de la ubicacion del primer evento del maestro: "+maestro.getCalendario().get(0).getUbicacion().getCampus().getNombre());
-        }catch(NegocioException e){
+        Campus c=new Campus();
+        CampusConsultableDTO campus=new CampusConsultableDTO();
+        campus.setId("663fe5915d17b662b3d49bef");
+        UbicacionDTO cubiculo= new UbicacionDTO();
+        
+        try {
+            campus=c.obtenerCampus(campus);
+            if (campus != null) {
+                System.out.println("campus: "+campus);
+                cubiculo.setCampus(campus);
+                cubiculo=c.obtenerUbicacion(cubiculo);
+                if(cubiculo!=null){
+                    System.out.println("cubiculo: "+cubiculo);
+                }
+            }
+        } catch (NegocioException e) {
             System.out.println(e);
         }
+        MaestroEditableDTO maestroDTO = new MaestroEditableDTO("1");
+        try {
+            MaestroEditableDTO maestro = m.obtenerMaestro(maestroDTO);
+            System.out.println("Maestro: " + maestro);
+            //System.out.println("Nombre del campus de la ubicacion del primer evento del maestro: " + maestro.getCalendario().get(0).getUbicacion().getCampus().getNombre());
+        } catch (NegocioException e) {
+            System.out.println(e);
+        }
+
+        //MaestroEditableDTO maestroDTO=new MaestroEditableDTO("1");
+        
 //      
     }
 }
