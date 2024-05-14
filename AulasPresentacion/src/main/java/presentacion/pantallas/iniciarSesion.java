@@ -34,6 +34,11 @@ public class iniciarSesion extends javax.swing.JFrame {
         ImageIcon iconoReturn = new ImageIcon(getClass().getResource("/imagenes/icons8-return-50.png"));
         this.btnAtras.setIcon(iconoReturn);
     }
+    
+    private void limpiar(){
+        this.txtPassword.setText("");
+        this.txtUsername.setText("");
+    }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -143,16 +148,19 @@ public class iniciarSesion extends javax.swing.JFrame {
             if (usuario != null) {
                 if (usuario.isAdministrador()) {
                     this.setVisible(false);
+                    limpiar();
                     new PrincipalInicio(usuario).setVisible(true);
                 } else {
                     IAccesoMaestro acceso = new FachadaAccesoMaestro();
                     MaestroEditableDTO maestro;
                     maestro = acceso.recuperarMaestro(new MaestroEditableDTO(usuario.getIdUsuario()));
+                    
                     if (maestro != null) {
                         System.out.println(maestro.toString());
                         this.setVisible(false);
+                        limpiar();
                         new PrincipalMaestro(maestro,this).setVisible(true);
-
+                        
                     } else {
                         JOptionPane.showMessageDialog(null, "Error al obtener al maestro", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
                     }

@@ -341,10 +341,11 @@ public class FrmAdminEventos extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Hubo un error al consultar las ubicaciones");
             }
         }
-        return "Sin ubicacion";
+        return "AV-1100";
     }
 
     public void agregarEvento(EventoConsultableDTO evento){
+        System.out.println("agregarEvento"+ evento);
         try {
             eventoSeleccionado=adminEventos.agregarEvento(evento);
             if(eventoSeleccionado!=null){

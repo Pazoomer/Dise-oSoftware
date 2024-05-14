@@ -173,6 +173,7 @@ public class Campus {
         return null;
     }
     
+    
     public UbicacionDTO agregarUbicacion(UbicacionDTO ubicacionParametro) throws NegocioException {
 
         try {

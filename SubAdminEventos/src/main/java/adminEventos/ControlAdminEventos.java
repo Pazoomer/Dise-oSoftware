@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import objetosNegocio.Evento;
 
 //
@@ -36,7 +37,7 @@ public class ControlAdminEventos {
         IAccesoUbicaciones accesoUbi=new FachadaAccesoUbicaciones();
         try{
             if (evento.getUbicacion() != null && evento.getUbicacion().getIdentificador() != null) {
-                UbicacionDTO ubicacion = accesoUbi.recuperarUbicacion(new UbicacionDTO(evento.getUbicacion().getIdentificador()));
+                UbicacionDTO ubicacion = accesoUbi.recuperarUbicacion(evento.getUbicacion());
                 if (ubicacion != null) {
                     System.out.println(ubicacion);
                     evento.setUbicacion(ubicacion);
@@ -54,8 +55,9 @@ public class ControlAdminEventos {
                 }throw new NegocioException("La ubicacion ingresada no existe");
             }throw new NegocioException("Debe ingresar una ubicacion para el evento");
         }catch(NegocioException e){
-            throw e;
+            JOptionPane.showMessageDialog(null, e);
         }
+        return null;
     }
 
     protected EventoConsultableDTO editarEvento(EventoConsultableDTO evento,List<String> camposModificados) throws NegocioException{

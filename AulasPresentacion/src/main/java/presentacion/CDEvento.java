@@ -95,6 +95,7 @@ public class CDEvento extends javax.swing.JDialog {
     
     private void añadirEvento2() {
         EventoConsultableDTO eventoN = crearEvento();
+        System.out.println("añadirevento2"+eventoN);
         System.out.println("parent class: "+this.parent.getClass());
         System.out.println("frm class: "+FrmAdminEventos.class);
         if(this.parent.getClass()==PrincipalCalendario.class)
@@ -166,12 +167,10 @@ public class CDEvento extends javax.swing.JDialog {
     }
     
     private EventoConsultableDTO crearEvento() {
+        System.out.println("Am: "+ubicacionDTO);
         EventoConsultableDTO eventoN=setDatosBasicos();
         eventoN=setDatosFechasHoras(eventoN);
-        
-        if(ubicacionDTO==null){
-            ubicacionDTO=new UbicacionDTO(txtUbicacion.getText());
-        }
+
         //eventoN.setUbicacion(ubicacionDTO);
         if(eventoN.getTipo().equals(TipoEventoEnumDTO.UNICO_UN_DIA))
             return new EventoConsultableDTO(eventoN.getNombre(), eventoN.getDescripcion(), 

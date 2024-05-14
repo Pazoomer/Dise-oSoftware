@@ -162,6 +162,7 @@ public class CrudCampus {
         }
         return null;
     }
+    
 
     public EntidadUbicacion obtenerUbi(EntidadUbicacion ubicacion) throws PersistenciaExceptionn {
         try {
