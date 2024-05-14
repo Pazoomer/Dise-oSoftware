@@ -110,15 +110,22 @@ public class PrincipalCalendario extends javax.swing.JFrame {
             Double duracion = e.getHorasDuracionEvento();
             System.out.println("duracion evento:"+duracion);
             if (e.getTipo().equals(TipoEventoEnumDTO.SEMANAL)) {
-//                String[] arrDias=diasEvento.split(",");
-//                String[] diasSemana={"Do","Lu","Ma","Mi","Ju","Vi","Sa"};
-                //for(String dia:arrDias){
-                //System.out.println("diaaa: "+dia);
-                for (int i = 0; i < 7; i++) {
-                    if (diasEvento.charAt(i) == '1') {
-                        setEvento(hora, minutos, duracion, i + 1, e);
+                String[] arrDias = diasEvento.split(",");
+                String[] diasSemana = {"Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"};
+                for (String dia : arrDias) {
+                    System.out.println("diaaa: " + dia);
+                    for (int i = 0; i < 7; i++) {
+                        if (dia.equals(diasSemana[i])) {
+                            System.out.println("true");
+                            setEvento(hora, minutos, duracion, i + 1, e);
+                        }
                     }
                 }
+//                for (int i = 0; i < 7; i++) {
+//                    if (diasEvento.charAt(i) == '1') {
+//                        setEvento(hora, minutos, duracion, i + 1, e);
+//                    }
+//                }
                 //}
             } else {
                 int diaEv=e.getFechaInicio().get(Calendar.DAY_OF_WEEK);
