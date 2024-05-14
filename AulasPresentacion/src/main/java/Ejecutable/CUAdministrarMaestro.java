@@ -10,7 +10,7 @@ import presentacion.pantallas.PrincipalMaestro;
  *
  * @author 
  */
-public class Ejecutable {
+public class CUAdministrarMaestro {
 
     /**
      * @param args the command line arguments

@@ -1,5 +1,6 @@
 package Insercion;
 
+import entidades.Cifrado;
 import entidades.CrudCampus;
 import entidades.CrudEvento;
 import entidades.CrudMaestro;
@@ -175,8 +176,14 @@ public class Insercion {
             //CREAR EL USUARIO MAESTRO
             EntidadUsuario usuario = new EntidadUsuario();
             usuario.setIdUsuario("1");
-            usuario.setContraseña("pass123");
             usuario.setAdministrador(false);
+            String sal1= Cifrado.generarSal();
+            usuario.setSal(sal1);
+            try {
+                usuario.setContraseña(Cifrado.encriptarCadena("pass123", sal1));
+            } catch (Exception ex) {
+                Logger.getLogger(Insercion.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             //AGREGAR EL USUARIO MAESTRO
             if (CRUDusuario.agregarUsuario(usuario) != null) {
@@ -186,8 +193,14 @@ public class Insercion {
             //CREAR EL USUARIO ADMIN
             EntidadUsuario usuarioAdmin = new EntidadUsuario();
             usuarioAdmin.setIdUsuario("23");
-            usuarioAdmin.setContraseña("pass123");
             usuarioAdmin.setAdministrador(true);
+            String sal2= Cifrado.generarSal();
+            usuarioAdmin.setSal(sal2);
+            try {
+                usuarioAdmin.setContraseña(Cifrado.encriptarCadena("pass123", sal2));
+            } catch (Exception ex) {
+                Logger.getLogger(Insercion.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             //AGREGAR EL USUARIO ADMIN
             if (CRUDusuario.agregarUsuario(usuarioAdmin) != null) {

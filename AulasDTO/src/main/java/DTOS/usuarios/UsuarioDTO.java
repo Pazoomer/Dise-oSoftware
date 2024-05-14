@@ -9,6 +9,7 @@ public class UsuarioDTO {
     private String idUsuario;
     private String contraseña;
     private boolean administrador;
+    private String sal;
     public UsuarioDTO (){
         
     }
@@ -35,6 +36,14 @@ public class UsuarioDTO {
 
     public void setAdministrador(boolean administrador) {
         this.administrador = administrador;
+    }
+
+    public String getSal() {
+        return sal;
+    }
+
+    public void setSal(String sal) {
+        this.sal = sal;
     }
     
 }

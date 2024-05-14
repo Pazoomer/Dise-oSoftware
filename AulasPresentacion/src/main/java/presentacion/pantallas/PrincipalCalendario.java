@@ -60,6 +60,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         cargarEventos();
         this.setVisible(true);
         this.setSize(800, 630);
+        this.setLocationRelativeTo(null);
         cargarIconos();
     }
     
@@ -585,7 +586,7 @@ public class PrincipalCalendario extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 0, 746, 80);
+        jPanel2.setBounds(0, 0, 745, 80);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

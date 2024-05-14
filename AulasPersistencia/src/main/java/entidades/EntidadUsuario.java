@@ -15,6 +15,7 @@ public class EntidadUsuario implements Serializable{
     private String idUsuario;
     private String contraseña;
     private boolean administrador;
+    private String sal;
 
     public EntidadUsuario(){
         
@@ -50,6 +51,16 @@ public class EntidadUsuario implements Serializable{
     public void setAdministrador(boolean administrador) {
         this.administrador = administrador;
     }
+
+    public String getSal() {
+        return sal;
+    }
+
+    public void setSal(String sal) {
+        this.sal = sal;
+    }
+    
+    
     /**
      * Obtienes el valor de ObjectId como string
      *

@@ -1,9 +1,9 @@
 
 package Ejecutable;
 
-import DTOS.maestro.MaestroEditableDTO;
-import accesoMaestro.FachadaAccesoMaestro;
-import accesoMaestro.IAccesoMaestro;
+import DTOS.usuarios.UsuarioDTO;
+import accesoUsuarios.FachadaAccesoUsuarios;
+import accesoUsuarios.IAccesoUsuarios;
 import excepciones.NegocioException;
 import presentacion.pantallas.PrincipalInicio;
 
@@ -16,13 +16,13 @@ public class CUAdministrarUbicaciones {
     /**
      * @param args the command line arguments
      */
-    /*
+    
     public static void main(String[] args) {
         
-        IAccesoMaestro acceso = new FachadaAccesoMaestro();
-        MaestroEditableDTO admin;
+        IAccesoUsuarios acceso = new FachadaAccesoUsuarios();
+        UsuarioDTO admin;
         try {
-            admin = acceso.recuperarMaestro(new MaestroEditableDTO("1"));
+            admin = acceso.iniciarSesion("23","pass123");
             
             if (admin != null) {
                  new PrincipalInicio(admin).setVisible(true);
@@ -34,5 +34,5 @@ public class CUAdministrarUbicaciones {
         
        
     }
-    */
+    
 }

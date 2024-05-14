@@ -323,11 +323,12 @@ class Conversiones {
         return campusDTO;
     }
     
-    protected UsuarioDTO toUsuarioDTO(EntidadUsuario  usuario){
+    protected UsuarioDTO toUsuarioDTO(EntidadUsuario usuario){
         UsuarioDTO usaurioDto=new UsuarioDTO();
         usaurioDto.setIdUsuario(usuario.getIdUsuario());
         usaurioDto.setContraseña(usuario.getContraseña());
         usaurioDto.setAdministrador(usuario.isAdministrador());
+        usaurioDto.setSal(usuario.getSal());
         return usaurioDto;
         
     }

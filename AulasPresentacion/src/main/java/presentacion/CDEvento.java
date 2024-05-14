@@ -40,10 +40,18 @@ public class CDEvento extends javax.swing.JDialog {
         initComponents();
         iniciar(parent);
         //this.calendario=new PrincipalCalendario();
-        this.frmAdminEventos=new FrmAdminEventos();
+        this.frmAdminEventos = new FrmAdminEventos();
         this.tipoOperacion = tipoOperacion;
         this.cmbTipo.setSelectedIndex(0);
         actualizarPermisos();
+        chbLunes.setSelected(true);
+        chbMartes.setSelected(true);
+        chbMiercoles.setSelected(true);
+        chbJueves.setSelected(true);
+        chbViernes.setSelected(true);
+        chbSabado.setSelected(true);
+        chbDomingo.setSelected(true);
+
     }
 
     public CDEvento(JFrame parent, EventoConsultableDTO eventoEditable, boolean modal, String tipoOperacion) {
@@ -195,10 +203,9 @@ public class CDEvento extends javax.swing.JDialog {
      */
     private void abrirMapa() {
 
-        String idCampus = null;
         if (this.eventoEditable != null) {
             if (this.eventoEditable.getidCampus() == null) {
-                idCampus = eventoEditable.getidCampus();
+                eventoEditable.getidCampus();
             }
         }
         this.setAlwaysOnTop(false);
